@@ -33,7 +33,7 @@ env:
   XCODE_VERSION: "15.4"
   XCODE_PROJECT: "Carely.xcodeproj"
   XCODE_SCHEME: "Carely"
-  DESTINATION: "platform=iOS Simulator"
+  DESTINATION: "platform=iOS Simulator,name=iPhone 15"
 
 jobs:
   build-and-test:
@@ -97,11 +97,12 @@ jobs:
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME"
 
-
       # -----------------------------------------------------------------------
-      # 7. BUILD THE APPLICATION
+      # 6. BUILD THE APPLICATION
       # -----------------------------------------------------------------------
       # Compiles without running tests, so build errors fail fast.
+      # Code signing is fully disabled — Simulator builds/tests never need a
+      # certificate or development team, so we don't fight signing in CI at all.
       # -----------------------------------------------------------------------
       - name: Build application
         run: |
@@ -112,37 +113,42 @@ jobs:
             -destination "$DESTINATION" \
             -configuration Debug \
             -quiet \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
             | xcbeautify
 
       # -----------------------------------------------------------------------
-      # 8. RUN UNIT TESTS
+      # 7. RUN UNIT TESTS
       # -----------------------------------------------------------------------
       # Runs the unit test suite and stores an .xcresult bundle.
+      # Same signing-disabled approach as the build step above.
       # -----------------------------------------------------------------------
       - name: Run unit tests
         run: |
           set -o pipefail
           xcodebuild test \
-          -project "$XCODE_PROJECT" \
-          -scheme "$XCODE_SCHEME" \
-          -destination "$DESTINATION" \
-          -configuration Debug \
-          -resultBundlePath TestResults.xcresult \
-          CODE_SIGNING_IDENTITY="-" \
-          CODE_SIGNING_REQUIRED=YES \
-          CODE_SIGNING_ALLOWED=YES \
-          COMPILER_INDEX_STORE_ENABLE=NO \
-          -skipPackagePluginValidation \
-          -skipMacroValidation \
-          | xcbeautify
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -destination "$DESTINATION" \
+            -configuration Debug \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
+            | xcbeautify
 
       # -----------------------------------------------------------------------
-      # 9. UPLOAD TEST RESULTS ON FAILURE
+      # 8. UPLOAD TEST RESULTS ALWAYS
       # -----------------------------------------------------------------------
-      # Uploads the .xcresult bundle only if a previous step failed.
+      # Upload on both success and failure so the bundle is always inspectable,
+      # not just when something breaks.
       # -----------------------------------------------------------------------
-      - name: Upload test results on failure
-        if: failure()
+      - name: Upload test results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
