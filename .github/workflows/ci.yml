@@ -112,7 +112,6 @@ jobs:
             -destination "$DESTINATION" \
             -configuration Debug \
             -quiet \
-            CODE_SIGNING_ALLOWED=NO \
             | xcbeautify
 
       # -----------------------------------------------------------------------
