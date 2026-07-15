@@ -33,7 +33,7 @@ env:
   XCODE_VERSION: "15.4"
   XCODE_PROJECT: "Carely.xcodeproj"
   XCODE_SCHEME: "Carely"
-  DESTINATION: "platform=iOS Simulator,name=iPhone 15"
+  DESTINATION: "platform=iOS Simulator"
 
 jobs:
   build-and-test:
