@@ -123,15 +123,18 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild test \
-            -project "$XCODE_PROJECT" \
-            -scheme "$XCODE_SCHEME" \
-            -destination "$DESTINATION" \
-            -configuration Debug \
-            -resultBundlePath TestResults.xcresult \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_IDENTITY="" \
-            COMPILER_INDEX_STORE_ENABLE=NO \
-            | xcbeautify
+          -project "$XCODE_PROJECT" \
+          -scheme "$XCODE_SCHEME" \
+          -destination "$DESTINATION" \
+          -configuration Debug \
+          -resultBundlePath TestResults.xcresult \
+          CODE_SIGNING_IDENTITY="-" \
+          CODE_SIGNING_REQUIRED=YES \
+          CODE_SIGNING_ALLOWED=YES \
+          COMPILER_INDEX_STORE_ENABLE=NO \
+          -skipPackagePluginValidation \
+          -skipMacroValidation \
+          | xcbeautify
 
       # -----------------------------------------------------------------------
       # 9. UPLOAD TEST RESULTS ON FAILURE
