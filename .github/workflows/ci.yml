@@ -1,0 +1,164 @@
+name: iOS CI
+
+# -----------------------------------------------------------------------------
+# TRIGGERS
+# -----------------------------------------------------------------------------
+# Runs on:
+#   1. Pull Requests — validates changes pre-merge.
+#   2. Every push to "develop" — keeps the integration branch green.
+# -----------------------------------------------------------------------------
+on:
+  pull_request:
+
+  push:
+    branches:
+      - develop
+
+# Cancel older, still-running runs for the same PR/branch when a new commit
+# is pushed. Saves CI minutes and avoids stale results.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege default: this workflow only needs to read the repository.
+permissions:
+  contents: read
+
+# -----------------------------------------------------------------------------
+# ENVIRONMENT VARIABLES
+# -----------------------------------------------------------------------------
+# Update these in one place as the project evolves.
+# -----------------------------------------------------------------------------
+env:
+  XCODE_VERSION: "15.4"
+  XCODE_PROJECT: "Carely.xcodeproj"
+  XCODE_SCHEME: "Carely"
+  DESTINATION: "platform=iOS Simulator,name=iPhone 15"
+
+jobs:
+  build-and-test:
+    name: Build & Test
+
+    # macOS 14 (Sonoma) runner ships with Xcode 15.4.
+    runs-on: macos-14
+
+    # Safety net: kill the job if something hangs.
+    timeout-minutes: 30
+
+    steps:
+      # -----------------------------------------------------------------------
+      # 1. CHECKOUT
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      # 2. SELECT XCODE VERSION
+      # -----------------------------------------------------------------------
+      # Pins the exact Xcode version for reproducible builds.
+      # -----------------------------------------------------------------------
+      - name: Select Xcode ${{ env.XCODE_VERSION }}
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.XCODE_VERSION }}
+
+      # -----------------------------------------------------------------------
+      # 3. INSTALL TOOLING
+      # -----------------------------------------------------------------------
+      # Install xcbeautify to produce clean xcodebuild output.
+      # SwiftLint is executed using the GitHub Action below.
+      # -----------------------------------------------------------------------
+      - name: Install xcbeautify
+        run: brew install xcbeautify
+
+      # -----------------------------------------------------------------------
+      # 4. CACHE SWIFT PACKAGE MANAGER DEPENDENCIES
+      # -----------------------------------------------------------------------
+      # Caches resolved SPM packages so future runs skip re-downloading them.
+      # -----------------------------------------------------------------------
+      - name: Cache Swift Package Manager dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData/**/SourcePackages
+            .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      # -----------------------------------------------------------------------
+      # 5. RESOLVE SWIFT PACKAGE MANAGER DEPENDENCIES
+      # -----------------------------------------------------------------------
+      # Resolve dependencies separately so package issues are isolated from
+      # build failures.
+      # -----------------------------------------------------------------------
+      - name: Resolve Swift Package Manager dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME"
+
+      # -----------------------------------------------------------------------
+      # 6. RUN SWIFTLINT
+      # -----------------------------------------------------------------------
+      # Catches style issues and common mistakes before compiling.
+      # -----------------------------------------------------------------------
+      - name: Run SwiftLint
+        uses: swiftlint/swiftlint-action@v1
+
+      # -----------------------------------------------------------------------
+      # 7. BUILD THE APPLICATION
+      # -----------------------------------------------------------------------
+      # Compiles without running tests, so build errors fail fast.
+      # -----------------------------------------------------------------------
+      - name: Build application
+        run: |
+          set -o pipefail
+          xcodebuild build \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -destination "$DESTINATION" \
+            -configuration Debug \
+            -quiet \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify
+
+      # -----------------------------------------------------------------------
+      # 8. RUN UNIT TESTS
+      # -----------------------------------------------------------------------
+      # Runs the unit test suite and stores an .xcresult bundle.
+      # -----------------------------------------------------------------------
+      - name: Run unit tests
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -destination "$DESTINATION" \
+            -configuration Debug \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+            | xcbeautify
+
+      # -----------------------------------------------------------------------
+      # 9. UPLOAD TEST RESULTS ON FAILURE
+      # -----------------------------------------------------------------------
+      # Uploads the .xcresult bundle only if a previous step failed.
+      # -----------------------------------------------------------------------
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults.xcresult
+          retention-days: 5
+
+      # -----------------------------------------------------------------------
+      # FUTURE EXTENSION POINTS
+      # -----------------------------------------------------------------------
+      # - Fastlane
+      # - Code Coverage
+      # - Firebase App Distribution / TestFlight
+      # - UI Tests
+      # - Xcode Version Matrix
+      # -----------------------------------------------------------------------
