@@ -23,20 +23,18 @@
 		0C3D885E3008461300883999 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88543008461300883999 /* Typography.swift */; };
 		0C3D8861300846B800883999 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8860300846B800883999 /* ApiClient.swift */; };
 		0C3D88633008471200883999 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88623008471200883999 /* AppContainer.swift */; };
-		0C3D88663008475800883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88653008475800883999 /* file.swift */; };
-		0C3D8872300848A700883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8871300848A700883999 /* file.swift */; };
-		0C3D8874300848AE00883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8873300848AE00883999 /* file.swift */; };
-		0C3D8876300848B500883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8875300848B500883999 /* file.swift */; };
+		0C3D88663008475800883999 /* UtilityFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88653008475800883999 /* UtilityFile.swift */; };
+		0C3D8872300848A700883999 /* mapperfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8871300848A700883999 /* mapperfile.swift */; };
 		0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */; };
 		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
 		0C3D888730084BB500883999 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* AuthView.swift */; };
-		0C3D888930084E5900883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* file.swift */; };
-		0C3D888B30084E6000883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* file.swift */; };
+		0C3D888930084E5900883999 /* entitiyfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* entitiyfile.swift */; };
+		0C3D888B30084E6000883999 /* useCasefile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* useCasefile.swift */; };
 		0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* RepositoryProtocol.swift */; };
 		0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889030084F3D00883999 /* RepositoryImpl.swift */; };
-		0C3D889330084F8600883999 /* CarelyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889230084F8600883999 /* CarelyApp.swift */; };
-		0C3D88963008510900883999 /* file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* file.swift */; };
+		0C3D88963008510900883999 /* SharedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* SharedFile.swift */; };
+		0C3D8898300855FE00883999 /* assetsfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8897300855FE00883999 /* assetsfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,20 +74,18 @@
 		0C3D88543008461300883999 /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		0C3D8860300846B800883999 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0C3D88623008471200883999 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
-		0C3D88653008475800883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
-		0C3D8871300848A700883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
-		0C3D8873300848AE00883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
-		0C3D8875300848B500883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
+		0C3D88653008475800883999 /* UtilityFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFile.swift; sourceTree = "<group>"; };
+		0C3D8871300848A700883999 /* mapperfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapperfile.swift; sourceTree = "<group>"; };
 		0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteDataSource.swift; sourceTree = "<group>"; };
 		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0C3D888630084BB500883999 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
-		0C3D888830084E5900883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
-		0C3D888A30084E6000883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
+		0C3D888830084E5900883999 /* entitiyfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entitiyfile.swift; sourceTree = "<group>"; };
+		0C3D888A30084E6000883999 /* useCasefile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = useCasefile.swift; sourceTree = "<group>"; };
 		0C3D888D30084E7000883999 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		0C3D889030084F3D00883999 /* RepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryImpl.swift; sourceTree = "<group>"; };
-		0C3D889230084F8600883999 /* CarelyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyApp.swift; sourceTree = "<group>"; };
-		0C3D88953008510900883999 /* file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = file.swift; sourceTree = "<group>"; };
+		0C3D88953008510900883999 /* SharedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFile.swift; sourceTree = "<group>"; };
+		0C3D8897300855FE00883999 /* assetsfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = assetsfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +139,6 @@
 				0C3D8849300844BA00883999 /* Features */,
 				0C3D8848300844B500883999 /* App */,
 				0C3D8847300844A800883999 /* Core */,
-				0C3D88143007B5E500883999 /* CarelyApp.swift */,
 				0C3D88163007B5E500883999 /* ContentView.swift */,
 				0C3D88183007B5E600883999 /* Assets.xcassets */,
 				0C3D881A3007B5E600883999 /* Preview Content */,
@@ -190,7 +185,7 @@
 		0C3D8848300844B500883999 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D889230084F8600883999 /* CarelyApp.swift */,
+				0C3D88143007B5E500883999 /* CarelyApp.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -236,6 +231,7 @@
 		0C3D88563008461300883999 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C3D8897300855FE00883999 /* assetsfile.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -261,7 +257,7 @@
 		0C3D88643008472D00883999 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88653008475800883999 /* file.swift */,
+				0C3D88653008475800883999 /* UtilityFile.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -282,7 +278,6 @@
 				0C3D887930084A8D00883999 /* Repositories */,
 				0C3D8878300848E000883999 /* UseCases */,
 				0C3D8877300848D700883999 /* Entities */,
-				0C3D8875300848B500883999 /* file.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -292,7 +287,6 @@
 			children = (
 				0C3D888330084B7000883999 /* ViewModel */,
 				0C3D888230084B6A00883999 /* View */,
-				0C3D8873300848AE00883999 /* file.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -311,7 +305,7 @@
 		0C3D8877300848D700883999 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888830084E5900883999 /* file.swift */,
+				0C3D888830084E5900883999 /* entitiyfile.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -319,7 +313,7 @@
 		0C3D8878300848E000883999 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888A30084E6000883999 /* file.swift */,
+				0C3D888A30084E6000883999 /* useCasefile.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -335,7 +329,7 @@
 		0C3D887A30084AA900883999 /* Mappers */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D8871300848A700883999 /* file.swift */,
+				0C3D8871300848A700883999 /* mapperfile.swift */,
 			);
 			path = Mappers;
 			sourceTree = "<group>";
@@ -383,7 +377,7 @@
 		0C3D88943008501500883999 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88953008510900883999 /* file.swift */,
+				0C3D88953008510900883999 /* SharedFile.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -521,28 +515,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3D8898300855FE00883999 /* assetsfile.swift in Sources */,
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
-				0C3D88663008475800883999 /* file.swift in Sources */,
+				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
-				0C3D888B30084E6000883999 /* file.swift in Sources */,
-				0C3D8876300848B500883999 /* file.swift in Sources */,
+				0C3D888B30084E6000883999 /* useCasefile.swift in Sources */,
 				0C3D888730084BB500883999 /* AuthView.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
-				0C3D88963008510900883999 /* file.swift in Sources */,
-				0C3D8874300848AE00883999 /* file.swift in Sources */,
+				0C3D88963008510900883999 /* SharedFile.swift in Sources */,
 				0C3D88633008471200883999 /* AppContainer.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
 				0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
-				0C3D8872300848A700883999 /* file.swift in Sources */,
+				0C3D8872300848A700883999 /* mapperfile.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
-				0C3D889330084F8600883999 /* CarelyApp.swift in Sources */,
-				0C3D888930084E5900883999 /* file.swift in Sources */,
+				0C3D888930084E5900883999 /* entitiyfile.swift in Sources */,
 				0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,

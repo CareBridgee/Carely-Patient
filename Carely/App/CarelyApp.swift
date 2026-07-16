@@ -5,4 +5,13 @@
 //  Created by Mona Zarea on 15/07/2026.
 //
 
-import Foundation
+import SwiftUI
+
+@main
+struct CarelyApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
