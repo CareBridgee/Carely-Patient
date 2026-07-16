@@ -63,13 +63,12 @@ private extension ProfileSetupDecisionView {
     var titleAndSubtitleSection: some View {
         VStack(spacing: Layout.titleSubtitleSpacing) {
             Text("Help us personalize your care")
-                .font(.title3)
-                .fontWeight(.bold)
+                .carelyText(style: .heading3, weight: .bold)
                 .foregroundStyle(Color.primaryFont)
                 .multilineTextAlignment(.center)
 
             Text("Complete your health profile to receive more accurate AI assessments and better nurse recommendations.")
-                .font(.subheadline)
+                .carelyText(style: .bodySmall, weight: .regular)
                 .foregroundStyle(Color.secondaryFont)
                 .multilineTextAlignment(.center)
                 .lineSpacing(Layout.subtitleLineSpacing)
@@ -114,11 +113,9 @@ private struct CompleteHealthProfileButton: View {
             HStack {
                 VStack(alignment: .leading, spacing: ProfileSetupDecisionView.Layout.buttonTextSpacing) {
                     Text("Complete Health Profile")
-                        .font(.headline)
-                        .fontWeight(.bold)
+                        .carelyText(style: .button, weight: .bold)
                     Text("(RECOMMENDED)")
-                        .font(.caption)
-                        .fontWeight(.semibold)
+                        .carelyText(style: .caption, weight: .semiBold)
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
@@ -143,11 +140,10 @@ private struct SkipForNowButton: View {
             HStack {
                 VStack(alignment: .leading, spacing: ProfileSetupDecisionView.Layout.buttonTextSpacing) {
                     Text("Skip for Now")
-                        .font(.headline)
-                        .fontWeight(.bold)
+                        .carelyText(style: .button, weight: .bold)
                         .foregroundStyle(Color.primary)
                     Text("Set up your profile later")
-                        .font(.subheadline)
+                        .carelyText(style: .bodySmall, weight: .regular)
                         .foregroundStyle(Color.secondaryFont)
                 }
                 Spacer()
@@ -180,7 +176,7 @@ private struct EncryptionNoticeBanner: View {
                 .padding(.top, ProfileSetupDecisionView.Layout.encryptionNoticeIconTopPadding)
 
             Text(message)
-                .font(.caption)
+                .carelyText(style: .caption, weight: .regular)
                 .foregroundStyle(Color.secondaryFont)
                 .lineSpacing(ProfileSetupDecisionView.Layout.encryptionNoticeLineSpacing)
 
@@ -204,8 +200,7 @@ private struct SecurityIndicator: View {
                 .font(.system(size: ProfileSetupDecisionView.Layout.securityIndicatorIconSize, weight: .semibold))
                 .foregroundStyle(Color.secondaryFont)
             Text(title)
-                .font(.caption2)
-                .fontWeight(.semibold)
+                .carelyText(style: .caption, weight: .semiBold)
                 .foregroundStyle(Color.secondaryFont)
         }
         .padding(.horizontal, ProfileSetupDecisionView.Layout.securityIndicatorHorizontalPadding)
@@ -220,6 +215,7 @@ private struct SecurityIndicator: View {
 
 private extension ProfileSetupDecisionView {
     enum Layout {
+        // Overall scroll content
         static let sectionSpacing: CGFloat = 24
         static let horizontalPadding: CGFloat = 20
         static let bottomPadding: CGFloat = 16
@@ -227,6 +223,7 @@ private extension ProfileSetupDecisionView {
         static let securityIndicatorsTopPadding: CGFloat = 16
         static let encryptionNoticeTopPadding: CGFloat = 4
 
+        // App logo + surrounding circles
         static let outerCircleSize: CGFloat = 136
         static let outerCircleOpacity: CGFloat = 0.02
         static let innerCircleSize: CGFloat = 120
@@ -234,10 +231,12 @@ private extension ProfileSetupDecisionView {
         static let appLogoSize: CGFloat = 80
         static let appLogoOffsetY: CGFloat = -2
 
+        // Title + subtitle text
         static let titleSubtitleSpacing: CGFloat = 8
         static let subtitleLineSpacing: CGFloat = 3
         static let subtitleHorizontalPadding: CGFloat = 12
 
+        // Action buttons (shared by both button styles)
         static let buttonSpacing: CGFloat = 16
         static let buttonTextSpacing: CGFloat = 4
         static let buttonIconSize: CGFloat = 18
@@ -246,6 +245,7 @@ private extension ProfileSetupDecisionView {
         static let buttonCornerRadius: CGFloat = 24
         static let buttonBorderWidth: CGFloat = 1
 
+        // Encryption notice banner
         static let encryptionNoticeIconSpacing: CGFloat = 10
         static let encryptionNoticeIconSize: CGFloat = 15
         static let encryptionNoticeIconOpacity: CGFloat = 0.7
@@ -255,6 +255,7 @@ private extension ProfileSetupDecisionView {
         static let encryptionNoticeCornerRadius: CGFloat = 14
         static let encryptionNoticeBackgroundOpacity: CGFloat = 0.6
 
+        // Security indicators row (Secure / Private / Verified)
         static let securityIndicatorSpacing: CGFloat = 6
         static let securityIndicatorIconSize: CGFloat = 11
         static let securityIndicatorHorizontalPadding: CGFloat = 10
