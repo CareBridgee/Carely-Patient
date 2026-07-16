@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
+//  PersonalInfoView.swift
 //  Carely
 //
-//  Created by Mona Zarea on 15/07/2026.
+//  Created by Mohamed Ayman on 16/07/2026.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct PersonalInfoView : View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -17,8 +17,4 @@ struct ContentView: View {
         }
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }

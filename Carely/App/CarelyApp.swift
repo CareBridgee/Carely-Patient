@@ -10,7 +10,10 @@ import SwiftUI
 @main
 struct CarelyApp: App {
     var body: some Scene {
+        // state
         WindowGroup {
+            // switch based on state
+            //case AuthCoordinator OnFinish)(change state)
             ContentView()
         }
     }
