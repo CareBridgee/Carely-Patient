@@ -454,6 +454,8 @@
 				B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */,
 			);
 			path = Poppins;
+			sourceTree = "<group>";
+		};
 		3904E9703009341D001723C1 /* Common */ = {
 			isa = PBXGroup;
 			children = (

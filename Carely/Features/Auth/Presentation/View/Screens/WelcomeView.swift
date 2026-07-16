@@ -25,10 +25,12 @@ struct WelcomeView : View {
                 .frame(width: 350, height: 350)
             Spacer()
             Text("Care Connect")
+                .carelyText(style: .display, weight: .light)
                 .foregroundColor(.primary)
-                .font(.largeTitle)
+                
             
             Text("Reassuring care for you and your loved ones")
+                .carelyText(style: .bodyRegular, weight: .light)
             
             Spacer()
             

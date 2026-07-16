@@ -42,6 +42,7 @@ struct loginButton: View {
                 }
 
                 Text(title)
+                    .carelyText(style: .bodyLarge, weight: .light)
                     .fontWeight(.semibold)
             }
             .frame(maxWidth: .infinity)
