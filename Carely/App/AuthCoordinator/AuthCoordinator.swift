@@ -45,7 +45,7 @@ struct AuthCoordinator: View {
             PersonalInfoView(viewModel: container.makePersonalInfoViewModel(router: router))
             
         case .ProfileSetupDecision:
-            ProfileSetupDecisionView()
+            ProfileSetupDecisionView(viewModel: ProfileSetupDecisionViewModel(router: router, onAuthFinished: OnAuthFinished))
         }
         
     }
