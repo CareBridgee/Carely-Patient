@@ -6,3 +6,6 @@
 //
 
 import Foundation
+protocol AuthRepositoryProtocol {
+    func verifyOTP(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity
+}
