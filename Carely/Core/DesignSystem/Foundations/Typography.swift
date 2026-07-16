@@ -8,129 +8,102 @@
 //  Hierarchy rule: never use more than 3 type styles on a single screen
 //  below the fold. Display/Large Title are reserved for first-screen-of-flow
 //  moments (onboarding, empty states).
-//
-
 import SwiftUI
 
-// MARK: - TrueFit Font Scale
-
-public extension Font {
-
-    /// 34pt Bold Rounded · tracking -0.4 · line height 41
-    /// Splash hero headline ("Choose Dress")
-    static let trueFitDisplay = Font.system(size: 34, weight: .bold, design: .rounded)
-
-    /// 28pt Bold Rounded · tracking -0.3 · line height 34
-    /// Screen-level hero titles
-    static let trueFitLargeTitle = Font.system(size: 28, weight: .bold, design: .rounded)
-
-    /// 24pt Bold Rounded · tracking -0.2 · line height 30
-    /// Section hero ("Welcome to the Dog's Fashion")
-    static let trueFitTitle1 = Font.system(size: 24, weight: .bold, design: .rounded)
-
-    /// 20pt Semibold Rounded · tracking -0.1 · line height 25
-    /// "Trending", nav title "Products"
-    static let trueFitTitle2 = Font.system(size: 20, weight: .semibold, design: .rounded)
-
-    /// 18pt Semibold Rounded · tracking 0 · line height 23
-    /// Card section headers
-    static let trueFitTitle3 = Font.system(size: 18, weight: .semibold, design: .rounded)
-
-    /// 17pt Semibold Default · tracking 0 · line height 22
-    /// Product title ("HUFT Sweatshirt For Dogs…")
-    static let trueFitHeadline = Font.system(size: 17, weight: .semibold, design: .default)
-
-    /// 16pt Regular Default · tracking 0 · line height 22
-    /// Description paragraphs
-    static let trueFitBody = Font.system(size: 16, weight: .regular, design: .default)
-
-    /// 15pt Regular Default · tracking 0 · line height 20
-    /// Secondary CTA labels
-    static let trueFitCallout = Font.system(size: 15, weight: .regular, design: .default)
-
-    /// 14pt Regular Default · tracking 0 · line height 19
-    /// Splash sub-copy, "Hello," greeting
-    static let trueFitSubheadline = Font.system(size: 14, weight: .regular, design: .default)
-
-    /// 13pt Regular Default · tracking 0.1 · line height 18
-    /// "Swipe For More", size chip labels
-    static let trueFitFootnote = Font.system(size: 13, weight: .regular, design: .default)
-
-    /// 12pt Medium Default · tracking 0.2 · line height 16
-    /// Rating value "4.2/5", price context
-    static let trueFitCaption = Font.system(size: 12, weight: .medium, design: .default)
-
-    /// 11pt Medium Default, uppercase · tracking 0.4 · line height 14
-    /// Badge text ("All New Collection")
-    static let trueFitCaption2 = Font.system(size: 11, weight: .medium, design: .default)
-}
-
-// MARK: - Tracking (Letter Spacing) Modifier
-
-public extension View {
-
-    /// Apply TrueFit-spec letter spacing for display-tier typography.
-    /// Apple/Airbnb-grade headlines use slightly negative letter-spacing at large sizes.
-    func trueFitTracking(_ style: TrueFitTypeStyle) -> some View {
-        self.tracking(style.tracking)
-    }
-}
-
-/// Typography style enum for applying correct tracking values.
-public enum TrueFitTypeStyle {
-    case display, largeTitle, title1, title2, title3
-    case headline, body, callout, subheadline
-    case footnote, caption, caption2
-
-    /// Letter-spacing value from the spec
-    public var tracking: CGFloat {
+enum CarelyFontWeight {
+    case light
+    case regular
+    case medium
+    case semiBold
+    case bold
+    
+    /// Dynamically returns the correct font PostScript name based on the active language.
+    func name(isArabic: Bool) -> String {
         switch self {
-        case .display:      return -0.4
-        case .largeTitle:   return -0.3
-        case .title1:       return -0.2
-        case .title2:       return -0.1
-        case .title3:       return 0
-        case .headline:     return 0
-        case .body:         return 0
-        case .callout:      return 0
-        case .subheadline:  return 0
-        case .footnote:     return 0.1
-        case .caption:      return 0.2
-        case .caption2:     return 0.4
-        }
-    }
-
-    /// The corresponding `Font` token
-    public var font: Font {
-        switch self {
-        case .display:      return .trueFitDisplay
-        case .largeTitle:   return .trueFitLargeTitle
-        case .title1:       return .trueFitTitle1
-        case .title2:       return .trueFitTitle2
-        case .title3:       return .trueFitTitle3
-        case .headline:     return .trueFitHeadline
-        case .body:         return .trueFitBody
-        case .callout:      return .trueFitCallout
-        case .subheadline:  return .trueFitSubheadline
-        case .footnote:     return .trueFitFootnote
-        case .caption:      return .trueFitCaption
-        case .caption2:     return .trueFitCaption2
+        case .light:
+            return isArabic ? "Cairo-Light" : "Poppins-Light"
+        case .regular:
+            return isArabic ? "Cairo-Regular" : "Poppins-Regular"
+        case .medium:
+            return isArabic ? "Cairo-Medium" : "Poppins-Medium"
+        case .semiBold:
+            return isArabic ? "Cairo-SemiBold" : "Poppins-SemiBold"
+        case .bold:
+            return isArabic ? "Cairo-Bold" : "Poppins-Bold"
         }
     }
 }
 
-// MARK: - Convenience Text Modifier
-
-public extension View {
-
-    /// Apply both the correct font and tracking for a TrueFit type style.
-    ///
-    ///     Text("Choose Dress")
-    ///         .trueFitTextStyle(.display)
-    ///
-    func trueFitTextStyle(_ style: TrueFitTypeStyle) -> some View {
-        self
-            .font(style.font)
-            .tracking(style.tracking)
+// MARK: - Text Styles (Sizes)
+enum CarelyTextStyle {
+    case display
+    case heading1
+    case heading2
+    case heading3
+    case bodyLarge
+    case bodyRegular
+    case bodySmall
+    case button
+    case caption
+    
+    /// The specific point size for each text style case.
+    var size: CGFloat {
+        switch self {
+        case .display: return 40
+        case .heading1: return 32
+        case .heading2: return 24
+        case .heading3: return 20
+        case .bodyLarge: return 18
+        case .bodyRegular: return 16
+        case .bodySmall: return 14
+        case .button: return 16
+        case .caption: return 12
+        }
     }
 }
+
+// MARK: - Custom View Modifier (Fully Reactive)
+struct CarelyTypographyModifier: ViewModifier {
+    let style: CarelyTextStyle
+    let weight: CarelyFontWeight
+    
+    // Listens to the SwiftUI environment for instant language changes
+    @Environment(\.locale) var locale
+    
+    var isArabic: Bool {
+        locale.language.languageCode?.identifier == "ar"
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.custom(weight.name(isArabic: isArabic), size: style.size))
+    }
+}
+
+// MARK: - View Extension
+extension View {
+    /// Applies the Carely Design System typography to a View.
+    /// This modifier is fully reactive to in-app language changes.
+    func carelyText(style: CarelyTextStyle, weight: CarelyFontWeight = .regular) -> some View {
+        self.modifier(CarelyTypographyModifier(style: style, weight: weight))
+    }
+}
+
+/*
+// MARK: - HOW TO USE
+// Place this anywhere in your SwiftUI Views to maintain design consistency.
+// NOTE: Always use the `.carelyText` modifier to ensure the font updates
+// instantly if the user changes the language inside the app.
+
+// Example 1: Using the Light weight
+Text("Subtle caption text")
+    .carelyText(style: .caption, weight: .light)
+
+// Example 2: Using the Default Regular weight
+Text("Standard body description")
+    .carelyText(style: .bodyRegular)
+
+// Example 3: Using the Medium weight
+Text("Section Title")
+    .carelyText(style: .heading3, weight: .medium)
+*/
