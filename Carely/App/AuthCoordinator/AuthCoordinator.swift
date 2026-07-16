@@ -38,7 +38,7 @@ struct AuthCoordinator: View {
             PersonalInfoView()
             
         case .ProfileSetupDecision:
-            ProfileSetupDecisionView()
+            ProfileSetupDecisionView(viewModel: ProfileSetupDecisionViewModel(router: router, onAuthFinished: OnAuthFinished))
         }
         
     }
