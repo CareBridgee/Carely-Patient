@@ -32,7 +32,15 @@ struct AuthCoordinator: View {
                 PhoneNumberView()
         
         case .OTPVerification(let phoneNumber):
-            OTPVerificationOTP() // inject phone number into viewModel
+            OTPVerificationView(
+                        viewModel: OTPVerificationViewModel(
+                        phoneNumber: phoneNumber,
+                        verifyOTPUseCase: VerifyOTPUseCase(
+                        repository: AuthRepositoryImpl()),
+                        router: router,
+                        onAuthFinished: OnAuthFinished
+                            )
+                        )
             
         case .PersonalInfo:
             PersonalInfoView()
