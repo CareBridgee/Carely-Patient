@@ -17,10 +17,8 @@ enum CarelyFontWeight {
     case semiBold
     case bold
     
-    /// Dynamically returns the correct font PostScript name based on the app's current language.
-    var name: String {
-        let isArabic = Locale.current.language.languageCode?.identifier == "ar"
-        
+    /// Dynamically returns the correct font PostScript name based on the active language.
+    func name(isArabic: Bool) -> String {
         switch self {
         case .light:
             return isArabic ? "Cairo-Light" : "Poppins-Light"
@@ -64,31 +62,28 @@ enum CarelyTextStyle {
     }
 }
 
-// MARK: - SwiftUI Font Extension
-extension Font {
-    /// Generates a custom Carely font using a specific style and weight.
-    /// - Parameters:
-    ///   - style: The semantic text style (e.g., .heading1, .bodyRegular)
-    ///   - weight: The font weight (defaults to .regular)
-    /// - Returns: A SwiftUI Font object
-    static func carely(_ style: CarelyTextStyle, weight: CarelyFontWeight = .regular) -> Font {
-        return .custom(weight.name, size: style.size)
-    }
-}
-
-// MARK: - Custom View Modifier
+// MARK: - Custom View Modifier (Fully Reactive)
 struct CarelyTypographyModifier: ViewModifier {
     let style: CarelyTextStyle
     let weight: CarelyFontWeight
     
+    // Listens to the SwiftUI environment for instant language changes
+    @Environment(\.locale) var locale
+    
+    var isArabic: Bool {
+        locale.language.languageCode?.identifier == "ar"
+    }
+    
     func body(content: Content) -> some View {
         content
-            .font(.custom(weight.name, size: style.size))
+            .font(.custom(weight.name(isArabic: isArabic), size: style.size))
     }
 }
 
+// MARK: - View Extension
 extension View {
     /// Applies the Carely Design System typography to a View.
+    /// This modifier is fully reactive to in-app language changes.
     func carelyText(style: CarelyTextStyle, weight: CarelyFontWeight = .regular) -> some View {
         self.modifier(CarelyTypographyModifier(style: style, weight: weight))
     }
@@ -97,6 +92,8 @@ extension View {
 /*
 // MARK: - HOW TO USE
 // Place this anywhere in your SwiftUI Views to maintain design consistency.
+// NOTE: Always use the `.carelyText` modifier to ensure the font updates
+// instantly if the user changes the language inside the app.
 
 // Example 1: Using the Light weight
 Text("Subtle caption text")
@@ -106,7 +103,7 @@ Text("Subtle caption text")
 Text("Standard body description")
     .carelyText(style: .bodyRegular)
 
-// Example 3: Using the Medium weight via standard Font modifier
+// Example 3: Using the Medium weight
 Text("Section Title")
-    .font(.carely(.heading3, weight: .medium))
+    .carelyText(style: .heading3, weight: .medium)
 */
