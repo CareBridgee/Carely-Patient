@@ -34,7 +34,7 @@
 		0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* RepositoryProtocol.swift */; };
 		0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889030084F3D00883999 /* RepositoryImpl.swift */; };
 		0C3D88963008510900883999 /* SharedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* SharedFile.swift */; };
-		0C3D8898300855FE00883999 /* assetsfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8897300855FE00883999 /* assetsfile.swift */; };
+		C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6C014803008BBB5006B5FDE /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +85,7 @@
 		0C3D888D30084E7000883999 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		0C3D889030084F3D00883999 /* RepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryImpl.swift; sourceTree = "<group>"; };
 		0C3D88953008510900883999 /* SharedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFile.swift; sourceTree = "<group>"; };
-		0C3D8897300855FE00883999 /* assetsfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = assetsfile.swift; sourceTree = "<group>"; };
+		C6C014803008BBB5006B5FDE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +140,6 @@
 				0C3D8848300844B500883999 /* App */,
 				0C3D8847300844A800883999 /* Core */,
 				0C3D88163007B5E500883999 /* ContentView.swift */,
-				0C3D88183007B5E600883999 /* Assets.xcassets */,
 				0C3D881A3007B5E600883999 /* Preview Content */,
 			);
 			path = Carely;
@@ -231,7 +230,8 @@
 		0C3D88563008461300883999 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D8897300855FE00883999 /* assetsfile.swift */,
+				0C3D88183007B5E600883999 /* Assets.xcassets */,
+				C6C014803008BBB5006B5FDE /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					0C3D88103007B5E500883999 = {
 						CreatedOnToolsVersion = 15.4;
@@ -490,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C3D881C3007B5E600883999 /* Preview Assets.xcassets in Resources */,
+				C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */,
 				0C3D88193007B5E600883999 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,7 +516,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C3D8898300855FE00883999 /* assetsfile.swift in Sources */,
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
@@ -578,7 +578,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -641,7 +641,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -752,7 +752,6 @@
 		0C3D88393007B5E700883999 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -771,7 +770,6 @@
 		0C3D883A3007B5E700883999 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -790,7 +788,6 @@
 		0C3D883C3007B5E700883999 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -807,7 +804,6 @@
 		0C3D883D3007B5E700883999 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
