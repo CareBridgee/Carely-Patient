@@ -9,14 +9,47 @@ import Foundation
 import SwiftUI
 
 struct WelcomeView : View {
+    @StateObject private var viewModel: AuthViewModel
+    @State private var showAlert = false
+    
+    init(viewModel: AuthViewModel) {
+            _viewModel = StateObject(wrappedValue: viewModel)
+        }
+
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(Color.primary)
-            Text("Hello, world!")
+            Image("careConnect")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 350, height: 350)
+            Spacer()
+            Text("Care Connect")
+                .foregroundColor(.primary)
+                .font(.largeTitle)
+            
+            Text("Reassuring care for you and your loved ones")
+            
+            Spacer()
+            
+            loginButton(title: "Continue with Google", image: .googleIcon, backgroundColor: .surface, foregroundColor: .onSurface, horizontalPadding: 24){
+                showAlert = true
+            }.alert("Continue with Google", isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Will be available in future")
+            }
+            
+            loginButton(title: "Continue with Phone", image: Image(systemName: "phone"), backgroundColor: .onSurface, foregroundColor: .surface, horizontalPadding: 24){
+                viewModel.continueWithPhone()
+            }
+            Spacer()
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.backGround)
     }
 }
 
+#Preview {
+    WelcomeView(viewModel: AuthViewModel(router: AuthRouter()))
+}

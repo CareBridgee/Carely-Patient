@@ -15,7 +15,7 @@ struct AuthCoordinator: View {
     
     var body: some View {
         NavigationStack(path: $router.path){
-            WelcomeView().navigationDestination(for: AuthRoute.self){
+            WelcomeView(viewModel: AuthViewModel(router: router)).navigationDestination(for: AuthRoute.self){
                 route in
                     destination(for: route)
             }
@@ -26,7 +26,7 @@ struct AuthCoordinator: View {
     private func destination(for route: AuthRoute) -> some View {
         switch route { // inject router to each ViewModel
         case .Welcome:
-            WelcomeView()
+            WelcomeView(viewModel: AuthViewModel(router: router))
             
         case .PhoneNumber:
                 PhoneNumberView()

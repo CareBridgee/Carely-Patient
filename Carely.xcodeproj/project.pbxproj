@@ -44,6 +44,7 @@
 		B3A3131230094A5A00B5BB1D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */; };
 		B3A3131330094A5A00B5BB1D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */; };
 		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
+		3904E973300935CE001723C1 /* loginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3904E972300935CE001723C1 /* loginButton.swift */; };
 		C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6C014803008BBB5006B5FDE /* Colors.xcassets */; };
 		C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EC3008E2E500481DB9 /* AuthRouter.swift */; };
 		C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EE3008E2F100481DB9 /* AuthRoute.swift */; };
@@ -113,6 +114,7 @@
 		B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3904E972300935CE001723C1 /* loginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginButton.swift; sourceTree = "<group>"; };
 		C6C014803008BBB5006B5FDE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C6E761EC3008E2E500481DB9 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		C6E761EE3008E2F100481DB9 /* AuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRoute.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				3904E9703009341D001723C1 /* Common */,
 				0C3D88943008501500883999 /* Shared */,
 				0C3D886A3008483C00883999 /* Auth */,
 			);
@@ -451,6 +454,20 @@
 				B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */,
 			);
 			path = Poppins;
+		3904E9703009341D001723C1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3904E97130093554001723C1 /* UiComponents */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3904E97130093554001723C1 /* UiComponents */ = {
+			isa = PBXGroup;
+			children = (
+				3904E972300935CE001723C1 /* loginButton.swift */,
+			);
+			path = UiComponents;
 			sourceTree = "<group>";
 		};
 		C6E761EB3008E2B900481DB9 /* AuthCoordinator */ = {
@@ -624,6 +641,7 @@
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
 				C6E761F63008EB2600481DB9 /* OTPVerificationOTP.swift in Sources */,
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
+				3904E973300935CE001723C1 /* loginButton.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,

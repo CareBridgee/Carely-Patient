@@ -8,6 +8,6 @@
 import SwiftUI
 
 public extension Image {
-//    static let googleIcon = Image("google")
+    static let googleIcon = Image("google")
 //    static let facebookIcon = Image("facebook")
 }
