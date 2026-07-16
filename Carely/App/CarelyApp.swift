@@ -9,12 +9,15 @@ import SwiftUI
 
 @main
 struct CarelyApp: App {
+    @StateObject private var appState = AppState()
+
     var body: some Scene {
-        // state
         WindowGroup {
-            // switch based on state
-            //case AuthCoordinator OnFinish)(change state)
-            ContentView()
+            if appState.phase == .auth {
+                AuthCoordinator { appState.signIn() }
+            } else {
+                ContentView()
+            }
         }
     }
 }
