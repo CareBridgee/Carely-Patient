@@ -28,13 +28,20 @@
 		0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */; };
 		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
-		0C3D888730084BB500883999 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* AuthView.swift */; };
+		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
 		0C3D888930084E5900883999 /* entitiyfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* entitiyfile.swift */; };
 		0C3D888B30084E6000883999 /* useCasefile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* useCasefile.swift */; };
 		0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* RepositoryProtocol.swift */; };
 		0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889030084F3D00883999 /* RepositoryImpl.swift */; };
 		0C3D88963008510900883999 /* SharedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* SharedFile.swift */; };
 		C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6C014803008BBB5006B5FDE /* Colors.xcassets */; };
+		C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EC3008E2E500481DB9 /* AuthRouter.swift */; };
+		C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EE3008E2F100481DB9 /* AuthRoute.swift */; };
+		C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F03008E2FB00481DB9 /* AuthCoordinator.swift */; };
+		C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F33008EB0400481DB9 /* PhoneNumberView.swift */; };
+		C6E761F63008EB2600481DB9 /* OTPVerificationOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F53008EB2400481DB9 /* OTPVerificationOTP.swift */; };
+		C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F73008EB3600481DB9 /* PersonalInfoView.swift */; };
+		C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,13 +86,20 @@
 		0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteDataSource.swift; sourceTree = "<group>"; };
 		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		0C3D888630084BB500883999 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0C3D888830084E5900883999 /* entitiyfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entitiyfile.swift; sourceTree = "<group>"; };
 		0C3D888A30084E6000883999 /* useCasefile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = useCasefile.swift; sourceTree = "<group>"; };
 		0C3D888D30084E7000883999 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		0C3D889030084F3D00883999 /* RepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryImpl.swift; sourceTree = "<group>"; };
 		0C3D88953008510900883999 /* SharedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFile.swift; sourceTree = "<group>"; };
 		C6C014803008BBB5006B5FDE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		C6E761EC3008E2E500481DB9 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		C6E761EE3008E2F100481DB9 /* AuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRoute.swift; sourceTree = "<group>"; };
+		C6E761F03008E2FB00481DB9 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		C6E761F33008EB0400481DB9 /* PhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberView.swift; sourceTree = "<group>"; };
+		C6E761F53008EB2400481DB9 /* OTPVerificationOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationOTP.swift; sourceTree = "<group>"; };
+		C6E761F73008EB3600481DB9 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
+		C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupDecisionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,10 +150,9 @@
 		0C3D88133007B5E500883999 /* Carely */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D8849300844BA00883999 /* Features */,
-				0C3D8848300844B500883999 /* App */,
 				0C3D8847300844A800883999 /* Core */,
-				0C3D88163007B5E500883999 /* ContentView.swift */,
+				0C3D8848300844B500883999 /* App */,
+				0C3D8849300844BA00883999 /* Features */,
 				0C3D881A3007B5E600883999 /* Preview Content */,
 			);
 			path = Carely;
@@ -184,7 +197,9 @@
 		0C3D8848300844B500883999 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				C6E761EB3008E2B900481DB9 /* AuthCoordinator */,
 				0C3D88143007B5E500883999 /* CarelyApp.swift */,
+				0C3D88163007B5E500883999 /* ContentView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -353,7 +368,7 @@
 		0C3D888230084B6A00883999 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888630084BB500883999 /* AuthView.swift */,
+				C6E761F23008EAF200481DB9 /* Screens */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -380,6 +395,28 @@
 				0C3D88953008510900883999 /* SharedFile.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		C6E761EB3008E2B900481DB9 /* AuthCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C6E761F03008E2FB00481DB9 /* AuthCoordinator.swift */,
+				C6E761EE3008E2F100481DB9 /* AuthRoute.swift */,
+				C6E761EC3008E2E500481DB9 /* AuthRouter.swift */,
+			);
+			path = AuthCoordinator;
+			sourceTree = "<group>";
+		};
+		C6E761F23008EAF200481DB9 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */,
+				C6E761F73008EB3600481DB9 /* PersonalInfoView.swift */,
+				C6E761F53008EB2400481DB9 /* OTPVerificationOTP.swift */,
+				C6E761F33008EB0400481DB9 /* PhoneNumberView.swift */,
+				0C3D888630084BB500883999 /* WelcomeView.swift */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,12 +556,16 @@
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
+				C6E761F63008EB2600481DB9 /* OTPVerificationOTP.swift in Sources */,
+				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
+				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
 				0C3D888B30084E6000883999 /* useCasefile.swift in Sources */,
-				0C3D888730084BB500883999 /* AuthView.swift in Sources */,
+				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
+				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				0C3D88963008510900883999 /* SharedFile.swift in Sources */,
@@ -533,8 +574,11 @@
 				0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				0C3D8872300848A700883999 /* mapperfile.swift in Sources */,
+				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
 				0C3D888930084E5900883999 /* entitiyfile.swift in Sources */,
+				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
+				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
 				0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
