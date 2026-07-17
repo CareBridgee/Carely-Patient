@@ -49,7 +49,7 @@ final class PhoneNumberViewModel: ObservableObject {
 
     private func setupValidation() {
         unfocusTrigger
-            .debounce(for: .milliseconds(150), scheduler: DispatchQueue.main)
+//            .debounce(for: .milliseconds(150), scheduler: DispatchQueue.main)
             .map { text in (text, Self.isValidPhoneNumber(text)) }
             .sink { [weak self] text, valid in
                 self?.isPhoneNumberValid = valid
