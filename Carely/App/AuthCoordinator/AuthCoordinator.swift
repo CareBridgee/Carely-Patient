@@ -9,13 +9,14 @@ import Foundation
 import SwiftUI
 
 struct AuthCoordinator: View {
+    let container: DIContainer
     @StateObject private var router = AuthRouter()
     
     let OnAuthFinished: () -> Void
     
     var body: some View {
         NavigationStack(path: $router.path){
-            WelcomeView().navigationDestination(for: AuthRoute.self){
+            WelcomeView(viewModel: AuthViewModel(router: router)).navigationDestination(for: AuthRoute.self){
                 route in
                     destination(for: route)
             }
@@ -26,24 +27,22 @@ struct AuthCoordinator: View {
     private func destination(for route: AuthRoute) -> some View {
         switch route { // inject router to each ViewModel
         case .Welcome:
-            WelcomeView()
+            WelcomeView(viewModel: AuthViewModel(router: router))
             
         case .PhoneNumber:
                 PhoneNumberView()
         
         case .OTPVerification(let phoneNumber):
             OTPVerificationView(
-                        viewModel: OTPVerificationViewModel(
-                        phoneNumber: phoneNumber,
-                        verifyOTPUseCase: VerifyOTPUseCase(
-                        repository: AuthRepositoryImpl()),
-                        router: router,
-                        onAuthFinished: OnAuthFinished
-                            )
+                        viewModel: container.makeOTPVerificationViewModel(
+                            phoneNumber: phoneNumber,
+                            router: router,
+                            onAuthFinished: OnAuthFinished
                         )
+                    )
             
         case .PersonalInfo:
-            PersonalInfoView()
+            PersonalInfoView(viewModel: container.makePersonalInfoViewModel(router: router))
             
         case .ProfileSetupDecision:
             ProfileSetupDecisionView()

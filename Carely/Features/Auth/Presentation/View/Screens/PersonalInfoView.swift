@@ -7,14 +7,24 @@
 
 import SwiftUI
 
-struct PersonalInfoView : View {
+import SwiftUI
+
+struct PersonalInfoView: View {
+    @StateObject var viewModel: PersonalInfoViewModel
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(Color.primary)
-            Text("Hello, world!")
+        VStack(spacing: Spacing.xl) {
+            
+            AppHeader(title: "Enaya")
+            
+            PersonalInfoFormCard(viewModel: viewModel)
+                .padding(.top, Spacing.xxl)
+            
+            Spacer()
         }
-        .padding()
+        .padding(.horizontal, Spacing.lg)
+        .background(Color.backGround.ignoresSafeArea())
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
