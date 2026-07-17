@@ -11,12 +11,12 @@ struct PersonalInfoFormCard: View {
     @ObservedObject var viewModel: PersonalInfoViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: Spacing.lg) {
             Text("Personal Information")
                 .carelyText(style: .heading3, weight: .regular)
-                .padding(.bottom, 5)
+                .padding(.bottom, Spacing.xxs)
             
-            HStack(spacing: 15) {
+            HStack(spacing: Spacing.md) {
                 CustomInputView(title: "First name", placeholder: "Jane", text: $viewModel.firstName, errorMessage: viewModel.firstNameError, bg: Color.surfaceVariant)
                 CustomInputView(title: "Last name", placeholder: "Doe", text: $viewModel.lastName,errorMessage: viewModel.lastNameError, bg: Color.surfaceVariant)
             }
@@ -40,9 +40,9 @@ struct PersonalInfoFormCard: View {
                     viewModel.continueTapped()
                     }
                 )
-                .padding(.top, 10)
+                .padding(.top, Spacing.sm)
         }
-        .padding(24)
+        .padding(Spacing.xl)
         .background(Color.surface)
         .cornerRadius(24)
         .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)

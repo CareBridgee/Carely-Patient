@@ -15,15 +15,15 @@ struct CustomInputView: View {
     let bg: Color
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: Spacing.xxs) {
             Text(title)
                 .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
             
         TextField(placeholder, text: $text)
             .carelyText(style: .bodyRegular)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.sm)
             .background(bg)
             .cornerRadius(12)
             .overlay(
@@ -34,7 +34,7 @@ struct CustomInputView: View {
             Text(error)
                 .carelyText(style: .caption)
                 .foregroundColor(Color.error)
-            .padding(.leading, 4)
+            .padding(.leading, Spacing.xxs)
         }
         }
     }

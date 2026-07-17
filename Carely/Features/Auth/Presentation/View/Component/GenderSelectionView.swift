@@ -12,7 +12,7 @@ struct GenderSelectionView: View {
     @Binding var selectedGender: Gender
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             Text("Gender")
                 .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
@@ -42,7 +42,7 @@ struct GenderButton: View {
                 .carelyText(style: .bodySmall, weight: isSelected ? .bold : .medium)
                 .foregroundColor(isSelected ? Color.onPrimary : Color.secondaryFont)
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
+                .padding(.vertical, Spacing.sm)
                 .background(isSelected ? Color.primary : Color.clear)
                 .cornerRadius(12)
         }
