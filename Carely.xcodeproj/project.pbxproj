@@ -29,21 +29,6 @@
 		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
 		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
-		0C3D888930084E5900883999 /* entitiyfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* entitiyfile.swift */; };
-		0C3D888B30084E6000883999 /* useCasefile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* useCasefile.swift */; };
-		0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* RepositoryProtocol.swift */; };
-		0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889030084F3D00883999 /* RepositoryImpl.swift */; };
-		0C3D88963008510900883999 /* SharedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* SharedFile.swift */; };
-		B3A31306300949C000B5BB1D /* Cairo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */; };
-		B3A31307300949C000B5BB1D /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31302300949C000B5BB1D /* Cairo-Light.ttf */; };
-		B3A31308300949C000B5BB1D /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */; };
-		B3A31309300949C000B5BB1D /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31304300949C000B5BB1D /* Cairo-Regular.ttf */; };
-		B3A3130A300949C000B5BB1D /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31305300949C000B5BB1D /* Cairo-SemiBold.ttf */; };
-		B3A3131030094A5A00B5BB1D /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */; };
-		B3A3131130094A5A00B5BB1D /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */; };
-		B3A3131230094A5A00B5BB1D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */; };
-		B3A3131330094A5A00B5BB1D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */; };
-		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
 		0C3D888930084E5900883999 /* BasicUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* BasicUserInfo.swift */; };
 		0C3D888B30084E6000883999 /* SavePersonalInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* SavePersonalInfoUseCase.swift */; };
 		0C3D888E30084E7000883999 /* AuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* AuthRepositoryProtocol.swift */; };
@@ -55,6 +40,20 @@
 		0CE50DB4300985DD001B34AA /* PersonalInfoFormCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */; };
 		0CE50DB630098665001B34AA /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB530098665001B34AA /* CustomDatePickerView.swift */; };
 		0CE50DB830098B87001B34AA /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB730098B87001B34AA /* PrimaryButton.swift */; };
+		39ECFBF13009C83A00316E67 /* loginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39ECFBF03009C83800316E67 /* loginButton.swift */; };
+		39ECFBF33009CBDB00316E67 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39ECFBF23009CBDA00316E67 /* ActionCard.swift */; };
+		39ECFBF93009D24000316E67 /* PhoneNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39ECFBF83009D23E00316E67 /* PhoneNumberField.swift */; };
+		39ECFBFB3009D4F500316E67 /* SecurityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39ECFBFA3009D4F400316E67 /* SecurityCard.swift */; };
+		B3A31306300949C000B5BB1D /* Cairo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */; };
+		B3A31307300949C000B5BB1D /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31302300949C000B5BB1D /* Cairo-Light.ttf */; };
+		B3A31308300949C000B5BB1D /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */; };
+		B3A31309300949C000B5BB1D /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31304300949C000B5BB1D /* Cairo-Regular.ttf */; };
+		B3A3130A300949C000B5BB1D /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31305300949C000B5BB1D /* Cairo-SemiBold.ttf */; };
+		B3A3131030094A5A00B5BB1D /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */; };
+		B3A3131130094A5A00B5BB1D /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */; };
+		B3A3131230094A5A00B5BB1D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */; };
+		B3A3131330094A5A00B5BB1D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */; };
+		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
 		C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6C014803008BBB5006B5FDE /* Colors.xcassets */; };
 		C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EC3008E2E500481DB9 /* AuthRouter.swift */; };
 		C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EE3008E2F100481DB9 /* AuthRoute.swift */; };
@@ -108,22 +107,6 @@
 		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		0C3D888830084E5900883999 /* entitiyfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entitiyfile.swift; sourceTree = "<group>"; };
-		0C3D888A30084E6000883999 /* useCasefile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = useCasefile.swift; sourceTree = "<group>"; };
-		0C3D888D30084E7000883999 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
-		0C3D889030084F3D00883999 /* RepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryImpl.swift; sourceTree = "<group>"; };
-		0C3D88953008510900883999 /* SharedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFile.swift; sourceTree = "<group>"; };
-		B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
-		B3A31302300949C000B5BB1D /* Cairo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Light.ttf"; sourceTree = "<group>"; };
-		B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Medium.ttf"; sourceTree = "<group>"; };
-		B3A31304300949C000B5BB1D /* Cairo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Regular.ttf"; sourceTree = "<group>"; };
-		B3A31305300949C000B5BB1D /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
-		B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
-		B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0C3D888830084E5900883999 /* BasicUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserInfo.swift; sourceTree = "<group>"; };
 		0C3D888A30084E6000883999 /* SavePersonalInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePersonalInfoUseCase.swift; sourceTree = "<group>"; };
 		0C3D888D30084E7000883999 /* AuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -135,6 +118,21 @@
 		0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoFormCard.swift; sourceTree = "<group>"; };
 		0CE50DB530098665001B34AA /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
 		0CE50DB730098B87001B34AA /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		39ECFBF03009C83800316E67 /* loginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginButton.swift; sourceTree = "<group>"; };
+		39ECFBF23009CBDA00316E67 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
+		39ECFBF83009D23E00316E67 /* PhoneNumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberField.swift; sourceTree = "<group>"; };
+		39ECFBFA3009D4F400316E67 /* SecurityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCard.swift; sourceTree = "<group>"; };
+		B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
+		B3A31302300949C000B5BB1D /* Cairo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Light.ttf"; sourceTree = "<group>"; };
+		B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Medium.ttf"; sourceTree = "<group>"; };
+		B3A31304300949C000B5BB1D /* Cairo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Regular.ttf"; sourceTree = "<group>"; };
+		B3A31305300949C000B5BB1D /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
+		B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C6C014803008BBB5006B5FDE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C6E761EC3008E2E500481DB9 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		C6E761EE3008E2F100481DB9 /* AuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRoute.swift; sourceTree = "<group>"; };
@@ -445,6 +443,21 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		0CE50DAE30098413001B34AA /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				39ECFBFA3009D4F400316E67 /* SecurityCard.swift */,
+				39ECFBF83009D23E00316E67 /* PhoneNumberField.swift */,
+				39ECFBF23009CBDA00316E67 /* ActionCard.swift */,
+				39ECFBF03009C83800316E67 /* loginButton.swift */,
+				0CE50DAF30098426001B34AA /* CustomInputView.swift */,
+				0CE50DB13009859B001B34AA /* GenderSelectionView.swift */,
+				0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */,
+				0CE50DB530098665001B34AA /* CustomDatePickerView.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		B3A312FE3009491200B5BB1D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,17 +489,6 @@
 				B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */,
 			);
 			path = Poppins;
-			sourceTree = "<group>";
-		};
-		0CE50DAE30098413001B34AA /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				0CE50DAF30098426001B34AA /* CustomInputView.swift */,
-				0CE50DB13009859B001B34AA /* GenderSelectionView.swift */,
-				0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */,
-				0CE50DB530098665001B34AA /* CustomDatePickerView.swift */,
-			);
-			path = Component;
 			sourceTree = "<group>";
 		};
 		C6E761EB3008E2B900481DB9 /* AuthCoordinator */ = {
@@ -663,6 +665,7 @@
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0CE50DB630098665001B34AA /* CustomDatePickerView.swift in Sources */,
+				39ECFBF93009D24000316E67 /* PhoneNumberField.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
@@ -672,8 +675,10 @@
 				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0CE50DAD30095E3E001B34AA /* PersonalInfoViewModel.swift in Sources */,
+				39ECFBF13009C83A00316E67 /* loginButton.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				0C3D88963008510900883999 /* AppHeader.swift in Sources */,
+				39ECFBF33009CBDB00316E67 /* ActionCard.swift in Sources */,
 				0C3D88633008471200883999 /* DIContainer.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
 				0C3D889130084F3D00883999 /* AuthRepositoryImpl.swift in Sources */,
@@ -690,6 +695,7 @@
 				0CE50DB830098B87001B34AA /* PrimaryButton.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
 				0CE50DB4300985DD001B34AA /* PersonalInfoFormCard.swift in Sources */,
+				39ECFBFB3009D4F500316E67 /* SecurityCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

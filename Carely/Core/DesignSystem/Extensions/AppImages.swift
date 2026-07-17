@@ -8,6 +8,7 @@
 import SwiftUI
 
 public extension Image {
-//    static let googleIcon = Image("google")
+    static let googleIcon = Image("google")
+    static let careConnect = Image("careConnect")
 //    static let facebookIcon = Image("facebook")
 }
