@@ -38,7 +38,7 @@ struct PhoneNumberField: View {
     }
 }
 
-#Preview {
-    @Previewable @State var phoneNumber = ""
-    PhoneNumberField(phoneNumber: $phoneNumber)
-}
+//#Preview {
+//    @Previewable @State var phoneNumber = ""
+//    PhoneNumberField(phoneNumber: $phoneNumber)
+//}
