@@ -14,7 +14,7 @@ struct GenderSelectionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Gender")
-                .font(.subheadline)
+                .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
             
             HStack(spacing: 0) {
@@ -39,8 +39,7 @@ struct GenderButton: View {
             withAnimation { selectedGender = genderValue }
         }) {
             Text(title)
-                .font(.subheadline)
-                .fontWeight(isSelected ? .bold : .regular)
+                .carelyText(style: .bodySmall, weight: isSelected ? .bold : .medium)
                 .foregroundColor(isSelected ? Color.onPrimary : Color.secondaryFont)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)

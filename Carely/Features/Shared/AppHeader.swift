@@ -21,8 +21,7 @@ struct AppHeader: View {
             Spacer()
             
             Text(title)
-                .font(.title2)
-                .fontWeight(.bold)
+                .carelyText(style: .heading2, weight: .medium)
                 .foregroundColor(Color.primary)
             
             Spacer()

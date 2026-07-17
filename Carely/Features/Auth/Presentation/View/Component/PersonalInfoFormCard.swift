@@ -13,8 +13,7 @@ struct PersonalInfoFormCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("Personal Information")
-                .font(.title3)
-                .fontWeight(.bold)
+                .carelyText(style: .heading3, weight: .regular)
                 .padding(.bottom, 5)
             
             HStack(spacing: 15) {
@@ -28,8 +27,8 @@ struct PersonalInfoFormCard: View {
             
             if let apiError = viewModel.apiErrorMessage{
                 Text(apiError)
+                    .carelyText(style: .caption)
                     .foregroundColor(Color.error)
-                    .font(.caption)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             

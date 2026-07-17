@@ -17,10 +17,11 @@ struct CustomInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(.subheadline)
+                .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
             
         TextField(placeholder, text: $text)
+            .carelyText(style: .bodyRegular)
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             .background(bg)
@@ -31,8 +32,8 @@ struct CustomInputView: View {
             )
         if let error = errorMessage {
             Text(error)
-            .font(.caption)
-            .foregroundColor(Color.error)
+                .carelyText(style: .caption)
+                .foregroundColor(Color.error)
             .padding(.leading, 4)
         }
         }

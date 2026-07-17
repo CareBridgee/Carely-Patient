@@ -15,7 +15,7 @@ struct CustomDatePickerView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(.subheadline)
+                .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
             
             HStack {
@@ -38,7 +38,7 @@ struct CustomDatePickerView: View {
             
             if let error = errorMessage {
                 Text(error)
-                    .font(.caption)
+                    .carelyText(style: .caption)
                     .foregroundColor(Color.error)
                     .padding(.leading, 4)
             }

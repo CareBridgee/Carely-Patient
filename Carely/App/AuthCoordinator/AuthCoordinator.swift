@@ -16,7 +16,7 @@ struct AuthCoordinator: View {
     
     var body: some View {
         NavigationStack(path: $router.path){
-            WelcomeView().navigationDestination(for: AuthRoute.self){
+            PersonalInfoView(viewModel: container.makePersonalInfoViewModel(router: router)).navigationDestination(for: AuthRoute.self){
                 route in
                     destination(for: route)
             }
