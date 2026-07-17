@@ -9,7 +9,7 @@ import Foundation
 
 // I will instantiate it once at the absolute highest pointz
 @MainActor
-class DIContainer{
+final class DIContainer{
     
     private lazy var authRepository : AuthRepositoryProtocol = {
         AuthRepositoryImpl(
