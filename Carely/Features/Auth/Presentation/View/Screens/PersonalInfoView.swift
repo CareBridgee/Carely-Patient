@@ -14,16 +14,16 @@ struct PersonalInfoView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack(spacing: Spacing.xl) {
+        VStack(spacing: Spacing.s20) {
             
             AppHeader(title: "Enaya")
             
             PersonalInfoFormCard(viewModel: viewModel)
-                .padding(.top, Spacing.xxl)
+                .padding(.top, Spacing.s24)
             
             Spacer()
         }
-        .padding(.horizontal, Spacing.lg)
+        .padding(.horizontal, Spacing.s16)
         .background(Color.backGround.ignoresSafeArea())
         .toolbar(.hidden, for: .navigationBar)
     }

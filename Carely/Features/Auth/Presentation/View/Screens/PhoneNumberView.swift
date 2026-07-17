@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PhoneNumberView : View {
-    @State private var phoneNumber = ""
+    @StateObject var viewModel : PhoneNumberViewModel
 
         var body: some View {
             VStack(alignment: .leading, spacing: 24) {
@@ -21,7 +21,7 @@ struct PhoneNumberView : View {
                     .carelyText(style: .bodyRegular, weight: .light)
                     .foregroundStyle(Color.primaryFont)
                 
-                PhoneNumberField(phoneNumber: $phoneNumber)
+                PhoneNumberField(phoneNumber: $viewModel.phoneNumber)
 
                 Text("Carrier charges may apply for SMS.")
                     .carelyText(style: .caption)
@@ -51,13 +51,10 @@ struct PhoneNumberView : View {
                     title: "NEXT",
                     backgroundColor: .primary
                 ) {
-
+                    viewModel.nextButtonPressed()
                 }
             }
             .padding(12)
             .background(Color.backGround)
         }
-}
-#Preview {
-    PhoneNumberView()
 }

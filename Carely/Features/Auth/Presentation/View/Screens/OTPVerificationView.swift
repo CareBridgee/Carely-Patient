@@ -21,10 +21,10 @@ struct OTPVerificationView: View {
             }
             
             ScrollView {
-                VStack(spacing: Spacing.xl) {
+                VStack(spacing: Spacing.s20) {
                     OTPHeaderIconView()
 
-                    VStack(spacing: Spacing.xs) {
+                    VStack(spacing: Spacing.s4) {
                         Text("Verify Phone")
                             .carelyText(style: .heading2, weight: .bold)
                             .foregroundStyle(Color.primaryFont)
@@ -38,7 +38,7 @@ struct OTPVerificationView: View {
                             .carelyText(style: .bodyRegular, weight: .semiBold)
                             .foregroundStyle(Color.secondaryFont)
                     }
-                    .padding(.horizontal, Spacing.xl)
+                    .padding(.horizontal, Spacing.s20)
 
                     OTPVerificationCardView(viewModel: viewModel)
 
@@ -47,9 +47,9 @@ struct OTPVerificationView: View {
                         print("Resend code triggered")
                     }
                 }
-                .padding(.top, Spacing.xxl)
-                .padding(.horizontal, Spacing.md)
-                .padding(.bottom, Spacing.xxl)
+                .padding(.top, Spacing.s24)
+                .padding(.horizontal, Spacing.s12)
+                .padding(.bottom, Spacing.s24)
             }
         }
         .background(Color.backGround.ignoresSafeArea())

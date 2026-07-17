@@ -25,8 +25,8 @@ struct AuthHeaderView: View {
             Spacer()
             Color.clear.frame(width: 20, height: 20)
         }
-        .padding(.horizontal, Spacing.md)
-        .padding(.vertical, Spacing.sm)
+        .padding(.horizontal, Spacing.s12)
+        .padding(.vertical, Spacing.s8)
     }
 }
 struct OTPHeaderIconView: View {
@@ -39,6 +39,6 @@ struct OTPHeaderIconView: View {
                 .font(.system(size: 32, weight: .medium))
                 .foregroundStyle(Color.primary)
         }
-        .padding(.top, Spacing.md)
+        .padding(.top, Spacing.s12)
     }
 }

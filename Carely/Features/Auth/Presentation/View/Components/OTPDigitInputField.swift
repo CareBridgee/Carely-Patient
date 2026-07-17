@@ -29,7 +29,7 @@ struct OTPDigitInputField: View {
                     code = String(digitsOnly.prefix(length))
                 }
 
-            HStack(spacing: Spacing.xs) {
+            HStack(spacing: Spacing.s4) {
                 ForEach(0..<length, id: \.self) { index in
                     digitBox(at: index)
                 }
@@ -45,10 +45,10 @@ struct OTPDigitInputField: View {
         let hasDigit = index < characters.count
         let isActive = index == characters.count && isFocused
 
-        RoundedRectangle.trueFit(Radius.sm)
+        RoundedRectangle.trueFit(Radius.r8)
             .stroke(borderColor(hasDigit: hasDigit, isActive: isActive), lineWidth: isActive ? 2 : 1)
             .background(
-                RoundedRectangle.trueFit(Radius.sm)
+                RoundedRectangle.trueFit(Radius.r8)
                     .fill(Color.surface)
             )
             .frame(width: boxSize, height: boxSize)

@@ -5,14 +5,20 @@
 //  Created by Mona Zarea on 15/07/2026.
 //
 
-//import SwiftUI
-//
-//struct ContentView: View {
-//    var body: some View {
-//        AuthCoordinator(){}
-//    }
-//}
-//
-//#Preview {
-//    ContentView()
-//}
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(Color.primary)
+            Text("Hello, world!")
+        }
+        .padding()
+    }
+}
+
+#Preview {
+    ContentView()
+}

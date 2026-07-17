@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 struct WelcomeView : View {
-    @StateObject private var viewModel: AuthViewModel
+    @StateObject private var viewModel: WelcomeViewModel
     @State private var showAlert = false
     
-    init(viewModel: AuthViewModel) {
+    init(viewModel: WelcomeViewModel) {
             _viewModel = StateObject(wrappedValue: viewModel)
         }
 
@@ -53,5 +53,5 @@ struct WelcomeView : View {
 }
 
 #Preview {
-    WelcomeView(viewModel: AuthViewModel(router: AuthRouter()))
+    WelcomeView(viewModel: WelcomeViewModel(router: AuthRouter()))
 }
