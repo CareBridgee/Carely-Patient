@@ -1,54 +1,30 @@
 //
-//  Radius.swift
-//  TrueFit Design System
+//  IconSize.swift
+//  Carely
 //
-//  Every button, card, chip, and frame uses large radii.
-//  "Sharp" is never an option in this system.
+//  Created by Mohamed Ayman on 17/07/2026.
 //
 
 import SwiftUI
 
-// MARK: - Corner Radius Scale
-
-/// TrueFit corner radius tokens.
-///
-/// The system defaults to large, friendly radii. Sharp corners
-/// are intentionally absent.
-///
-/// Usage:
-/// ```swift
-/// .clipShape(RoundedRectangle(cornerRadius: Radius.lg))
-/// .cornerRadius(Radius.xl)
-/// ```
 public enum Radius {
 
-    /// 8pt — Input fields, small tags
-    public static let sm: CGFloat = 8
+    public static let r0: CGFloat = 0
+    public static let r4: CGFloat = 4
+    public static let r8: CGFloat = 8
+    public static let r12: CGFloat = 12
+    public static let r16: CGFloat = 16
+    public static let r20: CGFloat = 20
+    public static let r24: CGFloat = 24
+    public static let r28: CGFloat = 28
+    public static let r32: CGFloat = 32
 
-    /// 12pt — Size/variant chips, secondary buttons
-    public static let md: CGFloat = 12
-
-    /// 20pt — Standard cards, bottom sheets
-    public static let lg: CGFloat = 20
-
-    /// 28pt — Hero/product image frame, primary CTA buttons
-    public static let xl: CGFloat = 28
-
-    /// 999pt — "Let's Explore" CTA, price badge, status badges (full capsule)
-    public static let pill: CGFloat = 999
-
-    // Note: For circle shapes (avatar, heart icon button, FAB),
-    // use `.clipShape(Circle())` instead of a radius value.
+    public static let pill: CGFloat = .greatestFiniteMagnitude
 }
 
 // MARK: - RoundedRectangle Convenience
 
 public extension RoundedRectangle {
-
-    /// Create a RoundedRectangle with a TrueFit radius token.
-    ///
-    ///     .clipShape(.trueFit(.lg))
-    ///
     static func trueFit(_ radius: CGFloat) -> RoundedRectangle {
         RoundedRectangle(cornerRadius: radius, style: .continuous)
     }

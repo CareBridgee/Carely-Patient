@@ -9,7 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        AuthCoordinator(){}
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(Color.primary)
+            Text("Hello, world!")
+        }
+        .padding()
     }
 }
 

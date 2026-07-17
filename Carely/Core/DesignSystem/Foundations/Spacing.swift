@@ -1,55 +1,35 @@
 //
-//  Spacing.swift
-//  TrueFit Design System
+//  IconSize.swift
+//  Carely
 //
-//  8pt base grid with a 4pt half-step for tight inline contexts.
-//  Strict 8pt scale discipline — no ad hoc 14pt/18pt gaps.
+//  Created by Mohamed Ayman on 17/07/2026.
 //
 
 import SwiftUI
 
-// MARK: - Spacing Scale
-
-/// TrueFit spacing tokens built on an 8pt base grid.
-///
-/// Usage:
-/// ```swift
-/// .padding(.horizontal, Spacing.md)       // 16pt standard margin
-/// .spacing(Spacing.xs)                    // 8pt stack gap
-/// VStack(spacing: Spacing.lg) { ... }     // 20pt section spacing
-/// ```
 public enum Spacing {
+    public static let s0: CGFloat = 0
+    public static let s2: CGFloat = 2
+    public static let s4: CGFloat = 4
+    public static let s8: CGFloat = 8
+    public static let s12: CGFloat = 12
+    public static let s16: CGFloat = 16
+    public static let s20: CGFloat = 20
+    public static let s24: CGFloat = 24
+    public static let s28: CGFloat = 28
+    public static let s32: CGFloat = 32
+    public static let s40: CGFloat = 40
+    public static let s48: CGFloat = 48
+    public static let s56: CGFloat = 56
+    public static let s64: CGFloat = 64
+}
 
-    /// 4pt — Icon-to-label gaps, chip internal padding
-    public static let xxs: CGFloat = 4
+public extension EdgeInsets {
+    static func horizontal(_ value: CGFloat, vertical: CGFloat = .zero) -> EdgeInsets {
+        EdgeInsets(top: vertical, leading: value, bottom: vertical, trailing: value)
+    }
 
-    /// 8pt — Stack gap inside tight clusters (rating row, size row)
-    public static let xs: CGFloat = 8
-
-    /// 12pt — Card internal padding (compact), button vertical padding
-    public static let sm: CGFloat = 12
-
-    /// 16pt — Standard screen horizontal margin; default gap between unrelated elements
-    public static let md: CGFloat = 16
-
-    /// 20pt — Card internal padding (standard), section header to content
-    public static let lg: CGFloat = 20
-
-    /// 24pt — Gap between major sections on a screen
-    public static let xl: CGFloat = 24
-
-    /// 32pt — Hero image to content block gap
-    public static let xxl: CGFloat = 32
-
-    /// 40pt — Splash vertical rhythm
-    public static let xxxl: CGFloat = 40
-
-    /// 48pt — Top safe-area offset for hero content
-    public static let xxxxl: CGFloat = 48
-
-    /// 64pt — Empty-state illustration to text
-    public static let xxxxxl: CGFloat = 64
-
-    /// 80pt — Onboarding top whitespace
-    public static let xxxxxxl: CGFloat = 80
+    static func vertical(_ value: CGFloat, horizontal: CGFloat = .zero) -> EdgeInsets {
+        EdgeInsets(top: value, leading: horizontal, bottom: value, trailing: horizontal)
+    }
 }
