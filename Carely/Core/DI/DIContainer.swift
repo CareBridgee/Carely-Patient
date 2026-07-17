@@ -23,7 +23,11 @@ final class DIContainer{
         )
     }
     
-    
+    private func makeVerifyOTPUseCase() -> VerifyOTPUseCaseProtocol {
+        VerifyOTPUseCase(repository: authRepository)
+    }
+
+  
     //TODO: inject your UseCases here
 //    func makeWelcomViewModel(router: AuthRouter) -> WelcomeViewModel{
 //        WelcomeViewModel(router: router)
@@ -33,9 +37,14 @@ final class DIContainer{
 //        PhoneNumberViewModel(router: router)
 //    }
     
-//    func makeOTPVerificationViewModel(router: AuthRouter) -> OTPVerificationViewModel{
-//        OTPVerificationViewModel(router: router)
-//    }
+    func makeOTPVerificationViewModel(phoneNumber: String, router: AuthRouter, onAuthFinished: @escaping () -> Void) -> OTPVerificationViewModel {
+        OTPVerificationViewModel(
+            phoneNumber: phoneNumber,
+            verifyOTPUseCase: makeVerifyOTPUseCase(),
+            router: router,
+            onAuthFinished: onAuthFinished
+        )
+    }
     
     func makePersonalInfoViewModel( router: AuthRouter) -> PersonalInfoViewModel {
         return PersonalInfoViewModel(
