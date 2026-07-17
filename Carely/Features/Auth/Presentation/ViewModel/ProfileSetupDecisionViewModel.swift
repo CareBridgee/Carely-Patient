@@ -19,7 +19,6 @@ final class ProfileSetupDecisionViewModel: ObservableObject {
 
     func skipForNowTapped() {
         onAuthFinished()
-        print("Pressed")
     }
     
 }

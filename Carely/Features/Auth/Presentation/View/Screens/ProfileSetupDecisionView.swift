@@ -12,7 +12,7 @@ struct ProfileSetupDecisionView: View {
 
     init(viewModel: ProfileSetupDecisionViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    } 
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {

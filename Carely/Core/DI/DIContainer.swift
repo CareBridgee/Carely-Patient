@@ -47,13 +47,25 @@ final class DIContainer{
     }
     
     func makePersonalInfoViewModel( router: AuthRouter) -> PersonalInfoViewModel {
-        return PersonalInfoViewModel(
+         PersonalInfoViewModel(
             savePersonalInfoUseCase: makeSavePersonalInfoUseCase(),
             router: router
         )
     }
-//
-//    func makeProfileSetupDecisionViewModel(router: AuthRouter) -> ProfileSetupDecisionViewModel{
-//        ProfileSetupDecisionViewModel(router: router)
-//    }
+    
+    func makePhoneNumberViewModel(router:AuthRouter) -> PhoneNumberViewModel {
+        PhoneNumberViewModel(
+            router: router
+        )
+    }
+    
+    func makeWelcomeViewModel(router: AuthRouter) -> WelcomeViewModel {
+        WelcomeViewModel(
+            router: router
+        )
+    }
+
+    func makeProfileSetupDecisionViewModel(router: AuthRouter, onAuthFinished: @escaping () -> Void) -> ProfileSetupDecisionViewModel {
+        ProfileSetupDecisionViewModel(router: router, onAuthFinished: onAuthFinished)
+    }
 }

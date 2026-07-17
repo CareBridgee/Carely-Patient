@@ -11,20 +11,19 @@ import SwiftUI
 struct CarelyApp: App {
     
     let diContainer :DIContainer
+    @StateObject private var appState = AppState()
     
     @MainActor
     init() {
         self.diContainer = DIContainer()
     }
     
-    @StateObject private var appState = AppState()
-
     var body: some Scene {
         WindowGroup {
             if appState.phase == .auth {
-                AuthCoordinator { appState.signIn() }
-            } else {
                 ContentView()
+            } else {
+                AuthCoordinator(container: diContainer) { appState.signOut() }
             }
         }
     }

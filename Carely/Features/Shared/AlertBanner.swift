@@ -40,7 +40,7 @@ struct AlertBanner: View {
     let message: String
 
     var body: some View {
-        HStack(alignment: .top, spacing: Spacing.xs) {
+        HStack(alignment: .top, spacing: Spacing.s4) {
             Image(systemName: style.iconName)
                 .foregroundStyle(style.foregroundColor)
 
@@ -52,9 +52,9 @@ struct AlertBanner: View {
 
             Spacer(minLength: 0)
         }
-        .padding(Spacing.sm)
+        .padding(Spacing.s4)
         .background(
-            RoundedRectangle.trueFit(Radius.md)
+            RoundedRectangle.trueFit(Radius.r12)
                 .fill(style.backgroundColor)
         )
         .transition(.move(edge: .top).combined(with: .opacity))

@@ -13,7 +13,7 @@ struct CustomDatePickerView: View {
     var errorMessage: String? = nil
     
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.xxs) {
+        VStack(alignment: .leading, spacing: Spacing.s2) {
             Text(title)
                 .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
@@ -27,8 +27,8 @@ struct CustomDatePickerView: View {
                 Image(systemName: "calendar")
                     .foregroundColor(Color.primary)
             }
-            .padding(.horizontal, Spacing.md)
-            .padding(.vertical, Spacing.xs)
+            .padding(.horizontal, Spacing.s12)
+            .padding(.vertical, Spacing.s4)
             .background(Color.surfaceVariant)
             .cornerRadius(12)
             .overlay(
@@ -40,7 +40,7 @@ struct CustomDatePickerView: View {
                 Text(error)
                     .carelyText(style: .caption)
                     .foregroundColor(Color.error)
-                    .padding(.leading, Spacing.xxs)
+                    .padding(.leading, Spacing.s2)
             }
         }
     }

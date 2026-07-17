@@ -12,7 +12,7 @@ struct OTPVerificationCardView: View {
     @ObservedObject var viewModel: OTPVerificationViewModel
     
     var body: some View {
-        VStack(spacing: Spacing.xl) {
+        VStack(spacing: Spacing.s20) {
             if let errorMessage = viewModel.errorMessage {
                 AlertBanner(style: .error, message: errorMessage)
             }
@@ -27,9 +27,9 @@ struct OTPVerificationCardView: View {
 
             verifyButton
         }
-        .padding(Spacing.lg)
+        .padding(Spacing.s16)
         .background(
-            RoundedRectangle.trueFit(Radius.lg)
+            RoundedRectangle.trueFit(Radius.r20)
                 .fill(Color.surface)
         )
         .animation(TrueFitMotion.springDefault, value: viewModel.errorMessage)

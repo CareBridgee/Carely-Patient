@@ -22,18 +22,12 @@
 		0C3D885D3008461300883999 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88533008461300883999 /* Spacing.swift */; };
 		0C3D885E3008461300883999 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88543008461300883999 /* Typography.swift */; };
 		0C3D8861300846B800883999 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8860300846B800883999 /* ApiClient.swift */; };
-		0C3D88633008471200883999 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88623008471200883999 /* AppContainer.swift */; };
 		0C3D88663008475800883999 /* UtilityFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88653008475800883999 /* UtilityFile.swift */; };
 		0C3D8872300848A700883999 /* mapperfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8871300848A700883999 /* mapperfile.swift */; };
 		0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */; };
 		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
 		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
-		0C3D888930084E5900883999 /* entitiyfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* entitiyfile.swift */; };
-		0C3D888B30084E6000883999 /* useCasefile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* useCasefile.swift */; };
-		0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* RepositoryProtocol.swift */; };
-		0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889030084F3D00883999 /* RepositoryImpl.swift */; };
-		0C3D88963008510900883999 /* SharedFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* SharedFile.swift */; };
 		B3A31306300949C000B5BB1D /* Cairo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */; };
 		B3A31307300949C000B5BB1D /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31302300949C000B5BB1D /* Cairo-Light.ttf */; };
 		B3A31308300949C000B5BB1D /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */; };
@@ -50,11 +44,37 @@
 		C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE08300A531700C5FC25 /* SkipForNowButton.swift */; };
 		C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE0A300A534800C5FC25 /* EncryptionNoticeBanner.swift */; };
 		C6C3BE0D300A536600C5FC25 /* SecurityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE0C300A536300C5FC25 /* SecurityIndicator.swift */; };
+		C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE0E300A61D400C5FC25 /* OTPVerificationView.swift */; };
+		C6C3BE12300A61FC00C5FC25 /* OTPVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE10300A61FC00C5FC25 /* OTPVerificationViewModel.swift */; };
+		C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE11300A61FC00C5FC25 /* PersonalInfoViewModel.swift */; };
+		C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE14300A629E00C5FC25 /* DIContainer.swift */; };
+		C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE17300A631500C5FC25 /* AppHeader.swift */; };
+		C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE16300A631500C5FC25 /* AlertBanner.swift */; };
+		C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */; };
+		C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */; };
+		C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */; };
+		C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE22300A63A800C5FC25 /* OTPVerificationEntity.swift */; };
+		C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE21300A63A800C5FC25 /* BasicUserInfo.swift */; };
+		C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE20300A63A800C5FC25 /* AuthError.swift */; };
+		C6C3BE28300A63C100C5FC25 /* SavePersonalInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE26300A63C100C5FC25 /* SavePersonalInfoUseCase.swift */; };
+		C6C3BE29300A63C100C5FC25 /* VerifyOTPUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE27300A63C100C5FC25 /* VerifyOTPUseCase.swift */; };
+		C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE2A300A644A00C5FC25 /* ActionCard.swift */; };
+		C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE2D300A644A00C5FC25 /* CustomInputView.swift */; };
+		C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE34300A644A00C5FC25 /* PhoneNumberField.swift */; };
+		C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE31300A644A00C5FC25 /* OTPResendSectionView.swift */; };
+		C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE2C300A644A00C5FC25 /* CustomDatePickerView.swift */; };
+		C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE2E300A644A00C5FC25 /* GenderSelectionView.swift */; };
+		C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE2F300A644A00C5FC25 /* loginButton.swift */; };
+		C6C3BE3D300A644A00C5FC25 /* OTPVerificationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE32300A644A00C5FC25 /* OTPVerificationCardView.swift */; };
+		C6C3BE3E300A644A00C5FC25 /* OTPDigitInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE30300A644A00C5FC25 /* OTPDigitInputField.swift */; };
+		C6C3BE3F300A644A00C5FC25 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE2B300A644A00C5FC25 /* AuthHeaderView.swift */; };
+		C6C3BE40300A644A00C5FC25 /* SecurityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE35300A644A00C5FC25 /* SecurityCard.swift */; };
+		C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE33300A644A00C5FC25 /* PersonalInfoFormCard.swift */; };
+		C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE42300A6E2900C5FC25 /* PhoneNumberViewModel.swift */; };
 		C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EC3008E2E500481DB9 /* AuthRouter.swift */; };
 		C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EE3008E2F100481DB9 /* AuthRoute.swift */; };
 		C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F03008E2FB00481DB9 /* AuthCoordinator.swift */; };
 		C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F33008EB0400481DB9 /* PhoneNumberView.swift */; };
-		C6E761F63008EB2600481DB9 /* OTPVerificationOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F53008EB2400481DB9 /* OTPVerificationOTP.swift */; };
 		C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F73008EB3600481DB9 /* PersonalInfoView.swift */; };
 		C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */; };
 		C6E761FC300926FA00481DB9 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761FB300926F400481DB9 /* AppState.swift */; };
@@ -97,18 +117,12 @@
 		0C3D88533008461300883999 /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		0C3D88543008461300883999 /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		0C3D8860300846B800883999 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
-		0C3D88623008471200883999 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		0C3D88653008475800883999 /* UtilityFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFile.swift; sourceTree = "<group>"; };
 		0C3D8871300848A700883999 /* mapperfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapperfile.swift; sourceTree = "<group>"; };
 		0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteDataSource.swift; sourceTree = "<group>"; };
 		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		0C3D888830084E5900883999 /* entitiyfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entitiyfile.swift; sourceTree = "<group>"; };
-		0C3D888A30084E6000883999 /* useCasefile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = useCasefile.swift; sourceTree = "<group>"; };
-		0C3D888D30084E7000883999 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
-		0C3D889030084F3D00883999 /* RepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryImpl.swift; sourceTree = "<group>"; };
-		0C3D88953008510900883999 /* SharedFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFile.swift; sourceTree = "<group>"; };
 		B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
 		B3A31302300949C000B5BB1D /* Cairo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Light.ttf"; sourceTree = "<group>"; };
 		B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Medium.ttf"; sourceTree = "<group>"; };
@@ -126,11 +140,37 @@
 		C6C3BE08300A531700C5FC25 /* SkipForNowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipForNowButton.swift; sourceTree = "<group>"; };
 		C6C3BE0A300A534800C5FC25 /* EncryptionNoticeBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionNoticeBanner.swift; sourceTree = "<group>"; };
 		C6C3BE0C300A536300C5FC25 /* SecurityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityIndicator.swift; sourceTree = "<group>"; };
+		C6C3BE0E300A61D400C5FC25 /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
+		C6C3BE10300A61FC00C5FC25 /* OTPVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationViewModel.swift; sourceTree = "<group>"; };
+		C6C3BE11300A61FC00C5FC25 /* PersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewModel.swift; sourceTree = "<group>"; };
+		C6C3BE14300A629E00C5FC25 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		C6C3BE16300A631500C5FC25 /* AlertBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBanner.swift; sourceTree = "<group>"; };
+		C6C3BE17300A631500C5FC25 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
+		C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryProtocol.swift; sourceTree = "<group>"; };
+		C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		C6C3BE20300A63A800C5FC25 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		C6C3BE21300A63A800C5FC25 /* BasicUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserInfo.swift; sourceTree = "<group>"; };
+		C6C3BE22300A63A800C5FC25 /* OTPVerificationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationEntity.swift; sourceTree = "<group>"; };
+		C6C3BE26300A63C100C5FC25 /* SavePersonalInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePersonalInfoUseCase.swift; sourceTree = "<group>"; };
+		C6C3BE27300A63C100C5FC25 /* VerifyOTPUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOTPUseCase.swift; sourceTree = "<group>"; };
+		C6C3BE2A300A644A00C5FC25 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
+		C6C3BE2B300A644A00C5FC25 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
+		C6C3BE2C300A644A00C5FC25 /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
+		C6C3BE2D300A644A00C5FC25 /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
+		C6C3BE2E300A644A00C5FC25 /* GenderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectionView.swift; sourceTree = "<group>"; };
+		C6C3BE2F300A644A00C5FC25 /* loginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginButton.swift; sourceTree = "<group>"; };
+		C6C3BE30300A644A00C5FC25 /* OTPDigitInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPDigitInputField.swift; sourceTree = "<group>"; };
+		C6C3BE31300A644A00C5FC25 /* OTPResendSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPResendSectionView.swift; sourceTree = "<group>"; };
+		C6C3BE32300A644A00C5FC25 /* OTPVerificationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationCardView.swift; sourceTree = "<group>"; };
+		C6C3BE33300A644A00C5FC25 /* PersonalInfoFormCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoFormCard.swift; sourceTree = "<group>"; };
+		C6C3BE34300A644A00C5FC25 /* PhoneNumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberField.swift; sourceTree = "<group>"; };
+		C6C3BE35300A644A00C5FC25 /* SecurityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCard.swift; sourceTree = "<group>"; };
+		C6C3BE42300A6E2900C5FC25 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
 		C6E761EC3008E2E500481DB9 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		C6E761EE3008E2F100481DB9 /* AuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRoute.swift; sourceTree = "<group>"; };
 		C6E761F03008E2FB00481DB9 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		C6E761F33008EB0400481DB9 /* PhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberView.swift; sourceTree = "<group>"; };
-		C6E761F53008EB2400481DB9 /* OTPVerificationOTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationOTP.swift; sourceTree = "<group>"; };
 		C6E761F73008EB3600481DB9 /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
 		C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupDecisionView.swift; sourceTree = "<group>"; };
 		C6E761FB300926F400481DB9 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -253,7 +293,7 @@
 		0C3D884A300844C200883999 /* DI */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88623008471200883999 /* AppContainer.swift */,
+				C6C3BE14300A629E00C5FC25 /* DIContainer.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -359,7 +399,9 @@
 		0C3D8877300848D700883999 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888830084E5900883999 /* entitiyfile.swift */,
+				C6C3BE20300A63A800C5FC25 /* AuthError.swift */,
+				C6C3BE21300A63A800C5FC25 /* BasicUserInfo.swift */,
+				C6C3BE22300A63A800C5FC25 /* OTPVerificationEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -367,7 +409,8 @@
 		0C3D8878300848E000883999 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888A30084E6000883999 /* useCasefile.swift */,
+				C6C3BE26300A63C100C5FC25 /* SavePersonalInfoUseCase.swift */,
+				C6C3BE27300A63C100C5FC25 /* VerifyOTPUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -375,7 +418,7 @@
 		0C3D887930084A8D00883999 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888D30084E7000883999 /* RepositoryProtocol.swift */,
+				C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -416,6 +459,9 @@
 		0C3D888330084B7000883999 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C6C3BE42300A6E2900C5FC25 /* PhoneNumberViewModel.swift */,
+				C6C3BE10300A61FC00C5FC25 /* OTPVerificationViewModel.swift */,
+				C6C3BE11300A61FC00C5FC25 /* PersonalInfoViewModel.swift */,
 				0C3D888430084BAB00883999 /* AuthViewModel.swift */,
 				C6E761FD3009336100481DB9 /* ProfileSetupDecisionViewModel.swift */,
 			);
@@ -425,7 +471,7 @@
 		0C3D888F30084EA300883999 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D889030084F3D00883999 /* RepositoryImpl.swift */,
+				C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -433,7 +479,9 @@
 		0C3D88943008501500883999 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88953008510900883999 /* SharedFile.swift */,
+				C6C3BE16300A631500C5FC25 /* AlertBanner.swift */,
+				C6C3BE17300A631500C5FC25 /* AppHeader.swift */,
+				C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -474,6 +522,18 @@
 		C6C3BE05300A525600C5FC25 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C6C3BE2A300A644A00C5FC25 /* ActionCard.swift */,
+				C6C3BE2B300A644A00C5FC25 /* AuthHeaderView.swift */,
+				C6C3BE2C300A644A00C5FC25 /* CustomDatePickerView.swift */,
+				C6C3BE2D300A644A00C5FC25 /* CustomInputView.swift */,
+				C6C3BE2E300A644A00C5FC25 /* GenderSelectionView.swift */,
+				C6C3BE2F300A644A00C5FC25 /* loginButton.swift */,
+				C6C3BE30300A644A00C5FC25 /* OTPDigitInputField.swift */,
+				C6C3BE31300A644A00C5FC25 /* OTPResendSectionView.swift */,
+				C6C3BE32300A644A00C5FC25 /* OTPVerificationCardView.swift */,
+				C6C3BE33300A644A00C5FC25 /* PersonalInfoFormCard.swift */,
+				C6C3BE34300A644A00C5FC25 /* PhoneNumberField.swift */,
+				C6C3BE35300A644A00C5FC25 /* SecurityCard.swift */,
 				C6C3BE0C300A536300C5FC25 /* SecurityIndicator.swift */,
 				C6C3BE0A300A534800C5FC25 /* EncryptionNoticeBanner.swift */,
 				C6C3BE08300A531700C5FC25 /* SkipForNowButton.swift */,
@@ -495,9 +555,9 @@
 		C6E761F23008EAF200481DB9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C6C3BE0E300A61D400C5FC25 /* OTPVerificationView.swift */,
 				C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */,
 				C6E761F73008EB3600481DB9 /* PersonalInfoView.swift */,
-				C6E761F53008EB2400481DB9 /* OTPVerificationOTP.swift */,
 				C6E761F33008EB0400481DB9 /* PhoneNumberView.swift */,
 				0C3D888630084BB500883999 /* WelcomeView.swift */,
 			);
@@ -652,35 +712,55 @@
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
-				C6E761F63008EB2600481DB9 /* OTPVerificationOTP.swift in Sources */,
+				C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */,
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
+				C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */,
+				C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */,
+				C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
+				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
+				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
+				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
+				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
+				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
+				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
+				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
+				C6C3BE3D300A644A00C5FC25 /* OTPVerificationCardView.swift in Sources */,
+				C6C3BE3E300A644A00C5FC25 /* OTPDigitInputField.swift in Sources */,
+				C6C3BE3F300A644A00C5FC25 /* AuthHeaderView.swift in Sources */,
+				C6C3BE40300A644A00C5FC25 /* SecurityCard.swift in Sources */,
+				C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
-				0C3D888B30084E6000883999 /* useCasefile.swift in Sources */,
 				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
+				C6C3BE28300A63C100C5FC25 /* SavePersonalInfoUseCase.swift in Sources */,
+				C6C3BE29300A63C100C5FC25 /* VerifyOTPUseCase.swift in Sources */,
 				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				C6C3BE02300A4D0800C5FC25 /* IconSize.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
-				0C3D88963008510900883999 /* SharedFile.swift in Sources */,
-				0C3D88633008471200883999 /* AppContainer.swift in Sources */,
+				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
-				0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */,
+				C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
 				0C3D8872300848A700883999 /* mapperfile.swift in Sources */,
 				C6E761FC300926FA00481DB9 /* AppState.swift in Sources */,
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
-				0C3D888930084E5900883999 /* entitiyfile.swift in Sources */,
+				C6C3BE12300A61FC00C5FC25 /* OTPVerificationViewModel.swift in Sources */,
+				C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */,
 				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
 				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
-				0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */,
+				C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */,
+				C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */,
+				C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */,
+				C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */,
+				C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
 				C6C3BE0D300A536600C5FC25 /* SecurityIndicator.swift in Sources */,
