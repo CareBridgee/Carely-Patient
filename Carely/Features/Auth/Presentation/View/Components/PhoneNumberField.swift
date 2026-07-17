@@ -47,16 +47,28 @@ struct PhoneNumberField: View {
                     .foregroundStyle(.red)
             }
         }
-        .onChange(of: isFocused) { focused in
-            onFocusChanged(focused)
+        .onChange(of: isFocused) { _, newValue in
+            onFocusChanged(newValue)
         }
-        .onChange(of: phoneNumber) { newValue in
+        .onChange(of: phoneNumber) { _, newValue in
             onPhoneNumberChanged(newValue)
         }
     }
 }
 
-//#Preview {
-//    @Previewable @State var phoneNumber = ""
-//    PhoneNumberField(phoneNumber: $phoneNumber, showError: false, onFocusChanged: { _ in }, onPhoneNumberChanged: { _ in })
-//}
+#Preview {
+    PhoneNumberFieldPreviewContainer()
+}
+
+private struct PhoneNumberFieldPreviewContainer: View {
+    @State private var phoneNumber = ""
+
+    var body: some View {
+        PhoneNumberField(
+            phoneNumber: $phoneNumber,
+            showError: false,
+            onFocusChanged: { _ in },
+            onPhoneNumberChanged: { _ in }
+        )
+    }
+}
