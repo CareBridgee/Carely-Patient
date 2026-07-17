@@ -56,19 +56,19 @@ struct PhoneNumberField: View {
     }
 }
 
-#Preview {
-    PhoneNumberFieldPreviewContainer()
-}
+//#Preview {
+//    PhoneNumberFieldPreviewContainer()
+//}
 
-private struct PhoneNumberFieldPreviewContainer: View {
-    @State private var phoneNumber = ""
-
-    var body: some View {
-        PhoneNumberField(
-            phoneNumber: $phoneNumber,
-            showError: false,
-            onFocusChanged: { _ in },
-            onPhoneNumberChanged: { _ in }
-        )
-    }
-}
+//private struct PhoneNumberFieldPreviewContainer: View {
+//    @State private var phoneNumber = ""
+//
+//    var body: some View {
+//        PhoneNumberField(
+//            phoneNumber: $phoneNumber,
+//            showError: false,
+//            onFocusChanged: { _ in },
+//            onPhoneNumberChanged: { _ in }
+//        )
+//    }
+//}
