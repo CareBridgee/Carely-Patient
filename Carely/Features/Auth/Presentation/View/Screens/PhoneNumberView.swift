@@ -21,7 +21,12 @@ struct PhoneNumberView : View {
                     .carelyText(style: .bodyRegular, weight: .light)
                     .foregroundStyle(Color.primaryFont)
                 
-                PhoneNumberField(phoneNumber: $viewModel.phoneNumber)
+                PhoneNumberField(
+                    phoneNumber: $viewModel.phoneNumber,
+                    showError: viewModel.showPhoneNumberError,
+                    onFocusChanged: viewModel.phoneNumberFieldFocusChanged,
+                    onPhoneNumberChanged: viewModel.phoneNumberChanged
+                )
 
                 Text("Carrier charges may apply for SMS.")
                     .carelyText(style: .caption)
@@ -53,8 +58,15 @@ struct PhoneNumberView : View {
                 ) {
                     viewModel.nextButtonPressed()
                 }
+                .disabled(!viewModel.isPhoneNumberValid)
             }
             .padding(12)
             .background(Color.backGround)
         }
 }
+
+//#Preview {
+//    let router = AuthRouter()
+//    let viewModel = PhoneNumberViewModel(router: router)
+//    PhoneNumberView(viewModel:viewModel)
+//}
