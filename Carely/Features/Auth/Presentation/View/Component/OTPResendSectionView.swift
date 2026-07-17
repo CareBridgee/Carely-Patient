@@ -10,6 +10,8 @@ import SwiftUI
 
 struct OTPResendSectionView: View {
     @State private var secondsRemaining = 30
+    @State private var endTime: Date = Date().addingTimeInterval(30)
+    
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     let onResendTapped: () -> Void
@@ -22,6 +24,7 @@ struct OTPResendSectionView: View {
                     .foregroundStyle(Color.primary)
             } else {
                 Button {
+                    endTime = Date().addingTimeInterval(30)
                     secondsRemaining = 30
                     onResendTapped()
                 } label: {
@@ -33,7 +36,8 @@ struct OTPResendSectionView: View {
         }
         .onReceive(timer) { _ in
             guard secondsRemaining > 0 else { return }
-            secondsRemaining -= 1
+            let remaining = Int(endTime.timeIntervalSinceNow)
+            secondsRemaining = max(0, remaining)
         }
     }
     
