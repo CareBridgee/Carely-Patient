@@ -9,6 +9,11 @@ import SwiftUI
 struct PhoneNumberField: View {
 
     @Binding var phoneNumber: String
+    var showError: Bool
+    var onFocusChanged: (Bool) -> Void
+    var onPhoneNumberChanged: (String) -> Void
+
+    @FocusState private var isFocused: Bool
 
     var body: some View {
 
@@ -22,7 +27,7 @@ struct PhoneNumberField: View {
                 HStack(spacing: 6) {
                     Text("🇪🇬")
                     Text("+20")
-                    Image(systemName: "chevron.down")
+                    Divider().frame(height: 40)
                 }
 
                 TextField(
@@ -30,15 +35,28 @@ struct PhoneNumberField: View {
                     text: $phoneNumber
                 )
                 .keyboardType(.phonePad)
+                .focused($isFocused)
             }
             .padding()
             .background(Color(.infoContainer))
             .clipShape(RoundedRectangle(cornerRadius: 16))
+
+            if showError {
+                Text("Enter a valid 10-digit number starting with 10, 11, 12, or 15")
+                    .carelyText(style: .caption)
+                    .foregroundStyle(.red)
+            }
+        }
+        .onChange(of: isFocused) { focused in
+            onFocusChanged(focused)
+        }
+        .onChange(of: phoneNumber) { newValue in
+            onPhoneNumberChanged(newValue)
         }
     }
 }
 
 //#Preview {
 //    @Previewable @State var phoneNumber = ""
-//    PhoneNumberField(phoneNumber: $phoneNumber)
+//    PhoneNumberField(phoneNumber: $phoneNumber, showError: false, onFocusChanged: { _ in }, onPhoneNumberChanged: { _ in })
 //}

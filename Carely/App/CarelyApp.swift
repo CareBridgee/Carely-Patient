@@ -20,11 +20,11 @@ struct CarelyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if appState.phase == .auth {
-                ContentView()
-            } else {
+//            if appState.phase == .auth {
+//                ContentView()
+//            } else {
                 AuthCoordinator(container: diContainer) { appState.signOut() }
-            }
+//            }
         }
     }
 }
