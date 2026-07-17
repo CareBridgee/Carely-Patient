@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OTPVerificationOTP : View {
+struct OTPVerificationView : View {
     var body: some View {
         VStack {
             Image(systemName: "globe")

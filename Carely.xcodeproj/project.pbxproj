@@ -22,7 +22,7 @@
 		0C3D885D3008461300883999 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88533008461300883999 /* Spacing.swift */; };
 		0C3D885E3008461300883999 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88543008461300883999 /* Typography.swift */; };
 		0C3D8861300846B800883999 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8860300846B800883999 /* ApiClient.swift */; };
-		0C3D88633008471200883999 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88623008471200883999 /* AppContainer.swift */; };
+		0C3D88633008471200883999 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88623008471200883999 /* DIContainer.swift */; };
 		0C3D88663008475800883999 /* UtilityFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88653008475800883999 /* UtilityFile.swift */; };
 		0C3D8872300848A700883999 /* mapperfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8871300848A700883999 /* mapperfile.swift */; };
 		0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */; };
@@ -44,6 +44,17 @@
 		B3A3131230094A5A00B5BB1D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */; };
 		B3A3131330094A5A00B5BB1D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */; };
 		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
+		0C3D888930084E5900883999 /* BasicUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888830084E5900883999 /* BasicUserInfo.swift */; };
+		0C3D888B30084E6000883999 /* SavePersonalInfoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888A30084E6000883999 /* SavePersonalInfoUseCase.swift */; };
+		0C3D888E30084E7000883999 /* AuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888D30084E7000883999 /* AuthRepositoryProtocol.swift */; };
+		0C3D889130084F3D00883999 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D889030084F3D00883999 /* AuthRepositoryImpl.swift */; };
+		0C3D88963008510900883999 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88953008510900883999 /* AppHeader.swift */; };
+		0CE50DAD30095E3E001B34AA /* PersonalInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DAC30095E3E001B34AA /* PersonalInfoViewModel.swift */; };
+		0CE50DB030098427001B34AA /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DAF30098426001B34AA /* CustomInputView.swift */; };
+		0CE50DB23009859B001B34AA /* GenderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB13009859B001B34AA /* GenderSelectionView.swift */; };
+		0CE50DB4300985DD001B34AA /* PersonalInfoFormCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */; };
+		0CE50DB630098665001B34AA /* CustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB530098665001B34AA /* CustomDatePickerView.swift */; };
+		0CE50DB830098B87001B34AA /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE50DB730098B87001B34AA /* PrimaryButton.swift */; };
 		C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6C014803008BBB5006B5FDE /* Colors.xcassets */; };
 		C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EC3008E2E500481DB9 /* AuthRouter.swift */; };
 		C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EE3008E2F100481DB9 /* AuthRoute.swift */; };
@@ -90,7 +101,7 @@
 		0C3D88533008461300883999 /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		0C3D88543008461300883999 /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		0C3D8860300846B800883999 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
-		0C3D88623008471200883999 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
+		0C3D88623008471200883999 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		0C3D88653008475800883999 /* UtilityFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFile.swift; sourceTree = "<group>"; };
 		0C3D8871300848A700883999 /* mapperfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapperfile.swift; sourceTree = "<group>"; };
 		0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -113,6 +124,17 @@
 		B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0C3D888830084E5900883999 /* BasicUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicUserInfo.swift; sourceTree = "<group>"; };
+		0C3D888A30084E6000883999 /* SavePersonalInfoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePersonalInfoUseCase.swift; sourceTree = "<group>"; };
+		0C3D888D30084E7000883999 /* AuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0C3D889030084F3D00883999 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
+		0C3D88953008510900883999 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
+		0CE50DAC30095E3E001B34AA /* PersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewModel.swift; sourceTree = "<group>"; };
+		0CE50DAF30098426001B34AA /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
+		0CE50DB13009859B001B34AA /* GenderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectionView.swift; sourceTree = "<group>"; };
+		0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoFormCard.swift; sourceTree = "<group>"; };
+		0CE50DB530098665001B34AA /* CustomDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerView.swift; sourceTree = "<group>"; };
+		0CE50DB730098B87001B34AA /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		C6C014803008BBB5006B5FDE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C6E761EC3008E2E500481DB9 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		C6E761EE3008E2F100481DB9 /* AuthRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRoute.swift; sourceTree = "<group>"; };
@@ -238,7 +260,7 @@
 		0C3D884A300844C200883999 /* DI */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88623008471200883999 /* AppContainer.swift */,
+				0C3D88623008471200883999 /* DIContainer.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -343,7 +365,7 @@
 		0C3D8877300848D700883999 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888830084E5900883999 /* entitiyfile.swift */,
+				0C3D888830084E5900883999 /* BasicUserInfo.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -351,7 +373,7 @@
 		0C3D8878300848E000883999 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888A30084E6000883999 /* useCasefile.swift */,
+				0C3D888A30084E6000883999 /* SavePersonalInfoUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -359,7 +381,7 @@
 		0C3D887930084A8D00883999 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888D30084E7000883999 /* RepositoryProtocol.swift */,
+				0C3D888D30084E7000883999 /* AuthRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -391,6 +413,7 @@
 		0C3D888230084B6A00883999 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0CE50DAE30098413001B34AA /* Component */,
 				C6E761F23008EAF200481DB9 /* Screens */,
 			);
 			path = View;
@@ -400,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				0C3D888430084BAB00883999 /* AuthViewModel.swift */,
+				0CE50DAC30095E3E001B34AA /* PersonalInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -407,7 +431,7 @@
 		0C3D888F30084EA300883999 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D889030084F3D00883999 /* RepositoryImpl.swift */,
+				0C3D889030084F3D00883999 /* AuthRepositoryImpl.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -415,7 +439,8 @@
 		0C3D88943008501500883999 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88953008510900883999 /* SharedFile.swift */,
+				0C3D88953008510900883999 /* AppHeader.swift */,
+				0CE50DB730098B87001B34AA /* PrimaryButton.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -451,6 +476,17 @@
 				B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */,
 			);
 			path = Poppins;
+			sourceTree = "<group>";
+		};
+		0CE50DAE30098413001B34AA /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				0CE50DAF30098426001B34AA /* CustomInputView.swift */,
+				0CE50DB13009859B001B34AA /* GenderSelectionView.swift */,
+				0CE50DB3300985DD001B34AA /* PersonalInfoFormCard.swift */,
+				0CE50DB530098665001B34AA /* CustomDatePickerView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		C6E761EB3008E2B900481DB9 /* AuthCoordinator */ = {
@@ -626,28 +662,34 @@
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
+				0CE50DB630098665001B34AA /* CustomDatePickerView.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
-				0C3D888B30084E6000883999 /* useCasefile.swift in Sources */,
+				0CE50DB23009859B001B34AA /* GenderSelectionView.swift in Sources */,
+				0C3D888B30084E6000883999 /* SavePersonalInfoUseCase.swift in Sources */,
 				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
 				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
+				0CE50DAD30095E3E001B34AA /* PersonalInfoViewModel.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
-				0C3D88963008510900883999 /* SharedFile.swift in Sources */,
-				0C3D88633008471200883999 /* AppContainer.swift in Sources */,
+				0C3D88963008510900883999 /* AppHeader.swift in Sources */,
+				0C3D88633008471200883999 /* DIContainer.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
-				0C3D889130084F3D00883999 /* RepositoryImpl.swift in Sources */,
+				0C3D889130084F3D00883999 /* AuthRepositoryImpl.swift in Sources */,
+				0CE50DB030098427001B34AA /* CustomInputView.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				0C3D8872300848A700883999 /* mapperfile.swift in Sources */,
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
-				0C3D888930084E5900883999 /* entitiyfile.swift in Sources */,
+				0C3D888930084E5900883999 /* BasicUserInfo.swift in Sources */,
 				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
 				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
-				0C3D888E30084E7000883999 /* RepositoryProtocol.swift in Sources */,
+				0C3D888E30084E7000883999 /* AuthRepositoryProtocol.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
+				0CE50DB830098B87001B34AA /* PrimaryButton.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
+				0CE50DB4300985DD001B34AA /* PersonalInfoFormCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
