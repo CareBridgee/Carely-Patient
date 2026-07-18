@@ -34,14 +34,13 @@ struct PersonalInfoFormCard: View {
             
             PrimaryButton(
                 title: "Continue",
-                iconName: "arrow.right",
+                icon: "arrow.right",
                 isLoading: viewModel.isLoading,
                 action: {
                     viewModel.continueTapped()
-                    }
-                )
-                .padding(.top, Spacing.s4)
-        }
+                }
+            )
+            .padding(.top, Spacing.s4)        }
         .padding(Spacing.s20)
         .background(Color.surface)
         .cornerRadius(24)
