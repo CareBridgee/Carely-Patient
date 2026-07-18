@@ -28,6 +28,8 @@
 		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
 		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
+		39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F61300BD89E0092118E /* PrimaryChip.swift */; };
+		39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F63300BDD5E0092118E /* SecondaryChip.swift */; };
 		0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */; };
 		0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
@@ -132,6 +134,8 @@
 		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
 		0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextAreaView.swift; sourceTree = "<group>"; };
+		39008F61300BD89E0092118E /* PrimaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryChip.swift; sourceTree = "<group>"; };
+		39008F63300BDD5E0092118E /* SecondaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryChip.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
 		B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
@@ -503,6 +507,8 @@
 				C6C3BE17300A631500C5FC25 /* AppHeader.swift */,
 				C6C3BE16300A631500C5FC25 /* AlertBanner.swift */,
 				C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */,
+				39008F61300BD89E0092118E /* PrimaryChip.swift */,
+				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -734,6 +740,7 @@
 				B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */,
 				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
+				39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */,
 				C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */,
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
 				C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */,
@@ -752,6 +759,7 @@
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
+				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
 				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
 				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
