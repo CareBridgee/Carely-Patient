@@ -43,11 +43,11 @@ private extension ProfileSetupDecisionView {
     var appLogoSection: some View {
         ZStack {
             Circle()
-                .fill(Color.primary.opacity(0.02))
+                .fill(Color.brandPrimary.opacity(0.02))
                 .frame(width: 136, height: 136)
 
             Circle()
-                .fill(Color.primary.opacity(0.04))
+                .fill(Color.brandPrimary.opacity(0.04))
                 .frame(width: 120, height: 120)
 
             Image("app-logo")

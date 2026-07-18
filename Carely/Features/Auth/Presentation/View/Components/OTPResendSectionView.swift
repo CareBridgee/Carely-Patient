@@ -21,7 +21,7 @@ struct OTPResendSectionView: View {
             if secondsRemaining > 0 {
                 Text("Resend code in \(timeString)")
                     .carelyText(style: .bodySmall, weight: .medium)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(Color.brandPrimary)
             } else {
                 Button {
                     endTime = Date().addingTimeInterval(30)
@@ -30,7 +30,7 @@ struct OTPResendSectionView: View {
                 } label: {
                     Text("Resend code")
                         .carelyText(style: .bodySmall, weight: .semiBold)
-                        .foregroundStyle(Color.primary)
+                        .foregroundStyle(Color.brandPrimary)
                 }
             }
         }

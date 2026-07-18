@@ -11,14 +11,14 @@ struct PersonalInfoFormCard: View {
     @ObservedObject var viewModel: PersonalInfoViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.s16) {
+        VStack(alignment: .leading, spacing: Spacing.s24) {
             Text("Personal Information")
                 .carelyText(style: .heading3, weight: .regular)
                 .padding(.bottom, Spacing.s2)
             
             HStack(spacing: Spacing.s12) {
-                CustomInputView(title: "First name", placeholder: "Jane", text: $viewModel.firstName, errorMessage: viewModel.firstNameError, bg: Color.surfaceVariant)
-                CustomInputView(title: "Last name", placeholder: "Doe", text: $viewModel.lastName,errorMessage: viewModel.lastNameError, bg: Color.surfaceVariant)
+                CarelyTextField(label: "First name", placeholder: "Jane", text: $viewModel.firstName, errorMessage: viewModel.firstNameError)
+                CarelyTextField(label: "Last name", placeholder: "Doe", text: $viewModel.lastName, errorMessage: viewModel.lastNameError)
             }
             
             CustomDatePickerView(title: "Date of birth", selectedDate: $viewModel.dateOfBirth, errorMessage: viewModel.dobError)
@@ -34,7 +34,9 @@ struct PersonalInfoFormCard: View {
             
             PrimaryButton(
                 title: "Continue",
+                customIconSize: IconSize.s16,
                 icon: "arrow.right",
+                iconPosition: .trailing,
                 isLoading: viewModel.isLoading,
                 action: {
                     viewModel.continueTapped()

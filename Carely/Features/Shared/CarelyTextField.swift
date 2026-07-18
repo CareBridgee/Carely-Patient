@@ -117,7 +117,7 @@ public struct CarelyTextField: View {
     private var borderColor: Color {
         if hasError { return .error }
         if !isEnabled { return .divider }
-        if isFocused { return .primary }
+        if isFocused { return .brandPrimary }
         return .divider
     }
  
@@ -126,7 +126,7 @@ public struct CarelyTextField: View {
     }
  
     private var backgroundColor: Color {
-        isEnabled ? .surface : .disable
+        isEnabled ? .surfaceVariant : .disable
     }
  
     private var textColor: Color {
@@ -135,7 +135,7 @@ public struct CarelyTextField: View {
  
     private var adornmentColor: Color {
         if hasError { return .error }
-        if isFocused { return .primary }
+        if isFocused { return .brandPrimary }
         return .hint
     }
  
@@ -201,7 +201,7 @@ public struct CarelyTextField: View {
             inputField
                 .carelyText(style: size.textStyle)
                 .foregroundColor(textColor)
-                .tint(.primary)
+                .tint(.brandPrimary)
                 .keyboardType(keyboardType)
                 .textContentType(textContentType)
                 .textInputAutocapitalization(autocapitalization)

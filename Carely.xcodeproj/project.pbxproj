@@ -30,6 +30,8 @@
 		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
 		39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F61300BD89E0092118E /* PrimaryChip.swift */; };
 		39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F63300BDD5E0092118E /* SecondaryChip.swift */; };
+		0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */; };
+		0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
 		B3A31306300949C000B5BB1D /* Cairo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */; };
@@ -130,6 +132,8 @@
 		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
+		0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextAreaView.swift; sourceTree = "<group>"; };
 		39008F61300BD89E0092118E /* PrimaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryChip.swift; sourceTree = "<group>"; };
 		39008F63300BDD5E0092118E /* SecondaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryChip.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
@@ -496,6 +500,8 @@
 			children = (
 				C6B11891300BA01A00DB27BF /* SecondaryButton.swift */,
 				C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */,
+				0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */,
+				0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */,
 				B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */,
 				B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */,
 				C6C3BE17300A631500C5FC25 /* AppHeader.swift */,
@@ -748,6 +754,7 @@
 				C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
+				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
@@ -768,6 +775,7 @@
 				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				C6C3BE02300A4D0800C5FC25 /* IconSize.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
+				0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
 				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,

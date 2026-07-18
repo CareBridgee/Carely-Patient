@@ -54,7 +54,7 @@ struct OTPVerificationCardView: View {
             .frame(height: 52)
             .background(
                 Capsule()
-                    .fill(viewModel.isVerifyEnabled ? Color.primary : Color.disable)
+                    .fill(viewModel.isVerifyEnabled ? Color.brandPrimary : Color.disable)
             )
         }
         .disabled(!viewModel.isVerifyEnabled)

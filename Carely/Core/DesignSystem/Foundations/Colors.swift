@@ -7,7 +7,7 @@ import SwiftUI
 
 extension Color {
     // MARK: - Core
-    static let primary = Color("primary")
+    static let brandPrimary = Color("primary")
     static let primaryVariant = Color("primaryVariant")
     static let onPrimary = Color("onPrimary")
     static let onPrimaryVariant = Color("onPrimaryVariant")
