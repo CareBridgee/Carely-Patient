@@ -62,7 +62,7 @@ struct OTPDigitInputField: View {
 
     private func borderColor(hasDigit: Bool, isActive: Bool) -> Color {
         if isError { return .error }
-        if isActive { return .primary }
+        if isActive { return .brandPrimary }
         if hasDigit { return .primaryVariant }
         return .divider
     }

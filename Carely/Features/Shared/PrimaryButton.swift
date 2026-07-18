@@ -83,6 +83,7 @@ public struct PrimaryButton: View {
  
     private let title: String
     private let size: PrimaryButtonSize
+    private let customIconSize: CGFloat?
     private let radius: CGFloat
     private let icon: String?
     private let iconPosition: PrimaryButtonIconPosition
@@ -104,6 +105,7 @@ public struct PrimaryButton: View {
     public init(
         title: String,
         size: PrimaryButtonSize = .medium,
+        customIconSize: CGFloat? = nil,
         radius: CGFloat? = nil,
         icon: String? = nil,
         iconPosition: PrimaryButtonIconPosition = .leading,
@@ -114,6 +116,7 @@ public struct PrimaryButton: View {
     ) {
         self.title = title
         self.size = size
+        self.customIconSize = customIconSize
         self.radius = radius ?? size.defaultRadius
         self.icon = icon
         self.iconPosition = iconPosition
@@ -126,7 +129,7 @@ public struct PrimaryButton: View {
     private var isInteractive: Bool { isEnabled && !isLoading }
  
     private var backgroundColor: Color {
-        isEnabled ? .primary : .disable
+        isEnabled ? .brandPrimary : .disable
     }
  
     private var foregroundColor: Color {
@@ -171,10 +174,11 @@ public struct PrimaryButton: View {
  
     @ViewBuilder
     private func iconView(_ systemName: String) -> some View {
+        let activeIconSize = customIconSize ?? size.iconSize
         Image(systemName: systemName)
             .resizable()
             .scaledToFit()
-            .frame(width: size.iconSize, height: size.iconSize)
+            .frame(width: activeIconSize, height: activeIconSize)
     }
 }
  

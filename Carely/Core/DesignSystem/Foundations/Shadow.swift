@@ -109,10 +109,10 @@
 //            )
 //            // Layer 2: tight defining shadow (sharper, darker)
 //            .shadow(
-//                color: level.primary.color.opacity(level.primary.opacity),
-//                radius: level.primary.radius,
-//                x: level.primary.x,
-//                y: level.primary.y
+//                color: level.brandPrimary.color.opacity(level.brandPrimary.opacity),
+//                radius: level.brandPrimary.radius,
+//                x: level.brandPrimary.x,
+//                y: level.brandPrimary.y
 //            )
 //    }
 //}

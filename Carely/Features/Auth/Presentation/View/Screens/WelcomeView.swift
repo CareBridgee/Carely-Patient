@@ -26,7 +26,7 @@ struct WelcomeView : View {
             Spacer()
             Text("Care Connect")
                 .carelyText(style: .display, weight: .light)
-                .foregroundColor(.primary)
+                .foregroundColor(.brandPrimary)
                 
             
             Text("Reassuring care for you and your loved ones")

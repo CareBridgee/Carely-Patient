@@ -9,26 +9,54 @@ import SwiftUI
 
 struct CustomDatePickerView: View {
     let title: String
-    @Binding var selectedDate: Date
+    @Binding var selectedDate: Date?
     var errorMessage: String? = nil
     
+    private var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter
+    }
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.s2) {
+        VStack(alignment: .leading, spacing: Spacing.s8) {
             Text(title)
                 .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
             
             HStack {
-                DatePicker("", selection: $selectedDate, displayedComponents: .date)
-                    .labelsHidden()
-                    .colorMultiply(Color.primary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                if let date = selectedDate {
+                    Text(dateFormatter.string(from: date))
+                        .carelyText(style: .bodyRegular)
+                        .foregroundColor(Color.primaryFont)
+                } else {
+                    Text("mm/dd/yyyy")
+                        .carelyText(style: .bodyRegular)
+                        .foregroundColor(Color.hint)
+                }
                 
-                Image(systemName: "calendar")
-                    .foregroundColor(Color.primary)
+                Spacer()
+                
+                ZStack {
+                    Image("calender-icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: IconSize.s20, height: IconSize.s20)
+                        .foregroundColor(Color.brandPrimary)
+                    
+                    DatePicker("", selection: Binding<Date>(
+                        get: { self.selectedDate ?? Date() },
+                        set: { self.selectedDate = $0 }
+                    ), displayedComponents: .date)
+                        .labelsHidden()
+                        .colorMultiply(.clear)
+                        .opacity(0.011)
+                        .frame(width: 40, height: 40)
+                        .clipped()
+                }
             }
             .padding(.horizontal, Spacing.s12)
-            .padding(.vertical, Spacing.s4)
+            .frame(height: 52)
             .background(Color.surfaceVariant)
             .cornerRadius(12)
             .overlay(
@@ -45,3 +73,4 @@ struct CustomDatePickerView: View {
         }
     }
 }
+

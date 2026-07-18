@@ -17,7 +17,7 @@ struct ActionCard: View {
         title: String,
         image: Image,
         backgroundColor: Color = Color(.systemGray6),
-        foregroundColor: Color = .primary
+        foregroundColor: Color = .brandPrimary
     ) {
         self.title = title
         self.image = image

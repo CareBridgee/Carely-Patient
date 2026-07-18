@@ -13,7 +13,7 @@ struct AppHeader: View {
         HStack {
             Button(action: { dismiss() }) {
                 Image(systemName: "arrow.left")
-                    .foregroundColor(Color.primary)
+                    .foregroundColor(Color.brandPrimary)
                     .font(.system(size: 20, weight: .medium))
             }
             .frame(width: 36, alignment: .leading)
@@ -22,7 +22,7 @@ struct AppHeader: View {
             
             Text(title)
                 .carelyText(style: .heading2, weight: .medium)
-                .foregroundColor(Color.primary)
+                .foregroundColor(Color.brandPrimary)
             
             Spacer()
             
