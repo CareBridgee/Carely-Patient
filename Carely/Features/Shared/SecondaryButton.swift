@@ -1,17 +1,17 @@
 //
-//  PrimaryButton.swift
+//  SecondaryButton.swift
 //  Carely
 //
-//  Created by Mona Zarea on 16/07/2026.
+//  Created by Mohamed Ayman on 18/07/2026.
 //
 
 import SwiftUI
 
-public struct PrimaryButton: View {
- 
+
+
+public struct SecondaryButton: View {
     private let title: String
     private let size: CarelyButtonSize
-    private let customIconSize: CGFloat?
     private let radius: CGFloat
     private let icon: String?
     private let iconPosition: CarelyButtonIconPosition
@@ -19,21 +19,10 @@ public struct PrimaryButton: View {
     private let isLoading: Bool
     private let isEnabled: Bool
     private let action: () -> Void
- 
-    /// - Parameters:
-    ///   - title: Button label.
-    ///   - size: Drives height, padding, font, and icon size. Defaults to `.medium`.
-    ///   - radius: Corner radius override. Defaults to `size.defaultRadius`. Pass `Radius.pill` for a pill button.
-    ///   - icon: Optional SF Symbol name (e.g. `"arrow.right"`) shown next to the title.
-    ///   - iconPosition: Where `icon` is placed relative to the title. Defaults to `.leading`.
-    ///   - isFullWidth: Whether the button expands to fill available width. Defaults to `true`.
-    ///   - isLoading: Shows a spinner in place of the title/icon and blocks interaction.
-    ///   - isEnabled: Disables interaction and switches to the disabled color pair.
-    ///   - action: Tap handler.
+    
     init(
         title: String,
         size: CarelyButtonSize = .medium,
-        customIconSize: CGFloat? = nil,
         radius: CGFloat? = nil,
         icon: String? = nil,
         iconPosition: CarelyButtonIconPosition = .leading,
@@ -44,7 +33,6 @@ public struct PrimaryButton: View {
     ) {
         self.title = title
         self.size = size
-        self.customIconSize = customIconSize
         self.radius = radius ?? size.defaultRadius
         self.icon = icon
         self.iconPosition = iconPosition
@@ -53,17 +41,19 @@ public struct PrimaryButton: View {
         self.isEnabled = isEnabled
         self.action = action
     }
- 
-    private var isInteractive: Bool { isEnabled && !isLoading }
- 
+    
+    private var isInteractive: Bool {
+        isEnabled && !isLoading
+    }
+    
     private var backgroundColor: Color {
-        isEnabled ? .brandPrimary : .disable
+        isEnabled ? .mintSurface : .disable
     }
- 
+    
     private var foregroundColor: Color {
-        isEnabled ? .onPrimary : .onDisable
+        isEnabled ? .primary : .onDisable
     }
- 
+    
     public var body: some View {
         Button(action: action) {
             HStack(spacing: size.contentSpacing) {
@@ -76,12 +66,10 @@ public struct PrimaryButton: View {
                     if let icon, iconPosition == .leading {
                         iconView(icon)
                     }
- 
                     Text(title)
                         .carelyText(style: size.textStyle, weight: .semiBold)
                         .lineLimit(1)
                         .minimumScaleFactor(0.9)
- 
                     if let icon, iconPosition == .trailing {
                         iconView(icon)
                     }
@@ -94,24 +82,22 @@ public struct PrimaryButton: View {
             .background(backgroundColor)
             .clipShape(RoundedRectangle.trueFit(radius))
         }
-        .buttonStyle(PrimaryButtonPressStyle())
+        .buttonStyle(SecondaryButtonPressStyle())
         .disabled(!isInteractive)
         .accessibilityLabel(title)
         .accessibilityAddTraits(.isButton)
     }
- 
+    
     @ViewBuilder
     private func iconView(_ systemName: String) -> some View {
-        let activeIconSize = customIconSize ?? size.iconSize
         Image(systemName: systemName)
             .resizable()
             .scaledToFit()
-            .frame(width: activeIconSize, height: activeIconSize)
+            .frame(width: size.iconSize, height: size.iconSize)
     }
 }
- 
 
-private struct PrimaryButtonPressStyle: ButtonStyle {
+private struct SecondaryButtonPressStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
@@ -119,32 +105,25 @@ private struct PrimaryButtonPressStyle: ButtonStyle {
             .animation(TrueFitMotion.springSnappy, value: configuration.isPressed)
     }
 }
- 
- 
+
 #Preview {
     ScrollView {
         VStack(spacing: Spacing.s24) {
-            PrimaryButton(title: "Continue") {}
- 
-            PrimaryButton(
-                title: "Continue",
+            SecondaryButton(title: "Skip for Now") {}
+            SecondaryButton(
+                title: "Skip for Now",
                 icon: "arrow.right",
                 iconPosition: .trailing
             ) {}
- 
-            PrimaryButton(title: "Continue to Final Step", size: .large) {}
- 
-            PrimaryButton(
+            SecondaryButton(title: "Set up profile later", size: .large) {}
+            SecondaryButton(
                 title: "Back",
                 size: .small,
                 radius: Radius.pill,
-                icon: "chevron.left",
                 isFullWidth: false
             ) {}
- 
-            PrimaryButton(title: "Saving...", isLoading: true) {}
- 
-            PrimaryButton(title: "Continue", isEnabled: false) {}
+            SecondaryButton(title: "Saving...", isLoading: true) {}
+            SecondaryButton(title: "Skip for Now", isEnabled: false) {}
         }
         .padding(Spacing.s16)
     }
