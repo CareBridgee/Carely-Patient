@@ -17,6 +17,7 @@ extension Color {
     static let primaryFont = Color("primaryFont")
     static let secondaryFont = Color("secondaryFont")
     static let surface = Color("surface")
+    static let mintSurface = Color("mintSurface")
     static let surfaceVariant = Color("surfaceVariant")
     static let onSurface = Color("onSurface")
     static let hint = Color("hint")
