@@ -44,6 +44,7 @@ final class PhoneNumberViewModel: ObservableObject {
     }
 
     func nextButtonPressed(){
+        print("pressed")
         router.push(to: .OTPVerification(phoneNumber: phoneNumber))
     }
 

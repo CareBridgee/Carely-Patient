@@ -10,15 +10,15 @@ import SwiftUI
 
 struct AuthCoordinator: View {
     let container: DIContainer
-    @StateObject private var router = AuthRouter()
+    let appState: AppState
     
-    let OnAuthFinished: () -> Void
+    @StateObject private var router = AuthRouter()
     
     var body: some View {
         NavigationStack(path: $router.path){
             WelcomeView(viewModel: WelcomeViewModel(router: router)).navigationDestination(for: AuthRoute.self){
                 route in
-                    destination(for: route)
+                destination(for: route)
             }
         }
     }
@@ -29,23 +29,29 @@ struct AuthCoordinator: View {
             
         case .PhoneNumber:
             PhoneNumberView(viewModel: container.makePhoneNumberViewModel(router: router))
-        
+            
         case .OTPVerification(let phoneNumber):
             OTPVerificationView(
-                        viewModel: container.makeOTPVerificationViewModel(
-                            phoneNumber: phoneNumber,
-                            router: router,
-                            onAuthFinished: OnAuthFinished
-                        )
-                    )
+                viewModel: container.makeOTPVerificationViewModel(
+                    phoneNumber: phoneNumber,
+                    router: router,
+                    onAuthFinished: {
+                        appState.signIn()
+                        appState.startHomeFlow()
+                    }
+                )
+            )
             
         case .PersonalInfo:
-            PersonalInfoView(viewModel: container.makePersonalInfoViewModel(router: router))
-            
-        case .ProfileSetupDecision:
-            ProfileSetupDecisionView(viewModel: container.makeProfileSetupDecisionViewModel(router: router, onAuthFinished: OnAuthFinished))
+            PersonalInfoView(
+                viewModel: container.makePersonalInfoViewModel(
+                    router: router,
+                    onOersonalDataSaved: {
+                        appState.signIn()
+                        appState.goToProfileSetupDecision()
+                    }
+                )
+            )
         }
-        
     }
 }
-
