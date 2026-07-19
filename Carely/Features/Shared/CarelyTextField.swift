@@ -150,12 +150,12 @@ public struct CarelyTextField: View {
                 .frame(height: size.height)
                 .background(backgroundColor)
                 .overlay(
-                    RoundedRectangle.trueFit(radius)
+                    RoundedRectangle.carely(radius)
                         .stroke(borderColor, lineWidth: borderWidth)
                 )
-                .clipShape(RoundedRectangle.trueFit(radius))
-                .animation(TrueFitMotion.springDefault, value: isFocused)
-                .animation(TrueFitMotion.springDefault, value: hasError)
+                .clipShape(RoundedRectangle.carely(radius))
+                .animation(CarelyMotion.springDefault, value: isFocused)
+                .animation(CarelyMotion.springDefault, value: hasError)
  
             if hasError {
                 message(errorMessage ?? "", icon: "exclamationmark.circle.fill", color: .error)

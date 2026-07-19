@@ -1,6 +1,6 @@
 //
 //  Typography.swift
-//  TrueFit Design System
+//  Carely Design System
 //
 //  Font pairing: SF Pro Rounded (Bold/Semibold) for Display→Headline tiers
 //  SF Pro Text (Regular/Medium) for Body→Caption tiers

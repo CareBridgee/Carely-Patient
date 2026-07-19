@@ -26,7 +26,7 @@ struct EncryptionNoticeBanner: View {
         }
         .padding(Spacing.s16)
         .background(
-            RoundedRectangle.trueFit(Radius.r16)
+            RoundedRectangle.carely(Radius.r16)
                 .fill(Color.surfaceVariant.opacity(0.6))
         )
     }

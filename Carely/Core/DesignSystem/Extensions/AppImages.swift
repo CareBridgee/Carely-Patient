@@ -1,6 +1,6 @@
 //
 //  AppImages.swift
-//  TrueFit
+//  Carely
 //
 //  Created by Omar Khaled Jaafar on 27/06/2026.
 //
