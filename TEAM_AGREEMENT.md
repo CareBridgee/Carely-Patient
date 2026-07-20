@@ -29,9 +29,9 @@ This document defines how our team works together on this project: branching str
 
 ## 🏛️ Architecture
 
-- Follow the **VIP (View – Interactor – Presenter)** architecture.
+- Follow the **MVVM (Model – View – ViewModel)** architecture.
 - Keep responsibilities separated between layers.
-- Build the project using a modular and scalable structure.
+- Build the project using a feature-based and scalable architecture.
 
 ---
 

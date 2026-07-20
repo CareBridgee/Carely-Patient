@@ -38,17 +38,19 @@ final class PersonalInfoViewModel: ObservableObject {
 
     private let savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol
     private let router: AuthRouter
-    
+    private var onOersonalDataSaved: () -> Void
     init(
         savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol,
-        router: AuthRouter
+        router: AuthRouter,
+        onOersonalDataSaved: @escaping () -> Void
     ) {
         self.savePersonalInfoUseCase = savePersonalInfoUseCase
         self.router = router
+        self.onOersonalDataSaved = onOersonalDataSaved
     }
     
     func continueTapped() {
-        guard validateInputs() else { return }
+        //guard validateInputs() else { return }
         
         isLoading = true
         apiErrorMessage = nil
@@ -63,9 +65,9 @@ final class PersonalInfoViewModel: ObservableObject {
         Task {
             do {
                 try await savePersonalInfoUseCase.execute(basicInfo: basicInfo)
-                
+                onOersonalDataSaved()
                 isLoading = false
-                router.push(to: .ProfileSetupDecision)
+                
                 
             } catch {
                 isLoading = false
