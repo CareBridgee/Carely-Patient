@@ -8,5 +8,6 @@
 import Foundation
 
 struct MedicalHistory {
-    var data = ""
+    var previousSurgeries = ""
+    var previousHospitalizations = ""
 }
