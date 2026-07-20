@@ -77,4 +77,12 @@ final class DIContainer {
         ProfileSetupCoordinator(
             data: ProfileSetupData())
     }
+    
+    func makeMedicalHistoryViewModel(coordinator: ProfileSetupCoordinator) -> MedicalHistoryViewModel {
+        MedicalHistoryViewModel(coordinator: coordinator)
+    }
+
+    func makeMobilityViewModel(coordinator: ProfileSetupCoordinator) -> MobilityViewModel {
+        MobilityViewModel(coordinator: coordinator)
+    }
 }

@@ -13,14 +13,17 @@ struct ProfileSetupCoordinatorView: View {
     // MARK: - Coordinator
 
     @StateObject private var coordinator: ProfileSetupCoordinator
-    
+    private let container: DIContainer
+
     private let onFinish: () -> Void
 
     // MARK: - Init
 
-    init(coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
+    init(container: DIContainer,coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
+        self.container = container
         self.onFinish = onFinish
         _coordinator = StateObject(wrappedValue: coordinator)
+        
     }
 
     // MARK: - Body
@@ -49,12 +52,15 @@ struct ProfileSetupCoordinatorView: View {
 
                 case .currentMedication:
                     CurrentMedicationView()
-
                 case .medicalHistory:
-                    MedicalHistoryView()
+                 MedicalHistoryView(
+                     viewModel: container.makeMedicalHistoryViewModel(coordinator: coordinator)
+                                    )
 
                 case .mobility:
-                    MobilityView()
+                      MobilityView(
+                        viewModel: container.makeMobilityViewModel(coordinator: coordinator)
+                                    )
 
                 case .emergencyContact:
                     EmergencyContactView()
