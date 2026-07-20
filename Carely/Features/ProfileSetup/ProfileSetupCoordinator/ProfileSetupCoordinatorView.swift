@@ -18,11 +18,9 @@ struct ProfileSetupCoordinatorView: View {
 
     // MARK: - Init
 
-    init(onFinish: @escaping () -> Void) {
+    init(coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
         self.onFinish = onFinish
-        _coordinator = StateObject(
-            wrappedValue: ProfileSetupCoordinator(data: ProfileSetupData())
-        )
+        _coordinator = StateObject(wrappedValue: coordinator)
     }
 
     // MARK: - Body

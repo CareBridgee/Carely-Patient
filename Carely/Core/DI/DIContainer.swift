@@ -72,4 +72,9 @@ final class DIContainer {
             onSkipButtonClicked: onSkipButtonClicked
         )
     }
+    
+    func makeProfileSetupCoordinator() -> ProfileSetupCoordinator {
+        ProfileSetupCoordinator(
+            data: ProfileSetupData())
+    }
 }

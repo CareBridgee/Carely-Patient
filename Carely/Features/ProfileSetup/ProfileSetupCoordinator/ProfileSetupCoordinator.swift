@@ -32,7 +32,9 @@ final class ProfileSetupCoordinator: ObservableObject {
     func go(to step: ProfileSetupStep) {
         currentStep = step
     }
-
+    
+    // MARK: - Save Data
+    
     func save(basicHealthInfo: BasicHealthInfo) {
         data.basicHealthInfo = basicHealthInfo
     }
