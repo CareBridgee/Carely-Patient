@@ -84,7 +84,3 @@ struct ProfileSetupCoordinatorView: View {
         }
     }
 }
-
-#Preview {
-    ProfileSetupCoordinatorView(onFinish: {})
-}
