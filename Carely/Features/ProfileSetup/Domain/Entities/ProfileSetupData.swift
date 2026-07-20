@@ -21,7 +21,7 @@ struct ProfileSetupData {
 
     var mobility = Mobility()
 
-    var emergencyContact = EmergencyContact()
+    var emergencyContact = EmergencyContact(name: "", phoneNumber: "", relationship: "")
 
     var homeAddress = HomeAddress()
 }

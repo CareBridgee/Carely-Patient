@@ -92,4 +92,12 @@ final class DIContainer {
             ExistingConditionsViewModel(existingData: existingData)
         }
     
+
+    func makeEmergencyContactViewModel(
+        initialContact: EmergencyContact?,
+        onContinue: @escaping (EmergencyContact) -> Void,
+        onBack: @escaping () -> Void
+    ) -> EmergencyContactViewModel {
+        EmergencyContactViewModel(initialContact: initialContact, onContinue: onContinue, onBack: onBack)
+    }
 }

@@ -10,9 +10,11 @@ import SwiftUI
 
 struct ProfileSetupCoordinatorView: View {
     
-    @StateObject private var coordinator: ProfileSetupCoordinator
 
-    private let container: DIContainer
+    // MARK: - Coordinator
+
+    @StateObject private var coordinator: ProfileSetupCoordinator
+    private let container : DIContainer
     private let onFinish: () -> Void
 
     // MARK: - Init
@@ -21,7 +23,6 @@ struct ProfileSetupCoordinatorView: View {
         self.container = container
         self.onFinish = onFinish
         _coordinator = StateObject(wrappedValue: coordinator)
-        
     }
 
     // MARK: - Body
@@ -64,7 +65,19 @@ struct ProfileSetupCoordinatorView: View {
                                     )
 
                 case .emergencyContact:
-                    EmergencyContactView()
+             
+                   EmergencyContactView(
+                       viewModel: container.makeEmergencyContactViewModel(
+                           initialContact: coordinator.data.emergencyContact,
+                           onContinue: { contact in
+                               coordinator.save(emergencyContact: contact)
+                               withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                                   coordinator.next()
+                               }
+                           },
+                           onBack: handleBack
+                       )
+                   )
 
                 case .homeAddress:
                     HomeAddressView()

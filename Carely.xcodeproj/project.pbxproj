@@ -383,9 +383,9 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */,
 				0C3D88943008501500883999 /* Shared */,
 				0C3D886A3008483C00883999 /* Auth */,
+				C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */,
 			);
 			path = Features;
 			sourceTree = "<group>";

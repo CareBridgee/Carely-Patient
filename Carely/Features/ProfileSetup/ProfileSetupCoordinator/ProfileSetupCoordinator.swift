@@ -12,7 +12,7 @@ final class ProfileSetupCoordinator: ObservableObject {
 
     // MARK: - Init
 
-    init(data: ProfileSetupData, startingStep: ProfileSetupStep = .basicHealthInfo) {
+    init(data: ProfileSetupData, startingStep: ProfileSetupStep = .emergencyContact) {
         self.data = data
         self.currentStep = startingStep
     }
