@@ -144,11 +144,3 @@ struct HomeAddressView: View {
         .disabled(viewModel.isLocatingCurrentLocation)
     }
 }
-
-#Preview {
-    let diContainer = DIContainer()
-    ProfileSetupCoordinatorView(
-        coordinator: diContainer.makeProfileSetupCoordinator(),
-        container: diContainer
-    ) {}
-}
