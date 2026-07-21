@@ -25,7 +25,7 @@ public enum Radius {
 // MARK: - RoundedRectangle Convenience
 
 public extension RoundedRectangle {
-    static func trueFit(_ radius: CGFloat) -> RoundedRectangle {
+    static func carely(_ radius: CGFloat) -> RoundedRectangle {
         RoundedRectangle(cornerRadius: radius, style: .continuous)
     }
 }

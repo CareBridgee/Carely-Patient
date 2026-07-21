@@ -9,9 +9,9 @@ import Foundation
 
 struct ProfileSetupData {
 
-    var basicHealthInfo = BasicHealthInfo()
+    var basicHealthInfo = BasicHealthInfo(height: nil, weight: nil, bloodType: "")
 
-    var existingConditions = ExistingConditions()
+    var existingConditions = ExistingConditions(selectedConditions:[], otherDiseases: "")
 
     var allergies = Allergies()
 

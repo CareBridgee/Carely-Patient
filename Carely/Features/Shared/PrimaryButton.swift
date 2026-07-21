@@ -92,7 +92,7 @@ public struct PrimaryButton: View {
             .frame(height: size.height)
             .padding(.horizontal, size.horizontalPadding)
             .background(backgroundColor)
-            .clipShape(RoundedRectangle.trueFit(radius))
+            .clipShape(RoundedRectangle.carely(radius))
         }
         .buttonStyle(PrimaryButtonPressStyle())
         .disabled(!isInteractive)
@@ -116,7 +116,7 @@ private struct PrimaryButtonPressStyle: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .opacity(configuration.isPressed ? 0.9 : 1)
-            .animation(TrueFitMotion.springSnappy, value: configuration.isPressed)
+            .animation(CarelyMotion.springSnappy, value: configuration.isPressed)
     }
 }
  

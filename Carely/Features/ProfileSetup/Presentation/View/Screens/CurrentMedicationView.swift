@@ -83,9 +83,9 @@ struct CurrentMedicationView: View {
         }
         .padding(Spacing.s16)
         .background(Color.surface)
-        .clipShape(RoundedRectangle.trueFit(Radius.r16))
+        .clipShape(RoundedRectangle.carely(Radius.r16))
         .overlay(
-            RoundedRectangle.trueFit(Radius.r16)
+            RoundedRectangle.carely(Radius.r16)
                 .stroke(viewModel.hasNoCurrentMedications ? Color.success : Color.divider, lineWidth: 1)
         )
     }
@@ -108,7 +108,7 @@ struct CurrentMedicationView: View {
                         .foregroundColor(.error)
                         .frame(width: Spacing.s48, height: Spacing.s48)
                         .background(Color.errorContainer.opacity(0.5))
-                        .clipShape(RoundedRectangle.trueFit(Radius.r12))
+                        .clipShape(RoundedRectangle.carely(Radius.r12))
                 }
             }
         }
@@ -129,7 +129,7 @@ struct CurrentMedicationView: View {
             .frame(maxWidth: .infinity)
             .frame(height: Spacing.s48)
             .overlay(
-                RoundedRectangle.trueFit(Radius.r12)
+                RoundedRectangle.carely(Radius.r12)
                     .strokeBorder(style: StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
                     .foregroundColor(.brandPrimary)
             )
@@ -147,7 +147,7 @@ struct CurrentMedicationView: View {
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
                         .frame(height: 140)
-                        .clipShape(RoundedRectangle.trueFit(Radius.r16))
+                        .clipShape(RoundedRectangle.carely(Radius.r16))
                         .clipped()
 
                     Button {
@@ -177,7 +177,7 @@ struct CurrentMedicationView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 140)
                     .background(Color.primaryContainer.opacity(0.5))
-                    .clipShape(RoundedRectangle.trueFit(Radius.r16))
+                    .clipShape(RoundedRectangle.carely(Radius.r16))
                 }
             }
         }

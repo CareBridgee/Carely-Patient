@@ -12,25 +12,25 @@ import Foundation
 final class DIContainer {
     
     // MARK: - Repositories
-
+    
     private lazy var authRepository: AuthRepositoryProtocol = {
         AuthRepositoryImpl(
             // inject here your dataSources
         )
     }()
-
+    
     // MARK: - Auth UseCases
-
+    
     private func makeSavePersonalInfoUseCase() -> SavePersonalInfoUseCaseProtocol {
         SavePersonalInfoUseCase(repository: authRepository)
     }
-
+    
     private func makeVerifyOTPUseCase() -> VerifyOTPUseCaseProtocol {
         VerifyOTPUseCase(repository: authRepository)
     }
-
+    
     // MARK: - Auth ViewModels
-
+    
     func makeOTPVerificationViewModel(
         phoneNumber: String,
         router: AuthRouter,
@@ -43,7 +43,7 @@ final class DIContainer {
             onAuthFinished: onAuthFinished
         )
     }
-
+    
     func makePersonalInfoViewModel(
         router: AuthRouter,
         onOersonalDataSaved: @escaping () -> Void
@@ -54,15 +54,15 @@ final class DIContainer {
             onOersonalDataSaved: onOersonalDataSaved
         )
     }
-
+    
     func makePhoneNumberViewModel(router: AuthRouter) -> PhoneNumberViewModel {
         PhoneNumberViewModel(router: router)
     }
-
+    
     func makeWelcomeViewModel(router: AuthRouter) -> WelcomeViewModel {
         WelcomeViewModel(router: router)
     }
-
+    
     func makeProfileSetupDecisionViewModel(
         oncompleteHealthProfileClicked: @escaping () -> Void,
         onSkipButtonClicked: @escaping () -> Void
@@ -81,8 +81,15 @@ final class DIContainer {
     func makeMedicalHistoryViewModel(coordinator: ProfileSetupCoordinator) -> MedicalHistoryViewModel {
         MedicalHistoryViewModel(coordinator: coordinator)
     }
-
+    
     func makeMobilityViewModel(coordinator: ProfileSetupCoordinator) -> MobilityViewModel {
-        MobilityViewModel(coordinator: coordinator)
-    }
+        MobilityViewModel(coordinator: coordinator)}
+        func makeBasicInfoHealthViewModel(existingData: BasicHealthInfo) -> BasicHealthInfoViewModel{
+            BasicHealthInfoViewModel(existingData: existingData)
+        }
+    
+        func makeExistingConditionsViewModel(existingData: ExistingConditions) -> ExistingConditionsViewModel {
+            ExistingConditionsViewModel(existingData: existingData)
+        }
+    
 }

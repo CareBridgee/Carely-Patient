@@ -37,11 +37,11 @@ struct StepProgressHeader: View {
             
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-                    RoundedRectangle.trueFit(Radius.pill)
+                    RoundedRectangle.carely(Radius.pill)
                         .fill(Color.track)
                         .frame(height: 6)
                     
-                    RoundedRectangle.trueFit(Radius.pill)
+                    RoundedRectangle.carely(Radius.pill)
                         .fill(isCompleted ? Color.success : Color.primary)
                         .frame(width: geometry.size.width * progressWidthMultiplier, height: 6)
                 }

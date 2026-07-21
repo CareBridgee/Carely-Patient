@@ -32,10 +32,10 @@ struct SkipForNowButton: View {
             .padding(.horizontal, Spacing.s24)
             .padding(.vertical, Spacing.s20)
             .background(
-                RoundedRectangle.trueFit(Radius.r24)
+                RoundedRectangle.carely(Radius.r24)
                     .fill(Color.surface)
                     .overlay(
-                        RoundedRectangle.trueFit(Radius.r24)
+                        RoundedRectangle.carely(Radius.r24)
                             .stroke(Color.divider, lineWidth: 1)
                     )
             )

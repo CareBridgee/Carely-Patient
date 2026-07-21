@@ -8,5 +8,7 @@
 import Foundation
 
 struct BasicHealthInfo {
-    var data = ""
+    var height: Double?
+    var weight: Double?
+    var bloodType : String
 }

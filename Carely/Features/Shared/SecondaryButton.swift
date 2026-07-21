@@ -18,6 +18,7 @@ public struct SecondaryButton: View {
     private let isFullWidth: Bool
     private let isLoading: Bool
     private let isEnabled: Bool
+    private let fontWeight: CarelyFontWeight
     private let action: () -> Void
     
     init(
@@ -29,6 +30,7 @@ public struct SecondaryButton: View {
         isFullWidth: Bool = true,
         isLoading: Bool = false,
         isEnabled: Bool = true,
+        fontWeight: CarelyFontWeight = .semiBold,
         action: @escaping () -> Void
     ) {
         self.title = title
@@ -39,6 +41,7 @@ public struct SecondaryButton: View {
         self.isFullWidth = isFullWidth
         self.isLoading = isLoading
         self.isEnabled = isEnabled
+        self.fontWeight = fontWeight
         self.action = action
     }
     
@@ -67,7 +70,7 @@ public struct SecondaryButton: View {
                         iconView(icon)
                     }
                     Text(title)
-                        .carelyText(style: size.textStyle, weight: .semiBold)
+                        .carelyText(style: size.textStyle, weight: fontWeight)
                         .lineLimit(1)
                         .minimumScaleFactor(0.9)
                     if let icon, iconPosition == .trailing {
@@ -80,7 +83,7 @@ public struct SecondaryButton: View {
             .frame(height: size.height)
             .padding(.horizontal, size.horizontalPadding)
             .background(backgroundColor)
-            .clipShape(RoundedRectangle.trueFit(radius))
+            .clipShape(RoundedRectangle.carely(radius))
         }
         .buttonStyle(SecondaryButtonPressStyle())
         .disabled(!isInteractive)
@@ -102,7 +105,7 @@ private struct SecondaryButtonPressStyle: ButtonStyle {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .opacity(configuration.isPressed ? 0.9 : 1)
-            .animation(TrueFitMotion.springSnappy, value: configuration.isPressed)
+            .animation(CarelyMotion.springSnappy, value: configuration.isPressed)
     }
 }
 

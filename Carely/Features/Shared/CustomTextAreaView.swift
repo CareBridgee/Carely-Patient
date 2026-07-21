@@ -19,7 +19,7 @@ public struct CustomTextAreaView: View {
             .padding(Spacing.s16)
             .frame(minHeight: minHeight, alignment: .topLeading)
             .background(Color.surfaceVariant)
-            .clipShape(RoundedRectangle.trueFit(Radius.r12))
+            .clipShape(RoundedRectangle.carely(Radius.r12))
     }
 }
 

@@ -1,13 +1,13 @@
 //
 //  Motion.swift
-//  TrueFit Design System
+//  Carely Design System
 //
-//  TrueFit motion constants for direct use in animations.
+//  Carely motion constants for direct use in animations.
 //
 
 import SwiftUI
 
-public enum TrueFitMotion {
+public enum CarelyMotion {
 
     /// 200ms — UI transitions (chip selection, tab switch)
     public static let durationFast: Double = 0.2

@@ -25,7 +25,7 @@ public struct InfoBannerView: View {
         .padding(Spacing.s16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.primaryContainer)
-        .clipShape(RoundedRectangle.trueFit(Radius.r12))
+        .clipShape(RoundedRectangle.carely(Radius.r12))
     }
 }
 

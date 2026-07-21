@@ -8,5 +8,6 @@
 import Foundation
 
 struct ExistingConditions {
-    var data = ""
+    var selectedConditions: Set<String> 
+    var otherDiseases: String
 }

@@ -9,12 +9,10 @@ import SwiftUI
 
 
 struct ProfileSetupCoordinatorView: View {
-
-    // MARK: - Coordinator
-
+    
     @StateObject private var coordinator: ProfileSetupCoordinator
-    private let container: DIContainer
 
+    private let container: DIContainer
     private let onFinish: () -> Void
 
     // MARK: - Init
@@ -38,14 +36,15 @@ struct ProfileSetupCoordinatorView: View {
             )
             .padding(.top, Spacing.s16)
             .padding(.horizontal, Spacing.s16)
-
+            .padding(.bottom, Spacing.s24)
             Group {
                 switch coordinator.currentStep {
                 case .basicHealthInfo:
-                    BasicHealthInfoView()
+                    BasicHealthInfoView(coordinator: coordinator, viewModel: container.makeBasicInfoHealthViewModel(existingData: coordinator.data.basicHealthInfo ))
 
                 case .existingConditions:
-                    ExistingConditionsView()
+                    ExistingConditionsView(coordinator: coordinator,viewModel: container.makeExistingConditionsViewModel(existingData: coordinator.data.existingConditions)
+                                        )
 
                 case .allergies:
                     AllergiesView(viewModel: AllergiesViewModel(coordinator: coordinator))
