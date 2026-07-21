@@ -94,9 +94,9 @@ struct AllergiesView: View {
         }
         .padding(Spacing.s16)
         .background(Color.surface)
-        .clipShape(RoundedRectangle.trueFit(Radius.r16))
+        .clipShape(RoundedRectangle.carely(Radius.r16))
         .overlay(
-            RoundedRectangle.trueFit(Radius.r16)
+            RoundedRectangle.carely(Radius.r16)
                 .stroke(viewModel.hasNoKnownAllergies ? Color.success : Color.divider, lineWidth: 1)
         )
     }

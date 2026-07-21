@@ -28,12 +28,12 @@
 		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
 		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
-		0CC59F39300D38F100A5E40D /* BloodTypeSelectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F36300D38F100A5E40D /* BloodTypeSelectionCardView.swift */; };
-		0CC59F3A300D38F100A5E40D /* HealthInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F37300D38F100A5E40D /* HealthInfoCardView.swift */; };
-		0CC59F3B300D38F100A5E40D /* HealthProfileBottomActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F38300D38F100A5E40D /* HealthProfileBottomActionsView.swift */; };
-		0CC59F3D300D3C0600A5E40D /* MeasurementInputCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F3C300D3C0600A5E40D /* MeasurementInputCardView.swift */; };
-		0CC59F40300D473A00A5E40D /* ConditionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F3E300D473A00A5E40D /* ConditionCardView.swift */; };
-		0CC59F41300D473A00A5E40D /* OtherDiseasesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F3F300D473A00A5E40D /* OtherDiseasesSectionView.swift */; };
+		0C5C345B300F08BB00A820EB /* OtherDiseasesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C3455300F08BA00A820EB /* OtherDiseasesSectionView.swift */; };
+		0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C3456300F08BA00A820EB /* BloodTypeSelectionCardView.swift */; };
+		0C5C345D300F08BB00A820EB /* HealthProfileBottomActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C3457300F08BA00A820EB /* HealthProfileBottomActionsView.swift */; };
+		0C5C345E300F08BB00A820EB /* ConditionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C3458300F08BB00A820EB /* ConditionCardView.swift */; };
+		0C5C345F300F08BB00A820EB /* MeasurementInputCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C3459300F08BB00A820EB /* MeasurementInputCardView.swift */; };
+		0C5C3460300F08BB00A820EB /* HealthInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C345A300F08BB00A820EB /* HealthInfoCardView.swift */; };
 		0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */; };
 		0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */; };
 		0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */; };
@@ -173,12 +173,12 @@
 		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		0CC59F36300D38F100A5E40D /* BloodTypeSelectionCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BloodTypeSelectionCardView.swift; sourceTree = "<group>"; };
-		0CC59F37300D38F100A5E40D /* HealthInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthInfoCardView.swift; sourceTree = "<group>"; };
-		0CC59F38300D38F100A5E40D /* HealthProfileBottomActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthProfileBottomActionsView.swift; sourceTree = "<group>"; };
-		0CC59F3C300D3C0600A5E40D /* MeasurementInputCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementInputCardView.swift; sourceTree = "<group>"; };
-		0CC59F3E300D473A00A5E40D /* ConditionCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionCardView.swift; sourceTree = "<group>"; };
-		0CC59F3F300D473A00A5E40D /* OtherDiseasesSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherDiseasesSectionView.swift; sourceTree = "<group>"; };
+		0C5C3455300F08BA00A820EB /* OtherDiseasesSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherDiseasesSectionView.swift; path = Components/OtherDiseasesSectionView.swift; sourceTree = "<group>"; };
+		0C5C3456300F08BA00A820EB /* BloodTypeSelectionCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BloodTypeSelectionCardView.swift; path = Components/BloodTypeSelectionCardView.swift; sourceTree = "<group>"; };
+		0C5C3457300F08BA00A820EB /* HealthProfileBottomActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthProfileBottomActionsView.swift; path = Components/HealthProfileBottomActionsView.swift; sourceTree = "<group>"; };
+		0C5C3458300F08BB00A820EB /* ConditionCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConditionCardView.swift; path = Components/ConditionCardView.swift; sourceTree = "<group>"; };
+		0C5C3459300F08BB00A820EB /* MeasurementInputCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeasurementInputCardView.swift; path = Components/MeasurementInputCardView.swift; sourceTree = "<group>"; };
+		0C5C345A300F08BB00A820EB /* HealthInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HealthInfoCardView.swift; path = Components/HealthInfoCardView.swift; sourceTree = "<group>"; };
 		0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarelyDropdownField.swift; sourceTree = "<group>"; };
 		0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
 		0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextAreaView.swift; sourceTree = "<group>"; };
@@ -711,15 +711,15 @@
 		C6C0A4E5300D334800AEB6D9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0C5C3456300F08BA00A820EB /* BloodTypeSelectionCardView.swift */,
+				0C5C3458300F08BB00A820EB /* ConditionCardView.swift */,
+				0C5C345A300F08BB00A820EB /* HealthInfoCardView.swift */,
+				0C5C3457300F08BA00A820EB /* HealthProfileBottomActionsView.swift */,
+				0C5C3459300F08BB00A820EB /* MeasurementInputCardView.swift */,
+				0C5C3455300F08BA00A820EB /* OtherDiseasesSectionView.swift */,
 				B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */,
 				B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */,
 				B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */,
-				0CC59F3E300D473A00A5E40D /* ConditionCardView.swift */,
-				0CC59F3F300D473A00A5E40D /* OtherDiseasesSectionView.swift */,
-				0CC59F36300D38F100A5E40D /* BloodTypeSelectionCardView.swift */,
-				0CC59F37300D38F100A5E40D /* HealthInfoCardView.swift */,
-				0CC59F38300D38F100A5E40D /* HealthProfileBottomActionsView.swift */,
-				0CC59F3C300D3C0600A5E40D /* MeasurementInputCardView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -966,8 +966,10 @@
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */,
 				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
+				0C5C345F300F08BB00A820EB /* MeasurementInputCardView.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
 				39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */,
+				0C5C345E300F08BB00A820EB /* ConditionCardView.swift in Sources */,
 				C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */,
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
 				C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */,
@@ -976,9 +978,9 @@
 				C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */,
 				C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
-				0CC59F40300D473A00A5E40D /* ConditionCardView.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,
+				0C5C345B300F08BB00A820EB /* OtherDiseasesSectionView.swift in Sources */,
 				C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
@@ -991,7 +993,6 @@
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
-				0CC59F3D300D3C0600A5E40D /* MeasurementInputCardView.swift in Sources */,
 				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
 				C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */,
 				C6C0A4C5300D0C3E00AEB6D9 /* ExistingConditions.swift in Sources */,
@@ -1017,9 +1018,9 @@
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
 				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,
-				0CC59F41300D473A00A5E40D /* OtherDiseasesSectionView.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
 				C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */,
+				0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
 				0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */,
@@ -1040,6 +1041,7 @@
 				C6C0A502300D334800AEB6D9 /* AllergiesViewModel.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,
+				0C5C345D300F08BB00A820EB /* HealthProfileBottomActionsView.swift in Sources */,
 				C6C0A505300D334800AEB6D9 /* CurrentMedicationViewModel.swift in Sources */,
 				C6C0A506300D334800AEB6D9 /* BasicHealthInfoView.swift in Sources */,
 				C6C0A507300D334800AEB6D9 /* HomeAddressViewModel.swift in Sources */,
@@ -1050,18 +1052,16 @@
 				C6C3BE12300A61FC00C5FC25 /* OTPVerificationViewModel.swift in Sources */,
 				B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */,
 				C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */,
-				0CC59F39300D38F100A5E40D /* BloodTypeSelectionCardView.swift in Sources */,
+				0C5C3460300F08BB00A820EB /* HealthInfoCardView.swift in Sources */,
 				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
 				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
 				C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */,
 				C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */,
-				0CC59F3B300D38F100A5E40D /* HealthProfileBottomActionsView.swift in Sources */,
 				C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */,
 				C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */,
 				C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */,
 				C6C0A50E300D347B00AEB6D9 /* ProfileSetupCoordinatorView.swift in Sources */,
 				C6C0A4D2300D0C9700AEB6D9 /* HomeAddress.swift in Sources */,
-				0CC59F3A300D38F100A5E40D /* HealthInfoCardView.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
 				B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */,
