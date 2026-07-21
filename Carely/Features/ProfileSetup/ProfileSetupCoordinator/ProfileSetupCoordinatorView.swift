@@ -10,18 +10,20 @@ import SwiftUI
 
 struct ProfileSetupCoordinatorView: View {
     
-    @StateObject private var coordinator: ProfileSetupCoordinator
 
-    private let container: DIContainer
+    // MARK: - Coordinator
+
+    @StateObject private var coordinator: ProfileSetupCoordinator
+    private let container : DIContainer
     private let onFinish: () -> Void
 
     // MARK: - Init
 
-    init(container: DIContainer,coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
-        self.container = container
+
+    init(coordinator: ProfileSetupCoordinator,container: DIContainer, onFinish: @escaping () -> Void) {
         self.onFinish = onFinish
         _coordinator = StateObject(wrappedValue: coordinator)
-        
+        self.container = container
     }
 
     // MARK: - Body
@@ -64,10 +66,31 @@ struct ProfileSetupCoordinatorView: View {
                                     )
 
                 case .emergencyContact:
-                    EmergencyContactView()
+             
+                   EmergencyContactView(
+                       viewModel: container.makeEmergencyContactViewModel(
+                           initialContact: coordinator.data.emergencyContact,
+                           onContinue: { contact in
+                               coordinator.save(emergencyContact: contact)
+                               withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+                                   coordinator.next()
+                               }
+                           },
+                           onBack: handleBack
+                       )
+                   )
 
                 case .homeAddress:
-                    HomeAddressView()
+                    HomeAddressView(
+                        viewModel: container.makeHomeAddressViewModel(
+                            initialAddress: coordinator.data.homeAddress,
+                            onFinishSetup: { address in
+                                coordinator.save(homeAddress: address)
+                                onFinish()
+                            },
+                            onBackTapped: handleBack
+                        )
+                    )
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

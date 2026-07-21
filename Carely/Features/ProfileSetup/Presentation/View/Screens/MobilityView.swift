@@ -74,11 +74,12 @@ private extension MobilityView {
 }
 #Preview("Medical History – In Coordinator") {
     ProfileSetupCoordinatorView(
-        container: DIContainer(),
+    
         coordinator: ProfileSetupCoordinator(
             data: ProfileSetupData(),
             startingStep: .medicalHistory
         ),
+        container: DIContainer(),
         onFinish: {}
     )
 }

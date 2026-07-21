@@ -8,5 +8,7 @@
 import Foundation
 
 struct EmergencyContact {
-    var data = ""
+    var name : String
+    var phoneNumber: String
+    var relationship: String
 }

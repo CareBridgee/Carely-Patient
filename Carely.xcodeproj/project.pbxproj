@@ -57,6 +57,19 @@
 		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
 		C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629359A300DD3BF000970D9 /* ProfileSetupRepositoryImpl.swift */; };
 		C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629359C300DD3DB000970D9 /* ProfileSetupRepositoryProtocol.swift */; };
+		C65A1E75300EA77F0003D6FB /* CurrentLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E74300EA76D0003D6FB /* CurrentLocationProvider.swift */; };
+		C65A1E79300EC1DA0003D6FB /* MapSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E77300EC1DA0003D6FB /* MapSearchService.swift */; };
+		C65A1E7A300EC1DA0003D6FB /* GeocodingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E76300EC1DA0003D6FB /* GeocodingService.swift */; };
+		C65A1E7D300EC2320003D6FB /* AddressSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E7B300EC2320003D6FB /* AddressSelection.swift */; };
+		C65A1E7E300EC2320003D6FB /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E7C300EC2320003D6FB /* SearchSuggestion.swift */; };
+		C65A1E80300EC2710003D6FB /* AddressMapPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E7F300EC2710003D6FB /* AddressMapPickerViewModel.swift */; };
+		C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E81300EC2970003D6FB /* AddressMapPickerBottomSheet.swift */; };
+		C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E84300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift */; };
+		C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E87300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift */; };
+		C65A1E8B300ECC1C0003D6FB /* GeocodeCountryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E83300ECC1C0003D6FB /* GeocodeCountryUseCase.swift */; };
+		C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */; };
+		C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E85300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift */; };
+		C65A1E8E300ECC1C0003D6FB /* ResolveLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */; };
 		C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */; };
 		C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */; };
 		C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11891300BA01A00DB27BF /* SecondaryButton.swift */; };
@@ -203,6 +216,19 @@
 		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C629359A300DD3BF000970D9 /* ProfileSetupRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupRepositoryImpl.swift; sourceTree = "<group>"; };
 		C629359C300DD3DB000970D9 /* ProfileSetupRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupRepositoryProtocol.swift; sourceTree = "<group>"; };
+		C65A1E74300EA76D0003D6FB /* CurrentLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationProvider.swift; sourceTree = "<group>"; };
+		C65A1E76300EC1DA0003D6FB /* GeocodingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingService.swift; sourceTree = "<group>"; };
+		C65A1E77300EC1DA0003D6FB /* MapSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchService.swift; sourceTree = "<group>"; };
+		C65A1E7B300EC2320003D6FB /* AddressSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSelection.swift; sourceTree = "<group>"; };
+		C65A1E7C300EC2320003D6FB /* SearchSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestion.swift; sourceTree = "<group>"; };
+		C65A1E7F300EC2710003D6FB /* AddressMapPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressMapPickerViewModel.swift; sourceTree = "<group>"; };
+		C65A1E81300EC2970003D6FB /* AddressMapPickerBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressMapPickerBottomSheet.swift; sourceTree = "<group>"; };
+		C65A1E83300ECC1C0003D6FB /* GeocodeCountryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodeCountryUseCase.swift; sourceTree = "<group>"; };
+		C65A1E84300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentLocationAddressUseCase.swift; sourceTree = "<group>"; };
+		C65A1E85300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentLocationCoordinateUseCase.swift; sourceTree = "<group>"; };
+		C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveLocationUseCase.swift; sourceTree = "<group>"; };
+		C65A1E87300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocodeUseCase.swift; sourceTree = "<group>"; };
+		C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesUseCase.swift; sourceTree = "<group>"; };
 		C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyButtonStyle.swift; sourceTree = "<group>"; };
 		C6B11891300BA01A00DB27BF /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressHeader.swift; sourceTree = "<group>"; };
@@ -383,9 +409,9 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */,
 				0C3D88943008501500883999 /* Shared */,
 				0C3D886A3008483C00883999 /* Auth */,
+				C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -638,6 +664,16 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		C65A1E78300EC1DA0003D6FB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C65A1E76300EC1DA0003D6FB /* GeocodingService.swift */,
+				C65A1E77300EC1DA0003D6FB /* MapSearchService.swift */,
+				C65A1E74300EA76D0003D6FB /* CurrentLocationProvider.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,6 +688,7 @@
 		C6C0A4BF300D0BF200AEB6D9 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				C65A1E78300EC1DA0003D6FB /* Services */,
 				C6293597300DD38E000970D9 /* Repositories */,
 			);
 			path = Data;
@@ -677,6 +714,8 @@
 				C6C0A4CA300D0C6700AEB6D9 /* MedicalHistory.swift */,
 				C6C0A4C8300D0C5900AEB6D9 /* CurrentMedication.swift */,
 				C6C0A4C6300D0C4A00AEB6D9 /* Allergies.swift */,
+				C65A1E7B300EC2320003D6FB /* AddressSelection.swift */,
+				C65A1E7C300EC2320003D6FB /* SearchSuggestion.swift */,
 				C6C0A4C4300D0C3B00AEB6D9 /* ExistingConditions.swift */,
 				C6C0A4C2300D0C2F00AEB6D9 /* BasicHealthInfo.swift */,
 			);
@@ -694,6 +733,12 @@
 		C6C0A4DC300D0F3000AEB6D9 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				C65A1E83300ECC1C0003D6FB /* GeocodeCountryUseCase.swift */,
+				C65A1E84300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift */,
+				C65A1E85300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift */,
+				C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */,
+				C65A1E87300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift */,
+				C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -734,6 +779,7 @@
 				C6C0A4E9300D334800AEB6D9 /* EmergencyContactView.swift */,
 				C6C0A4EA300D334800AEB6D9 /* ExistingConditionsView.swift */,
 				C6C0A4EB300D334800AEB6D9 /* HomeAddressView.swift */,
+				C65A1E81300EC2970003D6FB /* AddressMapPickerBottomSheet.swift */,
 				C6C0A4EC300D334800AEB6D9 /* MedicalHistoryView.swift */,
 				C6C0A4ED300D334800AEB6D9 /* MobilityView.swift */,
 			);
@@ -752,6 +798,7 @@
 		C6C0A4F8300D334800AEB6D9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C65A1E7F300EC2710003D6FB /* AddressMapPickerViewModel.swift */,
 				C6C0A4F0300D334800AEB6D9 /* AllergiesViewModel.swift */,
 				C6C0A4F1300D334800AEB6D9 /* BasicHealthInfoViewModel.swift */,
 				C6C0A4F2300D334800AEB6D9 /* CurrentMedicationViewModel.swift */,
@@ -990,6 +1037,7 @@
 				39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
+				C65A1E80300EC2710003D6FB /* AddressMapPickerViewModel.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
@@ -997,6 +1045,7 @@
 				C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */,
 				C6C0A4C5300D0C3E00AEB6D9 /* ExistingConditions.swift in Sources */,
 				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
+				C65A1E75300EA77F0003D6FB /* CurrentLocationProvider.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
 				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
 				C6C3BE3D300A644A00C5FC25 /* OTPVerificationCardView.swift in Sources */,
@@ -1004,6 +1053,8 @@
 				C6C3BE3E300A644A00C5FC25 /* OTPDigitInputField.swift in Sources */,
 				C6C3BE3F300A644A00C5FC25 /* AuthHeaderView.swift in Sources */,
 				C6C3BE40300A644A00C5FC25 /* SecurityCard.swift in Sources */,
+				C65A1E7D300EC2320003D6FB /* AddressSelection.swift in Sources */,
+				C65A1E7E300EC2320003D6FB /* SearchSuggestion.swift in Sources */,
 				C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
 				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
@@ -1031,13 +1082,22 @@
 				C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
 				C6C0A4FB300D334800AEB6D9 /* CurrentMedicationView.swift in Sources */,
+				C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */,
 				C6C0A4FC300D334800AEB6D9 /* EmergencyContactViewModel.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
+				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
+				C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */,
+				C65A1E8B300ECC1C0003D6FB /* GeocodeCountryUseCase.swift in Sources */,
+				C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */,
+				C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */,
+				C65A1E8E300ECC1C0003D6FB /* ResolveLocationUseCase.swift in Sources */,
 				C6C0A501300D334800AEB6D9 /* EmergencyContactView.swift in Sources */,
+				C65A1E79300EC1DA0003D6FB /* MapSearchService.swift in Sources */,
+				C65A1E7A300EC1DA0003D6FB /* GeocodingService.swift in Sources */,
 				C6C0A502300D334800AEB6D9 /* AllergiesViewModel.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,

@@ -15,5 +15,7 @@
 		<string>Poppins-Regular.ttf</string>
 		<string>Poppins-SemiBold.ttf</string>
 	</array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We use your location to help you quickly set your home address.</string>
 </dict>
 </plist>
