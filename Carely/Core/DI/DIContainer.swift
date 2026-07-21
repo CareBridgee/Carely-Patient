@@ -78,6 +78,12 @@ final class DIContainer {
             data: ProfileSetupData())
     }
     
+    func makeMedicalHistoryViewModel(coordinator: ProfileSetupCoordinator) -> MedicalHistoryViewModel {
+        MedicalHistoryViewModel(coordinator: coordinator)
+    }
+
+    func makeMobilityViewModel(coordinator: ProfileSetupCoordinator) -> MobilityViewModel {
+        MobilityViewModel(coordinator: coordinator)
     func makeBasicInfoHealthViewModel(existingData: BasicHealthInfo) -> BasicHealthInfoViewModel{
         BasicHealthInfoViewModel(existingData: existingData)
     }

@@ -10,17 +10,18 @@ import SwiftUI
 
 struct ProfileSetupCoordinatorView: View {
     
-    let container: DIContainer
     @StateObject private var coordinator: ProfileSetupCoordinator
-    
+
+    private let container: DIContainer
     private let onFinish: () -> Void
 
     // MARK: - Init
 
-    init(container: DIContainer, coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
+    init(container: DIContainer,coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
         self.container = container
         self.onFinish = onFinish
         _coordinator = StateObject(wrappedValue: coordinator)
+        
     }
 
     // MARK: - Body
@@ -46,16 +47,21 @@ struct ProfileSetupCoordinatorView: View {
                                         )
 
                 case .allergies:
-                    AllergiesView()
+                    AllergiesView(viewModel: AllergiesViewModel(coordinator: coordinator))
 
                 case .currentMedication:
-                    CurrentMedicationView()
+
+                    CurrentMedicationView(viewModel: CurrentMedicationViewModel(coordinator: coordinator))
 
                 case .medicalHistory:
-                    MedicalHistoryView()
+                 MedicalHistoryView(
+                     viewModel: container.makeMedicalHistoryViewModel(coordinator: coordinator)
+                                    )
 
                 case .mobility:
-                    MobilityView()
+                      MobilityView(
+                        viewModel: container.makeMobilityViewModel(coordinator: coordinator)
+                                    )
 
                 case .emergencyContact:
                     EmergencyContactView()
