@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HealthProfileBottomActionsView: View {
+    var isContinueDisabled: Bool = false
     var onBackTapped: () -> Void
     var onContinueTapped: () -> Void
     
@@ -19,7 +20,8 @@ struct HealthProfileBottomActionsView: View {
                 icon: "chevron.right",
                 iconPosition: .trailing,
                 action: onContinueTapped
-            )
+            ).disabled(isContinueDisabled)
+            .opacity(isContinueDisabled ? 0.5 : 1.0)
         }
         .padding(.horizontal, Spacing.s20)
         .padding(.vertical, Spacing.s16)

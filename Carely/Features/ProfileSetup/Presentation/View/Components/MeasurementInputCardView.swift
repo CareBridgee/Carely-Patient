@@ -5,6 +5,7 @@ struct MeasurementInputCardView: View {
     let placeholder: String
     let unit: String
     @Binding var value: String
+    var errorMessage: String? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.s12) {
@@ -22,6 +23,12 @@ struct MeasurementInputCardView: View {
                 Text(unit)
                     .carelyText(style: .bodySmall, weight: .regular)
                     .foregroundColor(.secondaryFont)
+            }
+            
+            if let error = errorMessage, !error.isEmpty {
+                Text(error)
+                    .carelyText(style: .bodySmall, weight: .medium)
+                    .foregroundColor(.red)
             }
         }
         .padding(Spacing.s16)

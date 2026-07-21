@@ -3,22 +3,25 @@ import SwiftUI
 
 @MainActor
 final class ProfileSetupDecisionViewModel: ObservableObject {
-    private let router: AuthRouter
-    private let onAuthFinished: () -> Void
 
-    init(router: AuthRouter, onAuthFinished: @escaping () -> Void) {
-        self.router = router
-        self.onAuthFinished = onAuthFinished
+    private let oncompleteHealthProfileClicked: () -> Void
+    private let onSkipButtonClicked: () -> Void
+
+    init(
+        oncompleteHealthProfileClicked: @escaping () -> Void,
+        onSkipButtonClicked: @escaping () -> Void
+    ) {
+        self.oncompleteHealthProfileClicked = oncompleteHealthProfileClicked
+        self.onSkipButtonClicked = onSkipButtonClicked
     }
 
     // MARK: - Intents
 
     func completeHealthProfileTapped() {
-        // TODO: navigate to the health profile flow
+        oncompleteHealthProfileClicked()
     }
 
     func skipForNowTapped() {
-        onAuthFinished()
+        onSkipButtonClicked()
     }
-    
 }

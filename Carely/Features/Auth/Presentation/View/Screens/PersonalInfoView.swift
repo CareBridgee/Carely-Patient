@@ -13,6 +13,9 @@ struct PersonalInfoView: View {
     @StateObject var viewModel: PersonalInfoViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(viewModel: @autoclosure @escaping () -> PersonalInfoViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel())
+    }
     var body: some View {
         VStack(spacing: Spacing.s20) {
             
