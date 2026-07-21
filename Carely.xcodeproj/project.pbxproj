@@ -32,9 +32,9 @@
 		0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */; };
 		39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F61300BD89E0092118E /* PrimaryChip.swift */; };
 		39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F63300BDD5E0092118E /* SecondaryChip.swift */; };
+		39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39225EF0300EF85C00D6AE1A /* FlowLayout.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
-		B396A9D9300E34D3009620B0 /* AllergiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9D8300E34D3009620B0 /* AllergiesView.swift */; };
 		B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */; };
 		B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */; };
 		B396A9E1300E3655009620B0 /* MobilityOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */; };
@@ -170,9 +170,9 @@
 		0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextAreaView.swift; sourceTree = "<group>"; };
 		39008F61300BD89E0092118E /* PrimaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryChip.swift; sourceTree = "<group>"; };
 		39008F63300BDD5E0092118E /* SecondaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryChip.swift; sourceTree = "<group>"; };
+		39225EF0300EF85C00D6AE1A /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
-		B396A9D8300E34D3009620B0 /* AllergiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergiesView.swift; sourceTree = "<group>"; };
 		B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStepFooter.swift; sourceTree = "<group>"; };
 		B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldCard.swift; sourceTree = "<group>"; };
 		B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityOptionRow.swift; sourceTree = "<group>"; };
@@ -706,7 +706,7 @@
 		C6C0A4EE300D334800AEB6D9 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				B396A9D8300E34D3009620B0 /* AllergiesView.swift */,
+				39225EF0300EF85C00D6AE1A /* FlowLayout.swift */,
 				C6C0A4E6300D334800AEB6D9 /* AllergiesView.swift */,
 				C6C0A4E7300D334800AEB6D9 /* BasicHealthInfoView.swift */,
 				C6C0A4E8300D334800AEB6D9 /* CurrentMedicationView.swift */,
@@ -963,6 +963,7 @@
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				C6C0A4DF300D253500AEB6D9 /* ProfileSetupCoordinator.swift in Sources */,
 				C6C0A4D0300D0C8900AEB6D9 /* EmergencyContact.swift in Sources */,
+				39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
@@ -974,7 +975,6 @@
 				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
 				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
-				B396A9D9300E34D3009620B0 /* AllergiesView.swift in Sources */,
 				C6C3BE3D300A644A00C5FC25 /* OTPVerificationCardView.swift in Sources */,
 				C6C0A4C9300D0C5B00AEB6D9 /* CurrentMedication.swift in Sources */,
 				C6C3BE3E300A644A00C5FC25 /* OTPDigitInputField.swift in Sources */,
