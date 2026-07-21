@@ -38,7 +38,6 @@ struct CarelyApp: App {
 
             case .profileSetup:
                 ProfileSetupCoordinatorView(
-                    container: diContainer,
                     coordinator: diContainer.makeProfileSetupCoordinator(),
                     container: diContainer,
                     onFinish: { appState.startHomeFlow() }
