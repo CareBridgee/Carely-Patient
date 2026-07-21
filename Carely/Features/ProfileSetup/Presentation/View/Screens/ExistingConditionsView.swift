@@ -37,8 +37,11 @@ struct ExistingConditionsView: View {
         .navigationBarHidden(true)
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
-                onBackTapped: { coordinator.previous() },
-                onContinueTapped: { 
+                onBackTapped: {
+                    coordinator.previous()
+                    coordinator.save(existingConditions: viewModel.existingConditions)
+                    },
+                onContinueTapped: {
                     coordinator.save(existingConditions: viewModel.existingConditions)
                     coordinator.next() }
             )

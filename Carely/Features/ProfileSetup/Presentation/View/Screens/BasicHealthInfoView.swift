@@ -34,10 +34,14 @@ struct BasicHealthInfoView: View {
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
                 isContinueDisabled: !viewModel.isFormValid,
-                onBackTapped: { coordinator.previous() },
-                onContinueTapped: { 
+                onBackTapped: {
                     coordinator.save(basicHealthInfo: viewModel.basicHealthInfo)
-                    coordinator.next() }
+                    coordinator.previous()
+                },
+                onContinueTapped: {
+                    coordinator.save(basicHealthInfo: viewModel.basicHealthInfo)
+                    coordinator.next()
+                }
             )
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
