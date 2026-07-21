@@ -48,10 +48,12 @@ struct ProfileSetupCoordinatorView: View {
                     ExistingConditionsView()
 
                 case .allergies:
-                    AllergiesView()
+                    AllergiesView(viewModel: AllergiesViewModel(coordinator: coordinator))
 
                 case .currentMedication:
-                    CurrentMedicationView()
+
+                    CurrentMedicationView(viewModel: CurrentMedicationViewModel(coordinator: coordinator))
+
                 case .medicalHistory:
                  MedicalHistoryView(
                      viewModel: container.makeMedicalHistoryViewModel(coordinator: coordinator)

@@ -8,5 +8,8 @@
 import Foundation
 
 struct Allergies {
-    var data = ""
+    var hasNoKnownAllergies: Bool = false
+    var drugAllergies: Set<String> = []
+    var foodAllergies: Set<String> = []
+    var otherAllergiesNote: String = ""
 }
