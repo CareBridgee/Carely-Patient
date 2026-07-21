@@ -58,7 +58,7 @@ struct EmergencyContactView: View {
 
                     InfoBannerView(
                         text: "Your data is encrypted and only shared with medical professionals during active care sessions.",
-                        iconName: "shield.checkmark.fill"
+                        iconName: "info.circle"
                     )
                 }
                 .padding(Spacing.s8)
@@ -77,10 +77,4 @@ struct EmergencyContactView: View {
         }
         .background(Color.backGround)
     }
-}
-
-#Preview {
-    let diContainer = DIContainer()
-    let coordinator = diContainer.makeProfileSetupCoordinator()
-    return ProfileSetupCoordinatorView(coordinator: coordinator) {}
 }

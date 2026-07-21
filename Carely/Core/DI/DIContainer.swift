@@ -100,4 +100,76 @@ final class DIContainer {
     ) -> EmergencyContactViewModel {
         EmergencyContactViewModel(initialContact: initialContact, onContinue: onContinue, onBack: onBack)
     }
+    
+    func makeHomeAddressViewModel(
+        initialAddress: HomeAddress?,
+        onFinishSetup: @escaping (HomeAddress) -> Void,
+        onBackTapped: @escaping () -> Void
+    ) -> HomeAddressViewModel {
+        let mapPickerVM = makeAddressMapPickerViewModel()
+
+        let homeVM = HomeAddressViewModel(
+            initialAddress: initialAddress,
+            mapPickerViewModel: mapPickerVM,
+            getCurrentLocationAddressUseCase: makeGetCurrentLocationAddressUseCase(),
+            onFinishSetup: onFinishSetup,
+            onBackTapped: onBackTapped
+        )
+
+        mapPickerVM.onConfirm = { [weak homeVM] selection in
+            homeVM?.handleAddressSelection(selection)
+        }
+        mapPickerVM.onClose = { [weak homeVM] in
+            homeVM?.closeMapPicker()
+        }
+
+        return homeVM
+    }
+
+    // MARK: - Home Address Repository
+
+    private lazy var homeAddressRepository: HomeAddressRepositoryProtocol = HomeAddressRepositoryImpl(
+        searchService: MapSearchService(),
+        geocodingService: GeocodingService(),
+        locationProvider: CurrentLocationProvider()
+    )
+
+    // MARK: - Home Address Use Cases
+
+    private func makeSearchPlacesUseCase() -> SearchPlacesUseCase {
+        SearchPlacesUseCase(repository: homeAddressRepository)
+    }
+
+    private func makeResolveLocationUseCase() -> ResolveLocationUseCase {
+        ResolveLocationUseCase(repository: homeAddressRepository)
+    }
+
+    private func makeReverseGeocodeUseCase() -> ReverseGeocodeUseCase {
+        ReverseGeocodeUseCase(repository: homeAddressRepository)
+    }
+
+    private func makeGeocodeCountryUseCase() -> GeocodeCountryUseCase {
+        GeocodeCountryUseCase(repository: homeAddressRepository)
+    }
+
+    private func makeGetCurrentLocationCoordinateUseCase() -> GetCurrentLocationCoordinateUseCase {
+        GetCurrentLocationCoordinateUseCase(repository: homeAddressRepository)
+    }
+
+    private func makeGetCurrentLocationAddressUseCase() -> GetCurrentLocationAddressUseCase {
+        GetCurrentLocationAddressUseCase(repository: homeAddressRepository)
+    }
+
+    // MARK: - Address Map Picker ViewModel
+
+    private func makeAddressMapPickerViewModel() -> AddressMapPickerViewModel {
+        AddressMapPickerViewModel(
+            searchPlacesUseCase: makeSearchPlacesUseCase(),
+            resolveLocationUseCase: makeResolveLocationUseCase(),
+            reverseGeocodeUseCase: makeReverseGeocodeUseCase(),
+            geocodeCountryUseCase: makeGeocodeCountryUseCase(),
+            getCurrentLocationCoordinateUseCase: makeGetCurrentLocationCoordinateUseCase()
+        )
+    }
 }
+

@@ -19,10 +19,11 @@ struct ProfileSetupCoordinatorView: View {
 
     // MARK: - Init
 
-    init(container: DIContainer,coordinator: ProfileSetupCoordinator, onFinish: @escaping () -> Void) {
-        self.container = container
+
+    init(coordinator: ProfileSetupCoordinator,container: DIContainer, onFinish: @escaping () -> Void) {
         self.onFinish = onFinish
         _coordinator = StateObject(wrappedValue: coordinator)
+        self.container = container
     }
 
     // MARK: - Body
@@ -80,7 +81,16 @@ struct ProfileSetupCoordinatorView: View {
                    )
 
                 case .homeAddress:
-                    HomeAddressView()
+                    HomeAddressView(
+                        viewModel: container.makeHomeAddressViewModel(
+                            initialAddress: coordinator.data.homeAddress,
+                            onFinishSetup: { address in
+                                coordinator.save(homeAddress: address)
+                                onFinish()
+                            },
+                            onBackTapped: handleBack
+                        )
+                    )
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
