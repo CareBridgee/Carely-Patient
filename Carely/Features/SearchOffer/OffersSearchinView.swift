@@ -26,7 +26,19 @@ struct OffersSearchingView: View {
                     
                     VStack(spacing: Spacing.s16) {
                         ForEach(viewModel.offers) { offer in
-                            NurseOfferCardView(offer: offer)
+                            NurseOfferCardView(offer: offer,
+                                onDeclineTapped: {
+                                viewModel.declineOffer(offerId: offer.id)
+                            },
+                                onAcceptTapped: {
+                                viewModel.acceptOffer(offerId: offer.id)
+                            })
+                            .transition(
+                                .asymmetric(
+                                    insertion: .scale(scale: 0.9).combined(with: .opacity).combined(with: .move(edge: .top)),
+                                    removal: .scale(scale: 0.9).combined(with: .opacity)
+                                )
+                            )
                         }
                     }
                     .padding(.horizontal, Spacing.s20)

@@ -35,7 +35,7 @@ final class OffersSearchingViewModel: ObservableObject {
         private func handleEvent(_ event: BookingEvent) {
             switch event {
             case .offerReceived(let offer):
-                self.offers.append(offer)
+                self.offers.insert(offer, at: 0)
                 
             case .offerCanceled(let offerId):
                 self.offers.removeAll { $0.id == offerId }
@@ -45,7 +45,18 @@ final class OffersSearchingViewModel: ObservableObject {
             }
         }
         
-        func cancelSearch() {
+    func cancelSearch() {
             manageOffersConnectionUseCase.disconnect()
+        }
+    
+    func declineOffer(offerId: String) {
+           // self.offers.removeAll { $0.id == offerId }
+            
+        }
+        
+        func acceptOffer(offerId: String) {
+            
+           // cancelSearch()
+            
         }
 }

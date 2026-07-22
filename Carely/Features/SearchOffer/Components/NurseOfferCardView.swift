@@ -2,6 +2,8 @@ import SwiftUI
 
 struct NurseOfferCardView: View {
     let offer: NurseOffer
+    var onDeclineTapped: () -> Void
+    var onAcceptTapped: () -> Void
     
     var body: some View {
         VStack(spacing: Spacing.s16) {
@@ -108,7 +110,16 @@ struct NurseOfferCardView: View {
         reviewsCount: 124,
         distance: 2.4,
         imageLink: ""
-    ))
+    ),
+        onDeclineTapped: {
+        print("Decline tapped in preview")
+    },
+        onAcceptTapped: {
+        print("Accept tapped in preview")
+    }
+                       
+    )
+    
     .padding()
     .background(Color.backGround)
 }
