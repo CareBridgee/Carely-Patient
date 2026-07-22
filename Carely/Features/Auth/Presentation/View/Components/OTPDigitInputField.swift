@@ -45,10 +45,10 @@ struct OTPDigitInputField: View {
         let hasDigit = index < characters.count
         let isActive = index == characters.count && isFocused
 
-        RoundedRectangle.trueFit(Radius.r8)
+        RoundedRectangle.carely(Radius.r8)
             .stroke(borderColor(hasDigit: hasDigit, isActive: isActive), lineWidth: isActive ? 2 : 1)
             .background(
-                RoundedRectangle.trueFit(Radius.r8)
+                RoundedRectangle.carely(Radius.r8)
                     .fill(Color.surface)
             )
             .frame(width: boxSize, height: boxSize)
@@ -57,12 +57,12 @@ struct OTPDigitInputField: View {
                     .carelyText(style: .heading3, weight: .semiBold)
                     .foregroundStyle(hasDigit ? Color.primaryFont : Color.hint)
             )
-            .animation(TrueFitMotion.springSnappy, value: isActive)
+            .animation(CarelyMotion.springSnappy, value: isActive)
     }
 
     private func borderColor(hasDigit: Bool, isActive: Bool) -> Color {
         if isError { return .error }
-        if isActive { return .primary }
+        if isActive { return .brandPrimary }
         if hasDigit { return .primaryVariant }
         return .divider
     }

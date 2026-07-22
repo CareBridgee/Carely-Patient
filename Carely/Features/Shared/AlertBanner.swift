@@ -54,7 +54,7 @@ struct AlertBanner: View {
         }
         .padding(Spacing.s4)
         .background(
-            RoundedRectangle.trueFit(Radius.r12)
+            RoundedRectangle.carely(Radius.r12)
                 .fill(style.backgroundColor)
         )
         .transition(.move(edge: .top).combined(with: .opacity))

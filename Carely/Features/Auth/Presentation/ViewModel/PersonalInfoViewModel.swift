@@ -23,7 +23,7 @@ final class PersonalInfoViewModel: ObservableObject {
     
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-    @Published var dateOfBirth: Date = Date()
+    @Published var dateOfBirth: Date? = nil
     @Published var gender: Gender = .male
     
     @Published var firstNameError: String? = nil
@@ -38,17 +38,19 @@ final class PersonalInfoViewModel: ObservableObject {
 
     private let savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol
     private let router: AuthRouter
-    
+    private var onOersonalDataSaved: () -> Void
     init(
         savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol,
-        router: AuthRouter
+        router: AuthRouter,
+        onOersonalDataSaved: @escaping () -> Void
     ) {
         self.savePersonalInfoUseCase = savePersonalInfoUseCase
         self.router = router
+        self.onOersonalDataSaved = onOersonalDataSaved
     }
     
     func continueTapped() {
-        guard validateInputs() else { return }
+        //guard validateInputs() else { return }
         
         isLoading = true
         apiErrorMessage = nil
@@ -56,16 +58,16 @@ final class PersonalInfoViewModel: ObservableObject {
         let basicInfo = BasicUserInfo(
             firstName: firstName.trimmingCharacters(in: .whitespaces),
             secondName: lastName.trimmingCharacters(in: .whitespaces),
-            dateOfBirth: dateOfBirth,
+            dateOfBirth: dateOfBirth ?? Date(),
             Gender: gender
         )
         
         Task {
             do {
                 try await savePersonalInfoUseCase.execute(basicInfo: basicInfo)
-                
+                onOersonalDataSaved()
                 isLoading = false
-                router.push(to: .ProfileSetupDecision)
+                
                 
             } catch {
                 isLoading = false
@@ -94,9 +96,14 @@ final class PersonalInfoViewModel: ObservableObject {
             }
             
             let calendar = Calendar.current
-            let ageComponents = calendar.dateComponents([.year], from: dateOfBirth, to: Date())
-            if let age = ageComponents.year, age < 18 {
-                dobError = "You must be +18 to use CareConnect"
+            if let dob = dateOfBirth {
+                let ageComponents = calendar.dateComponents([.year], from: dob, to: Date())
+                if let age = ageComponents.year, age < 18 {
+                    dobError = "You must be +18 to use CareConnect"
+                    isValid = false
+                }
+            } else {
+                dobError = "Date of birth is required"
                 isValid = false
             }
             

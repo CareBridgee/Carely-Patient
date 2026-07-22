@@ -16,7 +16,7 @@ struct SkipForNowButton: View {
                 VStack(alignment: .leading, spacing: Spacing.s4) {
                     Text("Skip for Now")
                         .carelyText(style: .button, weight: .bold)
-                        .foregroundStyle(Color.primary)
+                        .foregroundStyle(Color.brandPrimary)
 
                     Text("Set up your profile later")
                         .carelyText(style: .bodySmall, weight: .regular)
@@ -27,15 +27,15 @@ struct SkipForNowButton: View {
 
                 Image(systemName: "arrow.right")
                     .font(.system(size: IconSize.s20, weight: .bold))
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(Color.brandPrimary)
             }
             .padding(.horizontal, Spacing.s24)
             .padding(.vertical, Spacing.s20)
             .background(
-                RoundedRectangle.trueFit(Radius.r24)
+                RoundedRectangle.carely(Radius.r24)
                     .fill(Color.surface)
                     .overlay(
-                        RoundedRectangle.trueFit(Radius.r24)
+                        RoundedRectangle.carely(Radius.r24)
                             .stroke(Color.divider, lineWidth: 1)
                     )
             )

@@ -29,11 +29,11 @@ struct OTPVerificationCardView: View {
         }
         .padding(Spacing.s16)
         .background(
-            RoundedRectangle.trueFit(Radius.r20)
+            RoundedRectangle.carely(Radius.r20)
                 .fill(Color.surface)
         )
-        .animation(TrueFitMotion.springDefault, value: viewModel.errorMessage)
-        .animation(TrueFitMotion.springDefault, value: viewModel.successMessage)
+        .animation(CarelyMotion.springDefault, value: viewModel.errorMessage)
+        .animation(CarelyMotion.springDefault, value: viewModel.successMessage)
     }
     
     private var verifyButton: some View {
@@ -54,10 +54,10 @@ struct OTPVerificationCardView: View {
             .frame(height: 52)
             .background(
                 Capsule()
-                    .fill(viewModel.isVerifyEnabled ? Color.primary : Color.disable)
+                    .fill(viewModel.isVerifyEnabled ? Color.brandPrimary : Color.disable)
             )
         }
         .disabled(!viewModel.isVerifyEnabled)
-        .animation(.easeInOut(duration: TrueFitMotion.durationFast), value: viewModel.isVerifyEnabled)
+        .animation(.easeInOut(duration: CarelyMotion.durationFast), value: viewModel.isVerifyEnabled)
     }
 }

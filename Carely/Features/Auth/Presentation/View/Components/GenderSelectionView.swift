@@ -12,7 +12,7 @@ struct GenderSelectionView: View {
     @Binding var selectedGender: Gender
     
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.s4) {
+        VStack(alignment: .leading, spacing: Spacing.s8) {
             Text("Gender")
                 .carelyText(style: .bodySmall, weight: .medium)
                 .foregroundColor(Color.secondaryFont)
@@ -21,8 +21,9 @@ struct GenderSelectionView: View {
                 GenderButton(title: "Male", genderValue: .male, selectedGender: $selectedGender)
                 GenderButton(title: "Female", genderValue: .female, selectedGender: $selectedGender)
             }
+            .frame(height:  Spacing.s40)
             .background(Color.surfaceVariant)
-            .cornerRadius(12)
+            .cornerRadius(8)
         }
     }
 }
@@ -41,10 +42,10 @@ struct GenderButton: View {
             Text(title)
                 .carelyText(style: .bodySmall, weight: isSelected ? .bold : .medium)
                 .foregroundColor(isSelected ? Color.onPrimary : Color.secondaryFont)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, Spacing.s4)
-                .background(isSelected ? Color.primary : Color.clear)
-                .cornerRadius(12)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(isSelected ? Color.brandPrimary : Color.clear)
+                .cornerRadius(8)
         }
     }
 }
+

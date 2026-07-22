@@ -15,7 +15,7 @@ struct PhoneNumberView : View {
                 
                 Text("Join us via phone number")
                     .carelyText(style: .heading3)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.brandPrimary)
                 
                 Text("We'll text a code to verify your phone.")
                     .carelyText(style: .bodyRegular, weight: .light)
@@ -54,7 +54,7 @@ struct PhoneNumberView : View {
 
                 loginButton(
                     title: "NEXT",
-                    backgroundColor: .primary
+                    backgroundColor: .brandPrimary
                 ) {
                     viewModel.nextButtonPressed()
                 }

@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct CarelyApp: App {
     
-    let diContainer :DIContainer
+    let diContainer: DIContainer
     @StateObject private var appState = AppState()
     
     @MainActor
@@ -20,11 +20,36 @@ struct CarelyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if appState.phase == .auth {
-                AuthCoordinator(container: diContainer) { appState.signIn() }
-             } else {
-                 ContentView()
-             }
+            switch appState.flow {
+
+            case .auth:
+                ProfileSetupCoordinatorView(
+                    coordinator: diContainer.makeProfileSetupCoordinator(),
+                    container: diContainer,
+                    onFinish: { appState.startHomeFlow() }
+                )
+
+            case .profileSetupDecision:
+                ProfileSetupCoordinatorView(
+                    coordinator: diContainer.makeProfileSetupCoordinator(),
+                    container: diContainer,
+                    onFinish: { appState.startHomeFlow() }
+                )
+
+            case .profileSetup:
+                ProfileSetupCoordinatorView(
+                    coordinator: diContainer.makeProfileSetupCoordinator(),
+                    container: diContainer,
+                    onFinish: { appState.startHomeFlow() }
+                )
+
+            case .home:
+                ProfileSetupCoordinatorView(
+                    coordinator: diContainer.makeProfileSetupCoordinator(),
+                    container: diContainer,
+                    onFinish: { appState.startHomeFlow() }
+                )
+            }
         }
     }
 }

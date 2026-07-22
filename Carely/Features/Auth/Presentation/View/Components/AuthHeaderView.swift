@@ -21,7 +21,7 @@ struct AuthHeaderView: View {
             Spacer()
             Text(title)
                 .carelyText(style: .heading3, weight: .bold)
-                .foregroundStyle(Color.primary)
+                .foregroundStyle(Color.brandPrimary)
             Spacer()
             Color.clear.frame(width: 20, height: 20)
         }
@@ -37,7 +37,7 @@ struct OTPHeaderIconView: View {
                 .frame(width: 88, height: 88)
             Image(systemName: "iphone")
                 .font(.system(size: 32, weight: .medium))
-                .foregroundStyle(Color.primary)
+                .foregroundStyle(Color.brandPrimary)
         }
         .padding(.top, Spacing.s12)
     }

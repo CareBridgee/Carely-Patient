@@ -30,8 +30,8 @@ struct CompleteHealthProfileButton: View {
             .padding(.horizontal, Spacing.s24)
             .padding(.vertical, Spacing.s20)
             .background(
-                RoundedRectangle.trueFit(Radius.r24)
-                    .fill(Color.primary)
+                RoundedRectangle.carely(Radius.r24)
+                    .fill(Color.brandPrimary)
             )
         }
     }
