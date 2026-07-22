@@ -171,5 +171,58 @@ final class DIContainer {
             getCurrentLocationCoordinateUseCase: makeGetCurrentLocationCoordinateUseCase()
         )
     }
+    
+    // MARK: - Home Repository
+     
+        private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl()
+     
+        // MARK: - Home UseCases
+     
+        private func makeGetGreetingNameUseCase() -> GetGreetingNameUseCaseProtocol {
+            GetGreetingNameUseCase(repository: homeRepository)
+        }
+     
+        private func makeGetServiceCategoriesUseCase() -> GetServiceCategoriesUseCaseProtocol {
+            GetServiceCategoriesUseCase(repository: homeRepository)
+        }
+     
+        private func makeGetUpcomingBookingsUseCase() -> GetUpcomingBookingsUseCaseProtocol {
+            GetUpcomingBookingsUseCase(repository: homeRepository)
+        }
+     
+        private func makeGetServiceDetailUseCase() -> GetServiceDetailUseCaseProtocol {
+            GetServiceDetailUseCase(repository: homeRepository)
+        }
+     
+        private func makeSearchServiceCategoriesUseCase() -> SearchServiceCategoriesUseCaseProtocol {
+            SearchServiceCategoriesUseCase(repository: homeRepository)
+        }
+     
+        // MARK: - Home ViewModels
+     
+        func makeHomeViewModel(router: HomeRouter) -> HomeViewModel {
+            HomeViewModel(
+                getGreetingNameUseCase: makeGetGreetingNameUseCase(),
+                getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
+                getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
+                router: router
+            )
+        }
+     
+        func makeServiceCategoriesViewModel(router: HomeRouter) -> ServiceCategoriesViewModel {
+            ServiceCategoriesViewModel(
+                getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
+                searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
+                router: router
+            )
+        }
+     
+        func makeServiceDetailsViewModel(serviceId: String, router: HomeRouter) -> ServiceDetailsViewModel {
+            ServiceDetailsViewModel(
+                serviceId: serviceId,
+                getServiceDetailUseCase: makeGetServiceDetailUseCase(),
+                router: router
+            )
+        }
 }
 
