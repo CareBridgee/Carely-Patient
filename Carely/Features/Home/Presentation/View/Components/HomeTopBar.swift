@@ -44,9 +44,9 @@ struct HomeTopBar: View {
     }
 }
  
-#Preview {
-    HomeTopBar(greetingName: "Elena", onNotificationsTapped: {})
-        .padding()
-        .background(Color.backGround)
-}
- 
+//#Preview {
+//    HomeTopBar(greetingName: "Elena", onNotificationsTapped: {})
+//        .padding()
+//        .background(Color.backGround)
+//}
+// 

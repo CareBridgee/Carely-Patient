@@ -187,13 +187,13 @@ struct ServiceCategoriesView: View {
     }
 }
 
-#Preview {
-    let repository = HomeRepositoryImpl()
-    ServiceCategoriesView(
-        viewModel: ServiceCategoriesViewModel(
-            getServiceCategoriesUseCase: GetServiceCategoriesUseCase(repository: repository),
-            searchServiceCategoriesUseCase: SearchServiceCategoriesUseCase(repository: repository),
-            router: HomeRouter()
-        )
-    )
-}
+//#Preview {
+//    let repository = HomeRepositoryImpl()
+//    ServiceCategoriesView(
+//        viewModel: ServiceCategoriesViewModel(
+//            getServiceCategoriesUseCase: GetServiceCategoriesUseCase(repository: repository),
+//            searchServiceCategoriesUseCase: SearchServiceCategoriesUseCase(repository: repository),
+//            router: HomeRouter()
+//        )
+//    )
+//}

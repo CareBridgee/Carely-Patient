@@ -53,9 +53,9 @@ struct AIAssessmentBannerView: View {
     }
 }
  
-#Preview {
-    AIAssessmentBannerView(){}
-        .padding()
-        .background(Color.backGround)
-}
- 
+//#Preview {
+//    AIAssessmentBannerView(){}
+//        .padding()
+//        .background(Color.backGround)
+//}
+// 

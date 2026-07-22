@@ -29,9 +29,9 @@ struct SearchField: View {
     }
 }
  
-#Preview {
-    SearchField(placeholder: "Search services, symptoms...", text: .constant(""))
-        .padding()
-        .background(Color.backGround)
-}
- 
+//#Preview {
+//    SearchField(placeholder: "Search services, symptoms...", text: .constant(""))
+//        .padding()
+//        .background(Color.backGround)
+//}
+// 
