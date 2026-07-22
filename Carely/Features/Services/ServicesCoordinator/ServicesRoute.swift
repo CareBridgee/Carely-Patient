@@ -12,8 +12,8 @@ import Foundation
 
 enum ServicesRoute: Hashable {
     case serviceDetails(source: ServiceDetailsSource)
-//    case requestService
-//  case waitingForOffers(Service)
+    case requestService
+    case waitingForOffers
 //    case activeVisit(ActiveVisit)
 //    case chat(ActiveVisit)
 //    case startVisitQR(ActiveVisit)

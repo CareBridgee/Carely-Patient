@@ -228,22 +228,21 @@ final class DIContainer {
     private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
                 CareRequestRepositoryImpl()
             }()
-            func makeCareRequestViewModel(
-                preselectedService: CareService,
-                entryPoint: CareRequestEntryPoint,
-                onSubmitted: @escaping () -> Void
-            ) -> CareRequestViewModel {
-                CareRequestViewModel(
-                    preselectedService: preselectedService,
-                    entryPoint: entryPoint,
-                    fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
-                    fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
-                    submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
-                    onSubmitted: onSubmitted
+    func makeCareRequestViewModel(
+        preselectedService: CareService,
+        entryPoint: CareRequestEntryPoint,
+        onSubmitted: @escaping () -> Void ) -> CareRequestViewModel {
+        CareRequestViewModel(
+            preselectedService: preselectedService,
+            entryPoint: entryPoint,
+            fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
+            fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
+            submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
+            onSubmitted: onSubmitted
 
-                )
+        )
 
-            }
+    }
 
     // MARK: - Search Offer Repository
     
