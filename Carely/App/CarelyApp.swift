@@ -23,19 +23,16 @@ struct CarelyApp: App {
             switch appState.flow {
 
             case .auth:
-                ProfileSetupCoordinatorView(
-                    coordinator: diContainer.makeProfileSetupCoordinator(),
-                    container: diContainer,
-                    onFinish: { appState.startHomeFlow() }
-                )
+                AuthCoordinator(container: diContainer, appState: appState)
+
 
             case .profileSetupDecision:
-                ProfileSetupCoordinatorView(
-                    coordinator: diContainer.makeProfileSetupCoordinator(),
-                    container: diContainer,
-                    onFinish: { appState.startHomeFlow() }
+                ProfileSetupDecisionView(
+                    viewModel: diContainer.makeProfileSetupDecisionViewModel(
+                        oncompleteHealthProfileClicked: { appState.startProfileSetup() },
+                        onSkipButtonClicked: { appState.startHomeFlow() }
+                    )
                 )
-
             case .profileSetup:
                 ProfileSetupCoordinatorView(
                     coordinator: diContainer.makeProfileSetupCoordinator(),
@@ -44,10 +41,8 @@ struct CarelyApp: App {
                 )
 
             case .home:
-                HomeCoordinator(
-                    container: diContainer,
-                    appState: appState
-                )
+                MainTabCoordinatorView(container: diContainer, appState: appState)
+
             }
         }
     }
