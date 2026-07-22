@@ -25,7 +25,7 @@ struct ServiceCategoriesView: View {
  
                         SearchField(
                             placeholder: "Search services (e.g. Injection)",
-                            text: $viewModel.searchQuery,
+                            text: $viewModel.searchQuery
                         )
  
                         sectionTitle
