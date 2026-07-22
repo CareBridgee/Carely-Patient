@@ -245,6 +245,28 @@ final class DIContainer {
 
             }
 
+    // MARK: - Search Offer Repository
     
+    private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {
+        OfferSearchingRepositoryImpl(hubService: OffersSearchingHubServices())
+    }()
+    
+    // MARK: - Search Offer UseCases
+    
+    private func makeObserveOffersUseCase() -> ObserveOffersUseCase {
+        ObserveOffersUseCase(repository: offerSearchingRepository)
+    }
+    
+    private func makeManageOffersConnectionUseCase() -> ManageOffersConnectionUseCase {
+        ManageOffersConnectionUseCase(repository: offerSearchingRepository)
+    }
+    
+    // MARK: - Search Offer ViewModels
+    
+    func makeOffersSearchingViewModel() -> OffersSearchingViewModel {
+        OffersSearchingViewModel(
+            observeOffersUseCase: makeObserveOffersUseCase(),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase()
+        )
+    }
 }
-
