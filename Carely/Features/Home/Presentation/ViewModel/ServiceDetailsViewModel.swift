@@ -25,7 +25,7 @@ final class ServiceDetailsViewModel: ObservableObject {
  
     init(
         serviceId: String,
-        getServiceDetailUseCase: GetServiceDetailUseCaseProtocol,
+        getServiceDetailUseCase: GetServiceDetailUseCaseProtocol
     ) {
         self.serviceId = serviceId
         self.getServiceDetailUseCase = getServiceDetailUseCase

@@ -30,7 +30,7 @@ final class HomeViewModel: ObservableObject {
     init(
         getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
-        getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
+        getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     ) {
         self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase

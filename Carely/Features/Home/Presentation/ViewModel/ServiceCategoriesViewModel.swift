@@ -27,7 +27,7 @@ final class ServiceCategoriesViewModel: ObservableObject {
  
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
-        searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol,
+        searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
     ) {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.searchServiceCategoriesUseCase = searchServiceCategoriesUseCase
