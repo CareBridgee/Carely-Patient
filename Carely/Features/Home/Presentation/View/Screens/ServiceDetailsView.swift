@@ -195,12 +195,12 @@ struct ServiceDetailsView: View {
     }
 }
 
-#Preview {
-    ServiceDetailsView(
-        viewModel: ServiceDetailsViewModel(
-            serviceId: "iv-drip",
-            getServiceDetailUseCase: GetServiceDetailUseCase(repository: HomeRepositoryImpl()),
-            router: HomeRouter()
-        )
-    )
-}
+//#Preview {
+//    ServiceDetailsView(
+//        viewModel: ServiceDetailsViewModel(
+//            serviceId: "iv-drip",
+//            getServiceDetailUseCase: GetServiceDetailUseCase(repository: HomeRepositoryImpl()),
+//            router: HomeRouter()
+//        )
+//    )
+//}

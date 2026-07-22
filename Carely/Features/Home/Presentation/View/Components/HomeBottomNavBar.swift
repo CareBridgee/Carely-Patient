@@ -53,6 +53,6 @@ struct HomeBottomNavBar: View {
     }
 }
  
-#Preview {
-    HomeBottomNavBar(selectedTab: .home)
-}
+//#Preview {
+//    HomeBottomNavBar(selectedTab: .home)
+//}

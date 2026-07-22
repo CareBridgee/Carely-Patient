@@ -84,39 +84,39 @@ private struct StatusBadge: View {
     }
 }
 
-#Preview {
-    VStack(spacing: Spacing.s12) {
-        UpcomingBookingCard(
-            booking: UpcomingBooking(
-                id: "1",
-                providerName: "Nurse Sarah Jenkins",
-                providerImageName: "person.crop.circle.fill",
-                serviceName: "General Nursing Care",
-                status: .confirmed,
-                dateTimeText: "Today, 02:30 PM"
-            )
-        )
-        UpcomingBookingCard(
-            booking: UpcomingBooking(
-                id: "2",
-                providerName: "Dr. Amina Youssef",
-                providerImageName: "person.crop.circle.fill",
-                serviceName: "Physical Therapy Session",
-                status: .pending,
-                dateTimeText: "Tomorrow, 10:00 AM"
-            )
-        )
-        UpcomingBookingCard(
-            booking: UpcomingBooking(
-                id: "3",
-                providerName: "Dr. Amina Youssef",
-                providerImageName: "person.crop.circle.fill",
-                serviceName: "Physical Therapy Session",
-                status: .completed,
-                dateTimeText: "Tomorrow, 10:00 AM"
-            )
-        )
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    VStack(spacing: Spacing.s12) {
+//        UpcomingBookingCard(
+//            booking: UpcomingBooking(
+//                id: "1",
+//                providerName: "Nurse Sarah Jenkins",
+//                providerImageName: "person.crop.circle.fill",
+//                serviceName: "General Nursing Care",
+//                status: .confirmed,
+//                dateTimeText: "Today, 02:30 PM"
+//            )
+//        )
+//        UpcomingBookingCard(
+//            booking: UpcomingBooking(
+//                id: "2",
+//                providerName: "Dr. Amina Youssef",
+//                providerImageName: "person.crop.circle.fill",
+//                serviceName: "Physical Therapy Session",
+//                status: .pending,
+//                dateTimeText: "Tomorrow, 10:00 AM"
+//            )
+//        )
+//        UpcomingBookingCard(
+//            booking: UpcomingBooking(
+//                id: "3",
+//                providerName: "Dr. Amina Youssef",
+//                providerImageName: "person.crop.circle.fill",
+//                serviceName: "Physical Therapy Session",
+//                status: .completed,
+//                dateTimeText: "Tomorrow, 10:00 AM"
+//            )
+//        )
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}

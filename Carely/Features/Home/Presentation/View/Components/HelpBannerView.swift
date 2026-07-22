@@ -33,8 +33,8 @@ struct HelpBannerView: View {
     }
 }
  
-#Preview {
-    HelpBannerView()
-        .padding()
-        .background(Color.backGround)
-}
+//#Preview {
+//    HelpBannerView()
+//        .padding()
+//        .background(Color.backGround)
+//}

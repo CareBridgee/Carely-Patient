@@ -133,29 +133,29 @@ struct ServiceCategoryBentoCard: View {
     }
 }
 
-#Preview {
-    VStack(spacing: Spacing.s12) {
-        HStack(spacing: Spacing.s12) {
-            ServiceCategoryBentoCard(
-                category: ServiceCategory(id: "1", title: "General Nursing", subtitle: "Routine checks & wellness", iconName: "cross.case.fill", layout: .featured, accent: .primary)
-            )
-            .frame(height: 280)
-
-            VStack(spacing: Spacing.s12) {
-                ServiceCategoryBentoCard(
-                    category: ServiceCategory(id: "2", title: "Injection", subtitle: "Home dosage", iconName: "cross.vial.fill", layout: .standard, accent: .neutral)
-                )
-                ServiceCategoryBentoCard(
-                    category: ServiceCategory(id: "3", title: "Physical Therapy for Home Recovery", subtitle: "Mobility aid and long recovery support", iconName: "figure.walk", layout: .standard, accent: .neutral)
-                )
-            }
-            .frame(height: 280)
-        }
-        ServiceCategoryBentoCard(
-            category: ServiceCategory(id: "4", title: "Lab Tests", subtitle: "Sample collection at home", iconName: "testtube.2", layout: .wide, accent: .secondary)
-        )
-        .frame(height: 96)
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    VStack(spacing: Spacing.s12) {
+//        HStack(spacing: Spacing.s12) {
+//            ServiceCategoryBentoCard(
+//                category: ServiceCategory(id: "1", title: "General Nursing", subtitle: "Routine checks & wellness", iconName: "cross.case.fill", layout: .featured, accent: .primary)
+//            )
+//            .frame(height: 280)
+//
+//            VStack(spacing: Spacing.s12) {
+//                ServiceCategoryBentoCard(
+//                    category: ServiceCategory(id: "2", title: "Injection", subtitle: "Home dosage", iconName: "cross.vial.fill", layout: .standard, accent: .neutral)
+//                )
+//                ServiceCategoryBentoCard(
+//                    category: ServiceCategory(id: "3", title: "Physical Therapy for Home Recovery", subtitle: "Mobility aid and long recovery support", iconName: "figure.walk", layout: .standard, accent: .neutral)
+//                )
+//            }
+//            .frame(height: 280)
+//        }
+//        ServiceCategoryBentoCard(
+//            category: ServiceCategory(id: "4", title: "Lab Tests", subtitle: "Sample collection at home", iconName: "testtube.2", layout: .wide, accent: .secondary)
+//        )
+//        .frame(height: 96)
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}

@@ -39,11 +39,11 @@ struct PriceDurationCard: View {
     }
 }
  
-#Preview {
-    HStack(spacing: Spacing.s12) {
-        PriceDurationCard(iconName: "creditcard.fill", label: "Starting from", value: "$189.00")
-        PriceDurationCard(iconName: "clock.fill", label: "Duration", value: "45-60 min", tintColor: .tint)
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    HStack(spacing: Spacing.s12) {
+//        PriceDurationCard(iconName: "creditcard.fill", label: "Starting from", value: "$189.00")
+//        PriceDurationCard(iconName: "clock.fill", label: "Duration", value: "45-60 min", tintColor: .tint)
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}
