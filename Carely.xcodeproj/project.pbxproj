@@ -80,6 +80,19 @@
 		B3A3131230094A5A00B5BB1D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */; };
 		B3A3131330094A5A00B5BB1D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */; };
 		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
+		B3E36C613010C61C00EE3669 /* CareRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C5A3010C61C00EE3669 /* CareRequestViewModel.swift */; };
+		B3E36C623010C61C00EE3669 /* PatientRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C5D3010C61C00EE3669 /* PatientRelation.swift */; };
+		B3E36C633010C61C00EE3669 /* CareRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C593010C61C00EE3669 /* CareRequestView.swift */; };
+		B3E36C643010C61C00EE3669 /* ChosenServiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C5B3010C61C00EE3669 /* ChosenServiceRow.swift */; };
+		B3E36C653010C61C00EE3669 /* FetchAvailableServicesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C5C3010C61C00EE3669 /* FetchAvailableServicesUseCase.swift */; };
+		B3E36C663010C61C00EE3669 /* AddressPreviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C563010C61C00EE3669 /* AddressPreviewCard.swift */; };
+		B3E36C673010C61C00EE3669 /* PatientSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C5E3010C61C00EE3669 /* PatientSelectorRow.swift */; };
+		B3E36C683010C61C00EE3669 /* CareRequestRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C573010C61C00EE3669 /* CareRequestRepositoryImpl.swift */; };
+		B3E36C693010C61C00EE3669 /* PaymentMethodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C5F3010C61C00EE3669 /* PaymentMethodRow.swift */; };
+		B3E36C6A3010C61C00EE3669 /* CareRequestRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C583010C61C00EE3669 /* CareRequestRepositoryProtocol.swift */; };
+		B3E36C6B3010C61C00EE3669 /* SymptomsTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C603010C61C00EE3669 /* SymptomsTextArea.swift */; };
+		B3E36C6F3010C71F00EE3669 /* FetchSavedAddressUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C6E3010C71F00EE3669 /* FetchSavedAddressUseCase.swift */; };
+		B3E36C713010C75800EE3669 /* SubmitCareRequestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C703010C75800EE3669 /* SubmitCareRequestUseCase.swift */; };
 		C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629359A300DD3BF000970D9 /* ProfileSetupRepositoryImpl.swift */; };
 		C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629359C300DD3DB000970D9 /* ProfileSetupRepositoryProtocol.swift */; };
 		C630BAD43010CC5D00255ECA /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C630BAD13010CC5D00255ECA /* MainTabCoordinator.swift */; };
@@ -270,6 +283,19 @@
 		B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B3E36C563010C61C00EE3669 /* AddressPreviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressPreviewCard.swift; sourceTree = "<group>"; };
+		B3E36C573010C61C00EE3669 /* CareRequestRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareRequestRepositoryImpl.swift; sourceTree = "<group>"; };
+		B3E36C583010C61C00EE3669 /* CareRequestRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareRequestRepositoryProtocol.swift; sourceTree = "<group>"; };
+		B3E36C593010C61C00EE3669 /* CareRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareRequestView.swift; sourceTree = "<group>"; };
+		B3E36C5A3010C61C00EE3669 /* CareRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareRequestViewModel.swift; sourceTree = "<group>"; };
+		B3E36C5B3010C61C00EE3669 /* ChosenServiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenServiceRow.swift; sourceTree = "<group>"; };
+		B3E36C5C3010C61C00EE3669 /* FetchAvailableServicesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAvailableServicesUseCase.swift; sourceTree = "<group>"; };
+		B3E36C5D3010C61C00EE3669 /* PatientRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRelation.swift; sourceTree = "<group>"; };
+		B3E36C5E3010C61C00EE3669 /* PatientSelectorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSelectorRow.swift; sourceTree = "<group>"; };
+		B3E36C5F3010C61C00EE3669 /* PaymentMethodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodRow.swift; sourceTree = "<group>"; };
+		B3E36C603010C61C00EE3669 /* SymptomsTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsTextArea.swift; sourceTree = "<group>"; };
+		B3E36C6E3010C71F00EE3669 /* FetchSavedAddressUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSavedAddressUseCase.swift; sourceTree = "<group>"; };
+		B3E36C703010C75800EE3669 /* SubmitCareRequestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitCareRequestUseCase.swift; sourceTree = "<group>"; };
 		C629359A300DD3BF000970D9 /* ProfileSetupRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupRepositoryImpl.swift; sourceTree = "<group>"; };
 		C629359C300DD3DB000970D9 /* ProfileSetupRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupRepositoryProtocol.swift; sourceTree = "<group>"; };
 		C630BACD3010CC5D00255ECA /* AppTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTab.swift; sourceTree = "<group>"; };
@@ -472,6 +498,7 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				B3E36C553010C5C000EE3669 /* RequestForm */,
 				39649593301076CA00AC4137 /* Home */,
 				0C3D88943008501500883999 /* Shared */,
 				0C3D886A3008483C00883999 /* Auth */,
@@ -839,6 +866,26 @@
 				B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */,
 			);
 			path = Poppins;
+			sourceTree = "<group>";
+		};
+		B3E36C553010C5C000EE3669 /* RequestForm */ = {
+			isa = PBXGroup;
+			children = (
+				B3E36C703010C75800EE3669 /* SubmitCareRequestUseCase.swift */,
+				B3E36C6E3010C71F00EE3669 /* FetchSavedAddressUseCase.swift */,
+				B3E36C563010C61C00EE3669 /* AddressPreviewCard.swift */,
+				B3E36C573010C61C00EE3669 /* CareRequestRepositoryImpl.swift */,
+				B3E36C583010C61C00EE3669 /* CareRequestRepositoryProtocol.swift */,
+				B3E36C593010C61C00EE3669 /* CareRequestView.swift */,
+				B3E36C5A3010C61C00EE3669 /* CareRequestViewModel.swift */,
+				B3E36C5B3010C61C00EE3669 /* ChosenServiceRow.swift */,
+				B3E36C5C3010C61C00EE3669 /* FetchAvailableServicesUseCase.swift */,
+				B3E36C5D3010C61C00EE3669 /* PatientRelation.swift */,
+				B3E36C5E3010C61C00EE3669 /* PatientSelectorRow.swift */,
+				B3E36C5F3010C61C00EE3669 /* PaymentMethodRow.swift */,
+				B3E36C603010C61C00EE3669 /* SymptomsTextArea.swift */,
+			);
+			path = RequestForm;
 			sourceTree = "<group>";
 		};
 		C6293597300DD38E000970D9 /* Repositories */ = {
@@ -1245,6 +1292,7 @@
 				39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */,
 				396495993010771C00AC4137 /* ServiceDetail.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
+				B3E36C6F3010C71F00EE3669 /* FetchSavedAddressUseCase.swift in Sources */,
 				396495CF301079A000AC4137 /* ServiceCategoriesView.swift in Sources */,
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
 				C65A1E80300EC2710003D6FB /* AddressMapPickerViewModel.swift in Sources */,
@@ -1253,6 +1301,17 @@
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
+				B3E36C613010C61C00EE3669 /* CareRequestViewModel.swift in Sources */,
+				B3E36C623010C61C00EE3669 /* PatientRelation.swift in Sources */,
+				B3E36C633010C61C00EE3669 /* CareRequestView.swift in Sources */,
+				B3E36C643010C61C00EE3669 /* ChosenServiceRow.swift in Sources */,
+				B3E36C653010C61C00EE3669 /* FetchAvailableServicesUseCase.swift in Sources */,
+				B3E36C663010C61C00EE3669 /* AddressPreviewCard.swift in Sources */,
+				B3E36C673010C61C00EE3669 /* PatientSelectorRow.swift in Sources */,
+				B3E36C683010C61C00EE3669 /* CareRequestRepositoryImpl.swift in Sources */,
+				B3E36C693010C61C00EE3669 /* PaymentMethodRow.swift in Sources */,
+				B3E36C6A3010C61C00EE3669 /* CareRequestRepositoryProtocol.swift in Sources */,
+				B3E36C6B3010C61C00EE3669 /* SymptomsTextArea.swift in Sources */,
 				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
 				396495A5301077DF00AC4137 /* SearchServiceCategoriesUseCase.swift in Sources */,
 				C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */,
@@ -1282,6 +1341,7 @@
 				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				C6C0A4CE300D0C7C00AEB6D9 /* Mobility.swift in Sources */,
 				C6C3BE02300A4D0800C5FC25 /* IconSize.swift in Sources */,
+				B3E36C713010C75800EE3669 /* SubmitCareRequestUseCase.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
