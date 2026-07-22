@@ -40,6 +40,35 @@
 		39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F61300BD89E0092118E /* PrimaryChip.swift */; };
 		39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F63300BDD5E0092118E /* SecondaryChip.swift */; };
 		39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39225EF0300EF85C00D6AE1A /* FlowLayout.swift */; };
+		39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39649594301076EB00AC4137 /* ServiceCategory.swift */; };
+		396495973010770300AC4137 /* UpcomingBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495963010770200AC4137 /* UpcomingBooking.swift */; };
+		396495993010771C00AC4137 /* ServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495983010771B00AC4137 /* ServiceDetail.swift */; };
+		3964959B3010774000AC4137 /* HomeRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3964959A3010773F00AC4137 /* HomeRepositoryProtocol.swift */; };
+		3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3964959C3010775800AC4137 /* GetGreetingNameUseCase.swift */; };
+		3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3964959E3010777600AC4137 /* GetServiceCategoriesUseCase.swift */; };
+		396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A0301077A000AC4137 /* GetUpcomingBookingsUseCase.swift */; };
+		396495A3301077C800AC4137 /* GetServiceDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A2301077C500AC4137 /* GetServiceDetailUseCase.swift */; };
+		396495A5301077DF00AC4137 /* SearchServiceCategoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */; };
+		396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A63010780700AC4137 /* HomeRepositoryImpl.swift */; };
+		396495A93010781F00AC4137 /* HomeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A83010781E00AC4137 /* HomeRoute.swift */; };
+		396495AB3010782E00AC4137 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495AA3010782D00AC4137 /* HomeRouter.swift */; };
+		396495AD3010783F00AC4137 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495AC3010783F00AC4137 /* HomeCoordinator.swift */; };
+		396495AF3010785100AC4137 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495AE3010785000AC4137 /* HomeViewModel.swift */; };
+		396495B13010786400AC4137 /* ServiceCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B03010786300AC4137 /* ServiceCategoriesViewModel.swift */; };
+		396495B33010787700AC4137 /* ServiceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */; };
+		396495B53010788D00AC4137 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B43010788C00AC4137 /* SearchField.swift */; };
+		396495B73010789D00AC4137 /* HomeTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B63010789C00AC4137 /* HomeTopBar.swift */; };
+		396495B9301078B600AC4137 /* AIAssessmentBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B8301078B500AC4137 /* AIAssessmentBannerView.swift */; };
+		396495BB301078D800AC4137 /* ServiceCategoryTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495BA301078D700AC4137 /* ServiceCategoryTile.swift */; };
+		396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495BC301078EB00AC4137 /* ServiceCategoryBentoCard.swift */; };
+		396495BF3010790300AC4137 /* UpcomingBookingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495BE3010790300AC4137 /* UpcomingBookingCard.swift */; };
+		396495C33010793400AC4137 /* HomeBottomNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C23010793300AC4137 /* HomeBottomNavBar.swift */; };
+		396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C43010794F00AC4137 /* PriceDurationCard.swift */; };
+		396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C63010796600AC4137 /* IncludedItemRow.swift */; };
+		396495C93010797900AC4137 /* HelpBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C83010797800AC4137 /* HelpBannerView.swift */; };
+		396495CB3010798800AC4137 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495CA3010798700AC4137 /* HomeView.swift */; };
+		396495CF301079A000AC4137 /* ServiceCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495CE3010799F00AC4137 /* ServiceCategoriesView.swift */; };
+		396495D1301079BB00AC4137 /* ServiceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495D0301079BA00AC4137 /* ServiceDetailsView.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
 		B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */; };
@@ -198,6 +227,35 @@
 		39008F61300BD89E0092118E /* PrimaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryChip.swift; sourceTree = "<group>"; };
 		39008F63300BDD5E0092118E /* SecondaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryChip.swift; sourceTree = "<group>"; };
 		39225EF0300EF85C00D6AE1A /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		39649594301076EB00AC4137 /* ServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
+		396495963010770200AC4137 /* UpcomingBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBooking.swift; sourceTree = "<group>"; };
+		396495983010771B00AC4137 /* ServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetail.swift; sourceTree = "<group>"; };
+		3964959A3010773F00AC4137 /* HomeRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryProtocol.swift; sourceTree = "<group>"; };
+		3964959C3010775800AC4137 /* GetGreetingNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGreetingNameUseCase.swift; sourceTree = "<group>"; };
+		3964959E3010777600AC4137 /* GetServiceCategoriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceCategoriesUseCase.swift; sourceTree = "<group>"; };
+		396495A0301077A000AC4137 /* GetUpcomingBookingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpcomingBookingsUseCase.swift; sourceTree = "<group>"; };
+		396495A2301077C500AC4137 /* GetServiceDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceDetailUseCase.swift; sourceTree = "<group>"; };
+		396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceCategoriesUseCase.swift; sourceTree = "<group>"; };
+		396495A63010780700AC4137 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
+		396495A83010781E00AC4137 /* HomeRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRoute.swift; sourceTree = "<group>"; };
+		396495AA3010782D00AC4137 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		396495AC3010783F00AC4137 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		396495AE3010785000AC4137 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		396495B03010786300AC4137 /* ServiceCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoriesViewModel.swift; sourceTree = "<group>"; };
+		396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailsViewModel.swift; sourceTree = "<group>"; };
+		396495B43010788C00AC4137 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
+		396495B63010789C00AC4137 /* HomeTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopBar.swift; sourceTree = "<group>"; };
+		396495B8301078B500AC4137 /* AIAssessmentBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssessmentBannerView.swift; sourceTree = "<group>"; };
+		396495BA301078D700AC4137 /* ServiceCategoryTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryTile.swift; sourceTree = "<group>"; };
+		396495BC301078EB00AC4137 /* ServiceCategoryBentoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryBentoCard.swift; sourceTree = "<group>"; };
+		396495BE3010790300AC4137 /* UpcomingBookingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBookingCard.swift; sourceTree = "<group>"; };
+		396495C23010793300AC4137 /* HomeBottomNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomNavBar.swift; sourceTree = "<group>"; };
+		396495C43010794F00AC4137 /* PriceDurationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDurationCard.swift; sourceTree = "<group>"; };
+		396495C63010796600AC4137 /* IncludedItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncludedItemRow.swift; sourceTree = "<group>"; };
+		396495C83010797800AC4137 /* HelpBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBannerView.swift; sourceTree = "<group>"; };
+		396495CA3010798700AC4137 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		396495CE3010799F00AC4137 /* ServiceCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoriesView.swift; sourceTree = "<group>"; };
+		396495D0301079BA00AC4137 /* ServiceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailsView.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
 		B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStepFooter.swift; sourceTree = "<group>"; };
@@ -409,6 +467,7 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				39649593301076CA00AC4137 /* Home */,
 				0C3D88943008501500883999 /* Shared */,
 				0C3D886A3008483C00883999 /* Auth */,
 				C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */,
@@ -621,6 +680,146 @@
 				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		39649593301076CA00AC4137 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				396495D530107AFE00AC4137 /* HomeCoordinator */,
+				396495D430107AEF00AC4137 /* Domain */,
+				396495D330107AEB00AC4137 /* Presentation */,
+				396495D230107ADB00AC4137 /* Data */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		396495D230107ADB00AC4137 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				396495DE30107B9400AC4137 /* Repositories */,
+				396495DD30107B8900AC4137 /* Services */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		396495D330107AEB00AC4137 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				396495D730107B1E00AC4137 /* ViewModel */,
+				396495D630107B1800AC4137 /* View */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		396495D430107AEF00AC4137 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				396495DC30107B7600AC4137 /* Entities */,
+				396495DB30107B6700AC4137 /* Repositories */,
+				396495DA30107B5400AC4137 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		396495D530107AFE00AC4137 /* HomeCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				396495AA3010782D00AC4137 /* HomeRouter.swift */,
+				396495A83010781E00AC4137 /* HomeRoute.swift */,
+				396495AC3010783F00AC4137 /* HomeCoordinator.swift */,
+			);
+			path = HomeCoordinator;
+			sourceTree = "<group>";
+		};
+		396495D630107B1800AC4137 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				396495D930107B3600AC4137 /* Screens */,
+				396495D830107B3100AC4137 /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		396495D730107B1E00AC4137 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */,
+				396495B03010786300AC4137 /* ServiceCategoriesViewModel.swift */,
+				396495AE3010785000AC4137 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		396495D830107B3100AC4137 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				396495B63010789C00AC4137 /* HomeTopBar.swift */,
+				396495B43010788C00AC4137 /* SearchField.swift */,
+				396495C83010797800AC4137 /* HelpBannerView.swift */,
+				396495C63010796600AC4137 /* IncludedItemRow.swift */,
+				396495C43010794F00AC4137 /* PriceDurationCard.swift */,
+				396495C23010793300AC4137 /* HomeBottomNavBar.swift */,
+				396495BE3010790300AC4137 /* UpcomingBookingCard.swift */,
+				396495BC301078EB00AC4137 /* ServiceCategoryBentoCard.swift */,
+				396495BA301078D700AC4137 /* ServiceCategoryTile.swift */,
+				396495B8301078B500AC4137 /* AIAssessmentBannerView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		396495D930107B3600AC4137 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				396495D0301079BA00AC4137 /* ServiceDetailsView.swift */,
+				396495CE3010799F00AC4137 /* ServiceCategoriesView.swift */,
+				396495CA3010798700AC4137 /* HomeView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		396495DA30107B5400AC4137 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */,
+				396495A2301077C500AC4137 /* GetServiceDetailUseCase.swift */,
+				396495A0301077A000AC4137 /* GetUpcomingBookingsUseCase.swift */,
+				3964959E3010777600AC4137 /* GetServiceCategoriesUseCase.swift */,
+				3964959C3010775800AC4137 /* GetGreetingNameUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		396495DB30107B6700AC4137 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3964959A3010773F00AC4137 /* HomeRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		396495DC30107B7600AC4137 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				396495983010771B00AC4137 /* ServiceDetail.swift */,
+				396495963010770200AC4137 /* UpcomingBooking.swift */,
+				39649594301076EB00AC4137 /* ServiceCategory.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		396495DD30107B8900AC4137 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		396495DE30107B9400AC4137 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				396495A63010780700AC4137 /* HomeRepositoryImpl.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		B3A312FE3009491200B5BB1D /* Fonts */ = {
@@ -1012,6 +1211,7 @@
 				C6C3BE07300A526600C5FC25 /* CompleteHealthProfileButton.swift in Sources */,
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */,
+				396495B73010789D00AC4137 /* HomeTopBar.swift in Sources */,
 				0C3D88663008475800883999 /* UtilityFile.swift in Sources */,
 				0C5C345F300F08BB00A820EB /* MeasurementInputCardView.swift in Sources */,
 				0C3D88593008461300883999 /* Colors.swift in Sources */,
@@ -1028,26 +1228,38 @@
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,
 				0C5C345B300F08BB00A820EB /* OtherDiseasesSectionView.swift in Sources */,
+				396495A3301077C800AC4137 /* GetServiceDetailUseCase.swift in Sources */,
 				C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				C6C0A4DF300D253500AEB6D9 /* ProfileSetupCoordinator.swift in Sources */,
+				396495BB301078D800AC4137 /* ServiceCategoryTile.swift in Sources */,
 				C6C0A4D0300D0C8900AEB6D9 /* EmergencyContact.swift in Sources */,
 				39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */,
+				396495993010771C00AC4137 /* ServiceDetail.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
+				396495CF301079A000AC4137 /* ServiceCategoriesView.swift in Sources */,
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
 				C65A1E80300EC2710003D6FB /* AddressMapPickerViewModel.swift in Sources */,
+				396495C33010793400AC4137 /* HomeBottomNavBar.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
+				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
+				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
 				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
+				396495A5301077DF00AC4137 /* SearchServiceCategoriesUseCase.swift in Sources */,
 				C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */,
 				C6C0A4C5300D0C3E00AEB6D9 /* ExistingConditions.swift in Sources */,
 				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
+				3964959B3010774000AC4137 /* HomeRepositoryProtocol.swift in Sources */,
 				C65A1E75300EA77F0003D6FB /* CurrentLocationProvider.swift in Sources */,
+				396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
+				396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */,
 				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
+				396495BF3010790300AC4137 /* UpcomingBookingCard.swift in Sources */,
 				C6C3BE3D300A644A00C5FC25 /* OTPVerificationCardView.swift in Sources */,
 				C6C0A4C9300D0C5B00AEB6D9 /* CurrentMedication.swift in Sources */,
 				C6C3BE3E300A644A00C5FC25 /* OTPDigitInputField.swift in Sources */,
@@ -1056,6 +1268,7 @@
 				C65A1E7D300EC2320003D6FB /* AddressSelection.swift in Sources */,
 				C65A1E7E300EC2320003D6FB /* SearchSuggestion.swift in Sources */,
 				C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */,
+				396495C93010797900AC4137 /* HelpBannerView.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
 				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
 				C6C3BE28300A63C100C5FC25 /* SavePersonalInfoUseCase.swift in Sources */,
@@ -1067,21 +1280,26 @@
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
+				396495AD3010783F00AC4137 /* HomeCoordinator.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
 				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
 				C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */,
+				396495D1301079BB00AC4137 /* ServiceDetailsView.swift in Sources */,
 				0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
 				0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */,
+				396495AB3010782E00AC4137 /* HomeRouter.swift in Sources */,
 				0C3D8872300848A700883999 /* mapperfile.swift in Sources */,
 				C6E761FC300926FA00481DB9 /* AppState.swift in Sources */,
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */,
 				C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
+				396495B9301078B600AC4137 /* AIAssessmentBannerView.swift in Sources */,
 				C6C0A4FB300D334800AEB6D9 /* CurrentMedicationView.swift in Sources */,
+				396495A93010781F00AC4137 /* HomeRoute.swift in Sources */,
 				C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */,
 				C6C0A4FC300D334800AEB6D9 /* EmergencyContactViewModel.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
@@ -1089,8 +1307,10 @@
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
+				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
 				C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */,
+				396495B33010787700AC4137 /* ServiceDetailsViewModel.swift in Sources */,
 				C65A1E8B300ECC1C0003D6FB /* GeocodeCountryUseCase.swift in Sources */,
 				C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */,
 				C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */,
@@ -1106,20 +1326,28 @@
 				C6C0A506300D334800AEB6D9 /* BasicHealthInfoView.swift in Sources */,
 				C6C0A507300D334800AEB6D9 /* HomeAddressViewModel.swift in Sources */,
 				C6C0A508300D334800AEB6D9 /* AllergiesView.swift in Sources */,
+				396495B13010786400AC4137 /* ServiceCategoriesViewModel.swift in Sources */,
 				C6C0A509300D334800AEB6D9 /* MedicalHistoryView.swift in Sources */,
+				396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */,
 				C6C0A50B300D334800AEB6D9 /* HomeAddressView.swift in Sources */,
 				C6C0A4D4300D0D1B00AEB6D9 /* ProfileSetupData.swift in Sources */,
 				C6C3BE12300A61FC00C5FC25 /* OTPVerificationViewModel.swift in Sources */,
 				B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */,
 				C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */,
+				396495AF3010785100AC4137 /* HomeViewModel.swift in Sources */,
 				0C5C3460300F08BB00A820EB /* HealthInfoCardView.swift in Sources */,
 				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
 				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
+				396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */,
 				C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */,
+				396495973010770300AC4137 /* UpcomingBooking.swift in Sources */,
 				C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */,
 				C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */,
 				C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */,
 				C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */,
+				396495B53010788D00AC4137 /* SearchField.swift in Sources */,
+				39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */,
+				396495CB3010798800AC4137 /* HomeView.swift in Sources */,
 				C6C0A50E300D347B00AEB6D9 /* ProfileSetupCoordinatorView.swift in Sources */,
 				C6C0A4D2300D0C9700AEB6D9 /* HomeAddress.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
