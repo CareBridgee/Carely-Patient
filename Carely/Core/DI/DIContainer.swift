@@ -200,28 +200,25 @@ final class DIContainer {
      
         // MARK: - Home ViewModels
      
-        func makeHomeViewModel(router: HomeRouter) -> HomeViewModel {
+        func makeHomeViewModel() -> HomeViewModel {
             HomeViewModel(
                 getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
-                getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
-                router: router
+                getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase()
             )
         }
      
-        func makeServiceCategoriesViewModel(router: HomeRouter) -> ServiceCategoriesViewModel {
+        func makeServiceCategoriesViewModel() -> ServiceCategoriesViewModel {
             ServiceCategoriesViewModel(
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
-                searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
-                router: router
+                searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase()
             )
         }
      
-        func makeServiceDetailsViewModel(serviceId: String, router: HomeRouter) -> ServiceDetailsViewModel {
+        func makeServiceDetailsViewModel(serviceId: String) -> ServiceDetailsViewModel {
             ServiceDetailsViewModel(
                 serviceId: serviceId,
-                getServiceDetailUseCase: makeGetServiceDetailUseCase(),
-                router: router
+                getServiceDetailUseCase: makeGetServiceDetailUseCase()
             )
         }
 }

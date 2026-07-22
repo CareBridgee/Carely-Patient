@@ -26,18 +26,15 @@ final class HomeViewModel: ObservableObject {
     private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
-    private let router: HomeRouter
  
     init(
         getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
-        router: HomeRouter
     ) {
         self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
-        self.router = router
     }
  
     func onAppear() {
@@ -72,11 +69,11 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        router.push(to: .serviceDetails(serviceId: category.id))
+        //
     }
  
     func viewAllServicesTapped() {
-        router.push(to: .serviceCategories)
+        //
     }
 }
  

@@ -22,18 +22,15 @@ final class ServiceCategoriesViewModel: ObservableObject {
  
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
-    private let router: HomeRouter
  
     private var searchTask: Task<Void, Never>?
  
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol,
-        router: HomeRouter
     ) {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.searchServiceCategoriesUseCase = searchServiceCategoriesUseCase
-        self.router = router
     }
  
     func onAppear() {
@@ -76,11 +73,11 @@ final class ServiceCategoriesViewModel: ObservableObject {
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        router.push(to: .serviceDetails(serviceId: category.id))
+        //
     }
  
     func backTapped() {
-        router.pop()
+        //
     }
 }
  

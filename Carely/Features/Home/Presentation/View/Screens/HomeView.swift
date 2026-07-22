@@ -41,10 +41,7 @@ struct HomeView: View {
                     .padding(.bottom, Spacing.s24)
                 }
  
-                HomeBottomNavBar(
-                    selectedTab: .home,
-                    onServicesTapped: viewModel.viewAllServicesTapped
-                )
+                Spacer(minLength: Spacing.s56)
             }
  
             if viewModel.isLoading && viewModel.previewCategories.isEmpty {

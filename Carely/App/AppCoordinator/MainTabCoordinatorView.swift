@@ -16,14 +16,13 @@ struct MainTabCoordinatorView: View {
     @StateObject private var coordinator = MainTabCoordinator()
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            tabContent
-
-            FloatingTabBar(selectedTab: Binding(
-                get: { coordinator.selectedTab },
-                set: { coordinator.select($0) }
-            ))
-        }
+        tabContent
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                FloatingTabBar(selectedTab: Binding(
+                    get: { coordinator.selectedTab },
+                    set: { coordinator.select($0) }
+                ))
+            }
     }
 
     // MARK: - Tab Content

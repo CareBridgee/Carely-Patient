@@ -38,10 +38,6 @@ struct ServiceCategoriesView: View {
                     .padding(.bottom, Spacing.s24)
                 }
  
-                HomeBottomNavBar(
-                    selectedTab: .services,
-                    onHomeTapped: viewModel.backTapped
-                )
             }
  
             if viewModel.isLoading && viewModel.categories.isEmpty {

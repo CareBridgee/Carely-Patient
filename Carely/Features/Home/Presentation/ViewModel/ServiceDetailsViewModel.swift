@@ -22,16 +22,13 @@ final class ServiceDetailsViewModel: ObservableObject {
     @Published var bookingConfirmed: Bool = false
  
     private let getServiceDetailUseCase: GetServiceDetailUseCaseProtocol
-    private let router: HomeRouter
  
     init(
         serviceId: String,
         getServiceDetailUseCase: GetServiceDetailUseCaseProtocol,
-        router: HomeRouter
     ) {
         self.serviceId = serviceId
         self.getServiceDetailUseCase = getServiceDetailUseCase
-        self.router = router
     }
  
     func onAppear() {
@@ -66,7 +63,7 @@ final class ServiceDetailsViewModel: ObservableObject {
     }
  
     func backTapped() {
-        router.pop()
+        // 
     }
 }
  
