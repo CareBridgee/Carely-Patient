@@ -1,5 +1,5 @@
 //
-//  ServiceCategoriesView.swift
+//  AllServiceView.swift
 //  Carely
 //
 //  Created by Mina on 22/07/2026.
@@ -7,10 +7,10 @@
 
 import SwiftUI
  
-struct ServiceCategoriesView: View {
-    @StateObject private var viewModel: ServiceCategoriesViewModel
+struct AllServiceView: View {
+    @StateObject private var viewModel: AllServiceViewModel
  
-    init(viewModel: ServiceCategoriesViewModel) {
+    init(viewModel: AllServiceViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
  
@@ -40,6 +40,8 @@ struct ServiceCategoriesView: View {
  
             }
  
+            Spacer(minLength: Spacing.s56)
+            
             if viewModel.isLoading && viewModel.categories.isEmpty {
                 ProgressView()
             }
@@ -52,6 +54,8 @@ struct ServiceCategoriesView: View {
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
         }
+        
+        Spacer(minLength: Spacing.s56)
     }
  
     private var header: some View {
@@ -186,7 +190,7 @@ struct ServiceCategoriesView: View {
 //#Preview {
 //    let repository = HomeRepositoryImpl()
 //    ServiceCategoriesView(
-//        viewModel: ServiceCategoriesViewModel(
+//        viewModel: AllServiceViewModel(
 //            getServiceCategoriesUseCase: GetServiceCategoriesUseCase(repository: repository),
 //            searchServiceCategoriesUseCase: SearchServiceCategoriesUseCase(repository: repository),
 //            router: HomeRouter()

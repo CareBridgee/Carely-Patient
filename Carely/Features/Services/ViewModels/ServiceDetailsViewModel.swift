@@ -7,7 +7,12 @@
 
 import Foundation
 import Combine
- 
+
+enum ServiceDetailsSource {
+    case services
+    case home
+}
+
 @MainActor
 final class ServiceDetailsViewModel: ObservableObject {
  
@@ -20,15 +25,21 @@ final class ServiceDetailsViewModel: ObservableObject {
  
     @Published var isBooking: Bool = false
     @Published var bookingConfirmed: Bool = false
- 
+    private var source : ServiceDetailsSource
+    private var coordinator: ServicesCoordinator
     private let getServiceDetailUseCase: GetServiceDetailUseCaseProtocol
  
     init(
         serviceId: String,
-        getServiceDetailUseCase: GetServiceDetailUseCaseProtocol
+        getServiceDetailUseCase: GetServiceDetailUseCaseProtocol,
+        source: ServiceDetailsSource,
+        coordinator: ServicesCoordinator
+        
     ) {
         self.serviceId = serviceId
         self.getServiceDetailUseCase = getServiceDetailUseCase
+        self.source = source
+        self.coordinator = coordinator
     }
  
     func onAppear() {
@@ -63,7 +74,13 @@ final class ServiceDetailsViewModel: ObservableObject {
     }
  
     func backTapped() {
-        // 
+        switch source {
+        case .services:
+            coordinator.pop()
+
+        case .home:
+            coordinator.onBackTabbed()
+        }
     }
 }
  

@@ -25,11 +25,11 @@ struct FloatingTabBar: View {
         .frame(height: 68)
         .background(
             Capsule()
-                .fill(Color.brandPrimary)
+                .fill(Color.white)
                 .shadow(color: Color.black.opacity(0.12), radius: Radius.r16, x: 0, y: 8)
         )
         .padding(.horizontal, 20)
-        .padding(.bottom, 22)
+        .padding(.bottom, 0)
     }
 
     // MARK: - Tab Button
@@ -37,7 +37,7 @@ struct FloatingTabBar: View {
     @ViewBuilder
     private func tabButton(for tab: AppTab) -> some View {
         let isSelected = selectedTab == tab
-
+ 
         Button {
             select(tab)
         } label: {
@@ -45,7 +45,7 @@ struct FloatingTabBar: View {
                 Image(systemName: tab.iconName)
                     .font(.system(size: 20, weight: .semibold))
                     .scaleEffect(isSelected ? 1.1 : 1.0)
-
+ 
                 if isSelected {
                     Text(tab.title)
                         .carelyText(style: .bodySmall, weight: .bold)
@@ -53,10 +53,14 @@ struct FloatingTabBar: View {
                         .transition(.opacity.combined(with: .move(edge: .leading)))
                 }
             }
-            .foregroundColor(isSelected ? .white : .gray)
+            .foregroundColor(isSelected ? .white : .secondaryFont)
             .padding(.horizontal, isSelected ? Spacing.s16 : Spacing.s12)
             .frame(maxWidth: isSelected ? .infinity : nil)
             .frame(height: 48)
+            .background(
+                Capsule()
+                    .fill(isSelected ? Color.brandPrimary : Color.clear)
+            )
         }
         .buttonStyle(PlainButtonStyle())
         .frame(maxWidth: isSelected ? .infinity : nil)

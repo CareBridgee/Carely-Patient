@@ -33,9 +33,9 @@ struct MainTabCoordinatorView: View {
                 .opacity(coordinator.selectedTab == .home ? 1 : 0)
                 .allowsHitTesting(coordinator.selectedTab == .home)
 
-//            ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
-//                .opacity(coordinator.selectedTab == .services ? 1 : 0)
-//                .allowsHitTesting(coordinator.selectedTab == .services)
+            ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
+                .opacity(coordinator.selectedTab == .services ? 1 : 0)
+                .allowsHitTesting(coordinator.selectedTab == .services)
 //
 //            AICoordinatorView(container: container, coordinator: coordinator.aiCoordinator)
 //                .opacity(coordinator.selectedTab == .ai ? 1 : 0)
@@ -47,4 +47,10 @@ struct MainTabCoordinatorView: View {
         }
         .animation(.easeInOut(duration: 0.15), value: coordinator.selectedTab)
     }
+}
+
+#Preview {
+    let di = DIContainer()
+    let appState = AppState()
+    MainTabCoordinatorView(container: di, appState: appState)
 }

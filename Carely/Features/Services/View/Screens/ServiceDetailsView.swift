@@ -62,6 +62,8 @@ struct ServiceDetailsView: View {
         } message: {
             Text("Your service has been booked. We'll send you a confirmation shortly.")
         }
+        
+        Spacer(minLength: Spacing.s56)
     }
  
     // MARK: - Sections

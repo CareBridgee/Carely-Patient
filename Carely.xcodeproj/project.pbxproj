@@ -51,7 +51,7 @@
 		396495A5301077DF00AC4137 /* SearchServiceCategoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */; };
 		396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A63010780700AC4137 /* HomeRepositoryImpl.swift */; };
 		396495AF3010785100AC4137 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495AE3010785000AC4137 /* HomeViewModel.swift */; };
-		396495B13010786400AC4137 /* ServiceCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B03010786300AC4137 /* ServiceCategoriesViewModel.swift */; };
+		396495B13010786400AC4137 /* AllServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B03010786300AC4137 /* AllServiceViewModel.swift */; };
 		396495B33010787700AC4137 /* ServiceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */; };
 		396495B53010788D00AC4137 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B43010788C00AC4137 /* SearchField.swift */; };
 		396495B73010789D00AC4137 /* HomeTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495B63010789C00AC4137 /* HomeTopBar.swift */; };
@@ -63,7 +63,7 @@
 		396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C63010796600AC4137 /* IncludedItemRow.swift */; };
 		396495C93010797900AC4137 /* HelpBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C83010797800AC4137 /* HelpBannerView.swift */; };
 		396495CB3010798800AC4137 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495CA3010798700AC4137 /* HomeView.swift */; };
-		396495CF301079A000AC4137 /* ServiceCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495CE3010799F00AC4137 /* ServiceCategoriesView.swift */; };
+		396495CF301079A000AC4137 /* AllServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495CE3010799F00AC4137 /* AllServiceView.swift */; };
 		396495D1301079BB00AC4137 /* ServiceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495D0301079BA00AC4137 /* ServiceDetailsView.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
@@ -93,6 +93,9 @@
 		B3E36C6B3010C61C00EE3669 /* SymptomsTextArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C603010C61C00EE3669 /* SymptomsTextArea.swift */; };
 		B3E36C6F3010C71F00EE3669 /* FetchSavedAddressUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C6E3010C71F00EE3669 /* FetchSavedAddressUseCase.swift */; };
 		B3E36C713010C75800EE3669 /* SubmitCareRequestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E36C703010C75800EE3669 /* SubmitCareRequestUseCase.swift */; };
+		C61000F93010EF3B00FA385C /* ServicesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61000F83010EF3A00FA385C /* ServicesCoordinator.swift */; };
+		C61000FF3010F33200FA385C /* ServicesRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61000FE3010F33200FA385C /* ServicesRoute.swift */; };
+		C61001013010F90600FA385C /* ServicesCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61001003010F90600FA385C /* ServicesCoordinatorView.swift */; };
 		C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629359A300DD3BF000970D9 /* ProfileSetupRepositoryImpl.swift */; };
 		C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629359C300DD3DB000970D9 /* ProfileSetupRepositoryProtocol.swift */; };
 		C630BAD43010CC5D00255ECA /* MainTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C630BAD13010CC5D00255ECA /* MainTabCoordinator.swift */; };
@@ -253,7 +256,7 @@
 		396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceCategoriesUseCase.swift; sourceTree = "<group>"; };
 		396495A63010780700AC4137 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
 		396495AE3010785000AC4137 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		396495B03010786300AC4137 /* ServiceCategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoriesViewModel.swift; sourceTree = "<group>"; };
+		396495B03010786300AC4137 /* AllServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllServiceViewModel.swift; sourceTree = "<group>"; };
 		396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailsViewModel.swift; sourceTree = "<group>"; };
 		396495B43010788C00AC4137 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		396495B63010789C00AC4137 /* HomeTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopBar.swift; sourceTree = "<group>"; };
@@ -265,7 +268,7 @@
 		396495C63010796600AC4137 /* IncludedItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncludedItemRow.swift; sourceTree = "<group>"; };
 		396495C83010797800AC4137 /* HelpBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBannerView.swift; sourceTree = "<group>"; };
 		396495CA3010798700AC4137 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		396495CE3010799F00AC4137 /* ServiceCategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoriesView.swift; sourceTree = "<group>"; };
+		396495CE3010799F00AC4137 /* AllServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllServiceView.swift; sourceTree = "<group>"; };
 		396495D0301079BA00AC4137 /* ServiceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailsView.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
@@ -296,6 +299,9 @@
 		B3E36C603010C61C00EE3669 /* SymptomsTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsTextArea.swift; sourceTree = "<group>"; };
 		B3E36C6E3010C71F00EE3669 /* FetchSavedAddressUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSavedAddressUseCase.swift; sourceTree = "<group>"; };
 		B3E36C703010C75800EE3669 /* SubmitCareRequestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitCareRequestUseCase.swift; sourceTree = "<group>"; };
+		C61000F83010EF3A00FA385C /* ServicesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCoordinator.swift; sourceTree = "<group>"; };
+		C61000FE3010F33200FA385C /* ServicesRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesRoute.swift; sourceTree = "<group>"; };
+		C61001003010F90600FA385C /* ServicesCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCoordinatorView.swift; sourceTree = "<group>"; };
 		C629359A300DD3BF000970D9 /* ProfileSetupRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupRepositoryImpl.swift; sourceTree = "<group>"; };
 		C629359C300DD3DB000970D9 /* ProfileSetupRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupRepositoryProtocol.swift; sourceTree = "<group>"; };
 		C630BACD3010CC5D00255ECA /* AppTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTab.swift; sourceTree = "<group>"; };
@@ -498,6 +504,7 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				C61000F63010EEAD00FA385C /* Services */,
 				B3E36C553010C5C000EE3669 /* RequestForm */,
 				39649593301076CA00AC4137 /* Home */,
 				0C3D88943008501500883999 /* Shared */,
@@ -764,8 +771,6 @@
 		396495D730107B1E00AC4137 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */,
-				396495B03010786300AC4137 /* ServiceCategoriesViewModel.swift */,
 				396495AE3010785000AC4137 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
@@ -790,8 +795,6 @@
 		396495D930107B3600AC4137 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				396495D0301079BA00AC4137 /* ServiceDetailsView.swift */,
-				396495CE3010799F00AC4137 /* ServiceCategoriesView.swift */,
 				396495CA3010798700AC4137 /* HomeView.swift */,
 			);
 			path = Screens;
@@ -886,6 +889,60 @@
 				B3E36C603010C61C00EE3669 /* SymptomsTextArea.swift */,
 			);
 			path = RequestForm;
+			sourceTree = "<group>";
+		};
+		C61000F63010EEAD00FA385C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C61000FB3010F26800FA385C /* View */,
+				C61000FA3010F25800FA385C /* ViewModels */,
+				C61000F73010EF2E00FA385C /* ServicesCoordinator */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C61000F73010EF2E00FA385C /* ServicesCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C61001003010F90600FA385C /* ServicesCoordinatorView.swift */,
+				C61000FE3010F33200FA385C /* ServicesRoute.swift */,
+				C61000F83010EF3A00FA385C /* ServicesCoordinator.swift */,
+			);
+			path = ServicesCoordinator;
+			sourceTree = "<group>";
+		};
+		C61000FA3010F25800FA385C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				396495B23010787600AC4137 /* ServiceDetailsViewModel.swift */,
+				396495B03010786300AC4137 /* AllServiceViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C61000FB3010F26800FA385C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C61000FD3010F27400FA385C /* Components */,
+				C61000FC3010F26E00FA385C /* Screens */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C61000FC3010F26E00FA385C /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				396495D0301079BA00AC4137 /* ServiceDetailsView.swift */,
+				396495CE3010799F00AC4137 /* AllServiceView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		C61000FD3010F27400FA385C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		C6293597300DD38E000970D9 /* Repositories */ = {
@@ -1291,10 +1348,12 @@
 				C6C0A4D0300D0C8900AEB6D9 /* EmergencyContact.swift in Sources */,
 				39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */,
 				396495993010771C00AC4137 /* ServiceDetail.swift in Sources */,
+				C61000F93010EF3B00FA385C /* ServicesCoordinator.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
 				B3E36C6F3010C71F00EE3669 /* FetchSavedAddressUseCase.swift in Sources */,
-				396495CF301079A000AC4137 /* ServiceCategoriesView.swift in Sources */,
+				396495CF301079A000AC4137 /* AllServiceView.swift in Sources */,
 				C6C3BE37300A644A00C5FC25 /* CustomInputView.swift in Sources */,
+				C61001013010F90600FA385C /* ServicesCoordinatorView.swift in Sources */,
 				C65A1E80300EC2710003D6FB /* AddressMapPickerViewModel.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
@@ -1344,6 +1403,7 @@
 				B3E36C713010C75800EE3669 /* SubmitCareRequestUseCase.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */,
+				C61000FF3010F33200FA385C /* ServicesRoute.swift in Sources */,
 				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
 				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,
@@ -1394,7 +1454,7 @@
 				C6C0A506300D334800AEB6D9 /* BasicHealthInfoView.swift in Sources */,
 				C6C0A507300D334800AEB6D9 /* HomeAddressViewModel.swift in Sources */,
 				C6C0A508300D334800AEB6D9 /* AllergiesView.swift in Sources */,
-				396495B13010786400AC4137 /* ServiceCategoriesViewModel.swift in Sources */,
+				396495B13010786400AC4137 /* AllServiceViewModel.swift in Sources */,
 				C6C0A509300D334800AEB6D9 /* MedicalHistoryView.swift in Sources */,
 				396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */,
 				C6C0A50B300D334800AEB6D9 /* HomeAddressView.swift in Sources */,

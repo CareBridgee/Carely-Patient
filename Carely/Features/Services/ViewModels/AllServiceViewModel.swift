@@ -1,5 +1,5 @@
 //
-//  ServiceCategoriesViewModel.swift
+//  AllServiceViewModel.swift
 //  Carely
 //
 //  Created by Mina on 22/07/2026.
@@ -9,7 +9,7 @@ import Foundation
 import Combine
  
 @MainActor
-final class ServiceCategoriesViewModel: ObservableObject {
+final class AllServiceViewModel: ObservableObject {
  
     @Published var searchQuery: String = "" {
         didSet { scheduleSearch() }
@@ -24,13 +24,16 @@ final class ServiceCategoriesViewModel: ObservableObject {
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
  
     private var searchTask: Task<Void, Never>?
- 
+    private var coordinator: ServicesCoordinator
+    
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
-        searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
+        searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol,
+        coordinator: ServicesCoordinator
     ) {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.searchServiceCategoriesUseCase = searchServiceCategoriesUseCase
+        self.coordinator = coordinator
     }
  
     func onAppear() {
@@ -73,7 +76,7 @@ final class ServiceCategoriesViewModel: ObservableObject {
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        //
+        coordinator.push(.serviceDetails(source: .services))
     }
  
     func backTapped() {

@@ -200,25 +200,29 @@ final class DIContainer {
      
         // MARK: - Home ViewModels
      
-        func makeHomeViewModel() -> HomeViewModel {
+    func makeHomeViewModel(onServiceTabbed: @escaping () -> Void) -> HomeViewModel {
             HomeViewModel(
                 getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
-                getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase()
+                getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
+                onServiceTabbed: onServiceTabbed
             )
         }
      
-        func makeServiceCategoriesViewModel() -> ServiceCategoriesViewModel {
-            ServiceCategoriesViewModel(
+        func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
+            AllServiceViewModel(
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
-                searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase()
+                searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
+                coordinator: coordinator
             )
         }
      
-        func makeServiceDetailsViewModel(serviceId: String) -> ServiceDetailsViewModel {
+    func makeServiceDetailsViewModel(serviceId: String, source: ServiceDetailsSource, coordinator: ServicesCoordinator) -> ServiceDetailsViewModel {
             ServiceDetailsViewModel(
                 serviceId: serviceId,
-                getServiceDetailUseCase: makeGetServiceDetailUseCase()
+                getServiceDetailUseCase: makeGetServiceDetailUseCase(),
+                source: source,
+                coordinator: coordinator
             )
         }
     private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
