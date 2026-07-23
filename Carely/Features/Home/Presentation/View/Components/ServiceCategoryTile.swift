@@ -37,11 +37,11 @@ struct ServiceCategoryTile: View {
     }
 }
 
-#Preview {
-    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.s12) {
-        ServiceCategoryTile(title: "General Nursing", iconName: "cross.case.fill")
-        ServiceCategoryTile(title: "Injection Service", iconName: "cross.vial.fill")
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.s12) {
+//        ServiceCategoryTile(title: "General Nursing", iconName: "cross.case.fill")
+//        ServiceCategoryTile(title: "Injection Service", iconName: "cross.vial.fill")
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}

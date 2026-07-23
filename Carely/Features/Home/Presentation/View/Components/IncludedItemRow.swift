@@ -28,11 +28,11 @@ struct IncludedItemRow: View {
     }
 }
  
-#Preview {
-    VStack(alignment: .leading, spacing: Spacing.s12) {
-        IncludedItemRow(text: "In-home travel & setup by a Registered Nurse")
-        IncludedItemRow(text: "Vital signs monitoring and health screening")
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    VStack(alignment: .leading, spacing: Spacing.s12) {
+//        IncludedItemRow(text: "In-home travel & setup by a Registered Nurse")
+//        IncludedItemRow(text: "Vital signs monitoring and health screening")
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}

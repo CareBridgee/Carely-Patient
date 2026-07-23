@@ -48,31 +48,31 @@ struct ServiceCategoryCard: View {
     }
 }
 
-#Preview {
-    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.s12) {
-        ServiceCategoryCard(
-            category: ServiceCategory(
-                id: "1",
-                title: "Injection",
-                subtitle: "Home dosage",
-                iconName: "cross.vial.fill",
-                layout: .standard,
-                accent: .neutral
-            ),
-            onTap: {}
-        )
-        ServiceCategoryCard(
-            category: ServiceCategory(
-                id: "2",
-                title: "Physical Therapy",
-                subtitle: "Mobility aid",
-                iconName: "figure.walk",
-                layout: .standard,
-                accent: .neutral
-            ),
-            onTap: {}
-        )
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.s12) {
+//        ServiceCategoryCard(
+//            category: ServiceCategory(
+//                id: "1",
+//                title: "Injection",
+//                subtitle: "Home dosage",
+//                iconName: "cross.vial.fill",
+//                layout: .standard,
+//                accent: .neutral
+//            ),
+//            onTap: {}
+//        )
+//        ServiceCategoryCard(
+//            category: ServiceCategory(
+//                id: "2",
+//                title: "Physical Therapy",
+//                subtitle: "Mobility aid",
+//                iconName: "figure.walk",
+//                layout: .standard,
+//                accent: .neutral
+//            ),
+//            onTap: {}
+//        )
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}
