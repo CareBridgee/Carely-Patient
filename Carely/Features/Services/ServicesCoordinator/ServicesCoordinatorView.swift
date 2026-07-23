@@ -33,17 +33,21 @@ struct ServicesCoordinatorView: View {
                 viewModel: container.makeServiceDetailsViewModel(serviceId: "injection",source: source,coordinator: coordinator)
             )
 
-//        case .requestService(let service):
-//            RequestServiceView(
-//                service: service,
-//                onRequestSubmitted: { coordinator.push(.waitingForOffers(service)) }
-//            )
-//
-//        case .waitingForOffers(let service):
-//            WaitingForOffersView(
-//                service: service,
-//                onOfferAccepted: { visit in coordinator.offerAccepted(for: service, visit: visit) }
-//            )
+        case .requestService:
+            CareRequestView(
+                viewModel: container.makeCareRequestViewModel(
+                    preselectedService: CareService.init(id: "String", title: "Injection", icon: "syringe"),
+                    entryPoint: CareRequestEntryPoint.aiChat,
+                    onSubmitted: {
+                        coordinator.push(.waitingForOffers)
+                    }),
+                onEditProfileTapped: {
+                    //
+                }
+            )
+
+        case .waitingForOffers:
+            OffersSearchingView(viewModel: container.makeOffersSearchingViewModel())
 //
 //        case .activeVisit(let visit):
 //            ActiveVisitView(

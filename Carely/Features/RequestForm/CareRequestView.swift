@@ -43,6 +43,8 @@ struct CareRequestView: View {
             .padding(.horizontal, Spacing.s16)
             .padding(.top, Spacing.s16)
             .padding(.bottom, Spacing.s16)
+            
+            
         }
         .safeAreaInset(edge: .bottom) {
             PrimaryButton(
@@ -62,6 +64,8 @@ struct CareRequestView: View {
                 .background(Color.backGround)
         }
         .task { await viewModel.onAppear() }
+        
+        Spacer(minLength: Spacing.s56)
     }
 
     private var fillWithAIButton: some View {
@@ -73,6 +77,7 @@ struct CareRequestView: View {
                 .padding(.vertical, Spacing.s8)
                 .overlay(Capsule().stroke(Color.brandPrimary, lineWidth: 1))
         }
+        
     }
 
     private var patientSection: some View {
