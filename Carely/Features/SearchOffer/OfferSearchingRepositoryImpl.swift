@@ -16,7 +16,7 @@ final class OfferSearchingRepositoryImpl: OfferSearchingRepositoryProtocol {
         self.hubService = hubService
     }
     
-    func observeOffers() -> AsyncStream<BookingEvent> {
+    func observeOffers() -> AsyncStream<OffersEvent> {
         AsyncStream { continuation in
             hubService.onOfferReceived = { offer in
                 continuation.yield(.offerReceived(offer))

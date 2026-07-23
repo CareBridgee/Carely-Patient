@@ -14,7 +14,7 @@ final class ObserveOffersUseCase {
     }
     
  
-    func execute()->AsyncStream<BookingEvent>{
+    func execute()->AsyncStream<OffersEvent>{
         return repository.observeOffers()
     }
 }

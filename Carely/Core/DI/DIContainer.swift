@@ -231,7 +231,7 @@ final class DIContainer {
     func makeCareRequestViewModel(
         preselectedService: CareService,
         entryPoint: CareRequestEntryPoint,
-        onSubmitted: @escaping () -> Void ) -> CareRequestViewModel {
+        onSubmitted: @escaping (String) -> Void ) -> CareRequestViewModel {
         CareRequestViewModel(
             preselectedService: preselectedService,
             entryPoint: entryPoint,
@@ -262,10 +262,12 @@ final class DIContainer {
     
     // MARK: - Search Offer ViewModels
     
-    func makeOffersSearchingViewModel() -> OffersSearchingViewModel {
+    func makeOffersSearchingViewModel(requestId: String,onOfferAccepted:@escaping (ConfirmedOffer)->Void ) -> OffersSearchingViewModel {
         OffersSearchingViewModel(
+            requestId: requestId,
             observeOffersUseCase: makeObserveOffersUseCase(),
-            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase()
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(),
+            onOfferAccepted: onOfferAccepted
         )
     }
 }
