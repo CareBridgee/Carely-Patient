@@ -15,11 +15,13 @@ final class AllServiceViewModel: ObservableObject {
         didSet { scheduleSearch() }
     }
     @Published private(set) var categories: [ServiceCategory] = []
+    @Published private(set) var greetingName: String = ""
  
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
  
+    private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
  
@@ -27,10 +29,12 @@ final class AllServiceViewModel: ObservableObject {
     private var coordinator: ServicesCoordinator
     
     init(
+        getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol,
         coordinator: ServicesCoordinator
     ) {
+        self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.searchServiceCategoriesUseCase = searchServiceCategoriesUseCase
         self.coordinator = coordinator
@@ -54,6 +58,15 @@ final class AllServiceViewModel: ObservableObject {
                 self.isLoading = false
                 self.errorMessage = error.localizedDescription
                 self.showError = true
+            }
+        }
+
+        Task {
+            do {
+                self.greetingName = try await getGreetingNameUseCase.execute()
+            } catch {
+                // Intentionally not surfaced via errorMessage/showError,
+                // so it doesn't affect the existing categories error flow.
             }
         }
     }
@@ -83,4 +96,3 @@ final class AllServiceViewModel: ObservableObject {
         //
     }
 }
- 
