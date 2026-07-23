@@ -65,6 +65,7 @@ struct AllServiceView: View {
     }
 }
 
+
 //#Preview {
 //    AllServiceView(viewModel: AllServiceViewModel(
 //        getGreetingNameUseCase: GetGreetingNameUseCase(repository: HomeRepositoryImpl()), getServiceCategoriesUseCase: GetServiceCategoriesUseCase(repository: HomeRepositoryImpl()),
