@@ -4,6 +4,7 @@ struct NurseOfferCardView: View {
     let offer: NurseOffer
     var onDeclineTapped: () -> Void
     var onAcceptTapped: () -> Void
+    var onProfileTapped: (() -> Void)? = nil
     
     var body: some View {
         VStack(spacing: Spacing.s16) {
@@ -25,6 +26,9 @@ struct NurseOfferCardView: View {
                             Circle().stroke(Color.surface, lineWidth: 2)
                         )
                         .offset(x: -2, y: -2)
+                }
+                .onTapGesture {
+                    onProfileTapped?()
                 }
                 
                 // Name & Rating

@@ -5,6 +5,7 @@ struct OfferAcceptedNurseCardView: View {
     let estimatedArrival: String
     var onCallTapped: () -> Void
     var onMessageTapped: () -> Void
+    var onProfileTapped: (() -> Void)? = nil
     
     var body: some View {
         VStack(spacing: Spacing.s16) {
@@ -17,6 +18,9 @@ struct OfferAcceptedNurseCardView: View {
                         Image(systemName: "person.crop.circle")
                             .foregroundColor(Color.primaryVariant)
                     )
+                    .onTapGesture {
+                        onProfileTapped?()
+                    }
                 
                 VStack(alignment: .leading, spacing: Spacing.s4) {
                     Text(nurse.fullName)
