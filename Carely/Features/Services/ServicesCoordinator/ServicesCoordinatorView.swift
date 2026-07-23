@@ -38,17 +38,40 @@ struct ServicesCoordinatorView: View {
                 viewModel: container.makeCareRequestViewModel(
                     preselectedService: CareService.init(id: "String", title: "Injection", icon: "syringe"),
                     entryPoint: CareRequestEntryPoint.aiChat,
-                    onSubmitted: {
-                        coordinator.push(.waitingForOffers)
+                    onSubmitted: { requestId in
+                        coordinator.push(.waitingForOffers(requestId: requestId))
                     }),
                 onEditProfileTapped: {
                     //
                 }
             )
 
-        case .waitingForOffers:
-            OffersSearchingView(viewModel: container.makeOffersSearchingViewModel())
-//
+        case .waitingForOffers(let requestId):
+            OffersSearchingView(viewModel: container.makeOffersSearchingViewModel(
+                requestId: requestId,
+                onOfferAccepted: { ConfirmedOffer in
+                    coordinator.push(.OfferAccepted(request: ConfirmedOffer))
+                }
+            ))
+            
+        case .OfferAccepted(let request):
+            let viewModel = OfferAcceptedViewModel(
+                request: request,
+                onShowQRCode: { req in
+                    coordinator.push(.showQRCode(request: req))
+                }
+            )
+            OfferAcceptedView(viewModel: viewModel)
+            
+        case .showQRCode(let request):
+            let viewModel = ArrivalQRCodeViewModel(
+                qrCodeData: request.qrCodeData,
+                referenceNumber: "#\(request.id.uppercased())",
+                onClose: {
+                    coordinator.pop()
+                }
+            )
+            ArrivalQRCodeView(viewModel: viewModel)
 //        case .activeVisit(let visit):
 //            ActiveVisitView(
 //                visit: visit,

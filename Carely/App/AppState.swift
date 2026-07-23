@@ -23,7 +23,7 @@ final class AppState: ObservableObject {
 
     init() {
         let isSignedIn = UserDefaults.standard.bool(forKey: Self.signedInKey)
-        self.flow = !isSignedIn ? .home : .auth
+        self.flow = isSignedIn ? .home : .auth
     }
 
     func signIn() {

@@ -82,6 +82,7 @@ struct NurseOfferCardView: View {
                     title: "Decline",
                     radius: Radius.pill
                 ) {
+                    onDeclineTapped()
                     // decline action
                 }
                 
@@ -89,6 +90,7 @@ struct NurseOfferCardView: View {
                     title: "Accept",
                     radius: Radius.pill
                 ) {
+                    onAcceptTapped()
                     // accept action
                 }
             }

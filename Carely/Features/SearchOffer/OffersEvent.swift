@@ -7,7 +7,7 @@
 
 import Foundation
 // Domain Layer
-enum BookingEvent {
+enum OffersEvent {
     case offerReceived(NurseOffer)
     case offerCanceled(String)
     case searchCompleted

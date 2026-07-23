@@ -40,7 +40,7 @@ final class CareRequestViewModel: ObservableObject {
     private let fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol
     private let fetchSavedAddressUseCase: FetchSavedAddressUseCaseProtocol
     private let submitCareRequestUseCase: SubmitCareRequestUseCaseProtocol
-    private let onSubmitted: () -> Void
+    private let onSubmitted: (String) -> Void
 
     init(
         preselectedService: CareService,
@@ -48,7 +48,7 @@ final class CareRequestViewModel: ObservableObject {
         fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol,
         fetchSavedAddressUseCase: FetchSavedAddressUseCaseProtocol,
         submitCareRequestUseCase: SubmitCareRequestUseCaseProtocol,
-        onSubmitted: @escaping () -> Void
+        onSubmitted: @escaping (String) -> Void
     ) {
         self.selectedService = preselectedService
         self.entryPoint = entryPoint
@@ -87,7 +87,7 @@ final class CareRequestViewModel: ObservableObject {
         Task {
             try? await submitCareRequestUseCase.execute(request)
             isSubmitting = false
-            onSubmitted()
+            onSubmitted("mock_req_\(UUID().uuidString.prefix(8))")
         }
     }
 

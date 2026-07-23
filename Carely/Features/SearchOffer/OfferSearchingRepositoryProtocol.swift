@@ -8,7 +8,7 @@
 import Foundation
 protocol OfferSearchingRepositoryProtocol {
    
-    func observeOffers() -> AsyncStream<BookingEvent>
+    func observeOffers() -> AsyncStream<OffersEvent>
     func connect()
     func disconnect()
 }

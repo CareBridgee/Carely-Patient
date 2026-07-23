@@ -61,7 +61,7 @@ struct OffersSearchingView: View {
 
 #Preview {
     class MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
-        func observeOffers() -> AsyncStream<BookingEvent> {
+        func observeOffers() -> AsyncStream<OffersEvent> {
             return AsyncStream { continuation in
                 let offer1 = NurseOffer(id: "1", name: "Sarah Mitchell", title: "RN", price: 85.00, rating: 4.9, reviewsCount: 124, distance: 2.4, imageLink: "")
                 let offer2 = NurseOffer(id: "2", name: "Elena Rodriguez", title: "RN", price: 78.00, rating: 5.0, reviewsCount: 45, distance: 5.1, imageLink: "")
@@ -78,7 +78,7 @@ struct OffersSearchingView: View {
     let observeUseCase = ObserveOffersUseCase(repository: mockRepo)
     let manageConnectionUseCase = ManageOffersConnectionUseCase(repository: mockRepo)
     let viewModel = OffersSearchingViewModel(
-        observeOffersUseCase: observeUseCase,
+        requestId:"1", observeOffersUseCase: observeUseCase,
         manageOffersConnectionUseCase: manageConnectionUseCase
     )
     
