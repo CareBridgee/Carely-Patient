@@ -13,10 +13,10 @@ struct IncludedItemRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: Spacing.s12) {
             Image(systemName: "checkmark")
-                .font(.system(size: 12, weight: .bold))
-                .foregroundColor(.onSecondary)
+                .carelyText(style: CarelyTextStyle.bodySmall, weight: CarelyFontWeight.bold)
+                .foregroundColor(.onBankContainer)
                 .frame(width: 22, height: 22)
-                .background(Color.secondaryColor)
+                .background(Color.primaryContainer)
                 .clipShape(Circle())
  
             Text(text)

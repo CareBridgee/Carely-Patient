@@ -211,6 +211,7 @@ final class DIContainer {
      
         func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
             AllServiceViewModel(
+                getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
                 searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
                 coordinator: coordinator
