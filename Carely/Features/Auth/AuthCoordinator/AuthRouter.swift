@@ -24,4 +24,8 @@ final class AuthRouter: ObservableObject {
         path.removeLast(path.count)
     }
     
+    func pushAsRoot(to route: AuthRoute) {
+        path = NavigationPath()
+        path.append(route)
+    }
 }
