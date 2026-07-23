@@ -29,6 +29,8 @@ struct AIAssessmentBannerView: View {
                 .fixedSize(horizontal: false, vertical: true)
  
             PrimaryButton(
+                colorOfBackground: Color.white,
+                colorOfForground: Color.onPrimaryContainer,
                 title: "Start Chat",
                 size: .medium,
                 icon: "message.fill",
@@ -43,9 +45,9 @@ struct AIAssessmentBannerView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             LinearGradient(
-                colors: [Color.primaryContainer, Color.tint],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [Color.tint, Color.tint],
+                startPoint: .top,
+                endPoint: .bottom
             )
         )
         .clipShape(RoundedRectangle.carely(Radius.r24))
@@ -53,9 +55,9 @@ struct AIAssessmentBannerView: View {
     }
 }
  
-//#Preview {
-//    AIAssessmentBannerView(){}
-//        .padding()
-//        .background(Color.backGround)
-//}
-// 
+#Preview {
+    AIAssessmentBannerView(){}
+        .padding()
+        .background(Color.backGround)
+}
+ 
