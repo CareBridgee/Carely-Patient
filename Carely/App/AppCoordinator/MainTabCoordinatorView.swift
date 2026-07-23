@@ -49,8 +49,8 @@ struct MainTabCoordinatorView: View {
     }
 }
 
-#Preview {
-    let di = DIContainer()
-    let appState = AppState()
-    MainTabCoordinatorView(container: di, appState: appState)
-}
+//#Preview {
+//    let di = DIContainer()
+//    let appState = AppState()
+//    MainTabCoordinatorView(container: di, appState: appState)
+//}
