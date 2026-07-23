@@ -102,14 +102,14 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    let repository = HomeRepositoryImpl()
-    HomeView(
-        viewModel: HomeViewModel(
-            getGreetingNameUseCase: GetGreetingNameUseCase(repository: repository),
-            getServiceCategoriesUseCase: GetServiceCategoriesUseCase(repository: repository),
-            getUpcomingBookingsUseCase: GetUpcomingBookingsUseCase(repository: repository),
-            onServiceTabbed: {}
-        )
-    )
-}
+//#Preview {
+//    let repository = HomeRepositoryImpl()
+//    HomeView(
+//        viewModel: HomeViewModel(
+//            getGreetingNameUseCase: GetGreetingNameUseCase(repository: repository),
+//            getServiceCategoriesUseCase: GetServiceCategoriesUseCase(repository: repository),
+//            getUpcomingBookingsUseCase: GetUpcomingBookingsUseCase(repository: repository),
+//            onServiceTabbed: {}
+//        )
+//    )
+//}
