@@ -17,8 +17,10 @@ struct ProfileSetupDecisionView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: Spacing.s24) {
+                AppHeader(title: "Enaya",showBackButton: false)
+                
                 appLogoSection
-                    .padding(.top, Spacing.s56)
+                    .padding(.top, Spacing.s32)
 
                 titleAndSubtitleSection
 
@@ -53,7 +55,7 @@ private extension ProfileSetupDecisionView {
             Image("app-logo")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80, height: 80)
+                .frame(width: 60, height: 60)
                 .offset(y: -2)
         }
     }

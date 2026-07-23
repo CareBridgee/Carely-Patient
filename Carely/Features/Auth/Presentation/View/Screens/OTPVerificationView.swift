@@ -16,9 +16,8 @@ struct OTPVerificationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            AuthHeaderView(title: "CareConnect") {
-                viewModel.goBack()
-            }
+            AppHeader(title: "Enaya")
+                .padding(Spacing.s16)
             
             ScrollView {
                 VStack(spacing: Spacing.s20) {
@@ -29,7 +28,7 @@ struct OTPVerificationView: View {
                             .carelyText(style: .heading2, weight: .bold)
                             .foregroundStyle(Color.primaryFont)
 
-                        Text("We've sent a 4-digit code to your phone number")
+                        Text("We've sent a 6-digit code to your phone number")
                             .carelyText(style: .bodyRegular, weight: .regular)
                             .foregroundStyle(Color.secondaryFont)
                             .multilineTextAlignment(.center)

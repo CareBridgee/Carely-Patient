@@ -50,7 +50,7 @@ final class PersonalInfoViewModel: ObservableObject {
     }
     
     func continueTapped() {
-        //guard validateInputs() else { return }
+        guard validateInputs() else { return }
         
         isLoading = true
         apiErrorMessage = nil

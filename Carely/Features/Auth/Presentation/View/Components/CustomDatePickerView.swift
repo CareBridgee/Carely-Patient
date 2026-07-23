@@ -44,15 +44,20 @@ struct CustomDatePickerView: View {
                         .frame(width: IconSize.s20, height: IconSize.s20)
                         .foregroundColor(Color.brandPrimary)
                     
-                    DatePicker("", selection: Binding<Date>(
-                        get: { self.selectedDate ?? Date() },
-                        set: { self.selectedDate = $0 }
-                    ), displayedComponents: .date)
-                        .labelsHidden()
-                        .colorMultiply(.clear)
-                        .opacity(0.011)
-                        .frame(width: 40, height: 40)
-                        .clipped()
+                    DatePicker(
+                        "",
+                        selection: Binding(
+                            get: { selectedDate ?? Date() },
+                            set: { selectedDate = $0 }
+                        ),
+                        displayedComponents: .date
+                    )
+                    .labelsHidden()
+                    .datePickerStyle(.compact)
+                    .blendMode(.destinationOver)
+                    .frame(width: 40, height: 40)
+                    .tint(Color.brandPrimary)
+                    .accentColor(Color.brandPrimary)
                 }
             }
             .padding(.horizontal, Spacing.s12)
@@ -73,4 +78,3 @@ struct CustomDatePickerView: View {
         }
     }
 }
-

@@ -42,7 +42,7 @@ struct StepProgressHeader: View {
                         .frame(height: 6)
                     
                     RoundedRectangle.carely(Radius.pill)
-                        .fill(isCompleted ? Color.success : Color.primary)
+                        .fill(isCompleted ? Color.success : Color.brandPrimary)
                         .frame(width: geometry.size.width * progressWidthMultiplier, height: 6)
                 }
             }

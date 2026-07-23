@@ -8,7 +8,7 @@
 import Foundation
 
 final class AuthRepositoryImpl: AuthRepositoryProtocol{
-    private static let mockCorrectOTP = "1234"
+    private static let mockCorrectOTP = "123456"
     
     private let simulatedDelayNanoseconds: UInt64 = 1_200_000_000
     

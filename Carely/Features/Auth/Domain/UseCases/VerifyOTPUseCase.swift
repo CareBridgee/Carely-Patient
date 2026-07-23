@@ -19,9 +19,6 @@ struct VerifyOTPUseCase: VerifyOTPUseCaseProtocol {
     }
 
     func execute(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity {
-        guard otp.count == 4, otp.allSatisfy(\.isNumber) else {
-            throw AuthError.invalidOTP
-        }
         return try await repository.verifyOTP(phoneNumber: phoneNumber, otp: otp)
     }
 }

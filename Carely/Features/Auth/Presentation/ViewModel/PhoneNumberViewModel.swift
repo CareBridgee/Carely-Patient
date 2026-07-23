@@ -45,12 +45,11 @@ final class PhoneNumberViewModel: ObservableObject {
 
     func nextButtonPressed(){
         print("pressed")
-        router.push(to: .OTPVerification(phoneNumber: phoneNumber))
+        router.push(to: .OTPVerification(phoneNumber: "+20"+phoneNumber))
     }
 
     private func setupValidation() {
         unfocusTrigger
-//            .debounce(for: .milliseconds(150), scheduler: DispatchQueue.main)
             .map { text in (text, Self.isValidPhoneNumber(text)) }
             .sink { [weak self] text, valid in
                 self?.isPhoneNumberValid = valid

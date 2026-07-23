@@ -5,24 +5,30 @@ struct AppHeader: View {
     
     let title: String
     
+    var showBackButton: Bool = true
     var trailingIcon: String? = nil
-    
     var onTrailingIconTapped: (() -> Void)? = nil
     
     var body: some View {
         HStack {
-            Button(action: { dismiss() }) {
-                Image(systemName: "arrow.left")
-                    .foregroundColor(Color.brandPrimary)
-                    .font(.system(size: 20, weight: .medium))
+            if showBackButton {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(Color.brandPrimary)
+                        .font(.system(size: 20, weight: .medium))
+                }
+                .frame(width: 36, alignment: .leading)
+            } else {
+                Spacer().frame(width: 36)
             }
-            .frame(width: 36, alignment: .leading)
             
             Spacer()
             
             Text(title)
                 .carelyText(style: .heading2, weight: .medium)
                 .foregroundColor(Color.brandPrimary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
             
             Spacer()
             

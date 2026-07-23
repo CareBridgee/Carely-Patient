@@ -19,7 +19,7 @@ struct PersonalInfoView: View {
     var body: some View {
         VStack(spacing: Spacing.s20) {
             
-            AppHeader(title: "Enaya")
+            AppHeader(title: "Enaya",showBackButton: false)
             
             PersonalInfoFormCard(viewModel: viewModel)
                 .padding(.top, Spacing.s24)
