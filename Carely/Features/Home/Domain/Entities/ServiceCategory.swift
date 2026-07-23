@@ -22,7 +22,7 @@ enum ServiceCategoryAccent: Equatable {
     case neutral
 }
  
-struct ServiceCategory: Identifiable, Equatable {
+struct ServiceCategory: Identifiable, Equatable,Hashable {
     let id: String
     let title: String
     let subtitle: String

@@ -1,5 +1,5 @@
 //
-//  ServiceCategoriesViewModel.swift
+//  AllServiceViewModel.swift
 //  Carely
 //
 //  Created by Mina on 22/07/2026.
@@ -9,31 +9,35 @@ import Foundation
 import Combine
  
 @MainActor
-final class ServiceCategoriesViewModel: ObservableObject {
+final class AllServiceViewModel: ObservableObject {
  
     @Published var searchQuery: String = "" {
         didSet { scheduleSearch() }
     }
     @Published private(set) var categories: [ServiceCategory] = []
+    @Published private(set) var greetingName: String = ""
  
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
  
+    private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
-    private let router: HomeRouter
  
     private var searchTask: Task<Void, Never>?
- 
+    private var coordinator: ServicesCoordinator
+    
     init(
+        getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol,
-        router: HomeRouter
+        coordinator: ServicesCoordinator
     ) {
+        self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.searchServiceCategoriesUseCase = searchServiceCategoriesUseCase
-        self.router = router
+        self.coordinator = coordinator
     }
  
     func onAppear() {
@@ -56,6 +60,15 @@ final class ServiceCategoriesViewModel: ObservableObject {
                 self.showError = true
             }
         }
+
+        Task {
+            do {
+                self.greetingName = try await getGreetingNameUseCase.execute()
+            } catch {
+                // Intentionally not surfaced via errorMessage/showError,
+                // so it doesn't affect the existing categories error flow.
+            }
+        }
     }
  
     private func scheduleSearch() {
@@ -76,11 +89,10 @@ final class ServiceCategoriesViewModel: ObservableObject {
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        router.push(to: .serviceDetails(serviceId: category.id))
+        coordinator.push(.serviceDetails(source: .services))
     }
  
     func backTapped() {
-        router.pop()
+        //
     }
 }
- 

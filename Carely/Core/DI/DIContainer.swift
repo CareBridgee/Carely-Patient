@@ -200,29 +200,74 @@ final class DIContainer {
      
         // MARK: - Home ViewModels
      
-        func makeHomeViewModel(router: HomeRouter) -> HomeViewModel {
+    func makeHomeViewModel(onServiceTabbed: @escaping () -> Void) -> HomeViewModel {
             HomeViewModel(
                 getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
                 getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
-                router: router
+                onServiceTabbed: onServiceTabbed
             )
         }
      
-        func makeServiceCategoriesViewModel(router: HomeRouter) -> ServiceCategoriesViewModel {
-            ServiceCategoriesViewModel(
+        func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
+            AllServiceViewModel(
+                getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
                 searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
-                router: router
+                coordinator: coordinator
             )
         }
      
-        func makeServiceDetailsViewModel(serviceId: String, router: HomeRouter) -> ServiceDetailsViewModel {
+    func makeServiceDetailsViewModel(serviceId: String, source: ServiceDetailsSource, coordinator: ServicesCoordinator) -> ServiceDetailsViewModel {
             ServiceDetailsViewModel(
                 serviceId: serviceId,
                 getServiceDetailUseCase: makeGetServiceDetailUseCase(),
-                router: router
+                source: source,
+                coordinator: coordinator
             )
         }
-}
+    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
+                CareRequestRepositoryImpl()
+            }()
+            func makeCareRequestViewModel(
+                preselectedService: CareService,
+                entryPoint: CareRequestEntryPoint,
+                onSubmitted: @escaping () -> Void
+            ) -> CareRequestViewModel {
+                CareRequestViewModel(
+                    preselectedService: preselectedService,
+                    entryPoint: entryPoint,
+                    fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
+                    fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
+                    submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
+                    onSubmitted: onSubmitted
 
+                )
+
+            }
+
+    // MARK: - Search Offer Repository
+    
+    private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {
+        OfferSearchingRepositoryImpl(hubService: OffersSearchingHubServices())
+    }()
+    
+    // MARK: - Search Offer UseCases
+    
+    private func makeObserveOffersUseCase() -> ObserveOffersUseCase {
+        ObserveOffersUseCase(repository: offerSearchingRepository)
+    }
+    
+    private func makeManageOffersConnectionUseCase() -> ManageOffersConnectionUseCase {
+        ManageOffersConnectionUseCase(repository: offerSearchingRepository)
+    }
+    
+    // MARK: - Search Offer ViewModels
+    
+    func makeOffersSearchingViewModel() -> OffersSearchingViewModel {
+        OffersSearchingViewModel(
+            observeOffersUseCase: makeObserveOffersUseCase(),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase()
+        )
+    }
+}
