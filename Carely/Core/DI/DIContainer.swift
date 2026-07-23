@@ -263,12 +263,53 @@ final class DIContainer {
     
     // MARK: - Search Offer ViewModels
     
-    func makeOffersSearchingViewModel(requestId: String,onOfferAccepted:@escaping (ConfirmedOffer)->Void ) -> OffersSearchingViewModel {
+    func makeOffersSearchingViewModel(
+        requestId: String,
+        onOfferAccepted: @escaping (ConfirmedOffer)->Void,
+        onShowNurseProfile: @escaping (String)->Void
+    ) -> OffersSearchingViewModel {
         OffersSearchingViewModel(
             requestId: requestId,
             observeOffersUseCase: makeObserveOffersUseCase(),
             manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(),
-            onOfferAccepted: onOfferAccepted
+            onOfferAccepted: onOfferAccepted,
+            onShowNurseProfile: onShowNurseProfile
         )
+    }
+    
+    // MARK: - Offer Accepted ViewModels
+    
+    func makeOfferAcceptedViewModel(
+        request: ConfirmedOffer,
+        onShowQRCode: @escaping (ConfirmedOffer) -> Void,
+        onCancelRequest: @escaping () -> Void,
+        onShowNurseProfile: @escaping (String) -> Void
+    ) -> OfferAcceptedViewModel {
+        OfferAcceptedViewModel(
+            request: request,
+            onShowQRCode: onShowQRCode,
+            onCancelRequest: onCancelRequest,
+            onShowNurseProfile: onShowNurseProfile
+        )
+    }
+    
+    // MARK: - QR Code ViewModels
+    
+    func makeArrivalQRCodeViewModel(
+        qrCodeData: String,
+        referenceNumber: String,
+        onClose: @escaping () -> Void
+    ) -> ArrivalQRCodeViewModel {
+        ArrivalQRCodeViewModel(
+            qrCodeData: qrCodeData,
+            referenceNumber: referenceNumber,
+            onClose: onClose
+        )
+    }
+    
+    // MARK: - Nurse Profile ViewModels
+    
+    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
+        NurseProfileViewModel(nurseId: nurseId)
     }
 }

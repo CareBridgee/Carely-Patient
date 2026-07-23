@@ -32,6 +32,9 @@ struct OffersSearchingView: View {
                             },
                                 onAcceptTapped: {
                                 viewModel.acceptOffer(offerId: offer.id)
+                            },
+                                onProfileTapped: {
+                                viewModel.showNurseProfile(nurseId: offer.id)
                             })
                             .transition(
                                 .asymmetric(
