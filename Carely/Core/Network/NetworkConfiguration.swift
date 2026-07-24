@@ -9,5 +9,5 @@
 import Foundation
 
 enum NetworkConfiguration {
-    static let baseURL = "https://api.example.com"
+    static let baseURL = "https://home-nursing-system-production.up.railway.app"
 }
