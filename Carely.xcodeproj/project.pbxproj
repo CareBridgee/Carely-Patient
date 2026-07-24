@@ -70,6 +70,18 @@
 		3921F29C30112F5100CE77CF /* ServiceCategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921F29B30112F5100CE77CF /* ServiceCategoryCard.swift */; };
 		3921F2A2301131FD00CE77CF /* ServiceCategoryTileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921F2A1301131FC00CE77CF /* ServiceCategoryTileCard.swift */; };
 		39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39225EF0300EF85C00D6AE1A /* FlowLayout.swift */; };
+		3926563B301429F100AFD6F4 /* TotalAmountDueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265630301429F100AFD6F4 /* TotalAmountDueCard.swift */; };
+		3926563C301429F100AFD6F4 /* RatingBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265633301429F100AFD6F4 /* RatingBottomSheetView.swift */; };
+		3926563D301429F100AFD6F4 /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265627301429F100AFD6F4 /* VisitSummary.swift */; };
+		3926563E301429F100AFD6F4 /* VisitSummaryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265631301429F100AFD6F4 /* VisitSummaryTopBar.swift */; };
+		3926563F301429F100AFD6F4 /* SubmitVisitRatingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926562C301429F100AFD6F4 /* SubmitVisitRatingUseCase.swift */; };
+		39265640301429F100AFD6F4 /* VisitCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265634301429F100AFD6F4 /* VisitCompletedView.swift */; };
+		39265641301429F100AFD6F4 /* SummaryDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926562F301429F100AFD6F4 /* SummaryDetailCard.swift */; };
+		39265642301429F100AFD6F4 /* GetVisitSummaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926562B301429F100AFD6F4 /* GetVisitSummaryUseCase.swift */; };
+		39265643301429F100AFD6F4 /* VisitSummaryRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265629301429F100AFD6F4 /* VisitSummaryRepositoryProtocol.swift */; };
+		39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */; };
+		39265645301429F100AFD6F4 /* VisitRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265626301429F100AFD6F4 /* VisitRating.swift */; };
+		39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */; };
 		39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39649594301076EB00AC4137 /* ServiceCategory.swift */; };
 		396495973010770300AC4137 /* UpcomingBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495963010770200AC4137 /* UpcomingBooking.swift */; };
 		396495993010771C00AC4137 /* ServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495983010771B00AC4137 /* ServiceDetail.swift */; };
@@ -304,6 +316,18 @@
 		3921F29B30112F5100CE77CF /* ServiceCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryCard.swift; sourceTree = "<group>"; };
 		3921F2A1301131FC00CE77CF /* ServiceCategoryTileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryTileCard.swift; sourceTree = "<group>"; };
 		39225EF0300EF85C00D6AE1A /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryRepositoryImpl.swift; sourceTree = "<group>"; };
+		39265626301429F100AFD6F4 /* VisitRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRating.swift; sourceTree = "<group>"; };
+		39265627301429F100AFD6F4 /* VisitSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
+		39265629301429F100AFD6F4 /* VisitSummaryRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryRepositoryProtocol.swift; sourceTree = "<group>"; };
+		3926562B301429F100AFD6F4 /* GetVisitSummaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVisitSummaryUseCase.swift; sourceTree = "<group>"; };
+		3926562C301429F100AFD6F4 /* SubmitVisitRatingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitVisitRatingUseCase.swift; sourceTree = "<group>"; };
+		3926562F301429F100AFD6F4 /* SummaryDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryDetailCard.swift; sourceTree = "<group>"; };
+		39265630301429F100AFD6F4 /* TotalAmountDueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountDueCard.swift; sourceTree = "<group>"; };
+		39265631301429F100AFD6F4 /* VisitSummaryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryTopBar.swift; sourceTree = "<group>"; };
+		39265633301429F100AFD6F4 /* RatingBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBottomSheetView.swift; sourceTree = "<group>"; };
+		39265634301429F100AFD6F4 /* VisitCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedView.swift; sourceTree = "<group>"; };
+		39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedViewModel.swift; sourceTree = "<group>"; };
 		39649594301076EB00AC4137 /* ServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
 		396495963010770200AC4137 /* UpcomingBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBooking.swift; sourceTree = "<group>"; };
 		396495983010771B00AC4137 /* ServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetail.swift; sourceTree = "<group>"; };
@@ -573,6 +597,7 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				3926563A301429F100AFD6F4 /* VisitCompleted */,
 				0C6BAE2830124A3D00759ED0 /* NurseProfile */,
 				0C6BAE2530122D6100759ED0 /* QRCode */,
 				0C6BAE2430122CD700759ED0 /* OfferAccepted */,
@@ -852,6 +877,113 @@
 				0C6BAE2D301272DA00759ED0 /* NurseDetails.swift */,
 			);
 			path = NurseProfile;
+			sourceTree = "<group>";
+		};
+		39265624301429F100AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		39265625301429F100AFD6F4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				39265624301429F100AFD6F4 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		39265628301429F100AFD6F4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				39265626301429F100AFD6F4 /* VisitRating.swift */,
+				39265627301429F100AFD6F4 /* VisitSummary.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		3926562A301429F100AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				39265629301429F100AFD6F4 /* VisitSummaryRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		3926562D301429F100AFD6F4 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				3926562B301429F100AFD6F4 /* GetVisitSummaryUseCase.swift */,
+				3926562C301429F100AFD6F4 /* SubmitVisitRatingUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		3926562E301429F100AFD6F4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				39265628301429F100AFD6F4 /* Entities */,
+				3926562A301429F100AFD6F4 /* Repositories */,
+				3926562D301429F100AFD6F4 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		39265632301429F100AFD6F4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3926562F301429F100AFD6F4 /* SummaryDetailCard.swift */,
+				39265630301429F100AFD6F4 /* TotalAmountDueCard.swift */,
+				39265631301429F100AFD6F4 /* VisitSummaryTopBar.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		39265635301429F100AFD6F4 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				39265633301429F100AFD6F4 /* RatingBottomSheetView.swift */,
+				39265634301429F100AFD6F4 /* VisitCompletedView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		39265636301429F100AFD6F4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				39265632301429F100AFD6F4 /* Components */,
+				39265635301429F100AFD6F4 /* Screens */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		39265638301429F100AFD6F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		39265639301429F100AFD6F4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				39265636301429F100AFD6F4 /* View */,
+				39265638301429F100AFD6F4 /* ViewModel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3926563A301429F100AFD6F4 /* VisitCompleted */ = {
+			isa = PBXGroup;
+			children = (
+				39265625301429F100AFD6F4 /* Data */,
+				3926562E301429F100AFD6F4 /* Domain */,
+				39265639301429F100AFD6F4 /* Presentation */,
+			);
+			path = VisitCompleted;
 			sourceTree = "<group>";
 		};
 		39649593301076CA00AC4137 /* Home */ = {
@@ -1586,6 +1718,18 @@
 				C6C0A4FB300D334800AEB6D9 /* CurrentMedicationView.swift in Sources */,
 				C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */,
 				C6C0A4FC300D334800AEB6D9 /* EmergencyContactViewModel.swift in Sources */,
+				3926563B301429F100AFD6F4 /* TotalAmountDueCard.swift in Sources */,
+				3926563C301429F100AFD6F4 /* RatingBottomSheetView.swift in Sources */,
+				3926563D301429F100AFD6F4 /* VisitSummary.swift in Sources */,
+				3926563E301429F100AFD6F4 /* VisitSummaryTopBar.swift in Sources */,
+				3926563F301429F100AFD6F4 /* SubmitVisitRatingUseCase.swift in Sources */,
+				39265640301429F100AFD6F4 /* VisitCompletedView.swift in Sources */,
+				39265641301429F100AFD6F4 /* SummaryDetailCard.swift in Sources */,
+				39265642301429F100AFD6F4 /* GetVisitSummaryUseCase.swift in Sources */,
+				39265643301429F100AFD6F4 /* VisitSummaryRepositoryProtocol.swift in Sources */,
+				39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */,
+				39265645301429F100AFD6F4 /* VisitRating.swift in Sources */,
+				39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
