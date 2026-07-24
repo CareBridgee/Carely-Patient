@@ -50,6 +50,9 @@ struct OfferAcceptedView: View {
                         },
                         onMessageTapped: {
                             viewModel.messageNurse()
+                        },
+                        onProfileTapped: {
+                            viewModel.showNurseProfile()
                         }
                     )
                     

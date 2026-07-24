@@ -16,19 +16,22 @@ final class OffersSearchingViewModel: ObservableObject {
     private let requestId: String
     var onOfferAccepted: ((ConfirmedOffer) -> Void)
     var onOfferDeclined: ((String) -> Void)
+    var onShowNurseProfile: ((String) -> Void)
     
     init(
         requestId: String,
         observeOffersUseCase: ObserveOffersUseCase,
         manageOffersConnectionUseCase: ManageOffersConnectionUseCase,
         onOfferAccepted: @escaping (ConfirmedOffer) -> Void = { _ in },
-        onOfferDeclined: @escaping (String) -> Void = { _ in }
+        onOfferDeclined: @escaping (String) -> Void = { _ in },
+        onShowNurseProfile: @escaping (String) -> Void = { _ in }
     ) {
         self.requestId = requestId
         self.observeOffersUseCase = observeOffersUseCase
         self.manageOffersConnectionUseCase = manageOffersConnectionUseCase
         self.onOfferAccepted = onOfferAccepted
         self.onOfferDeclined = onOfferDeclined
+        self.onShowNurseProfile = onShowNurseProfile
     }
     
     func startSearching() {
@@ -60,6 +63,10 @@ final class OffersSearchingViewModel: ObservableObject {
     
     func declineOffer(offerId: String) {
         self.offers.removeAll { $0.id == offerId }
+    }
+    
+    func showNurseProfile(nurseId: String) {
+        onShowNurseProfile(nurseId)
     }
         
     func acceptOffer(offerId: String) {
