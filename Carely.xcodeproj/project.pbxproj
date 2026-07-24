@@ -70,6 +70,18 @@
 		3921F29C30112F5100CE77CF /* ServiceCategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921F29B30112F5100CE77CF /* ServiceCategoryCard.swift */; };
 		3921F2A2301131FD00CE77CF /* ServiceCategoryTileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921F2A1301131FC00CE77CF /* ServiceCategoryTileCard.swift */; };
 		39225EF1300EF85C00D6AE1A /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39225EF0300EF85C00D6AE1A /* FlowLayout.swift */; };
+		392655FC3014075100AFD6F4 /* VisitCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392655FB3014074F00AFD6F4 /* VisitCompletedView.swift */; };
+		392656003014077900AFD6F4 /* RatingBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392655FF3014077800AFD6F4 /* RatingBottomSheetView.swift */; };
+		392656023014079B00AFD6F4 /* SummaryDetailCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656013014079800AFD6F4 /* SummaryDetailCard.swift */; };
+		39265604301407AA00AFD6F4 /* TotalAmountDueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265603301407A900AFD6F4 /* TotalAmountDueCard.swift */; };
+		39265608301407CE00AFD6F4 /* VisitSummaryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265607301407CD00AFD6F4 /* VisitSummaryTopBar.swift */; };
+		3926560B3014080000AFD6F4 /* VisitCompletedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926560A301407FF00AFD6F4 /* VisitCompletedViewModel.swift */; };
+		392656123014089400AFD6F4 /* VisitSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656113014089300AFD6F4 /* VisitSummary.swift */; };
+		39265614301408B500AFD6F4 /* VisitRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265613301408B500AFD6F4 /* VisitRating.swift */; };
+		39265617301408ED00AFD6F4 /* VisitSummaryRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265616301408EC00AFD6F4 /* VisitSummaryRepositoryProtocol.swift */; };
+		3926561C3014091900AFD6F4 /* GetVisitSummaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926561B3014091800AFD6F4 /* GetVisitSummaryUseCase.swift */; };
+		3926561E3014092D00AFD6F4 /* SubmitVisitRatingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926561D3014092D00AFD6F4 /* SubmitVisitRatingUseCase.swift */; };
+		392656223014096200AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656213014096200AFD6F4 /* VisitSummaryRepositoryImpl.swift */; };
 		39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39649594301076EB00AC4137 /* ServiceCategory.swift */; };
 		396495973010770300AC4137 /* UpcomingBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495963010770200AC4137 /* UpcomingBooking.swift */; };
 		396495993010771C00AC4137 /* ServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495983010771B00AC4137 /* ServiceDetail.swift */; };
@@ -304,6 +316,19 @@
 		3921F29B30112F5100CE77CF /* ServiceCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryCard.swift; sourceTree = "<group>"; };
 		3921F2A1301131FC00CE77CF /* ServiceCategoryTileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryTileCard.swift; sourceTree = "<group>"; };
 		39225EF0300EF85C00D6AE1A /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		392655FB3014074F00AFD6F4 /* VisitCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedView.swift; sourceTree = "<group>"; };
+		392655FF3014077800AFD6F4 /* RatingBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBottomSheetView.swift; sourceTree = "<group>"; };
+		392656013014079800AFD6F4 /* SummaryDetailCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryDetailCard.swift; sourceTree = "<group>"; };
+		39265603301407A900AFD6F4 /* TotalAmountDueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAmountDueCard.swift; sourceTree = "<group>"; };
+		39265606301407BA00AFD6F4 /* VisitSummaryTopBar.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = VisitSummaryTopBar.txt; sourceTree = "<group>"; };
+		39265607301407CD00AFD6F4 /* VisitSummaryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryTopBar.swift; sourceTree = "<group>"; };
+		3926560A301407FF00AFD6F4 /* VisitCompletedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedViewModel.swift; sourceTree = "<group>"; };
+		392656113014089300AFD6F4 /* VisitSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummary.swift; sourceTree = "<group>"; };
+		39265613301408B500AFD6F4 /* VisitRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRating.swift; sourceTree = "<group>"; };
+		39265616301408EC00AFD6F4 /* VisitSummaryRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryRepositoryProtocol.swift; sourceTree = "<group>"; };
+		3926561B3014091800AFD6F4 /* GetVisitSummaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVisitSummaryUseCase.swift; sourceTree = "<group>"; };
+		3926561D3014092D00AFD6F4 /* SubmitVisitRatingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitVisitRatingUseCase.swift; sourceTree = "<group>"; };
+		392656213014096200AFD6F4 /* VisitSummaryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryRepositoryImpl.swift; sourceTree = "<group>"; };
 		39649594301076EB00AC4137 /* ServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
 		396495963010770200AC4137 /* UpcomingBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBooking.swift; sourceTree = "<group>"; };
 		396495983010771B00AC4137 /* ServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetail.swift; sourceTree = "<group>"; };
@@ -498,6 +523,7 @@
 				0C3D88243007B5E600883999 /* CarelyTests */,
 				0C3D882E3007B5E700883999 /* CarelyUITests */,
 				0C3D88123007B5E500883999 /* Products */,
+				39265606301407BA00AFD6F4 /* VisitSummaryTopBar.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -576,6 +602,7 @@
 				0C6BAE2830124A3D00759ED0 /* NurseProfile */,
 				0C6BAE2530122D6100759ED0 /* QRCode */,
 				0C6BAE2430122CD700759ED0 /* OfferAccepted */,
+				392655F93014072000AFD6F4 /* VisitCompleted */,
 				C610010E301121C200FA385C /* Services */,
 				0C3D88943008501500883999 /* Shared */,
 				B3E36C553010C5C000EE3669 /* RequestForm */,
@@ -852,6 +879,111 @@
 				0C6BAE2D301272DA00759ED0 /* NurseDetails.swift */,
 			);
 			path = NurseProfile;
+		392655F93014072000AFD6F4 /* VisitCompleted */ = {
+			isa = PBXGroup;
+			children = (
+				3926561F3014094B00AFD6F4 /* Data */,
+				3926560F3014088100AFD6F4 /* Domain */,
+				392655FA3014074700AFD6F4 /* Presentation */,
+			);
+			path = VisitCompleted;
+			sourceTree = "<group>";
+		};
+		392655FA3014074700AFD6F4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				39265609301407EB00AFD6F4 /* ViewModel */,
+				3926560C3014083000AFD6F4 /* View */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		39265609301407EB00AFD6F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3926560A301407FF00AFD6F4 /* VisitCompletedViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3926560C3014083000AFD6F4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3926560E3014084600AFD6F4 /* Components */,
+				3926560D3014083800AFD6F4 /* Screens */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3926560D3014083800AFD6F4 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				392655FF3014077800AFD6F4 /* RatingBottomSheetView.swift */,
+				392655FB3014074F00AFD6F4 /* VisitCompletedView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		3926560E3014084600AFD6F4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				39265607301407CD00AFD6F4 /* VisitSummaryTopBar.swift */,
+				39265603301407A900AFD6F4 /* TotalAmountDueCard.swift */,
+				392656013014079800AFD6F4 /* SummaryDetailCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3926560F3014088100AFD6F4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				392656183014090000AFD6F4 /* UseCases */,
+				39265615301408D500AFD6F4 /* Repositories */,
+				392656103014088700AFD6F4 /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		392656103014088700AFD6F4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				39265613301408B500AFD6F4 /* VisitRating.swift */,
+				392656113014089300AFD6F4 /* VisitSummary.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		39265615301408D500AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				39265616301408EC00AFD6F4 /* VisitSummaryRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		392656183014090000AFD6F4 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				3926561D3014092D00AFD6F4 /* SubmitVisitRatingUseCase.swift */,
+				3926561B3014091800AFD6F4 /* GetVisitSummaryUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		3926561F3014094B00AFD6F4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				392656203014095A00AFD6F4 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		392656203014095A00AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				392656213014096200AFD6F4 /* VisitSummaryRepositoryImpl.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		39649593301076CA00AC4137 /* Home */ = {
@@ -1466,6 +1598,7 @@
 				0C4A510A3010E1D300EA6EBE /* ObserveOffersUseCase.swift in Sources */,
 				C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */,
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
+				3926560B3014080000AFD6F4 /* VisitCompletedViewModel.swift in Sources */,
 				C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */,
@@ -1482,6 +1615,7 @@
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				C6C0A4DF300D253500AEB6D9 /* ProfileSetupCoordinator.swift in Sources */,
+				392656003014077900AFD6F4 /* RatingBottomSheetView.swift in Sources */,
 				396495BB301078D800AC4137 /* ServiceCategoryTile.swift in Sources */,
 				C6C0A4D0300D0C8900AEB6D9 /* EmergencyContact.swift in Sources */,
 				0C4A51123010E69000EA6EBE /* OffersEvent.swift in Sources */,
@@ -1490,6 +1624,8 @@
 				396495993010771C00AC4137 /* ServiceDetail.swift in Sources */,
 				C6C3BE36300A644A00C5FC25 /* ActionCard.swift in Sources */,
 				0C6BAE2930124A3D00759ED0 /* NurseProfileView.swift in Sources */,
+				3926561C3014091900AFD6F4 /* GetVisitSummaryUseCase.swift in Sources */,
+				392656023014079B00AFD6F4 /* SummaryDetailCard.swift in Sources */,
 				B3E36C6F3010C71F00EE3669 /* FetchSavedAddressUseCase.swift in Sources */,
 				0C4A512130111EDC00EA6EBE /* OfferAcceptedInfoBannerView.swift in Sources */,
 				0C4A51183010FC3700EA6EBE /* NurseOfferCardView.swift in Sources */,
@@ -1497,9 +1633,11 @@
 				C65A1E80300EC2710003D6FB /* AddressMapPickerViewModel.swift in Sources */,
 				C6C3BE38300A644A00C5FC25 /* PhoneNumberField.swift in Sources */,
 				0C4A512530112AF700EA6EBE /* ConfirmedOffer.swift in Sources */,
+				392656123014089400AFD6F4 /* VisitSummary.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
+				39265617301408ED00AFD6F4 /* VisitSummaryRepositoryProtocol.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
 				B3E36C613010C61C00EE3669 /* CareRequestViewModel.swift in Sources */,
 				B3E36C623010C61C00EE3669 /* PatientRelation.swift in Sources */,
@@ -1527,6 +1665,7 @@
 				396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */,
 				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
 				3921F29830112EB000CE77CF /* HomeView.swift in Sources */,
+				39265604301407AA00AFD6F4 /* TotalAmountDueCard.swift in Sources */,
 				396495BF3010790300AC4137 /* UpcomingBookingCard.swift in Sources */,
 				C6C3BE3D300A644A00C5FC25 /* OTPVerificationCardView.swift in Sources */,
 				C6C0A4C9300D0C5B00AEB6D9 /* CurrentMedication.swift in Sources */,
@@ -1568,6 +1707,7 @@
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */,
 				C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */,
+				3926561E3014092D00AFD6F4 /* SubmitVisitRatingUseCase.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
 				396495B9301078B600AC4137 /* AIAssessmentBannerView.swift in Sources */,
 				C630BAD43010CC5D00255ECA /* MainTabCoordinator.swift in Sources */,
@@ -1585,11 +1725,13 @@
 				C630BAD93010CC5D00255ECA /* HomeCoordinatorView.swift in Sources */,
 				C6C0A4FB300D334800AEB6D9 /* CurrentMedicationView.swift in Sources */,
 				C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */,
+				392655FC3014075100AFD6F4 /* VisitCompletedView.swift in Sources */,
 				C6C0A4FC300D334800AEB6D9 /* EmergencyContactViewModel.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
+				392656223014096200AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */,
 				0C4A51023010DE6A00EA6EBE /* OffersSearchingHubServices.swift in Sources */,
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
@@ -1632,6 +1774,7 @@
 				0C6BAE213012266000759ED0 /* ArrivalQRCodeView.swift in Sources */,
 				C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */,
 				396495973010770300AC4137 /* UpcomingBooking.swift in Sources */,
+				39265608301407CE00AFD6F4 /* VisitSummaryTopBar.swift in Sources */,
 				C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */,
 				C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */,
 				C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */,
@@ -1644,6 +1787,7 @@
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
 				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
 				B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */,
+				39265614301408B500AFD6F4 /* VisitRating.swift in Sources */,
 				B396A9E1300E3655009620B0 /* MobilityOptionRow.swift in Sources */,
 				0C4A511C30111EB800EA6EBE /* OfferAcceptedView.swift in Sources */,
 				C6C3BE0D300A536600C5FC25 /* SecurityIndicator.swift in Sources */,
