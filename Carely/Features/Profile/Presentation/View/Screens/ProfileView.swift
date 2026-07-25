@@ -111,13 +111,13 @@ struct ProfileView: View {
     }
 }
 
-#Preview {
-    let repository = ProfileRepositoryImpl()
-    ProfileView(
-        viewModel: ProfileViewModel(
-            getPatientProfileUseCase: GetPatientProfileUseCase(repository: repository),
-            getFamilyMembersUseCase: GetFamilyMembersUseCase(repository: repository),
-            coordinator: ProfileCoordinator()
-        )
-    )
-}
+//#Preview {
+//    let repository = ProfileRepositoryImpl()
+//    ProfileView(
+//        viewModel: ProfileViewModel(
+//            getPatientProfileUseCase: GetPatientProfileUseCase(repository: repository),
+//            getFamilyMembersUseCase: GetFamilyMembersUseCase(repository: repository),
+//            coordinator: ProfileCoordinator()
+//        )
+//    )
+//}

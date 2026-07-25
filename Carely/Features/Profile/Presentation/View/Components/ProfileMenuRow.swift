@@ -44,12 +44,12 @@ struct ProfileMenuRow: View {
     }
 }
 
-#Preview {
-    VStack(spacing: Spacing.s12) {
-        ProfileMenuRow(data: ProfileMenuRowData(item: .personalInfo, subtitle: "Update your account details"))
-        ProfileMenuRow(data: ProfileMenuRowData(item: .healthProfile, subtitle: "Medical history & documents"))
-        ProfileMenuRow(data: ProfileMenuRowData(item: .familyMembers, subtitle: "Manage dependents (2 active)"))
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    VStack(spacing: Spacing.s12) {
+//        ProfileMenuRow(data: ProfileMenuRowData(item: .personalInfo, subtitle: "Update your account details"))
+//        ProfileMenuRow(data: ProfileMenuRowData(item: .healthProfile, subtitle: "Medical history & documents"))
+//        ProfileMenuRow(data: ProfileMenuRowData(item: .familyMembers, subtitle: "Manage dependents (2 active)"))
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}

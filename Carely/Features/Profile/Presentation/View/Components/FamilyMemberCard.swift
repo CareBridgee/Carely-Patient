@@ -90,17 +90,17 @@ struct FamilyMemberCard: View {
     }
 }
 
-#Preview {
-    FamilyMemberCard(
-        member: FamilyMember(
-            id: "1",
-            name: "Maria Garcia",
-            relation: "Mother",
-            avatarIconName: "person.crop.circle.fill",
-            lastCheckupDateText: "Oct 12, 2023",
-            upcomingCareText: "Dental Care"
-        )
-    )
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    FamilyMemberCard(
+//        member: FamilyMember(
+//            id: "1",
+//            name: "Maria Garcia",
+//            relation: "Mother",
+//            avatarIconName: "person.crop.circle.fill",
+//            lastCheckupDateText: "Oct 12, 2023",
+//            upcomingCareText: "Dental Care"
+//        )
+//    )
+//    .padding()
+//    .background(Color.backGround)
+//}

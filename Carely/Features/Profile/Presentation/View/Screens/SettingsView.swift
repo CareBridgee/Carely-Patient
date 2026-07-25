@@ -123,11 +123,11 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
-    SettingsView(
-        viewModel: SettingsViewModel(
-            patientName: "Elena Rodriguez",
-            coordinator: ProfileCoordinator()
-        )
-    )
-}
+//#Preview {
+//    SettingsView(
+//        viewModel: SettingsViewModel(
+//            patientName: "Elena Rodriguez",
+//            coordinator: ProfileCoordinator()
+//        )
+//    )
+//}

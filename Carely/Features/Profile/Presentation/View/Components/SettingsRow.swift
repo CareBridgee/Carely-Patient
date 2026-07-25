@@ -81,12 +81,12 @@ struct SettingsRow: View {
     }
 }
 
-#Preview {
-    VStack(spacing: Spacing.s16) {
-        SettingsRow(iconName: "globe", title: "Language", trailing: .value("English"))
-        SettingsRow(iconName: "moon.fill", title: "Dark Mode", trailing: .toggle(.constant(false)))
-        SettingsRow(iconName: "lock.shield.fill", title: "Privacy Policy", trailing: .chevron)
-    }
-    .padding()
-    .background(Color.backGround)
-}
+//#Preview {
+//    VStack(spacing: Spacing.s16) {
+//        SettingsRow(iconName: "globe", title: "Language", trailing: .value("English"))
+//        SettingsRow(iconName: "moon.fill", title: "Dark Mode", trailing: .toggle(.constant(false)))
+//        SettingsRow(iconName: "lock.shield.fill", title: "Privacy Policy", trailing: .chevron)
+//    }
+//    .padding()
+//    .background(Color.backGround)
+//}
