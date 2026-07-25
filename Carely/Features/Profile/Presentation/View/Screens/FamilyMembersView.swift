@@ -95,11 +95,11 @@ struct FamilyMembersView: View {
     }
 }
 
-#Preview {
-    FamilyMembersView(
-        viewModel: FamilyMembersViewModel(
-            getFamilyMembersUseCase: GetFamilyMembersUseCase(repository: ProfileRepositoryImpl()),
-            coordinator: ProfileCoordinator()
-        )
-    )
-}
+//#Preview {
+//    FamilyMembersView(
+//        viewModel: FamilyMembersViewModel(
+//            getFamilyMembersUseCase: GetFamilyMembersUseCase(repository: ProfileRepositoryImpl()),
+//            coordinator: ProfileCoordinator()
+//        )
+//    )
+//}
