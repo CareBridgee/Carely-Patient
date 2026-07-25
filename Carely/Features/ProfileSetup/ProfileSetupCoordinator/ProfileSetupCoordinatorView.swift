@@ -30,7 +30,7 @@ struct ProfileSetupCoordinatorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-
+            AppHeader(title: "Enaya",showBackButton: false)
             StepProgressHeader(
                 currentStep: coordinator.currentStepIndex,
                 totalSteps: ProfileSetupStep.allCases.count,

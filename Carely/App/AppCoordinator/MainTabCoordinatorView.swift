@@ -48,9 +48,3 @@ struct MainTabCoordinatorView: View {
         .animation(.easeInOut(duration: 0.15), value: coordinator.selectedTab)
     }
 }
-
-//#Preview {
-//    let di = DIContainer()
-//    let appState = AppState()
-//    MainTabCoordinatorView(container: di, appState: appState)
-//}

@@ -42,7 +42,6 @@ struct AllServiceView: View {
                         ForEach(viewModel.categories) { category in
                             ServiceCategoryCard(category: category) {
                                 viewModel.categoryTapped(category)
-//                                coordinator?.categoryTapped(category)
                             }
                         }
                     }
@@ -57,10 +56,8 @@ struct AllServiceView: View {
             .padding(.vertical)
         }
         .background(Color.backGround)
-//        .navigationTitle("All Services")
-//        .navigationBarTitleDisplayMode(.inline)
         .task {
-            await viewModel.loadCategories()
+            viewModel.loadCategories()
         }
     }
 }
