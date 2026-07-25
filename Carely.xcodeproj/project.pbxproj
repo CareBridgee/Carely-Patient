@@ -61,6 +61,13 @@
 		0C6BAE2A30124A3D00759ED0 /* NurseProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BAE2730124A3D00759ED0 /* NurseProfileViewModel.swift */; };
 		0C6BAE2C3012703900759ED0 /* CareConnectNavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BAE2B3012703800759ED0 /* CareConnectNavigationBarModifier.swift */; };
 		0C6BAE2E301272DA00759ED0 /* NurseDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BAE2D301272DA00759ED0 /* NurseDetails.swift */; };
+		0C9064FA3014E1B000DDBAB7 /* MockAIPatientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9064F83014E1B000DDBAB7 /* MockAIPatientRepository.swift */; };
+		0C9065013014E1DB00DDBAB7 /* AIPatient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9064FB3014E1DB00DDBAB7 /* AIPatient.swift */; };
+		0C9065023014E1DB00DDBAB7 /* GetAIPatientsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9064FD3014E1DB00DDBAB7 /* GetAIPatientsUseCase.swift */; };
+		0C9065033014E1DB00DDBAB7 /* AIPatientRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9064FF3014E1DB00DDBAB7 /* AIPatientRepositoryProtocol.swift */; };
+		0C9065063014E1EA00DDBAB7 /* AddFamilyMemberCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9065043014E1EA00DDBAB7 /* AddFamilyMemberCard.swift */; };
+		0C9065073014E1EA00DDBAB7 /* PatientSelectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9065053014E1EA00DDBAB7 /* PatientSelectionCard.swift */; };
+		0C9065093014E20200DDBAB7 /* ChoosePatientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9065083014E20200DDBAB7 /* ChoosePatientViewModel.swift */; };
 		0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */; };
 		0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */; };
 		0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */; };
@@ -301,6 +308,13 @@
 		0C6BAE2730124A3D00759ED0 /* NurseProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NurseProfileViewModel.swift; sourceTree = "<group>"; };
 		0C6BAE2B3012703800759ED0 /* CareConnectNavigationBarModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CareConnectNavigationBarModifier.swift; sourceTree = "<group>"; };
 		0C6BAE2D301272DA00759ED0 /* NurseDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseDetails.swift; sourceTree = "<group>"; };
+		0C9064F83014E1B000DDBAB7 /* MockAIPatientRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAIPatientRepository.swift; sourceTree = "<group>"; };
+		0C9064FB3014E1DB00DDBAB7 /* AIPatient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIPatient.swift; sourceTree = "<group>"; };
+		0C9064FD3014E1DB00DDBAB7 /* GetAIPatientsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAIPatientsUseCase.swift; sourceTree = "<group>"; };
+		0C9064FF3014E1DB00DDBAB7 /* AIPatientRepositoryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIPatientRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0C9065043014E1EA00DDBAB7 /* AddFamilyMemberCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberCard.swift; sourceTree = "<group>"; };
+		0C9065053014E1EA00DDBAB7 /* PatientSelectionCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientSelectionCard.swift; sourceTree = "<group>"; };
+		0C9065083014E20200DDBAB7 /* ChoosePatientViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoosePatientViewModel.swift; sourceTree = "<group>"; };
 		0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarelyDropdownField.swift; sourceTree = "<group>"; };
 		0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
 		0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextAreaView.swift; sourceTree = "<group>"; };
@@ -867,6 +881,38 @@
 			path = NurseProfile;
 			sourceTree = "<group>";
 		};
+		0C9064F93014E1B000DDBAB7 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				0C9064F83014E1B000DDBAB7 /* MockAIPatientRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		0C9064FC3014E1DB00DDBAB7 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				0C9064FB3014E1DB00DDBAB7 /* AIPatient.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		0C9064FE3014E1DB00DDBAB7 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				0C9064FD3014E1DB00DDBAB7 /* GetAIPatientsUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		0C9065003014E1DB00DDBAB7 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				0C9064FF3014E1DB00DDBAB7 /* AIPatientRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		0CF1B4CC3013F86700E28FAF /* AIAssistant */ = {
 			isa = PBXGroup;
 			children = (
@@ -900,6 +946,8 @@
 		0CF1B4CF3013F8C200E28FAF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0C9065043014E1EA00DDBAB7 /* AddFamilyMemberCard.swift */,
+				0C9065053014E1EA00DDBAB7 /* PatientSelectionCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -925,6 +973,7 @@
 		0CF1B4D23013F92900E28FAF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0C9065083014E20200DDBAB7 /* ChoosePatientViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -932,6 +981,9 @@
 		0CF1B4D33013F93E00E28FAF /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				0C9064FC3014E1DB00DDBAB7 /* Entities */,
+				0C9065003014E1DB00DDBAB7 /* Repositories */,
+				0C9064FE3014E1DB00DDBAB7 /* UseCases */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -939,6 +991,7 @@
 		0CF1B4D43013F94300E28FAF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0C9064F93014E1B000DDBAB7 /* Repositories */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1555,6 +1608,7 @@
 				0C5C345E300F08BB00A820EB /* ConditionCardView.swift in Sources */,
 				0C4A510A3010E1D300EA6EBE /* ObserveOffersUseCase.swift in Sources */,
 				C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */,
+				0C9065023014E1DB00DDBAB7 /* GetAIPatientsUseCase.swift in Sources */,
 				C6E761EF3008E2F700481DB9 /* AuthRoute.swift in Sources */,
 				C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
@@ -1589,6 +1643,7 @@
 				0C4A512530112AF700EA6EBE /* ConfirmedOffer.swift in Sources */,
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
+				0C9065063014E1EA00DDBAB7 /* AddFamilyMemberCard.swift in Sources */,
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
 				B3E36C613010C61C00EE3669 /* CareRequestViewModel.swift in Sources */,
@@ -1652,6 +1707,7 @@
 				C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */,
 				3921F29C30112F5100CE77CF /* ServiceCategoryCard.swift in Sources */,
 				0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */,
+				0C9065033014E1DB00DDBAB7 /* AIPatientRepositoryProtocol.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
 				0CF1B4DC3014130D00E28FAF /* AIAssistantCoordinatorView.swift in Sources */,
@@ -1661,6 +1717,7 @@
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */,
 				C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */,
+				0C9065093014E20200DDBAB7 /* ChoosePatientViewModel.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
 				396495B9301078B600AC4137 /* AIAssessmentBannerView.swift in Sources */,
 				C630BAD43010CC5D00255ECA /* MainTabCoordinator.swift in Sources */,
@@ -1680,6 +1737,7 @@
 				C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */,
 				C6C0A4FC300D334800AEB6D9 /* EmergencyContactViewModel.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
+				0C9065013014E1DB00DDBAB7 /* AIPatient.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
@@ -1704,6 +1762,7 @@
 				0C4A512330111EDC00EA6EBE /* OfferAcceptedInfoCardView.swift in Sources */,
 				C6C0A502300D334800AEB6D9 /* AllergiesViewModel.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
+				0C9064FA3014E1B000DDBAB7 /* MockAIPatientRepository.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,
 				0C5C345D300F08BB00A820EB /* HealthProfileBottomActionsView.swift in Sources */,
 				0C6BAE233012279300759ED0 /* ArrivalQRCodeViewModel.swift in Sources */,
@@ -1735,6 +1794,7 @@
 				39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */,
 				C6C0A50E300D347B00AEB6D9 /* ProfileSetupCoordinatorView.swift in Sources */,
 				0CF1B4DA301412BC00E28FAF /* AIAssistantRoute.swift in Sources */,
+				0C9065073014E1EA00DDBAB7 /* PatientSelectionCard.swift in Sources */,
 				C6C0A4D2300D0C9700AEB6D9 /* HomeAddress.swift in Sources */,
 				0C4A51083010DF9100EA6EBE /* OfferSearchingRepositoryProtocol.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,

@@ -17,7 +17,7 @@ final class AIAssistantCoordinator: AppRouterProtocol{
 
     var onRequestNow: (() -> Void)?
     var onAddFamilyMember: (() -> Void)?
-    var onViewProfiledetails: (() -> Void)?
+    var onViewProfiledetails: ((String) -> Void)?
     var onViewAllServices: (() -> Void)?
     
     
@@ -29,8 +29,8 @@ final class AIAssistantCoordinator: AppRouterProtocol{
         onAddFamilyMember?()
     }
     
-    func viewProfiledetailsTapped() {
-        onViewProfiledetails?()
+    func viewProfiledetailsTapped(profileId: String) {
+        onViewProfiledetails?(profileId)
     }
     
     func viewAllServicesTapped() {
