@@ -224,5 +224,42 @@ final class DIContainer {
                 router: router
             )
         }
-}
 
+    // MARK: - Profile Repository
+
+    private lazy var profileRepository: ProfileRepositoryProtocol = ProfileRepositoryImpl()
+
+    // MARK: - Profile UseCases
+
+    private func makeGetPatientProfileUseCase() -> GetPatientProfileUseCaseProtocol {
+        GetPatientProfileUseCase(repository: profileRepository)
+    }
+
+    private func makeGetFamilyMembersUseCase() -> GetFamilyMembersUseCaseProtocol {
+        GetFamilyMembersUseCase(repository: profileRepository)
+    }
+
+    // MARK: - Profile ViewModels
+
+    func makeProfileViewModel(coordinator: ProfileCoordinator) -> ProfileViewModel {
+        ProfileViewModel(
+            getPatientProfileUseCase: makeGetPatientProfileUseCase(),
+            getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            coordinator: coordinator
+        )
+    }
+
+    func makeFamilyMembersViewModel(coordinator: ProfileCoordinator) -> FamilyMembersViewModel {
+        FamilyMembersViewModel(
+            getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            coordinator: coordinator
+        )
+    }
+
+    func makeSettingsViewModel(coordinator: ProfileCoordinator) -> SettingsViewModel {
+        SettingsViewModel(
+            patientName: "Elena Rodriguez",
+            coordinator: coordinator
+        )
+    }
+}
