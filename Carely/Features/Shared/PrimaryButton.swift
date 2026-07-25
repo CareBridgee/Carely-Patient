@@ -8,7 +8,8 @@
 import SwiftUI
 
 public struct PrimaryButton: View {
- 
+    private let colorOfBackground: Color
+    private let colorOfForground: Color
     private let title: String
     private let size: CarelyButtonSize
     private let customIconSize: CGFloat?
@@ -31,6 +32,8 @@ public struct PrimaryButton: View {
     ///   - isEnabled: Disables interaction and switches to the disabled color pair.
     ///   - action: Tap handler.
     init(
+        colorOfBackground: Color = .brandPrimary,
+        colorOfForground: Color = .onPrimary,
         title: String,
         size: CarelyButtonSize = .medium,
         customIconSize: CGFloat? = nil,
@@ -42,6 +45,8 @@ public struct PrimaryButton: View {
         isEnabled: Bool = true,
         action: @escaping () -> Void
     ) {
+        self.colorOfBackground = colorOfBackground
+        self.colorOfForground = colorOfForground
         self.title = title
         self.size = size
         self.customIconSize = customIconSize
@@ -57,11 +62,11 @@ public struct PrimaryButton: View {
     private var isInteractive: Bool { isEnabled && !isLoading }
  
     private var backgroundColor: Color {
-        isEnabled ? .brandPrimary : .disable
+        isEnabled ? colorOfBackground : .disable
     }
  
     private var foregroundColor: Color {
-        isEnabled ? .onPrimary : .onDisable
+        isEnabled ? colorOfForground : .onDisable
     }
  
     public var body: some View {

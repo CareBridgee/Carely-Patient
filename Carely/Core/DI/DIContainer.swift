@@ -200,29 +200,166 @@ final class DIContainer {
      
         // MARK: - Home ViewModels
      
-        func makeHomeViewModel(router: HomeRouter) -> HomeViewModel {
+    func makeHomeViewModel(onServiceTabbed: @escaping () -> Void) -> HomeViewModel {
             HomeViewModel(
                 getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
                 getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
-                router: router
+                onServiceTabbed: onServiceTabbed
             )
         }
      
-        func makeServiceCategoriesViewModel(router: HomeRouter) -> ServiceCategoriesViewModel {
-            ServiceCategoriesViewModel(
+        func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
+            AllServiceViewModel(
+                getGreetingNameUseCase: makeGetGreetingNameUseCase(),
                 getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
                 searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
-                router: router
+                coordinator: coordinator
             )
         }
      
-        func makeServiceDetailsViewModel(serviceId: String, router: HomeRouter) -> ServiceDetailsViewModel {
+    func makeServiceDetailsViewModel(serviceId: String, source: ServiceDetailsSource, coordinator: ServicesCoordinator) -> ServiceDetailsViewModel {
             ServiceDetailsViewModel(
                 serviceId: serviceId,
                 getServiceDetailUseCase: makeGetServiceDetailUseCase(),
-                router: router
+                source: source,
+                coordinator: coordinator
             )
         }
-}
+    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
+                CareRequestRepositoryImpl()
+            }()
+    
+    func makeCareRequestViewModel(
+        preselectedService: CareService,
+        entryPoint: CareRequestEntryPoint,
+        onSubmitted: @escaping (String) -> Void ) -> CareRequestViewModel {
+        CareRequestViewModel(
+            preselectedService: preselectedService,
+            entryPoint: entryPoint,
+            fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
+            fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
+            submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
+            onSubmitted: onSubmitted
 
+        )
+
+    }
+
+    // MARK: - Visit Summary Repository
+
+    private lazy var visitSummaryRepository: VisitSummaryRepositoryProtocol = {
+        VisitSummaryRepositoryImpl()
+    }()
+
+    // MARK: - Visit Summary UseCases
+
+    private func makeGetVisitSummaryUseCase() -> GetVisitSummaryUseCaseProtocol {
+        GetVisitSummaryUseCase(repository: visitSummaryRepository)
+    }
+
+    private func makeSubmitVisitRatingUseCase() -> SubmitVisitRatingUseCaseProtocol {
+        SubmitVisitRatingUseCase(repository: visitSummaryRepository)
+    }
+
+    // MARK: - Visit Summary ViewModels
+
+    func makeVisitCompletedViewModel(visitId: String) -> VisitCompletedViewModel {
+        VisitCompletedViewModel(
+            visitId: visitId,
+            getVisitSummaryUseCase: makeGetVisitSummaryUseCase(),
+            submitVisitRatingUseCase: makeSubmitVisitRatingUseCase()
+        )
+    }
+
+    // MARK: - Search Offer Repository
+    
+    private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {
+        OfferSearchingRepositoryImpl(hubService: OffersSearchingHubServices())
+    }()
+    
+    // MARK: - Search Offer UseCases
+    
+    private func makeObserveOffersUseCase() -> ObserveOffersUseCase {
+        ObserveOffersUseCase(repository: offerSearchingRepository)
+    }
+    
+    private func makeManageOffersConnectionUseCase() -> ManageOffersConnectionUseCase {
+        ManageOffersConnectionUseCase(repository: offerSearchingRepository)
+    }
+    
+    // MARK: - Search Offer ViewModels
+    
+    func makeOffersSearchingViewModel(
+        requestId: String,
+        onOfferAccepted: @escaping (ConfirmedOffer)->Void,
+        onShowNurseProfile: @escaping (String)->Void
+    ) -> OffersSearchingViewModel {
+        OffersSearchingViewModel(
+            requestId: requestId,
+            observeOffersUseCase: makeObserveOffersUseCase(),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(),
+            onOfferAccepted: onOfferAccepted,
+            onShowNurseProfile: onShowNurseProfile
+        )
+    }
+    
+    // MARK: - Offer Accepted ViewModels
+    
+    func makeOfferAcceptedViewModel(
+        request: ConfirmedOffer,
+        onShowQRCode: @escaping (ConfirmedOffer) -> Void,
+        onCancelRequest: @escaping () -> Void,
+        onShowNurseProfile: @escaping (String) -> Void
+    ) -> OfferAcceptedViewModel {
+        OfferAcceptedViewModel(
+            request: request,
+            onShowQRCode: onShowQRCode,
+            onCancelRequest: onCancelRequest,
+            onShowNurseProfile: onShowNurseProfile
+        )
+    }
+    
+    // MARK: - QR Code ViewModels
+    
+    func makeArrivalQRCodeViewModel(
+        qrCodeData: String,
+        referenceNumber: String,
+        onClose: @escaping () -> Void
+    ) -> ArrivalQRCodeViewModel {
+        ArrivalQRCodeViewModel(
+            qrCodeData: qrCodeData,
+            referenceNumber: referenceNumber,
+            onClose: onClose
+        )
+    }
+    
+    // MARK: - Nurse Profile ViewModels
+    
+    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
+        NurseProfileViewModel(nurseId: nurseId)
+    }
+    
+    // MARK: - AIAssistant Repository
+    
+    private lazy var aiPatientRepository: AIPatientRepositoryProtocol = MockAIPatientRepository()
+    
+    // MARK: - AIAssistant UseCases
+    
+    private func makeGetAIPatientsUseCase() -> GetAIPatientsUseCaseProtocol {
+        GetAIPatientsUseCase(repository: aiPatientRepository)
+    }
+    
+    // MARK: - AIAssistant ViewModels
+    
+    func makeChoosePatientViewModel(
+        onShowPatientDetails: @escaping (String) -> Void,
+        onContinueWithAssessment: @escaping (String) -> Void
+    ) -> ChoosePatientViewModel {
+        ChoosePatientViewModel(
+            getAIPatientsUseCase: makeGetAIPatientsUseCase(),
+            onShowPatientDetails: onShowPatientDetails,
+            onContinueWithAssessment: onContinueWithAssessment
+        )
+    }
+}
