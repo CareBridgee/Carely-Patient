@@ -36,6 +36,11 @@ struct MainTabCoordinatorView: View {
             ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
                 .opacity(coordinator.selectedTab == .services ? 1 : 0)
                 .allowsHitTesting(coordinator.selectedTab == .services)
+            
+            AIAssistantCoordinatorView(container: container, coordinator: coordinator.aiAssistantCoordinator)
+                .opacity(coordinator.selectedTab == .ai ? 1 : 0)
+                .allowsHitTesting(coordinator.selectedTab == .ai)
+
 //
 //            AICoordinatorView(container: container, coordinator: coordinator.aiCoordinator)
 //                .opacity(coordinator.selectedTab == .ai ? 1 : 0)

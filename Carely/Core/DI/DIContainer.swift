@@ -229,6 +229,7 @@ final class DIContainer {
     private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
                 CareRequestRepositoryImpl()
             }()
+    
     func makeCareRequestViewModel(
         preselectedService: CareService,
         entryPoint: CareRequestEntryPoint,
@@ -337,5 +338,28 @@ final class DIContainer {
     
     func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
         NurseProfileViewModel(nurseId: nurseId)
+    }
+    
+    // MARK: - AIAssistant Repository
+    
+    private lazy var aiPatientRepository: AIPatientRepositoryProtocol = MockAIPatientRepository()
+    
+    // MARK: - AIAssistant UseCases
+    
+    private func makeGetAIPatientsUseCase() -> GetAIPatientsUseCaseProtocol {
+        GetAIPatientsUseCase(repository: aiPatientRepository)
+    }
+    
+    // MARK: - AIAssistant ViewModels
+    
+    func makeChoosePatientViewModel(
+        onShowPatientDetails: @escaping (String) -> Void,
+        onContinueWithAssessment: @escaping (String) -> Void
+    ) -> ChoosePatientViewModel {
+        ChoosePatientViewModel(
+            getAIPatientsUseCase: makeGetAIPatientsUseCase(),
+            onShowPatientDetails: onShowPatientDetails,
+            onContinueWithAssessment: onContinueWithAssessment
+        )
     }
 }

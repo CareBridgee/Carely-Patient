@@ -89,7 +89,7 @@ final class AllServiceViewModel: ObservableObject {
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        coordinator.push(.serviceDetails(source: .services))
+        coordinator.push(to: .serviceDetails(source: .services))
     }
  
     func backTapped() {
