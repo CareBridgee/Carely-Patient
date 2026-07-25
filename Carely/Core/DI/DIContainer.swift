@@ -13,52 +13,52 @@ import Alamofire
 final class DIContainer {
     
     // MARK: - Auth Infrastructure
-
+    
     let appState: AppState
-
+    
     private let tokenStore: TokenStoring
     private let sessionManager: SessionManager
     private let unauthNetworkClient: NetworkClientProtocol
     private let authInterceptor: AuthInterceptor
-
+    
     // MARK: - Networking (Single Stack)
-
+    
     private lazy var session: Session = Session(interceptor: authInterceptor)
-
+    
     private lazy var networkClient: NetworkClientProtocol = NetworkClient(session: session)
-
+    
     // MARK: - Init
-
+    
     init() {
         self.tokenStore = KeychainTokenStore()
         self.sessionManager = SessionManager(tokenStore: tokenStore)
         self.unauthNetworkClient = NetworkClient(session: .default)
-
+        
         self.authInterceptor = AuthInterceptor(
             tokenStore: tokenStore,
             sessionMonitor: sessionManager,
             unauthNetworkClient: unauthNetworkClient
         )
-
+        
         self.appState = AppState(sessionManager: sessionManager)
     }
-
+    
     // MARK: - Auth Data
-
+    
     private lazy var authService: AuthServiceProtocol = AuthServiceImpl(
         networkClient: networkClient
     )
-
+    
     private lazy var authRepository: AuthRepositoryProtocol = AuthRepositoryImpl(
         authService: authService
     )
     
     // MARK: - Auth UseCases
-
+    
     private func makeLoginUseCase() -> LoginUseCaseProtocol {
         LoginUseCase(repository: authRepository)
     }
-
+    
     private func makeLogoutUseCase() -> LogoutUseCaseProtocol {
         LogoutUseCase(
             repository: authRepository,
@@ -138,15 +138,15 @@ final class DIContainer {
     
     func makeMobilityViewModel(coordinator: ProfileSetupCoordinator) -> MobilityViewModel {
         MobilityViewModel(coordinator: coordinator)}
-        func makeBasicInfoHealthViewModel(existingData: BasicHealthInfo) -> BasicHealthInfoViewModel{
-            BasicHealthInfoViewModel(existingData: existingData)
-        }
+    func makeBasicInfoHealthViewModel(existingData: BasicHealthInfo) -> BasicHealthInfoViewModel{
+        BasicHealthInfoViewModel(existingData: existingData)
+    }
     
-        func makeExistingConditionsViewModel(existingData: ExistingConditions) -> ExistingConditionsViewModel {
-            ExistingConditionsViewModel(existingData: existingData)
-        }
+    func makeExistingConditionsViewModel(existingData: ExistingConditions) -> ExistingConditionsViewModel {
+        ExistingConditionsViewModel(existingData: existingData)
+    }
     
-
+    
     func makeEmergencyContactViewModel(
         initialContact: EmergencyContact?,
         onContinue: @escaping (EmergencyContact) -> Void,
@@ -161,7 +161,7 @@ final class DIContainer {
         onBackTapped: @escaping () -> Void
     ) -> HomeAddressViewModel {
         let mapPickerVM = makeAddressMapPickerViewModel()
-
+        
         let homeVM = HomeAddressViewModel(
             initialAddress: initialAddress,
             mapPickerViewModel: mapPickerVM,
@@ -169,53 +169,53 @@ final class DIContainer {
             onFinishSetup: onFinishSetup,
             onBackTapped: onBackTapped
         )
-
+        
         mapPickerVM.onConfirm = { [weak homeVM] selection in
             homeVM?.handleAddressSelection(selection)
         }
         mapPickerVM.onClose = { [weak homeVM] in
             homeVM?.closeMapPicker()
         }
-
+        
         return homeVM
     }
-
+    
     // MARK: - Home Address Repository
-
+    
     private lazy var homeAddressRepository: HomeAddressRepositoryProtocol = HomeAddressRepositoryImpl(
         searchService: MapSearchService(),
         geocodingService: GeocodingService(),
         locationProvider: CurrentLocationProvider()
     )
-
+    
     // MARK: - Home Address Use Cases
-
+    
     private func makeSearchPlacesUseCase() -> SearchPlacesUseCase {
         SearchPlacesUseCase(repository: homeAddressRepository)
     }
-
+    
     private func makeResolveLocationUseCase() -> ResolveLocationUseCase {
         ResolveLocationUseCase(repository: homeAddressRepository)
     }
-
+    
     private func makeReverseGeocodeUseCase() -> ReverseGeocodeUseCase {
         ReverseGeocodeUseCase(repository: homeAddressRepository)
     }
-
+    
     private func makeGeocodeCountryUseCase() -> GeocodeCountryUseCase {
         GeocodeCountryUseCase(repository: homeAddressRepository)
     }
-
+    
     private func makeGetCurrentLocationCoordinateUseCase() -> GetCurrentLocationCoordinateUseCase {
         GetCurrentLocationCoordinateUseCase(repository: homeAddressRepository)
     }
-
+    
     private func makeGetCurrentLocationAddressUseCase() -> GetCurrentLocationAddressUseCase {
         GetCurrentLocationAddressUseCase(repository: homeAddressRepository)
     }
-
+    
     // MARK: - Address Map Picker ViewModel
-
+    
     private func makeAddressMapPickerViewModel() -> AddressMapPickerViewModel {
         AddressMapPickerViewModel(
             searchPlacesUseCase: makeSearchPlacesUseCase(),
@@ -227,97 +227,97 @@ final class DIContainer {
     }
     
     // MARK: - Home Repository
-     
-        private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl()
-     
-        // MARK: - Home UseCases
-     
-        private func makeGetGreetingNameUseCase() -> GetGreetingNameUseCaseProtocol {
-            GetGreetingNameUseCase(repository: homeRepository)
-        }
-     
-        private func makeGetServiceCategoriesUseCase() -> GetServiceCategoriesUseCaseProtocol {
-            GetServiceCategoriesUseCase(repository: homeRepository)
-        }
-     
-        private func makeGetUpcomingBookingsUseCase() -> GetUpcomingBookingsUseCaseProtocol {
-            GetUpcomingBookingsUseCase(repository: homeRepository)
-        }
-     
-        private func makeGetServiceDetailUseCase() -> GetServiceDetailUseCaseProtocol {
-            GetServiceDetailUseCase(repository: homeRepository)
-        }
-     
-        private func makeSearchServiceCategoriesUseCase() -> SearchServiceCategoriesUseCaseProtocol {
-            SearchServiceCategoriesUseCase(repository: homeRepository)
-        }
-     
-        // MARK: - Home ViewModels
-     
+    
+    private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl()
+    
+    // MARK: - Home UseCases
+    
+    private func makeGetGreetingNameUseCase() -> GetGreetingNameUseCaseProtocol {
+        GetGreetingNameUseCase(repository: homeRepository)
+    }
+    
+    private func makeGetServiceCategoriesUseCase() -> GetServiceCategoriesUseCaseProtocol {
+        GetServiceCategoriesUseCase(repository: homeRepository)
+    }
+    
+    private func makeGetUpcomingBookingsUseCase() -> GetUpcomingBookingsUseCaseProtocol {
+        GetUpcomingBookingsUseCase(repository: homeRepository)
+    }
+    
+    private func makeGetServiceDetailUseCase() -> GetServiceDetailUseCaseProtocol {
+        GetServiceDetailUseCase(repository: homeRepository)
+    }
+    
+    private func makeSearchServiceCategoriesUseCase() -> SearchServiceCategoriesUseCaseProtocol {
+        SearchServiceCategoriesUseCase(repository: homeRepository)
+    }
+    
+    // MARK: - Home ViewModels
+    
     func makeHomeViewModel(onServiceTabbed: @escaping () -> Void) -> HomeViewModel {
-            HomeViewModel(
-                getGreetingNameUseCase: makeGetGreetingNameUseCase(),
-                getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
-                getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
-                onServiceTabbed: onServiceTabbed
-            )
-        }
-     
-        func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
-            AllServiceViewModel(
-                getGreetingNameUseCase: makeGetGreetingNameUseCase(),
-                getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
-                searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
-                coordinator: coordinator
-            )
-        }
-     
+        HomeViewModel(
+            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
+            getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
+            getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
+            onServiceTabbed: onServiceTabbed
+        )
+    }
+    
+    func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
+        AllServiceViewModel(
+            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
+            getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
+            searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
+            coordinator: coordinator
+        )
+    }
+    
     func makeServiceDetailsViewModel(serviceId: String, source: ServiceDetailsSource, coordinator: ServicesCoordinator) -> ServiceDetailsViewModel {
-            ServiceDetailsViewModel(
-                serviceId: serviceId,
-                getServiceDetailUseCase: makeGetServiceDetailUseCase(),
-                source: source,
-                coordinator: coordinator
-            )
-        }
+        ServiceDetailsViewModel(
+            serviceId: serviceId,
+            getServiceDetailUseCase: makeGetServiceDetailUseCase(),
+            source: source,
+            coordinator: coordinator
+        )
+    }
     private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
-                CareRequestRepositoryImpl()
-            }()
+        CareRequestRepositoryImpl()
+    }()
     
     func makeCareRequestViewModel(
         preselectedService: CareService,
         entryPoint: CareRequestEntryPoint,
         onSubmitted: @escaping (String) -> Void ) -> CareRequestViewModel {
-        CareRequestViewModel(
-            preselectedService: preselectedService,
-            entryPoint: entryPoint,
-            fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
-            fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
-            submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
-            onSubmitted: onSubmitted
-
-        )
-
-    }
-
+            CareRequestViewModel(
+                preselectedService: preselectedService,
+                entryPoint: entryPoint,
+                fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
+                fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
+                submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
+                onSubmitted: onSubmitted
+                
+            )
+            
+        }
+    
     // MARK: - Visit Summary Repository
-
+    
     private lazy var visitSummaryRepository: VisitSummaryRepositoryProtocol = {
         VisitSummaryRepositoryImpl()
     }()
-
+    
     // MARK: - Visit Summary UseCases
-
+    
     private func makeGetVisitSummaryUseCase() -> GetVisitSummaryUseCaseProtocol {
         GetVisitSummaryUseCase(repository: visitSummaryRepository)
     }
-
+    
     private func makeSubmitVisitRatingUseCase() -> SubmitVisitRatingUseCaseProtocol {
         SubmitVisitRatingUseCase(repository: visitSummaryRepository)
     }
-
+    
     // MARK: - Visit Summary ViewModels
-
+    
     func makeVisitCompletedViewModel(visitId: String) -> VisitCompletedViewModel {
         VisitCompletedViewModel(
             visitId: visitId,
@@ -325,7 +325,7 @@ final class DIContainer {
             submitVisitRatingUseCase: makeSubmitVisitRatingUseCase()
         )
     }
-
+    
     // MARK: - Search Offer Repository
     
     private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {
@@ -414,6 +414,44 @@ final class DIContainer {
             getAIPatientsUseCase: makeGetAIPatientsUseCase(),
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment
+        )
+    }
+    
+    // MARK: - Profile Repository
+    
+    private lazy var profileRepository: ProfileRepositoryProtocol = ProfileRepositoryImpl()
+    
+    // MARK: - Profile UseCases
+    
+    private func makeGetPatientProfileUseCase() -> GetPatientProfileUseCaseProtocol {
+        GetPatientProfileUseCase(repository: profileRepository)
+    }
+    
+    private func makeGetFamilyMembersUseCase() -> GetFamilyMembersUseCaseProtocol {
+        GetFamilyMembersUseCase(repository: profileRepository)
+    }
+    
+    // MARK: - Profile ViewModels
+    
+    func makeProfileViewModel(coordinator: ProfileCoordinator) -> ProfileViewModel {
+        ProfileViewModel(
+            getPatientProfileUseCase: makeGetPatientProfileUseCase(),
+            getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            coordinator: coordinator
+        )
+    }
+    
+    func makeFamilyMembersViewModel(coordinator: ProfileCoordinator) -> FamilyMembersViewModel {
+        FamilyMembersViewModel(
+            getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            coordinator: coordinator
+        )
+    }
+    
+    func makeSettingsViewModel(coordinator: ProfileCoordinator) -> SettingsViewModel {
+        SettingsViewModel(
+            patientName: "Elena Rodriguez",
+            coordinator: coordinator
         )
     }
 }
