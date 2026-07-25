@@ -246,6 +246,32 @@ final class DIContainer {
 
     }
 
+    // MARK: - Visit Summary Repository
+
+    private lazy var visitSummaryRepository: VisitSummaryRepositoryProtocol = {
+        VisitSummaryRepositoryImpl()
+    }()
+
+    // MARK: - Visit Summary UseCases
+
+    private func makeGetVisitSummaryUseCase() -> GetVisitSummaryUseCaseProtocol {
+        GetVisitSummaryUseCase(repository: visitSummaryRepository)
+    }
+
+    private func makeSubmitVisitRatingUseCase() -> SubmitVisitRatingUseCaseProtocol {
+        SubmitVisitRatingUseCase(repository: visitSummaryRepository)
+    }
+
+    // MARK: - Visit Summary ViewModels
+
+    func makeVisitCompletedViewModel(visitId: String) -> VisitCompletedViewModel {
+        VisitCompletedViewModel(
+            visitId: visitId,
+            getVisitSummaryUseCase: makeGetVisitSummaryUseCase(),
+            submitVisitRatingUseCase: makeSubmitVisitRatingUseCase()
+        )
+    }
+
     // MARK: - Search Offer Repository
     
     private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {

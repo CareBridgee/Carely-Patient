@@ -34,4 +34,8 @@ final class AuthRouter: AppRouterProtocol {
     @Published var path = NavigationPath()
     var onBackClicked: (() -> Void)?
 
+    func pushAsRoot(to route: AuthRoute) {
+        path = NavigationPath()
+        path.append(route)
+    }
 }
