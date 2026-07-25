@@ -25,7 +25,7 @@
 		0C3D885C3008461300883999 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88523008461300883999 /* Shadow.swift */; };
 		0C3D885D3008461300883999 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88533008461300883999 /* Spacing.swift */; };
 		0C3D885E3008461300883999 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88543008461300883999 /* Typography.swift */; };
-		0C3D8861300846B800883999 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8860300846B800883999 /* ApiClient.swift */; };
+		0C3D8861300846B800883999 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8860300846B800883999 /* NetworkClient.swift */; };
 		0C3D88663008475800883999 /* UtilityFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88653008475800883999 /* UtilityFile.swift */; };
 		0C3D8872300848A700883999 /* mapperfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8871300848A700883999 /* mapperfile.swift */; };
 		0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */; };
@@ -106,6 +106,12 @@
 		396495C93010797900AC4137 /* HelpBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C83010797800AC4137 /* HelpBannerView.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
+		B38E56AB3013A98000A9F153 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */; };
+		B38E56AD3013A99900A9F153 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AC3013A99900A9F153 /* Endpoint.swift */; };
+		B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AE3013A9B000A9F153 /* NetworkError.swift */; };
+		B38E56B13013A9C300A9F153 /* NetworkErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56B03013A9C300A9F153 /* NetworkErrorMapper.swift */; };
+		B38E56B53013AA0500A9F153 /* JSONDecoder+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56B43013A9FB00A9F153 /* JSONDecoder+Default.swift */; };
+		B38E56B83013AE4F00A9F153 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B38E56B73013AE4F00A9F153 /* Alamofire */; };
 		B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */; };
 		B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */; };
 		B396A9E1300E3655009620B0 /* MobilityOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */; };
@@ -262,6 +268,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B38E56BC3013AE5500A9F153 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0C0312C030127A0F00C407FB /* NurseProfileApproachView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NurseProfileApproachView.swift; sourceTree = "<group>"; };
 		0C0312C130127A0F00C407FB /* NurseProfileCertificatesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NurseProfileCertificatesView.swift; sourceTree = "<group>"; };
@@ -284,7 +303,7 @@
 		0C3D88523008461300883999 /* Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 		0C3D88533008461300883999 /* Spacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spacing.swift; sourceTree = "<group>"; };
 		0C3D88543008461300883999 /* Typography.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
-		0C3D8860300846B800883999 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		0C3D8860300846B800883999 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		0C3D88653008475800883999 /* UtilityFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFile.swift; sourceTree = "<group>"; };
 		0C3D8871300848A700883999 /* mapperfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapperfile.swift; sourceTree = "<group>"; };
 		0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -365,6 +384,11 @@
 		396495C83010797800AC4137 /* HelpBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBannerView.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
+		B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
+		B38E56AC3013A99900A9F153 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		B38E56AE3013A9B000A9F153 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		B38E56B03013A9C300A9F153 /* NetworkErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorMapper.swift; sourceTree = "<group>"; };
+		B38E56B43013A9FB00A9F153 /* JSONDecoder+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Default.swift"; sourceTree = "<group>"; };
 		B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStepFooter.swift; sourceTree = "<group>"; };
 		B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldCard.swift; sourceTree = "<group>"; };
 		B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityOptionRow.swift; sourceTree = "<group>"; };
@@ -510,6 +534,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38E56B83013AE4F00A9F153 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +572,7 @@
 				0C3D88133007B5E500883999 /* Carely */,
 				0C3D88243007B5E600883999 /* CarelyTests */,
 				0C3D882E3007B5E700883999 /* CarelyUITests */,
+				B38E56B63013AE4900A9F153 /* Frameworks */,
 				0C3D88123007B5E500883999 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -648,6 +674,7 @@
 		0C3D884E3008461300883999 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B38E56B43013A9FB00A9F153 /* JSONDecoder+Default.swift */,
 				0C3D884D3008461300883999 /* AppImages.swift */,
 			);
 			path = Extensions;
@@ -691,7 +718,10 @@
 		0C3D885F3008466A00883999 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D8860300846B800883999 /* ApiClient.swift */,
+				B38E56AE3013A9B000A9F153 /* NetworkError.swift */,
+				B38E56AC3013A99900A9F153 /* Endpoint.swift */,
+				B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */,
+				0C3D8860300846B800883999 /* NetworkClient.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -699,6 +729,7 @@
 		0C3D88643008472D00883999 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B38E56B03013A9C300A9F153 /* NetworkErrorMapper.swift */,
 				0C3D88653008475800883999 /* UtilityFile.swift */,
 			);
 			path = Utilities;
@@ -1219,6 +1250,13 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		B38E56B63013AE4900A9F153 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3A312FE3009491200B5BB1D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1634,6 +1672,7 @@
 				0C3D880D3007B5E500883999 /* Sources */,
 				0C3D880E3007B5E500883999 /* Frameworks */,
 				0C3D880F3007B5E500883999 /* Resources */,
+				B38E56BC3013AE5500A9F153 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1816,6 +1855,7 @@
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,
 				0C5C345B300F08BB00A820EB /* OtherDiseasesSectionView.swift in Sources */,
+				B38E56AB3013A98000A9F153 /* NetworkConfiguration.swift in Sources */,
 				396495A3301077C800AC4137 /* GetServiceDetailUseCase.swift in Sources */,
 				C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */,
 				0C6BAE2C3012703900759ED0 /* CareConnectNavigationBarModifier.swift in Sources */,
@@ -1940,6 +1980,7 @@
 				3921F2A2301131FD00CE77CF /* ServiceCategoryTileCard.swift in Sources */,
 				C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */,
 				C65A1E8E300ECC1C0003D6FB /* ResolveLocationUseCase.swift in Sources */,
+				B38E56B13013A9C300A9F153 /* NetworkErrorMapper.swift in Sources */,
 				0C90652B301504EF00DDBAB7 /* PatientSelectionCard.swift in Sources */,
 				0C0312C730127A0F00C407FB /* NurseProfileHeaderView.swift in Sources */,
 				0C9065303015052400DDBAB7 /* AppRouterProtocol.swift in Sources */,
@@ -1952,6 +1993,7 @@
 				C6C0A502300D334800AEB6D9 /* AllergiesViewModel.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,
+				B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */,
 				0C5C345D300F08BB00A820EB /* HealthProfileBottomActionsView.swift in Sources */,
 				0C6BAE233012279300759ED0 /* ArrivalQRCodeViewModel.swift in Sources */,
 				C6C0A505300D334800AEB6D9 /* CurrentMedicationViewModel.swift in Sources */,
@@ -1962,6 +2004,7 @@
 				396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */,
 				C6C0A50B300D334800AEB6D9 /* HomeAddressView.swift in Sources */,
 				C6C0A4D4300D0D1B00AEB6D9 /* ProfileSetupData.swift in Sources */,
+				B38E56AD3013A99900A9F153 /* Endpoint.swift in Sources */,
 				C6C3BE12300A61FC00C5FC25 /* OTPVerificationViewModel.swift in Sources */,
 				B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */,
 				C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */,
@@ -1982,7 +2025,8 @@
 				C6C0A50E300D347B00AEB6D9 /* ProfileSetupCoordinatorView.swift in Sources */,
 				C6C0A4D2300D0C9700AEB6D9 /* HomeAddress.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
-				0C3D8861300846B800883999 /* ApiClient.swift in Sources */,
+				B38E56B53013AA0500A9F153 /* JSONDecoder+Default.swift in Sources */,
+				0C3D8861300846B800883999 /* NetworkClient.swift in Sources */,
 				B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */,
 				B396A9E1300E3655009620B0 /* MobilityOptionRow.swift in Sources */,
 				0C4A511C30111EB800EA6EBE /* OfferAcceptedView.swift in Sources */,
@@ -2320,6 +2364,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B38E56B73013AE4F00A9F153 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0C3D88463008365F00883999 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C3D88093007B5E400883999 /* Project object */;
 }
