@@ -14,20 +14,21 @@ final class MainTabCoordinator: ObservableObject {
 
     @Published var selectedTab: AppTab = .home
 
+    private var previousTab: AppTab = .home
     let homeCoordinator: HomeCoordinator
     let servicesCoordinator: ServicesCoordinator
-//    let aiCoordinator: AICoordinator
+    let aiAssistantCoordinator: AIAssistantCoordinator
 //    let profileCoordinator: ProfileCoordinator
 
     init() {
         let home = HomeCoordinator()
         let services = ServicesCoordinator()
-//        let ai = AICoordinator()
+        let aiAssistant = AIAssistantCoordinator()
 //        let profile = ProfileCoordinator()
 
         self.homeCoordinator = home
         self.servicesCoordinator = services
-//        self.aiCoordinator = ai
+        self.aiAssistantCoordinator = aiAssistant
 //        self.profileCoordinator = profile
 
         wireCrossTabNavigation()
@@ -36,8 +37,11 @@ final class MainTabCoordinator: ObservableObject {
     // MARK: - Cross-Tab Wiring
 
     private func wireCrossTabNavigation() {
+        
         homeCoordinator.onViewAllServices = { [weak self] in
-            self?.selectedTab = .services
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
         }
 
         homeCoordinator.onOpenService = { [weak self] in
@@ -52,9 +56,26 @@ final class MainTabCoordinator: ObservableObject {
             self?.selectedTab = .ai
         }
         
-        servicesCoordinator.onBackClicked = { [weak self] in
-            self?.selectedTab = .home
-            self?.servicesCoordinator.popToRoot()
+        bindCrossTabBack(to: servicesCoordinator)
+        bindCrossTabBack(to: aiAssistantCoordinator)
+        
+//        servicesCoordinator.onBackClicked = { [weak self] in
+//            guard let self = self else { return }
+//            self.selectedTab = self.previousTab
+//            self.servicesCoordinator.popToRoot()
+//        }
+        
+        aiAssistantCoordinator.onRequestNow = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
+            self.servicesCoordinator.openRequestFromAIAssistant()
+        }
+        
+        aiAssistantCoordinator.onViewAllServices = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
         }
     }
 
@@ -72,5 +93,15 @@ final class MainTabCoordinator: ObservableObject {
 
     func select(_ tab: AppTab) {
         selectedTab = tab
+    }
+    
+    private func bindCrossTabBack<Router: AppRouterProtocol>(to router: Router) {
+        router.onBackClicked = { [weak self, weak router] in
+            guard let self = self, let router = router else { return }
+                
+            self.selectedTab = self.previousTab
+                
+            router.popToRoot()
+        }
     }
 }

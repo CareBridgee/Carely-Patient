@@ -33,13 +33,13 @@ struct ServicesCoordinatorView: View {
                 viewModel: container.makeServiceDetailsViewModel(serviceId: "injection",source: source,coordinator: coordinator)
             )
 
-        case .requestService:
+        case .requestService(let entryPoint):
             CareRequestView(
                 viewModel: container.makeCareRequestViewModel(
                     preselectedService: CareService.init(id: "String", title: "Injection", icon: "syringe"),
-                    entryPoint: CareRequestEntryPoint.aiChat,
+                    entryPoint: entryPoint,
                     onSubmitted: { requestId in
-                        coordinator.push(.waitingForOffers(requestId: requestId))
+                        coordinator.push(to: .waitingForOffers(requestId: requestId))
                     }),
                 onEditProfileTapped: {
                     //
@@ -50,10 +50,10 @@ struct ServicesCoordinatorView: View {
             OffersSearchingView(viewModel: container.makeOffersSearchingViewModel(
                 requestId: requestId,
                 onOfferAccepted: { ConfirmedOffer in
-                    coordinator.push(.OfferAccepted(request: ConfirmedOffer))
+                    coordinator.push(to: .OfferAccepted(request: ConfirmedOffer))
                 },
                 onShowNurseProfile: { nurseId in
-                    coordinator.push(.nurseProfile(nurseId: nurseId))
+                    coordinator.push(to: .nurseProfile(nurseId: nurseId))
                 }
             ))
             
@@ -61,13 +61,13 @@ struct ServicesCoordinatorView: View {
             let viewModel = container.makeOfferAcceptedViewModel(
                 request: request,
                 onShowQRCode: { req in
-                    coordinator.push(.showQRCode(request: req))
+                    coordinator.push(to: .showQRCode(request: req))
                 },
                 onCancelRequest: {
                     coordinator.popToRoot()
                 },
                 onShowNurseProfile: { nurseId in
-                    coordinator.push(.nurseProfile(nurseId: nurseId))
+                    coordinator.push(to: .nurseProfile(nurseId: nurseId))
                 }
             )
             OfferAcceptedView(viewModel: viewModel)

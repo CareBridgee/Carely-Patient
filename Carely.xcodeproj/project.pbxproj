@@ -64,6 +64,12 @@
 		0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */; };
 		0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */; };
 		0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */; };
+		0CF1B4D63013FA1400E28FAF /* AIAssistantCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1B4D53013FA1400E28FAF /* AIAssistantCoordinator.swift */; };
+		0CF1B4D830140F8100E28FAF /* AppRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1B4D730140F8100E28FAF /* AppRouterProtocol.swift */; };
+		0CF1B4DA301412BC00E28FAF /* AIAssistantRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1B4D9301412BC00E28FAF /* AIAssistantRoute.swift */; };
+		0CF1B4DC3014130D00E28FAF /* AIAssistantCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1B4DB3014130D00E28FAF /* AIAssistantCoordinatorView.swift */; };
+		0CF1B4DE30144BD700E28FAF /* ChoosePatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1B4DD30144BD700E28FAF /* ChoosePatientView.swift */; };
+		0CF1B4E030144BF700E28FAF /* AIChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1B4DF30144BF700E28FAF /* AIChatView.swift */; };
 		39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F61300BD89E0092118E /* PrimaryChip.swift */; };
 		39008F64300BDD5E0092118E /* SecondaryChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39008F63300BDD5E0092118E /* SecondaryChip.swift */; };
 		3921F29830112EB000CE77CF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921F29730112EB000CE77CF /* HomeView.swift */; };
@@ -298,6 +304,12 @@
 		0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarelyDropdownField.swift; sourceTree = "<group>"; };
 		0CC6DA76300BD7A300C903C4 /* InfoBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
 		0CC6DA78300BDFFE00C903C4 /* CustomTextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextAreaView.swift; sourceTree = "<group>"; };
+		0CF1B4D53013FA1400E28FAF /* AIAssistantCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssistantCoordinator.swift; sourceTree = "<group>"; };
+		0CF1B4D730140F8100E28FAF /* AppRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterProtocol.swift; sourceTree = "<group>"; };
+		0CF1B4D9301412BC00E28FAF /* AIAssistantRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssistantRoute.swift; sourceTree = "<group>"; };
+		0CF1B4DB3014130D00E28FAF /* AIAssistantCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssistantCoordinatorView.swift; sourceTree = "<group>"; };
+		0CF1B4DD30144BD700E28FAF /* ChoosePatientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePatientView.swift; sourceTree = "<group>"; };
+		0CF1B4DF30144BF700E28FAF /* AIChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatView.swift; sourceTree = "<group>"; };
 		39008F61300BD89E0092118E /* PrimaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryChip.swift; sourceTree = "<group>"; };
 		39008F63300BDD5E0092118E /* SecondaryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryChip.swift; sourceTree = "<group>"; };
 		3921F29730112EB000CE77CF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -573,6 +585,7 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				0CF1B4CC3013F86700E28FAF /* AIAssistant */,
 				0C6BAE2830124A3D00759ED0 /* NurseProfile */,
 				0C6BAE2530122D6100759ED0 /* QRCode */,
 				0C6BAE2430122CD700759ED0 /* OfferAccepted */,
@@ -854,6 +867,82 @@
 			path = NurseProfile;
 			sourceTree = "<group>";
 		};
+		0CF1B4CC3013F86700E28FAF /* AIAssistant */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1B4CD3013F8B000E28FAF /* AIAssistantCoordinator */,
+				0CF1B4D43013F94300E28FAF /* Data */,
+				0CF1B4D33013F93E00E28FAF /* Domain */,
+				0CF1B4D13013F91700E28FAF /* Presentation */,
+			);
+			path = AIAssistant;
+			sourceTree = "<group>";
+		};
+		0CF1B4CD3013F8B000E28FAF /* AIAssistantCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1B4D53013FA1400E28FAF /* AIAssistantCoordinator.swift */,
+				0CF1B4D9301412BC00E28FAF /* AIAssistantRoute.swift */,
+				0CF1B4DB3014130D00E28FAF /* AIAssistantCoordinatorView.swift */,
+			);
+			path = AIAssistantCoordinator;
+			sourceTree = "<group>";
+		};
+		0CF1B4CE3013F8BB00E28FAF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1B4D03013F8CF00E28FAF /* Screens */,
+				0CF1B4CF3013F8C200E28FAF /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0CF1B4CF3013F8C200E28FAF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		0CF1B4D03013F8CF00E28FAF /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1B4DD30144BD700E28FAF /* ChoosePatientView.swift */,
+				0CF1B4DF30144BF700E28FAF /* AIChatView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		0CF1B4D13013F91700E28FAF /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				0CF1B4D23013F92900E28FAF /* ViewModel */,
+				0CF1B4CE3013F8BB00E28FAF /* View */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		0CF1B4D23013F92900E28FAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0CF1B4D33013F93E00E28FAF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		0CF1B4D43013F94300E28FAF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		39649593301076CA00AC4137 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1095,6 +1184,7 @@
 				C630BACE3010CC5D00255ECA /* FloatingTabBar.swift */,
 				C630BAD13010CC5D00255ECA /* MainTabCoordinator.swift */,
 				C630BAD23010CC5D00255ECA /* MainTabCoordinatorView.swift */,
+				0CF1B4D730140F8100E28FAF /* AppRouterProtocol.swift */,
 			);
 			path = AppCoordinator;
 			sourceTree = "<group>";
@@ -1512,6 +1602,7 @@
 				0C6BAE2A30124A3D00759ED0 /* NurseProfileViewModel.swift in Sources */,
 				B3E36C693010C61C00EE3669 /* PaymentMethodRow.swift in Sources */,
 				B3E36C6A3010C61C00EE3669 /* CareRequestRepositoryProtocol.swift in Sources */,
+				0CF1B4DE30144BD700E28FAF /* ChoosePatientView.swift in Sources */,
 				B3E36C6B3010C61C00EE3669 /* SymptomsTextArea.swift in Sources */,
 				0C4A51063010DF8100EA6EBE /* OfferSearchingRepositoryImpl.swift in Sources */,
 				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
@@ -1534,6 +1625,7 @@
 				C6C3BE3E300A644A00C5FC25 /* OTPDigitInputField.swift in Sources */,
 				C6C3BE3F300A644A00C5FC25 /* AuthHeaderView.swift in Sources */,
 				C6C3BE40300A644A00C5FC25 /* SecurityCard.swift in Sources */,
+				0CF1B4D830140F8100E28FAF /* AppRouterProtocol.swift in Sources */,
 				C65A1E7D300EC2320003D6FB /* AddressSelection.swift in Sources */,
 				C65A1E7E300EC2320003D6FB /* SearchSuggestion.swift in Sources */,
 				C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */,
@@ -1562,6 +1654,7 @@
 				0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
+				0CF1B4DC3014130D00E28FAF /* AIAssistantCoordinatorView.swift in Sources */,
 				0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */,
 				0C3D8872300848A700883999 /* mapperfile.swift in Sources */,
 				C6E761FC300926FA00481DB9 /* AppState.swift in Sources */,
@@ -1592,10 +1685,12 @@
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
 				0C4A51023010DE6A00EA6EBE /* OffersSearchingHubServices.swift in Sources */,
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
+				0CF1B4E030144BF700E28FAF /* AIChatView.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
 				C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */,
 				C65A1E8B300ECC1C0003D6FB /* GeocodeCountryUseCase.swift in Sources */,
+				0CF1B4D63013FA1400E28FAF /* AIAssistantCoordinator.swift in Sources */,
 				C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */,
 				3921F2A2301131FD00CE77CF /* ServiceCategoryTileCard.swift in Sources */,
 				C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */,
@@ -1639,6 +1734,7 @@
 				396495B53010788D00AC4137 /* SearchField.swift in Sources */,
 				39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */,
 				C6C0A50E300D347B00AEB6D9 /* ProfileSetupCoordinatorView.swift in Sources */,
+				0CF1B4DA301412BC00E28FAF /* AIAssistantRoute.swift in Sources */,
 				C6C0A4D2300D0C9700AEB6D9 /* HomeAddress.swift in Sources */,
 				0C4A51083010DF9100EA6EBE /* OfferSearchingRepositoryProtocol.swift in Sources */,
 				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,

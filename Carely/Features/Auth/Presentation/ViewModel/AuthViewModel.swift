@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+@MainActor
 final class WelcomeViewModel: ObservableObject {
 
     private let router: AuthRouter

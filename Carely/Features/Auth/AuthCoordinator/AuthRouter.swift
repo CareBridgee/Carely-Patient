@@ -8,20 +8,30 @@
 import Foundation
 import SwiftUI
 
-final class AuthRouter: ObservableObject {
-    @Published var path : NavigationPath = NavigationPath()
+//final class AuthRouter: ObservableObject {
+//    @Published var path : NavigationPath = NavigationPath()
+//    
+//    func push(to route:AuthRoute){
+//        path.append(route)
+//    }
+//    
+//    func pop(){
+//        guard !path.isEmpty else { return }
+//        path.removeLast()
+//    }
+//    
+//    func popToRoot(){
+//        path.removeLast(path.count)
+//    }
+//    
+//}
+
+
+@MainActor
+final class AuthRouter: AppRouterProtocol {
+    typealias Route = AuthRoute
     
-    func push(to route:AuthRoute){
-        path.append(route)
-    }
-    
-    func pop(){
-        guard !path.isEmpty else { return }
-        path.removeLast()
-    }
-    
-    func popToRoot(){
-        path.removeLast(path.count)
-    }
-    
+    @Published var path = NavigationPath()
+    var onBackClicked: (() -> Void)?
+
 }
