@@ -16,9 +16,6 @@ struct OffersSearchingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            AppHeader(title: "Request Status", trailingIcon: "ellipsis")
-                .padding(.horizontal, Spacing.s20)
-            
             ScrollView {
                 VStack(spacing: Spacing.s24) {
                     SearchingIndicatorView(activeNursesCount: max(3, viewModel.offers.count))
@@ -52,7 +49,7 @@ struct OffersSearchingView: View {
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.offers)
         }
         .background(Color.backGround.ignoresSafeArea())
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(title: "Request Status", trailingIcon: "ellipsis")
         .onAppear {
             viewModel.startSearching()
         }

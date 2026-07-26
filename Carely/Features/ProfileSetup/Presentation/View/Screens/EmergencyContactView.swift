@@ -19,15 +19,10 @@ struct EmergencyContactView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.s24) {
 
-                VStack(alignment: .leading, spacing: Spacing.s16) {
-                    Text("Emergency Contact")
-                        .carelyText(style: .heading2, weight: .bold)
-                        .foregroundColor(.primaryFont)
-
-                    Text("Who should we contact in case of an emergency? This information helps us ensure your safety during care visits.")
-                        .carelyText(style: .bodySmall, weight: .regular)
-                        .foregroundColor(.secondaryFont)
-                }
+                ProfileSetupHeaderView(
+                    title: "Emergency Contact",
+                    subtitle: "Who should we contact in case of an emergency? This information helps us ensure your safety during care visits."
+                )
 
                 VStack(spacing: Spacing.s16) {
                     CarelyTextField.name(
@@ -63,18 +58,29 @@ struct EmergencyContactView: View {
                 }
                 .padding(Spacing.s8)
 
-                VStack(spacing: Spacing.s12) {
-                    PrimaryButton(title: "Continue to Final Step") {
-                        viewModel.continueTapped()
-                    }
 
-                    SecondaryButton(title: "Back") {
-                        viewModel.backTapped()
-                    }
-                }
             }
-            .padding(Spacing.s20)
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s0)
+            .padding(.bottom, Spacing.s16)
         }
         .background(Color.backGround)
+        .safeAreaInset(edge: .bottom) {
+            HealthProfileBottomActionsView(
+                onBackTapped: viewModel.backTapped,
+                onContinueTapped: viewModel.continueTapped
+            )
+        }
     }
+}
+
+#Preview("Emergency Contact - In Coordinator") {
+    ProfileSetupCoordinatorView(
+        coordinator: ProfileSetupCoordinator(
+            data: ProfileSetupData(),
+            startingStep: .emergencyContact
+        ),
+        container: DIContainer(),
+        onFinish: {}
+    )
 }

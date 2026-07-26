@@ -23,6 +23,7 @@ struct HealthInfoCardView: View {
                     .lineSpacing(4)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Spacing.s16)
         .background(Color.white)
         .cornerRadius(Radius.r16)

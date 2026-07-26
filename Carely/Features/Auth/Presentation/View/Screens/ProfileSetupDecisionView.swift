@@ -17,7 +17,7 @@ struct ProfileSetupDecisionView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: Spacing.s24) {
-                AppHeader(title: "Enaya",showBackButton: false)
+             //   AppHeader(title: "Enaya",showBackButton: false)
                 
                 appLogoSection
                     .padding(.top, Spacing.s32)
@@ -101,4 +101,13 @@ private extension ProfileSetupDecisionView {
             Spacer()
         }
     }
+}
+
+#Preview {
+    ProfileSetupDecisionView(
+        viewModel: ProfileSetupDecisionViewModel(
+            oncompleteHealthProfileClicked: {},
+            onSkipButtonClicked: {}
+        )
+    )
 }

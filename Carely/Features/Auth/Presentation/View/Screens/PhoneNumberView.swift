@@ -12,8 +12,6 @@ struct PhoneNumberView : View {
 
         var body: some View {
             VStack(alignment: .leading, spacing: 24) {
-                AppHeader(title: "Join us via phone number")
-                
                 Text("We'll text a code to verify your phone.")
                     .carelyText(style: .bodyRegular, weight: .light)
                     .foregroundStyle(Color.primaryFont)
@@ -58,8 +56,7 @@ struct PhoneNumberView : View {
                 }
                 .disabled(!viewModel.isPhoneNumberValid)
             }
-            .navigationBarBackButtonHidden(true)
-            .toolbar(.hidden, for: .navigationBar)
+            .careConnectNavigationBar(title: "Join us via phone number")
             .padding(12)
             .background(Color.backGround)
         }
@@ -68,5 +65,7 @@ struct PhoneNumberView : View {
 //#Preview {
 //    let router = AuthRouter()
 //    let viewModel = PhoneNumberViewModel(router: router)
-//    PhoneNumberView(viewModel:viewModel)
+//    return NavigationStack {
+//        PhoneNumberView(viewModel: viewModel)
+//    }
 //}

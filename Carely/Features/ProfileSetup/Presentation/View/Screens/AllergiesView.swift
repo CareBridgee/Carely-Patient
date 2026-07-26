@@ -17,21 +17,13 @@ struct AllergiesView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            AppHeader(title: "CareConnect", trailingIcon: "person.fill") {}
-                .padding(.horizontal, Spacing.s16)
-
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.s24) {
 
-                    VStack(alignment: .leading, spacing: Spacing.s8) {
-                        Text("Allergies & Sensitivities")
-                            .carelyText(style: .heading2, weight: .semiBold)
-                            .foregroundColor(.primaryFont)
-
-                        Text("Please specify any allergies to ensure your care plan is safe and effective.")
-                            .carelyText(style: .bodyRegular)
-                            .foregroundColor(.secondaryFont)
-                    }
+                    ProfileSetupHeaderView(
+                        title: "Allergies & Sensitivities",
+                        subtitle: "Please specify any allergies to ensure your care plan is safe and effective."
+                    )
 
                     noKnownAllergiesToggle
 
@@ -57,15 +49,18 @@ struct AllergiesView: View {
                         .disabled(viewModel.hasNoKnownAllergies)
                 }
                 .padding(.horizontal, Spacing.s16)
-                .padding(.top, Spacing.s24)
+                .padding(.top, Spacing.s0)
                 .padding(.bottom, Spacing.s24)
             }
-
-            footerButtons
-                .padding(.horizontal, Spacing.s16)
-                .padding(.vertical, Spacing.s16)
         }
         .background(Color.backGround.ignoresSafeArea())
+        .safeAreaInset(edge: .bottom) {
+            HealthProfileBottomActionsView(
+                onBackTapped: viewModel.backTapped,
+                onContinueTapped: viewModel.continueTapped
+            )
+        }
+        .careConnectNavigationBar(title: "CareConnect", trailingIcon: "person.fill")
     }
 
     private var noKnownAllergiesToggle: some View {
@@ -114,11 +109,11 @@ struct AllergiesView: View {
                 Image(systemName: icon)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: IconSize.s20, height: IconSize.s20)
+                    .frame(width: IconSize.s16, height: IconSize.s16)
                     .foregroundColor(.brandPrimary)
 
                 Text(title)
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
+                    .carelyText(style: .bodyRegular, weight: .medium)
                     .foregroundColor(.primaryFont)
             }
 
@@ -129,7 +124,10 @@ struct AllergiesView: View {
                     } label: {
                         SecondaryChip(
                             title: option,
-                            isSelected: isSelected(option)
+                            isSelected: isSelected(option),
+                            textStyle: .bodySmall,
+                            paddingHorizontal: 12,
+                            paddingVertical: 8
                         )
                     }
                     .buttonStyle(.plain)
@@ -144,11 +142,11 @@ struct AllergiesView: View {
                 Image(systemName: "square.and.pencil")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: IconSize.s20, height: IconSize.s20)
+                    .frame(width: IconSize.s16, height: IconSize.s16)
                     .foregroundColor(.brandPrimary)
 
                 Text("Other allergies")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
+                    .carelyText(style: .bodyRegular, weight: .medium)
                     .foregroundColor(.primaryFont)
             }
 
@@ -160,29 +158,16 @@ struct AllergiesView: View {
         }
     }
 
-    private var footerButtons: some View {
-        GeometryReader { geometry in
-            let spacing = Spacing.s12
-            let availableWidth = geometry.size.width - spacing
-            let backWidth = availableWidth * 0.25
-            let continueWidth = availableWidth * 0.75
 
-            HStack(spacing: spacing) {
-                SecondaryButton(title: "Back", isFullWidth: true, action: viewModel.backTapped)
-                    .frame(width: backWidth)
-
-                PrimaryButton(title: "Continue", action: viewModel.continueTapped)
-                    .frame(width: continueWidth)
-            }
-        }
-        .frame(height: Spacing.s48)
-    }
 }
 
-//#Preview {
-//    AllergiesView(
-//        viewModel: AllergiesViewModel(
-//            coordinator: ProfileSetupCoordinator(data: ProfileSetupData())
-//        )
-//    )
-//}
+#Preview("Allergies - In Coordinator") {
+    ProfileSetupCoordinatorView(
+        coordinator: ProfileSetupCoordinator(
+            data: ProfileSetupData(),
+            startingStep: .allergies
+        ),
+        container: DIContainer(),
+        onFinish: {}
+    )
+}

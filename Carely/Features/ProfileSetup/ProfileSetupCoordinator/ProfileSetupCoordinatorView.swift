@@ -30,7 +30,7 @@ struct ProfileSetupCoordinatorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            AppHeader(title: "Enaya",showBackButton: false)
+       //     AppHeader(title: "CareConnect",showBackButton: false)
             StepProgressHeader(
                 currentStep: coordinator.currentStepIndex,
                 totalSteps: ProfileSetupStep.allCases.count,
@@ -113,4 +113,13 @@ struct ProfileSetupCoordinatorView: View {
             coordinator.previous()
         }
     }
+}
+
+#Preview {
+    let container = DIContainer()
+    return ProfileSetupCoordinatorView(
+        coordinator: container.makeProfileSetupCoordinator(),
+        container: container,
+        onFinish: {}
+    )
 }

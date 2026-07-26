@@ -1,33 +1,53 @@
 import SwiftUI
 
 struct CareConnectNavigationBarModifier: ViewModifier {
+    @Environment(\.dismiss) var dismiss
+    
     let title: String
-    let trailingIcon: String?
-    let onBackTapped: () -> Void
-    let onTrailingIconTapped: (() -> Void)?
+    var showBackButton: Bool = true
+    var trailingIcon: String? = nil
+    var onBackTapped: (() -> Void)? = nil
+    var onTrailingIconTapped: (() -> Void)? = nil
     
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: onBackTapped) {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(Color.brandPrimary)
-                            .font(.system(size: 16, weight: .medium))
+                    if showBackButton {
+                        Button(action: {
+                            if let onBackTapped = onBackTapped {
+                                onBackTapped()
+                            } else {
+                                dismiss()
+                            }
+                        }) {
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(Color.brandPrimary)
+                                .font(.system(size: 16, weight: .medium))
+                        }
                     }
                 }
                 ToolbarItem(placement: .principal) {
                     Text(title)
-                        .carelyText(style: .heading3, weight: .bold)
+                        .carelyText(style: .heading3, weight: .medium)
                         .foregroundColor(Color.brandPrimary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if let icon = trailingIcon, let action = onTrailingIconTapped {
-                        Button(action: action) {
-                            Image(systemName: icon)
-                                .foregroundColor(Color.brandPrimary)
-                                .font(.system(size: 16, weight: .medium))
+                    if let icon = trailingIcon {
+                        Button(action: {
+                            onTrailingIconTapped?()
+                        }) {
+                            Circle()
+                                .fill(Color.purple.opacity(0.1))
+                                .frame(width: 32, height: 32)
+                                .overlay(
+                                    Image(systemName: icon)
+                                        .foregroundColor(.purple.opacity(0.5))
+                                        .font(.system(size: 12))
+                                )
                         }
                     }
                 }
@@ -37,13 +57,15 @@ struct CareConnectNavigationBarModifier: ViewModifier {
 
 extension View {
     func careConnectNavigationBar(
-        title: String = "CareConnect",
+        title: String = AppConstants.appName,
+        showBackButton: Bool = true,
         trailingIcon: String? = nil,
-        onBackTapped: @escaping () -> Void,
+        onBackTapped: (() -> Void)? = nil,
         onTrailingIconTapped: (() -> Void)? = nil
     ) -> some View {
         self.modifier(CareConnectNavigationBarModifier(
             title: title,
+            showBackButton: showBackButton,
             trailingIcon: trailingIcon,
             onBackTapped: onBackTapped,
             onTrailingIconTapped: onTrailingIconTapped

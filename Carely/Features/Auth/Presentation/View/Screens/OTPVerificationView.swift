@@ -16,9 +16,6 @@ struct OTPVerificationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            AppHeader(title: "Enaya")
-                .padding(Spacing.s16)
-            
             ScrollView {
                 VStack(spacing: Spacing.s20) {
                     OTPHeaderIconView()
@@ -51,8 +48,7 @@ struct OTPVerificationView: View {
             }
         }
         .background(Color.backGround.ignoresSafeArea())
-        .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
+        .careConnectNavigationBar(title: "Enaya")
     }
 }
 

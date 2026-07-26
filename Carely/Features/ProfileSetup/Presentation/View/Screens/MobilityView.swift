@@ -18,14 +18,13 @@ struct MobilityView: View {
                 notesSection
             }
             .padding(.horizontal, Spacing.s16)
-            .padding(.top, Spacing.s16)
+            .padding(.top, Spacing.s0)
             .padding(.bottom, Spacing.s16)
         }
         .safeAreaInset(edge: .bottom) {
-            ProfileStepFooter(
-                showBack: viewModel.showBackButton,
-                onBack: viewModel.backTapped,
-                onContinue: viewModel.continueTapped
+            HealthProfileBottomActionsView(
+                onBackTapped: viewModel.backTapped,
+                onContinueTapped: viewModel.continueTapped
             )
         }
         .background(Color.backGround.ignoresSafeArea())
@@ -35,15 +34,10 @@ struct MobilityView: View {
 private extension MobilityView {
 
     var titleSection: some View {
-        VStack(alignment: .leading, spacing: Spacing.s8) {
-            Text("How is the patient's mobility?")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.primaryFont)
-
-            Text("This helps us assign the right equipment and specialist for the home visits.")
-                .carelyText(style: .bodySmall, weight: .regular)
-                .foregroundColor(.secondaryFont)
-        }
+        ProfileSetupHeaderView(
+            title: "How is the patient's mobility?",
+            subtitle: "This helps us assign the right equipment and specialist for the home visits."
+        )
     }
 
     var optionsSection: some View {

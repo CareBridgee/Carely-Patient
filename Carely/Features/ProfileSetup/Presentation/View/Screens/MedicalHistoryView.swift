@@ -39,10 +39,9 @@ struct MedicalHistoryView: View {
             .padding(.bottom, Spacing.s16)
         }
         .safeAreaInset(edge: .bottom) {
-            ProfileStepFooter(
-                showBack: viewModel.showBackButton,
-                onBack: viewModel.backTapped,
-                onContinue: viewModel.continueTapped
+            HealthProfileBottomActionsView(
+                onBackTapped: viewModel.backTapped,
+                onContinueTapped: viewModel.continueTapped
             )
         }
         .background(Color.backGround.ignoresSafeArea())

@@ -30,7 +30,7 @@ struct ActionCard: View {
             image
                 .resizable()
                 .scaledToFit()
-                .frame(width: 48, height: 48)
+                .frame(width: 32, height: 32)
                 .foregroundStyle(foregroundColor)
             
             Text(title)
