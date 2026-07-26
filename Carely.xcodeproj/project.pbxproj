@@ -30,8 +30,6 @@
 		0C3D8861300846B800883999 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8860300846B800883999 /* NetworkClient.swift */; };
 		0C3D88663008475800883999 /* UtilityFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88653008475800883999 /* UtilityFile.swift */; };
 		0C3D8872300848A700883999 /* mapperfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D8871300848A700883999 /* mapperfile.swift */; };
-		0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */; };
-		0C3D888130084B1A00883999 /* AuthDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888030084B1A00883999 /* AuthDto.swift */; };
 		0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888430084BAB00883999 /* AuthViewModel.swift */; };
 		0C3D888730084BB500883999 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D888630084BB500883999 /* WelcomeView.swift */; };
 		0C4A511C30111EB800EA6EBE /* OfferAcceptedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4A511A30111EB800EA6EBE /* OfferAcceptedView.swift */; };
@@ -86,6 +84,24 @@
 		39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */; };
 		39265645301429F100AFD6F4 /* VisitRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265626301429F100AFD6F4 /* VisitRating.swift */; };
 		39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */; };
+		3926564B3014412100AFD6F4 /* PatientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926564A3014412000AFD6F4 /* PatientProfile.swift */; };
+		3926564D3014413600AFD6F4 /* FamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926564C3014413500AFD6F4 /* FamilyMember.swift */; };
+		392656503014414800AFD6F4 /* ProfileRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */; };
+		392656553014416100AFD6F4 /* GetPatientProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */; };
+		392656573014416E00AFD6F4 /* GetFamilyMembersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */; };
+		3926565B3014418900AFD6F4 /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */; };
+		3926565F301441A700AFD6F4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926565E301441A600AFD6F4 /* ProfileViewModel.swift */; };
+		39265661301441B500AFD6F4 /* FamilyMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */; };
+		39265663301441C200AFD6F4 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265662301441C100AFD6F4 /* SettingsViewModel.swift */; };
+		39265669301441E600AFD6F4 /* ProfileMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265668301441E600AFD6F4 /* ProfileMenuRow.swift */; };
+		3926566B301441F200AFD6F4 /* FamilyMemberCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */; };
+		3926566D3014420000AFD6F4 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926566C301441FF00AFD6F4 /* SettingsRow.swift */; };
+		392656703014421400AFD6F4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926566F3014421400AFD6F4 /* ProfileView.swift */; };
+		392656723014422000AFD6F4 /* FamilyMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656713014422000AFD6F4 /* FamilyMembersView.swift */; };
+		392656743014422D00AFD6F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656733014422D00AFD6F4 /* SettingsView.swift */; };
+		392656773014424600AFD6F4 /* ProfileRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656763014424500AFD6F4 /* ProfileRoute.swift */; };
+		392656793014425000AFD6F4 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656783014424F00AFD6F4 /* ProfileCoordinator.swift */; };
+		3926567B3014426800AFD6F4 /* ProfileCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */; };
 		39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39649594301076EB00AC4137 /* ServiceCategory.swift */; };
 		396495973010770300AC4137 /* UpcomingBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495963010770200AC4137 /* UpcomingBooking.swift */; };
 		396495993010771C00AC4137 /* ServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495983010771B00AC4137 /* ServiceDetail.swift */; };
@@ -112,7 +128,6 @@
 		B38E56AD3013A99900A9F153 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AC3013A99900A9F153 /* Endpoint.swift */; };
 		B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AE3013A9B000A9F153 /* NetworkError.swift */; };
 		B38E56B13013A9C300A9F153 /* NetworkErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56B03013A9C300A9F153 /* NetworkErrorMapper.swift */; };
-		B38E56B53013AA0500A9F153 /* JSONDecoder+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56B43013A9FB00A9F153 /* JSONDecoder+Default.swift */; };
 		B38E56B83013AE4F00A9F153 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B38E56B73013AE4F00A9F153 /* Alamofire */; };
 		B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */; };
 		B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */; };
@@ -251,6 +266,21 @@
 		C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */; };
 		C6E761FC300926FA00481DB9 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761FB300926F400481DB9 /* AppState.swift */; };
 		C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761FD3009336100481DB9 /* ProfileSetupDecisionViewModel.swift */; };
+		C6E897183015CB2300E3D336 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897173015CB2300E3D336 /* UserDTO.swift */; };
+		C6E897193015CB2300E3D336 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897143015CB2300E3D336 /* AuthResponse.swift */; };
+		C6E8971A3015CB2300E3D336 /* DevOTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897153015CB2300E3D336 /* DevOTPResponse.swift */; };
+		C6E8971B3015CB2300E3D336 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897163015CB2300E3D336 /* Gender.swift */; };
+		C6E897233015CB4300E3D336 /* KeychainTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971F3015CB4300E3D336 /* KeychainTokenStore.swift */; };
+		C6E897243015CB4300E3D336 /* RefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897203015CB4300E3D336 /* RefreshState.swift */; };
+		C6E897253015CB4300E3D336 /* AuthorizationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971D3015CB4300E3D336 /* AuthorizationType.swift */; };
+		C6E897263015CB4300E3D336 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897213015CB4300E3D336 /* SessionManager.swift */; };
+		C6E897273015CB4300E3D336 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971C3015CB4300E3D336 /* AuthInterceptor.swift */; };
+		C6E897283015CB4300E3D336 /* JSONDecoder+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971E3015CB4300E3D336 /* JSONDecoder+Default.swift */; };
+		C6E897293015CB4300E3D336 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897223015CB4300E3D336 /* UserSession.swift */; };
+		C6E8972C3015CB7C00E3D336 /* AuthEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8972A3015CB7C00E3D336 /* AuthEndpoint.swift */; };
+		C6E8972D3015CB7C00E3D336 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8972B3015CB7C00E3D336 /* AuthService.swift */; };
+		C6E897313015CBBA00E3D336 /* LogoutUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8972F3015CBBA00E3D336 /* LogoutUseCase.swift */; };
+		C6E897333015CBBA00E3D336 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8972E3015CBBA00E3D336 /* LoginUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,8 +340,6 @@
 		0C3D8860300846B800883999 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		0C3D88653008475800883999 /* UtilityFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFile.swift; sourceTree = "<group>"; };
 		0C3D8871300848A700883999 /* mapperfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapperfile.swift; sourceTree = "<group>"; };
-		0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteDataSource.swift; sourceTree = "<group>"; };
-		0C3D888030084B1A00883999 /* AuthDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDto.swift; sourceTree = "<group>"; };
 		0C3D888430084BAB00883999 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		0C3D888630084BB500883999 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0C4A511A30111EB800EA6EBE /* OfferAcceptedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferAcceptedView.swift; sourceTree = "<group>"; };
@@ -366,6 +394,24 @@
 		39265633301429F100AFD6F4 /* RatingBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBottomSheetView.swift; sourceTree = "<group>"; };
 		39265634301429F100AFD6F4 /* VisitCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedView.swift; sourceTree = "<group>"; };
 		39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedViewModel.swift; sourceTree = "<group>"; };
+		3926564A3014412000AFD6F4 /* PatientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfile.swift; sourceTree = "<group>"; };
+		3926564C3014413500AFD6F4 /* FamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMember.swift; sourceTree = "<group>"; };
+		3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryProtocol.swift; sourceTree = "<group>"; };
+		392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPatientProfileUseCase.swift; sourceTree = "<group>"; };
+		392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFamilyMembersUseCase.swift; sourceTree = "<group>"; };
+		3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
+		3926565E301441A600AFD6F4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMembersViewModel.swift; sourceTree = "<group>"; };
+		39265662301441C100AFD6F4 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		39265668301441E600AFD6F4 /* ProfileMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuRow.swift; sourceTree = "<group>"; };
+		3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCard.swift; sourceTree = "<group>"; };
+		3926566C301441FF00AFD6F4 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
+		3926566F3014421400AFD6F4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		392656713014422000AFD6F4 /* FamilyMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMembersView.swift; sourceTree = "<group>"; };
+		392656733014422D00AFD6F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		392656763014424500AFD6F4 /* ProfileRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRoute.swift; sourceTree = "<group>"; };
+		392656783014424F00AFD6F4 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorView.swift; sourceTree = "<group>"; };
 		39649594301076EB00AC4137 /* ServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
 		396495963010770200AC4137 /* UpcomingBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBooking.swift; sourceTree = "<group>"; };
 		396495983010771B00AC4137 /* ServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetail.swift; sourceTree = "<group>"; };
@@ -392,7 +438,6 @@
 		B38E56AC3013A99900A9F153 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B38E56AE3013A9B000A9F153 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		B38E56B03013A9C300A9F153 /* NetworkErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorMapper.swift; sourceTree = "<group>"; };
-		B38E56B43013A9FB00A9F153 /* JSONDecoder+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Default.swift"; sourceTree = "<group>"; };
 		B396A9DA300E3578009620B0 /* ProfileStepFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStepFooter.swift; sourceTree = "<group>"; };
 		B396A9DE300E364A009620B0 /* ProfileFieldCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldCard.swift; sourceTree = "<group>"; };
 		B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityOptionRow.swift; sourceTree = "<group>"; };
@@ -531,6 +576,21 @@
 		C6E761F93008EBEA00481DB9 /* ProfileSetupDecisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupDecisionView.swift; sourceTree = "<group>"; };
 		C6E761FB300926F400481DB9 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C6E761FD3009336100481DB9 /* ProfileSetupDecisionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupDecisionViewModel.swift; sourceTree = "<group>"; };
+		C6E897143015CB2300E3D336 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		C6E897153015CB2300E3D336 /* DevOTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevOTPResponse.swift; sourceTree = "<group>"; };
+		C6E897163015CB2300E3D336 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		C6E897173015CB2300E3D336 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		C6E8971C3015CB4300E3D336 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		C6E8971D3015CB4300E3D336 /* AuthorizationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationType.swift; sourceTree = "<group>"; };
+		C6E8971E3015CB4300E3D336 /* JSONDecoder+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Default.swift"; sourceTree = "<group>"; };
+		C6E8971F3015CB4300E3D336 /* KeychainTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStore.swift; sourceTree = "<group>"; };
+		C6E897203015CB4300E3D336 /* RefreshState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshState.swift; sourceTree = "<group>"; };
+		C6E897213015CB4300E3D336 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		C6E897223015CB4300E3D336 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		C6E8972A3015CB7C00E3D336 /* AuthEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndpoint.swift; sourceTree = "<group>"; };
+		C6E8972B3015CB7C00E3D336 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C6E8972E3015CBBA00E3D336 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		C6E8972F3015CBBA00E3D336 /* LogoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -659,6 +719,8 @@
 				0C6BAE2530122D6100759ED0 /* QRCode */,
 				0C6BAE2430122CD700759ED0 /* OfferAccepted */,
 				C610010E301121C200FA385C /* Services */,
+				392656473014410300AFD6F4 /* Profile */,
+				0C3D88943008501500883999 /* Shared */,
 				39649593301076CA00AC4137 /* Home */,
 				0C3D886A3008483C00883999 /* Auth */,
 				C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */,
@@ -677,7 +739,6 @@
 		0C3D884E3008461300883999 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				B38E56B43013A9FB00A9F153 /* JSONDecoder+Default.swift */,
 				0C3D884D3008461300883999 /* AppImages.swift */,
 			);
 			path = Extensions;
@@ -721,6 +782,13 @@
 		0C3D885F3008466A00883999 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C6E8971C3015CB4300E3D336 /* AuthInterceptor.swift */,
+				C6E8971D3015CB4300E3D336 /* AuthorizationType.swift */,
+				C6E8971E3015CB4300E3D336 /* JSONDecoder+Default.swift */,
+				C6E8971F3015CB4300E3D336 /* KeychainTokenStore.swift */,
+				C6E897203015CB4300E3D336 /* RefreshState.swift */,
+				C6E897213015CB4300E3D336 /* SessionManager.swift */,
+				C6E897223015CB4300E3D336 /* UserSession.swift */,
 				B38E56AE3013A9B000A9F153 /* NetworkError.swift */,
 				B38E56AC3013A99900A9F153 /* Endpoint.swift */,
 				B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */,
@@ -773,7 +841,7 @@
 			isa = PBXGroup;
 			children = (
 				0C3D888F30084EA300883999 /* Repositories */,
-				0C3D887C30084AD400883999 /* DataSources */,
+				0C3D887C30084AD400883999 /* Services */,
 				0C3D887B30084ABB00883999 /* DTOs */,
 				0C3D887A30084AA900883999 /* Mappers */,
 			);
@@ -793,6 +861,8 @@
 		0C3D8878300848E000883999 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				C6E8972E3015CBBA00E3D336 /* LoginUseCase.swift */,
+				C6E8972F3015CBBA00E3D336 /* LogoutUseCase.swift */,
 				C6C3BE26300A63C100C5FC25 /* SavePersonalInfoUseCase.swift */,
 				C6C3BE27300A63C100C5FC25 /* VerifyOTPUseCase.swift */,
 			);
@@ -818,17 +888,21 @@
 		0C3D887B30084ABB00883999 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D888030084B1A00883999 /* AuthDto.swift */,
+				C6E897143015CB2300E3D336 /* AuthResponse.swift */,
+				C6E897153015CB2300E3D336 /* DevOTPResponse.swift */,
+				C6E897163015CB2300E3D336 /* Gender.swift */,
+				C6E897173015CB2300E3D336 /* UserDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
 		};
-		0C3D887C30084AD400883999 /* DataSources */ = {
+		0C3D887C30084AD400883999 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D887E30084AFF00883999 /* AuthRemoteDataSource.swift */,
+				C6E8972A3015CB7C00E3D336 /* AuthEndpoint.swift */,
+				C6E8972B3015CB7C00E3D336 /* AuthService.swift */,
 			);
-			path = DataSources;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		0C3D888230084B6A00883999 /* View */ = {
@@ -878,6 +952,127 @@
 				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		392656473014410300AFD6F4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				392656753014423F00AFD6F4 /* ProfileCoordinator */,
+				3926565C3014419700AFD6F4 /* Presentation */,
+				392656583014417C00AFD6F4 /* Data */,
+				392656483014411300AFD6F4 /* Domain */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		392656483014411300AFD6F4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				392656513014415300AFD6F4 /* UseCases */,
+				3926564E3014414200AFD6F4 /* Repositories */,
+				392656493014411900AFD6F4 /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		392656493014411900AFD6F4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				3926564C3014413500AFD6F4 /* FamilyMember.swift */,
+				3926564A3014412000AFD6F4 /* PatientProfile.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		3926564E3014414200AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		392656513014415300AFD6F4 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */,
+				392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		392656583014417C00AFD6F4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				392656593014418200AFD6F4 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		392656593014418200AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		3926565C3014419700AFD6F4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				39265664301441CE00AFD6F4 /* View */,
+				3926565D3014419D00AFD6F4 /* ViewModel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		39265664301441CE00AFD6F4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3926566E3014420D00AFD6F4 /* Screens */,
+				39265665301441D300AFD6F4 /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3926565D3014419D00AFD6F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				39265662301441C100AFD6F4 /* SettingsViewModel.swift */,
+				39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */,
+				3926565E301441A600AFD6F4 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		39265665301441D300AFD6F4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3926566C301441FF00AFD6F4 /* SettingsRow.swift */,
+				3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */,
+				39265668301441E600AFD6F4 /* ProfileMenuRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3926566E3014420D00AFD6F4 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				392656733014422D00AFD6F4 /* SettingsView.swift */,
+				392656713014422000AFD6F4 /* FamilyMembersView.swift */,
+				3926566F3014421400AFD6F4 /* ProfileView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		392656753014423F00AFD6F4 /* ProfileCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */,
+				392656783014424F00AFD6F4 /* ProfileCoordinator.swift */,
+				392656763014424500AFD6F4 /* ProfileRoute.swift */,
+			);
+			path = ProfileCoordinator;
 			sourceTree = "<group>";
 		};
 		0C6BAE2430122CD700759ED0 /* OfferAccepted */ = {
@@ -1855,17 +2050,22 @@
 				C6C28DA43013B98C00FEDA97 /* SubmitCareRequestUseCase.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */,
+				3926565F301441A700AFD6F4 /* ProfileViewModel.swift in Sources */,
+				3926567B3014426800AFD6F4 /* ProfileCoordinatorView.swift in Sources */,
 				C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */,
 				C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,
+				C6E8972C3015CB7C00E3D336 /* AuthEndpoint.swift in Sources */,
+				C6E8972D3015CB7C00E3D336 /* AuthService.swift in Sources */,
 				0C5C345B300F08BB00A820EB /* OtherDiseasesSectionView.swift in Sources */,
 				B38E56AB3013A98000A9F153 /* NetworkConfiguration.swift in Sources */,
 				396495A3301077C800AC4137 /* GetServiceDetailUseCase.swift in Sources */,
 				C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */,
 				0C6BAE2C3012703900759ED0 /* CareConnectNavigationBarModifier.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
+				392656743014422D00AFD6F4 /* SettingsView.swift in Sources */,
 				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				0C90652C301504EF00DDBAB7 /* AIChatView.swift in Sources */,
@@ -1887,6 +2087,7 @@
 				0C906527301504EF00DDBAB7 /* AIPatient.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
+				392656703014421400AFD6F4 /* ProfileView.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
 				0C6BAE2A30124A3D00759ED0 /* NurseProfileViewModel.swift in Sources */,
 				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
@@ -1894,9 +2095,19 @@
 				C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */,
 				0C4A512230111EDC00EA6EBE /* OfferAcceptedNurseCardView.swift in Sources */,
 				C6C0A4C5300D0C3E00AEB6D9 /* ExistingConditions.swift in Sources */,
+				C6E897233015CB4300E3D336 /* KeychainTokenStore.swift in Sources */,
+				C6E897243015CB4300E3D336 /* RefreshState.swift in Sources */,
+				C6E897253015CB4300E3D336 /* AuthorizationType.swift in Sources */,
+				C6E897263015CB4300E3D336 /* SessionManager.swift in Sources */,
+				C6E897273015CB4300E3D336 /* AuthInterceptor.swift in Sources */,
+				C6E897283015CB4300E3D336 /* JSONDecoder+Default.swift in Sources */,
+				C6E897293015CB4300E3D336 /* UserSession.swift in Sources */,
+				392656503014414800AFD6F4 /* ProfileRepositoryProtocol.swift in Sources */,
 				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
+				392656723014422000AFD6F4 /* FamilyMembersView.swift in Sources */,
 				3964959B3010774000AC4137 /* HomeRepositoryProtocol.swift in Sources */,
 				C65A1E75300EA77F0003D6FB /* CurrentLocationProvider.swift in Sources */,
+				3926566B301441F200AFD6F4 /* FamilyMemberCard.swift in Sources */,
 				396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
 				396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */,
@@ -1915,6 +2126,7 @@
 				C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */,
 				396495C93010797900AC4137 /* HelpBannerView.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
+				3926564B3014412100AFD6F4 /* PatientProfile.swift in Sources */,
 				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
 				0C906524301504EF00DDBAB7 /* AIAssistantCoordinatorView.swift in Sources */,
 				C6C3BE28300A63C100C5FC25 /* SavePersonalInfoUseCase.swift in Sources */,
@@ -1928,14 +2140,15 @@
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				0C0312C630127A0F00C407FB /* NurseProfileCertificatesView.swift in Sources */,
 				0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */,
-				0C3D888130084B1A00883999 /* AuthDto.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
 				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,
+				392656573014416E00AFD6F4 /* GetFamilyMembersUseCase.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
 				C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */,
 				3921F29C30112F5100CE77CF /* ServiceCategoryCard.swift in Sources */,
 				0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */,
 				0C906529301504EF00DDBAB7 /* GetAIPatientsUseCase.swift in Sources */,
+				39265661301441B500AFD6F4 /* FamilyMembersViewModel.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
 				0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */,
@@ -1943,6 +2156,8 @@
 				C6E761FC300926FA00481DB9 /* AppState.swift in Sources */,
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */,
+				C6E897313015CBBA00E3D336 /* LogoutUseCase.swift in Sources */,
+				C6E897333015CBBA00E3D336 /* LoginUseCase.swift in Sources */,
 				C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
 				396495B9301078B600AC4137 /* AIAssessmentBannerView.swift in Sources */,
@@ -1982,8 +2197,13 @@
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
+				39265663301441C200AFD6F4 /* SettingsViewModel.swift in Sources */,
 				C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */,
 				C65A1E8B300ECC1C0003D6FB /* GeocodeCountryUseCase.swift in Sources */,
+				C6E897183015CB2300E3D336 /* UserDTO.swift in Sources */,
+				C6E897193015CB2300E3D336 /* AuthResponse.swift in Sources */,
+				C6E8971A3015CB2300E3D336 /* DevOTPResponse.swift in Sources */,
+				C6E8971B3015CB2300E3D336 /* Gender.swift in Sources */,
 				C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */,
 				3921F2A2301131FD00CE77CF /* ServiceCategoryTileCard.swift in Sources */,
 				C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */,
@@ -1999,6 +2219,7 @@
 				C65A1E7A300EC1DA0003D6FB /* GeocodingService.swift in Sources */,
 				0C4A512330111EDC00EA6EBE /* OfferAcceptedInfoCardView.swift in Sources */,
 				C6C0A502300D334800AEB6D9 /* AllergiesViewModel.swift in Sources */,
+				392656793014425000AFD6F4 /* ProfileCoordinator.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,
 				B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */,
@@ -2007,17 +2228,21 @@
 				C6C0A505300D334800AEB6D9 /* CurrentMedicationViewModel.swift in Sources */,
 				C6C0A506300D334800AEB6D9 /* BasicHealthInfoView.swift in Sources */,
 				C6C0A507300D334800AEB6D9 /* HomeAddressViewModel.swift in Sources */,
+				3926565B3014418900AFD6F4 /* ProfileRepositoryImpl.swift in Sources */,
 				C6C0A508300D334800AEB6D9 /* AllergiesView.swift in Sources */,
 				C6C0A509300D334800AEB6D9 /* MedicalHistoryView.swift in Sources */,
 				396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */,
 				C6C0A50B300D334800AEB6D9 /* HomeAddressView.swift in Sources */,
+				392656553014416100AFD6F4 /* GetPatientProfileUseCase.swift in Sources */,
 				C6C0A4D4300D0D1B00AEB6D9 /* ProfileSetupData.swift in Sources */,
+				392656773014424600AFD6F4 /* ProfileRoute.swift in Sources */,
 				B38E56AD3013A99900A9F153 /* Endpoint.swift in Sources */,
 				C6C3BE12300A61FC00C5FC25 /* OTPVerificationViewModel.swift in Sources */,
 				B396A9DB300E3578009620B0 /* ProfileStepFooter.swift in Sources */,
 				C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */,
 				396495AF3010785100AC4137 /* HomeViewModel.swift in Sources */,
 				0C5C3460300F08BB00A820EB /* HealthInfoCardView.swift in Sources */,
+				39265669301441E600AFD6F4 /* ProfileMenuRow.swift in Sources */,
 				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
 				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
 				396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */,
@@ -2027,13 +2252,13 @@
 				C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */,
 				C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */,
 				C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */,
+				3926566D3014420000AFD6F4 /* SettingsRow.swift in Sources */,
 				C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */,
 				396495B53010788D00AC4137 /* SearchField.swift in Sources */,
 				39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */,
 				C6C0A50E300D347B00AEB6D9 /* ProfileSetupCoordinatorView.swift in Sources */,
 				C6C0A4D2300D0C9700AEB6D9 /* HomeAddress.swift in Sources */,
-				0C3D887F30084AFF00883999 /* AuthRemoteDataSource.swift in Sources */,
-				B38E56B53013AA0500A9F153 /* JSONDecoder+Default.swift in Sources */,
+				3926564D3014413600AFD6F4 /* FamilyMember.swift in Sources */,
 				0C3D8861300846B800883999 /* NetworkClient.swift in Sources */,
 				B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */,
 				B396A9E1300E3655009620B0 /* MobilityOptionRow.swift in Sources */,

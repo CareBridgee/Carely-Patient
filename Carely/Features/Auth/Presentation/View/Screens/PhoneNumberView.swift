@@ -62,10 +62,10 @@ struct PhoneNumberView : View {
         }
 }
 
-#Preview {
-    let router = AuthRouter()
-    let viewModel = PhoneNumberViewModel(router: router)
-    return NavigationStack {
-        PhoneNumberView(viewModel: viewModel)
-    }
-}
+//#Preview {
+//    let router = AuthRouter()
+//    let viewModel = PhoneNumberViewModel(router: router)
+//    return NavigationStack {
+//        PhoneNumberView(viewModel: viewModel)
+//    }
+//}

@@ -15,6 +15,7 @@ protocol Endpoint {
     var headers: HTTPHeaders? { get }
     var parameters: Parameters? { get }
     var encoding: ParameterEncoding { get }
+    var authorizationType: AuthorizationType { get }
 }
 
 extension Endpoint {
@@ -26,6 +27,7 @@ extension Endpoint {
     var encoding: ParameterEncoding { 
         method == .get ? URLEncoding.default : JSONEncoding.default 
     }
+    var authorizationType: AuthorizationType { .bearer }
 }
 // MARK: - 💡 HOW TO USE IN A FEATURE
 /*
