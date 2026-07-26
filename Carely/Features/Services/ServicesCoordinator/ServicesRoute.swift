@@ -17,6 +17,7 @@ enum ServicesRoute: Hashable {
     case OfferAccepted(request: ConfirmedOffer)
     case showQRCode(request: ConfirmedOffer)
     case nurseProfile(nurseId: String)
+    case visitCompleted(visitId: String)
 //    case activeVisit(ActiveVisit)
 //    case chat(ActiveVisit)
 //    case startVisitQR(ActiveVisit)

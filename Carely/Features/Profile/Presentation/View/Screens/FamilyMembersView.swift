@@ -21,6 +21,8 @@ struct FamilyMembersView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: Spacing.s24) {
 
+                    topBar
+
                     header
 
                     VStack(spacing: Spacing.s16) {
@@ -51,6 +53,29 @@ struct FamilyMembersView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
+        }
+    }
+
+    private var topBar: some View {
+        HStack {
+            Button(action: viewModel.backTapped) {
+                Image(systemName: "arrow.left")
+                    .carelyText(style: .bodyLarge, weight: .semiBold)
+                    .foregroundColor(.brandPrimary)
+                    .frame(width: 40, height: 40)
+                    .background(Color.surface)
+                    .clipShape(Circle())
+            }
+
+            Spacer()
+
+            Text("Family Members")
+                .carelyText(style: .heading3, weight: .semiBold)
+                .foregroundColor(.brandPrimary)
+
+            Spacer()
+
+            Color.clear.frame(width: 40, height: 40)
         }
     }
 
@@ -95,11 +120,11 @@ struct FamilyMembersView: View {
     }
 }
 
-//#Preview {
-//    FamilyMembersView(
-//        viewModel: FamilyMembersViewModel(
-//            getFamilyMembersUseCase: GetFamilyMembersUseCase(repository: ProfileRepositoryImpl()),
-//            coordinator: ProfileCoordinator()
-//        )
-//    )
-//}
+#Preview {
+    FamilyMembersView(
+        viewModel: FamilyMembersViewModel(
+            getFamilyMembersUseCase: GetFamilyMembersUseCase(repository: ProfileRepositoryImpl()),
+            coordinator: ProfileCoordinator()
+        )
+    )
+}

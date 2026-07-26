@@ -318,11 +318,12 @@ final class DIContainer {
     
     // MARK: - Visit Summary ViewModels
     
-    func makeVisitCompletedViewModel(visitId: String) -> VisitCompletedViewModel {
+    func makeVisitCompletedViewModel(visitId: String, onFinished: @escaping () -> Void = {}) -> VisitCompletedViewModel {
         VisitCompletedViewModel(
             visitId: visitId,
             getVisitSummaryUseCase: makeGetVisitSummaryUseCase(),
-            submitVisitRatingUseCase: makeSubmitVisitRatingUseCase()
+            submitVisitRatingUseCase: makeSubmitVisitRatingUseCase(),
+            onFinished: onFinished
         )
     }
     

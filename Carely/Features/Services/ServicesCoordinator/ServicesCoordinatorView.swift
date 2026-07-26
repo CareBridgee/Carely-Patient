@@ -77,7 +77,7 @@ struct ServicesCoordinatorView: View {
                 qrCodeData: request.qrCodeData,
                 referenceNumber: "#\(request.id.uppercased())",
                 onClose: {
-                    coordinator.pop()
+                    coordinator.push(to: .visitCompleted(visitId: request.id))
                 }
             )
             ArrivalQRCodeView(viewModel: viewModel)
@@ -85,6 +85,16 @@ struct ServicesCoordinatorView: View {
         case .nurseProfile(let nurseId):
             let viewModel = container.makeNurseProfileViewModel(nurseId: nurseId)
             NurseProfileView(viewModel: viewModel)
+
+        case .visitCompleted(let visitId):
+            VisitCompletedView(
+                viewModel: container.makeVisitCompletedViewModel(
+                    visitId: visitId,
+                    onFinished: {
+                        coordinator.popToRoot()
+                    }
+                )
+            )
 //        case .activeVisit(let visit):
 //            ActiveVisitView(
 //                visit: visit,

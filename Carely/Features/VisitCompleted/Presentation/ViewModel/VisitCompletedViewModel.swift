@@ -6,11 +6,10 @@
 //
 
 import Foundation
- 
-/// Delay before the "How was your visit?" rating sheet is presented
-/// automatically, giving the person a moment to read the summary first.
+
 private let ratingSheetAutoPresentDelayNanoseconds: UInt64 = 5_000_000_000
- 
+private let closeAfterRatingDelayNanoseconds: UInt64 = 1_200_000_000
+
 @MainActor
 final class VisitCompletedViewModel: ObservableObject {
  
@@ -28,16 +27,19 @@ final class VisitCompletedViewModel: ObservableObject {
  
     private let getVisitSummaryUseCase: GetVisitSummaryUseCaseProtocol
     private let submitVisitRatingUseCase: SubmitVisitRatingUseCaseProtocol
+    private let onFinished: () -> Void
     private var autoPresentTask: Task<Void, Never>?
  
     init(
         visitId: String,
         getVisitSummaryUseCase: GetVisitSummaryUseCaseProtocol,
-        submitVisitRatingUseCase: SubmitVisitRatingUseCaseProtocol
+        submitVisitRatingUseCase: SubmitVisitRatingUseCaseProtocol,
+        onFinished: @escaping () -> Void = {}
     ) {
         self.visitId = visitId
         self.getVisitSummaryUseCase = getVisitSummaryUseCase
         self.submitVisitRatingUseCase = submitVisitRatingUseCase
+        self.onFinished = onFinished
     }
  
     func onAppear() {
@@ -95,6 +97,9 @@ final class VisitCompletedViewModel: ObservableObject {
                 self.isSubmittingRating = false
                 self.ratingSubmitted = true
                 self.showRatingSheet = false
+                try? await Task.sleep(nanoseconds: closeAfterRatingDelayNanoseconds)
+                guard !Task.isCancelled else { return }
+                self.onFinished()
             } catch {
                 self.isSubmittingRating = false
                 self.errorMessage = error.localizedDescription
@@ -107,4 +112,3 @@ final class VisitCompletedViewModel: ObservableObject {
         showRatingSheet = false
     }
 }
- 
