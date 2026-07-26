@@ -12,6 +12,7 @@
 		0C0312C730127A0F00C407FB /* NurseProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0312C230127A0F00C407FB /* NurseProfileHeaderView.swift */; };
 		0C0312C830127A0F00C407FB /* NurseProfileServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0312C330127A0F00C407FB /* NurseProfileServicesView.swift */; };
 		0C396EC6301663DF0036ACE5 /* ProfileSetupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C396EC5301663DF0036ACE5 /* ProfileSetupHeaderView.swift */; };
+		0C396EC8301669320036ACE5 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C396EC7301669320036ACE5 /* AppConstants.swift */; };
 		0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88143007B5E500883999 /* CarelyApp.swift */; };
 		0C3D88173007B5E500883999 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88163007B5E500883999 /* ContentView.swift */; };
 		0C3D88193007B5E600883999 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C3D88183007B5E600883999 /* Assets.xcassets */; };
@@ -288,6 +289,7 @@
 		0C0312C230127A0F00C407FB /* NurseProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NurseProfileHeaderView.swift; sourceTree = "<group>"; };
 		0C0312C330127A0F00C407FB /* NurseProfileServicesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NurseProfileServicesView.swift; sourceTree = "<group>"; };
 		0C396EC5301663DF0036ACE5 /* ProfileSetupHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileSetupHeaderView.swift; path = Components/ProfileSetupHeaderView.swift; sourceTree = "<group>"; };
+		0C396EC7301669320036ACE5 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		0C3D88113007B5E500883999 /* Carely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3D88143007B5E500883999 /* CarelyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyApp.swift; sourceTree = "<group>"; };
 		0C3D88163007B5E500883999 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -730,6 +732,7 @@
 		0C3D88643008472D00883999 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0C396EC7301669320036ACE5 /* AppConstants.swift */,
 				B38E56B03013A9C300A9F153 /* NetworkErrorMapper.swift */,
 				0C3D88653008475800883999 /* UtilityFile.swift */,
 			);
@@ -1974,6 +1977,7 @@
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
+				0C396EC8301669320036ACE5 /* AppConstants.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,

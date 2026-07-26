@@ -57,7 +57,7 @@ struct CareConnectNavigationBarModifier: ViewModifier {
 
 extension View {
     func careConnectNavigationBar(
-        title: String = "CareConnect",
+        title: String = AppConstants.appName,
         showBackButton: Bool = true,
         trailingIcon: String? = nil,
         onBackTapped: (() -> Void)? = nil,
