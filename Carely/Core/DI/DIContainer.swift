@@ -59,10 +59,6 @@ final class DIContainer {
         LoginUseCase(repository: authRepository)
     }
 
-    private func makeRequestOTPDevUseCase() -> RequestOTPDevUseCaseProtocol {
-        RequestOTPDevUseCase(repository: authRepository)
-    }
-
     private func makeLogoutUseCase() -> LogoutUseCaseProtocol {
         LogoutUseCase(
             repository: authRepository,
@@ -93,6 +89,7 @@ final class DIContainer {
         OTPVerificationViewModel(
             phoneNumber: phoneNumber,
             verifyOTPUseCase: makeVerifyOTPUseCase(),
+            loginUseCase: makeLoginUseCase(),
             router: router,
             onAuthFinished: onAuthFinished
         )
@@ -112,7 +109,6 @@ final class DIContainer {
     func makePhoneNumberViewModel(router: AuthRouter) -> PhoneNumberViewModel {
         PhoneNumberViewModel(
             loginUseCase: makeLoginUseCase(),
-            requestOTPDevUseCase: makeRequestOTPDevUseCase(),
             router: router
         )
     }

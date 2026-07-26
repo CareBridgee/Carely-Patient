@@ -18,6 +18,7 @@ enum OTPVerificationViewState: Equatable {
 @MainActor
 final class OTPVerificationViewModel: ObservableObject {
     private let verifyOTPUseCase: VerifyOTPUseCaseProtocol
+    private let loginUseCase: LoginUseCaseProtocol
     private let router: AuthRouter
     let phoneNumber: String
     let otpLength = 6
@@ -65,11 +66,13 @@ final class OTPVerificationViewModel: ObservableObject {
     init(
         phoneNumber: String,
         verifyOTPUseCase: VerifyOTPUseCaseProtocol,
+        loginUseCase: LoginUseCaseProtocol,
         router: AuthRouter,
         onAuthFinished: @escaping () -> Void = {}
     ) {
         self.phoneNumber = phoneNumber
         self.verifyOTPUseCase = verifyOTPUseCase
+        self.loginUseCase = loginUseCase
         self.router = router
         self.onAuthFinished = onAuthFinished
     }
@@ -93,6 +96,18 @@ final class OTPVerificationViewModel: ObservableObject {
 
     func goBack() {
         router.pop()
+    }
+
+    func resendOTP() {
+        Task {
+            do {
+                let response = try await loginUseCase.execute(phoneNumber: phoneNumber)
+                print("Dev OTP: \(response.otp)")
+                state = .success("OTP Resent successfully!")
+            } catch {
+                state = .error("Failed to resend OTP.")
+            }
+        }
     }
 
 

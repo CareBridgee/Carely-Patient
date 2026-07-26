@@ -6,7 +6,7 @@
 import Foundation
 
 protocol LoginUseCaseProtocol {
-    func execute(phoneNumber: String) async throws
+    func execute(phoneNumber: String) async throws -> DevOTPResponse 
 }
 
 struct LoginUseCase: LoginUseCaseProtocol {
@@ -16,7 +16,8 @@ struct LoginUseCase: LoginUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(phoneNumber: String) async throws {
+    func execute(phoneNumber: String) async throws -> DevOTPResponse {
         try await repository.login(phoneNumber: phoneNumber)
+        return try await repository.requestOTPDev(phoneNumber: phoneNumber)
     }
 }

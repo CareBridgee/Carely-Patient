@@ -21,12 +21,10 @@ final class AppState: ObservableObject {
     @Published private(set) var flow: AppFlow
 
     private let sessionManager: SessionManager
-    private var cancellables = Set<AnyCancellable>()
 
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
-        self.flow =  .auth
-        //sessionManager.state == .loggedIn ? .home :
+        self.flow = sessionManager.state == .loggedIn ? .home : .auth
     }
 
     func startProfileSetup() {

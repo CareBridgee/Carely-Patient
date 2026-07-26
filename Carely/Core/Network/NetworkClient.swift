@@ -16,12 +16,11 @@ protocol NetworkClientProtocol {
 final class NetworkClient: NetworkClientProtocol {
     private let session: Session
     private let decoder: JSONDecoder
-    var useLogs: Bool
+    var useLogs: Bool = true
 
-    init(session: Session = .default, decoder: JSONDecoder = .standardDateDecoder, useLogs: Bool = true) {
+    init(session: Session = .default, decoder: JSONDecoder = .standardDateDecoder) {
         self.session = session
         self.decoder = decoder
-        self.useLogs = useLogs
     }
 
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {

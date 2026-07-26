@@ -42,8 +42,7 @@ struct OTPVerificationView: View {
                     OTPVerificationCardView(viewModel: viewModel)
 
                     OTPResendSectionView {
-                        // TODO: Call viewModel.resendOTP() when backend is ready
-                        print("Resend code triggered")
+                        viewModel.resendOTP()
                     }
                 }
                 .padding(.top, Spacing.s24)
