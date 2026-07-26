@@ -6,27 +6,77 @@
 //
 
 import Foundation
+import Alamofire
 
 // I will instantiate it once at the absolute highest point
 @MainActor
 final class DIContainer {
     
-    // MARK: - Repositories
-    
-    private lazy var authRepository: AuthRepositoryProtocol = {
-        AuthRepositoryImpl(
-            // inject here your dataSources
+    // MARK: - Auth Infrastructure
+
+    let appState: AppState
+
+    private let tokenStore: TokenStoring
+    private let sessionManager: SessionManager
+    private let unauthNetworkClient: NetworkClientProtocol
+    private let authInterceptor: AuthInterceptor
+
+    // MARK: - Networking (Single Stack)
+
+    private lazy var session: Session = Session(interceptor: authInterceptor)
+
+    private lazy var networkClient: NetworkClientProtocol = NetworkClient(session: session)
+
+    // MARK: - Init
+
+    init() {
+        self.tokenStore = KeychainTokenStore()
+        self.sessionManager = SessionManager(tokenStore: tokenStore)
+        self.unauthNetworkClient = NetworkClient(session: .default)
+
+        self.authInterceptor = AuthInterceptor(
+            tokenStore: tokenStore,
+            sessionMonitor: sessionManager,
+            unauthNetworkClient: unauthNetworkClient
         )
-    }()
+
+        self.appState = AppState(sessionManager: sessionManager)
+    }
+
+    // MARK: - Auth Data
+
+    private lazy var authService: AuthServiceProtocol = AuthServiceImpl(
+        networkClient: networkClient
+    )
+
+    private lazy var authRepository: AuthRepositoryProtocol = AuthRepositoryImpl(
+        authService: authService
+    )
     
     // MARK: - Auth UseCases
+
+    private func makeLoginUseCase() -> LoginUseCaseProtocol {
+        LoginUseCase(repository: authRepository)
+    }
+
+    private func makeLogoutUseCase() -> LogoutUseCaseProtocol {
+        LogoutUseCase(
+            repository: authRepository,
+            tokenStore: tokenStore,
+            sessionManager: sessionManager
+        )
+    }
     
     private func makeSavePersonalInfoUseCase() -> SavePersonalInfoUseCaseProtocol {
         SavePersonalInfoUseCase(repository: authRepository)
     }
     
     private func makeVerifyOTPUseCase() -> VerifyOTPUseCaseProtocol {
-        VerifyOTPUseCase(repository: authRepository)
+        VerifyOTPUseCase(
+            repository: authRepository,
+            tokenStore: tokenStore,
+            sessionManager: sessionManager
+        )
     }
     
     // MARK: - Auth ViewModels
@@ -39,6 +89,7 @@ final class DIContainer {
         OTPVerificationViewModel(
             phoneNumber: phoneNumber,
             verifyOTPUseCase: makeVerifyOTPUseCase(),
+            loginUseCase: makeLoginUseCase(),
             router: router,
             onAuthFinished: onAuthFinished
         )
@@ -56,7 +107,10 @@ final class DIContainer {
     }
     
     func makePhoneNumberViewModel(router: AuthRouter) -> PhoneNumberViewModel {
-        PhoneNumberViewModel(router: router)
+        PhoneNumberViewModel(
+            loginUseCase: makeLoginUseCase(),
+            router: router
+        )
     }
     
     func makeWelcomeViewModel(router: AuthRouter) -> WelcomeViewModel {

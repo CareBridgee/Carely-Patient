@@ -11,6 +11,7 @@ import Combine
 @MainActor
 final class PhoneNumberViewModel: ObservableObject {
     private let router: AuthRouter
+    private let loginUseCase: LoginUseCaseProtocol
 
     @Published var phoneNumber: String = ""
     @Published private(set) var isPhoneNumberValid: Bool = false
@@ -22,7 +23,11 @@ final class PhoneNumberViewModel: ObservableObject {
     private static let validPrefixes = ["10", "11", "12", "15"]
     private static let requiredDigitCount = 10
 
-    init(router: AuthRouter) {
+    init(
+        loginUseCase: LoginUseCaseProtocol,
+        router: AuthRouter
+    ) {
+        self.loginUseCase = loginUseCase
         self.router = router
         setupValidation()
     }
@@ -43,9 +48,21 @@ final class PhoneNumberViewModel: ObservableObject {
         }
     }
 
-    func nextButtonPressed(){
-        print("pressed")
-        router.push(to: .OTPVerification(phoneNumber: "+20"+phoneNumber))
+    func nextButtonPressed() {
+        let fullPhone = "+20" + phoneNumber
+        Task {
+            do {
+                let response = try await loginUseCase.execute(phoneNumber: fullPhone)
+                print("Dev OTP: \(response.otp)")
+                
+                await MainActor.run {
+                    router.push(to: .OTPVerification(phoneNumber: fullPhone))
+                }
+            } catch {
+                print("Failed to get dev OTP: \(error)")
+                // show error to user
+            }
+        }
     }
 
     private func setupValidation() {

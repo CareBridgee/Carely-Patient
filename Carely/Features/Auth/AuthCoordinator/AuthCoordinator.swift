@@ -36,7 +36,6 @@ struct AuthCoordinator: View {
                     phoneNumber: phoneNumber,
                     router: router,
                     onAuthFinished: {
-                        appState.signIn()
                         appState.startHomeFlow()
                     }
                 )
@@ -47,7 +46,6 @@ struct AuthCoordinator: View {
                 viewModel: container.makePersonalInfoViewModel(
                     router: router,
                     onOersonalDataSaved: {
-                        appState.signIn()
                         appState.goToProfileSetupDecision()
                     }
                 )

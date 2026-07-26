@@ -42,8 +42,7 @@ struct OTPVerificationView: View {
                     OTPVerificationCardView(viewModel: viewModel)
 
                     OTPResendSectionView {
-                        // TODO: Call viewModel.resendOTP() when backend is ready
-                        print("Resend code triggered")
+                        viewModel.resendOTP()
                     }
                 }
                 .padding(.top, Spacing.s24)
@@ -57,12 +56,4 @@ struct OTPVerificationView: View {
     }
 }
 
-#Preview {
-    OTPVerificationView(
-        viewModel: OTPVerificationViewModel(
-            phoneNumber: "+20 100 123 4567",
-            verifyOTPUseCase: VerifyOTPUseCase(repository: AuthRepositoryImpl()),
-            router: AuthRouter()
-        )
-    )
-}
+

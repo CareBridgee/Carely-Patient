@@ -7,31 +7,50 @@
 
 import Foundation
 
-final class AuthRepositoryImpl: AuthRepositoryProtocol{
-    private static let mockCorrectOTP = "123456"
-    
-    private let simulatedDelayNanoseconds: UInt64 = 1_200_000_000
-    
-    init(){
-        
+final class AuthRepositoryImpl: AuthRepositoryProtocol {
+    private let authService: AuthServiceProtocol
+
+    init(authService: AuthServiceProtocol) {
+        self.authService = authService
     }
-    
-    func savePersonalInfo(
-        basicInfo: BasicUserInfo
-    ) async throws{
-            
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
+
+    func login(phoneNumber: String) async throws {
+        try await authService.login(phoneNumber: phoneNumber)
     }
+
+    func resendOTP(phoneNumber: String) async throws {
+        try await authService.login(phoneNumber: phoneNumber)
+    }
+
+    func requestOTPDev(phoneNumber: String) async throws -> DevOTPResponse {
+        try await authService.requestOTPDev(phoneNumber: phoneNumber)
+    }
+
     func verifyOTP(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity {
-           // Simulate network delay.
-           try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
-           
-           guard otp == Self.mockCorrectOTP else {
-               throw AuthError.invalidOTP
-           }
-           
-           
-           return OTPVerificationEntity(isNewUser: true, accessToken: "", refreshToken: "", userId: "")
-       }
-    
+        let response = try await authService.verifyOTP(phoneNumber: phoneNumber, otp: otp)
+
+        return OTPVerificationEntity(
+            isNewUser: response.user.firstName == "User" || response.user.lastName?.isEmpty == true,
+            accessToken: response.accessToken,
+            refreshToken: response.refreshToken,
+            userId: response.user.id
+        )
+    }
+
+    func getProfile(phoneNumber: String) async throws -> UserDTO {
+        try await authService.getProfile(phoneNumber: phoneNumber)
+    }
+
+    func logout(refreshToken: String) async throws {
+        do {
+            try await authService.logout(refreshToken: refreshToken)
+        } catch {
+            print("Failed to logout on server: \(error)")
+        }
+    }
+
+    func savePersonalInfo(basicInfo: BasicUserInfo) async throws {
+        // TODO: Wire to actual API when backend endpoint is available
+        try await Task.sleep(nanoseconds: 1_200_000_000)
+    }
 }
