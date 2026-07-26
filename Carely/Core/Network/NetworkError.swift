@@ -13,6 +13,7 @@ enum NetworkError: LocalizedError {
     case noInternetConnection
     case timeout
     case unauthorized
+    case sessionExpired
     case decodingFailed(underlying: Error)
     case server(statusCode: Int, message: String?)
     case cancelled
@@ -24,6 +25,7 @@ enum NetworkError: LocalizedError {
         case .noInternetConnection: return "No internet connection. Check your network and try again."
         case .timeout: return "The request timed out. Please try again."
         case .unauthorized: return "Your session has expired. Please sign in again."
+        case .sessionExpired: return "Your session has expired. Please sign in again."
         case .decodingFailed: return "We couldn't process the server's response."
         case .server(_, let message): return message ?? "Something went wrong. Please try again."
         case .cancelled: return "The request was cancelled."

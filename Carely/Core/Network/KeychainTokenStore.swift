@@ -2,18 +2,20 @@
 //  KeychainTokenStore.swift
 //  Carely
 //
+//  Created by Mohamed Ayman on 25/07/2026.
+//
 
 import Foundation
 import Security
 
-protocol TokenStoring {
+protocol TokenStoring: Sendable {
     func saveTokens(access: String, refresh: String)
     func getAccessToken() -> String?
     func getRefreshToken() -> String?
     func clearTokens()
 }
 
-final class KeychainTokenStore: TokenStoring {
+final class KeychainTokenStore: TokenStoring, @unchecked Sendable {
 
     // MARK: - Configuration
     

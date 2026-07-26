@@ -16,29 +16,22 @@ protocol NetworkClientProtocol {
 final class NetworkClient: NetworkClientProtocol {
     private let session: Session
     private let decoder: JSONDecoder
-    // MARK: for (AUTH FEATURE INJECTION)
-        //
-        // Do NOT modify this class to add tokens, headers, or 401 retry logic.
-        // This network layer is strictly generic infrastructure.
-        //
-        // To add Authentication logic (like an AuthInterceptor for token refresh):
-        // 1. Create your `AuthInterceptor` in the Auth Module.
-        // 2. Create a custom Alamofire `Session`: `let session = Session(interceptor: authInterceptor)`
-        // 3. Inject that session here when resolving your dependencies.
-        //
-        // See the DIContainer example at the bottom of this file.
-    init(session: Session = .default, decoder: JSONDecoder = .standardDateDecoder) {
+    var useLogs: Bool
+
+    init(session: Session = .default, decoder: JSONDecoder = .standardDateDecoder, useLogs: Bool = true) {
         self.session = session
         self.decoder = decoder
+        self.useLogs = useLogs
     }
 
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
+        if useLogs { print("NetworkClient: requesting \(endpoint.method.rawValue) \(endpoint.url)") }
         let task = session.request(
             endpoint.url,
             method: endpoint.method,
             parameters: endpoint.parameters,
             encoding: endpoint.encoding,
-            headers: endpoint.headers
+            headers: buildHeaders(for: endpoint)
         )
         .validate()
         .serializingDecodable(T.self, decoder: decoder)
@@ -47,28 +40,42 @@ final class NetworkClient: NetworkClientProtocol {
         
         switch response.result {
         case .success(let value):
+            if useLogs { print("NetworkClient: request success for \(endpoint.url)") }
             return value
         case .failure(let error):
+            if useLogs { print("NetworkClient: request failure for \(endpoint.url) with error: \(error)") }
             throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
         }
     }
 
     func requestWithoutResponse(_ endpoint: Endpoint) async throws {
+        if useLogs { print("NetworkClient: requesting (no response) \(endpoint.method.rawValue) \(endpoint.url)") }
         let task = session.request(
             endpoint.url,
             method: endpoint.method,
             parameters: endpoint.parameters,
             encoding: endpoint.encoding,
-            headers: endpoint.headers
+            headers: buildHeaders(for: endpoint)
         )
         .validate()
-        .serializingData()
+        .serializingData(emptyResponseCodes: [200, 201, 204, 205])
 
         let response = await task.response
         
         if let error = response.error {
+            if useLogs { print("NetworkClient: request failure for \(endpoint.url) with error: \(error)") }
             throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
+        } else {
+            if useLogs { print("NetworkClient: request success for \(endpoint.url)") }
         }
+    }
+
+    private func buildHeaders(for endpoint: Endpoint) -> HTTPHeaders {
+        var headers = endpoint.headers ?? HTTPHeaders()
+        if endpoint.authorizationType == .none {
+            headers.add(name: AuthorizationType.headerKey, value: "true")
+        }
+        return headers
     }
 }
 // MARK: 
