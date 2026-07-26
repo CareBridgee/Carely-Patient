@@ -13,7 +13,13 @@ struct MainTabCoordinatorView: View {
 
     let container: DIContainer
     let appState: AppState
-    @StateObject private var coordinator = MainTabCoordinator()
+    @StateObject private var coordinator: MainTabCoordinator
+
+    init(container: DIContainer, appState: AppState) {
+        self.container = container
+        self.appState = appState
+        _coordinator = StateObject(wrappedValue: MainTabCoordinator(appState: appState))
+    }
 
     var body: some View {
         tabContent
@@ -41,14 +47,9 @@ struct MainTabCoordinatorView: View {
                 .opacity(coordinator.selectedTab == .ai ? 1 : 0)
                 .allowsHitTesting(coordinator.selectedTab == .ai)
 
-//
-//            AICoordinatorView(container: container, coordinator: coordinator.aiCoordinator)
-//                .opacity(coordinator.selectedTab == .ai ? 1 : 0)
-//                .allowsHitTesting(coordinator.selectedTab == .ai)
-//
-//            ProfileCoordinatorView(container: container, coordinator: coordinator.profileCoordinator, appState: appState)
-//                .opacity(coordinator.selectedTab == .profile ? 1 : 0)
-//                .allowsHitTesting(coordinator.selectedTab == .profile)
+            ProfileCoordinatorView(container: container, coordinator: coordinator.profileCoordinator)
+                .opacity(coordinator.selectedTab == .profile ? 1 : 0)
+                .allowsHitTesting(coordinator.selectedTab == .profile)
         }
         .animation(.easeInOut(duration: 0.15), value: coordinator.selectedTab)
     }

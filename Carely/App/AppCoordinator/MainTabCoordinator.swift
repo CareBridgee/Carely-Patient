@@ -18,18 +18,21 @@ final class MainTabCoordinator: ObservableObject {
     let homeCoordinator: HomeCoordinator
     let servicesCoordinator: ServicesCoordinator
     let aiAssistantCoordinator: AIAssistantCoordinator
-//    let profileCoordinator: ProfileCoordinator
+    let profileCoordinator: ProfileCoordinator
 
-    init() {
+    private let appState: AppState
+
+    init(appState: AppState) {
         let home = HomeCoordinator()
         let services = ServicesCoordinator()
         let aiAssistant = AIAssistantCoordinator()
-//        let profile = ProfileCoordinator()
+        let profile = ProfileCoordinator()
 
         self.homeCoordinator = home
         self.servicesCoordinator = services
         self.aiAssistantCoordinator = aiAssistant
-//        self.profileCoordinator = profile
+        self.profileCoordinator = profile
+        self.appState = appState
 
         wireCrossTabNavigation()
     }
@@ -76,6 +79,10 @@ final class MainTabCoordinator: ObservableObject {
             guard let self = self else { return }
             self.previousTab = self.selectedTab
             self.selectedTab = .services
+        }
+
+        profileCoordinator.onLoggedOut = { [weak self] in
+            self?.appState.startAuthFlow()
         }
     }
 
