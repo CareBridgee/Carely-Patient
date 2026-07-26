@@ -19,15 +19,11 @@ struct HomeAddressView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.s24) {
 
-                VStack(alignment: .leading, spacing: Spacing.s16) {
-                    Text("Your Address")
-                        .carelyText(style: .heading2, weight: .bold)
-                        .foregroundColor(.primaryFont)
-
-                    Text("We need your address to coordinate care services in your area.")
-                        .carelyText(style: .bodyRegular, weight: .regular)
-                        .foregroundColor(.secondaryFont)
-                }
+               
+                ProfileSetupHeaderView(
+                    title: "Your Address",
+                    subtitle: "We need your address to coordinate care services in your area."
+                )
 
                 useCurrentLocationButton
 
@@ -85,19 +81,20 @@ struct HomeAddressView: View {
 
                 Spacer()
 
-                VStack(spacing: Spacing.s12) {
-                    PrimaryButton(title: "Finish Setup") {
-                        viewModel.finishSetupTapped()
-                    }
 
-                    SecondaryButton(title: "Back") {
-                        viewModel.backTapped()
-                    }
-                }
             }
-            .padding(Spacing.s16)
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s0)
+            .padding(.bottom, Spacing.s16)
         }
         .background(Color.backGround)
+        .safeAreaInset(edge: .bottom) {
+            HealthProfileBottomActionsView(
+                continueTitle: "Finish Setup",
+                onBackTapped: viewModel.backTapped,
+                onContinueTapped: viewModel.finishSetupTapped
+            )
+        }
         .sheet(isPresented: $viewModel.isMapPickerPresented) {
             AddressMapPickerBottomSheet(viewModel: viewModel.mapPickerViewModel)
                 .presentationDetents([.fraction(0.85), .large])
@@ -143,4 +140,15 @@ struct HomeAddressView: View {
         }
         .disabled(viewModel.isLocatingCurrentLocation)
     }
+}
+
+#Preview("Home Address - In Coordinator") {
+    ProfileSetupCoordinatorView(
+        coordinator: ProfileSetupCoordinator(
+            data: ProfileSetupData(),
+            startingStep: .homeAddress
+        ),
+        container: DIContainer(),
+        onFinish: {}
+    )
 }

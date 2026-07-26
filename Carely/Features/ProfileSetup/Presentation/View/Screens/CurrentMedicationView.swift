@@ -18,21 +18,13 @@ struct CurrentMedicationView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            AppHeader(title: "CareConnect", trailingIcon: "person.fill") {}
-                .padding(.horizontal, Spacing.s16)
-
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: Spacing.s24) {
 
-                    VStack(alignment: .leading, spacing: Spacing.s8) {
-                        Text("Current Medications")
-                            .carelyText(style: .heading2, weight: .semiBold)
-                            .foregroundColor(.primaryFont)
-
-                        Text("Please list all medications you are currently taking, including dosage and frequency if possible.")
-                            .carelyText(style: .bodyRegular)
-                            .foregroundColor(.secondaryFont)
-                    }
+                    ProfileSetupHeaderView(
+                        title: "Current Medications",
+                        subtitle: "Please list all medications you are currently taking, including dosage and frequency if possible."
+                    )
 
                     noCurrentMedicationsToggle
 
@@ -51,15 +43,18 @@ struct CurrentMedicationView: View {
                         .opacity(viewModel.hasNoCurrentMedications ? 0.4 : 1)
                 }
                 .padding(.horizontal, Spacing.s16)
-                .padding(.top, Spacing.s24)
+                .padding(.top, Spacing.s0)
                 .padding(.bottom, Spacing.s24)
             }
-
-            footerButtons
-                .padding(.horizontal, Spacing.s16)
-                .padding(.vertical, Spacing.s16)
         }
         .background(Color.backGround.ignoresSafeArea())
+        .safeAreaInset(edge: .bottom) {
+            HealthProfileBottomActionsView(
+                onBackTapped: viewModel.backTapped,
+                onContinueTapped: viewModel.continueTapped
+            )
+        }
+        .careConnectNavigationBar(title: "CareConnect", trailingIcon: "person.fill")
     }
 
 
@@ -192,23 +187,6 @@ struct CurrentMedicationView: View {
         }
     }
 
-    private var footerButtons: some View {
-        GeometryReader { geometry in
-            let spacing = Spacing.s12
-            let availableWidth = geometry.size.width - spacing
-            let backWidth = availableWidth * 0.25
-            let continueWidth = availableWidth * 0.75
-
-            HStack(spacing: spacing) {
-                SecondaryButton(title: "Back", isFullWidth: true, action: viewModel.backTapped)
-                    .frame(width: backWidth)
-
-                PrimaryButton(title: "Continue", action: viewModel.continueTapped)
-                    .frame(width: continueWidth)
-            }
-        }
-        .frame(height: Spacing.s48)
-    }
 
     private func binding(for medication: MedicationItem) -> Binding<String> {
         Binding(
@@ -223,10 +201,13 @@ struct CurrentMedicationView: View {
     }
 }
 
-//#Preview {
-//    CurrentMedicationView(
-//        viewModel: CurrentMedicationViewModel(
-//            coordinator: ProfileSetupCoordinator(data: ProfileSetupData())
-//        )
-//    )
-//}
+#Preview("Current Medication - In Coordinator") {
+    ProfileSetupCoordinatorView(
+        coordinator: ProfileSetupCoordinator(
+            data: ProfileSetupData(),
+            startingStep: .currentMedication
+        ),
+        container: DIContainer(),
+        onFinish: {}
+    )
+}

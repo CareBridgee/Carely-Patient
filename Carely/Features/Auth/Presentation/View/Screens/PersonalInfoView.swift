@@ -19,8 +19,6 @@ struct PersonalInfoView: View {
     var body: some View {
         VStack(spacing: Spacing.s20) {
             
-            AppHeader(title: "Enaya",showBackButton: false)
-            
             PersonalInfoFormCard(viewModel: viewModel)
                 .padding(.top, Spacing.s24)
             
@@ -28,6 +26,6 @@ struct PersonalInfoView: View {
         }
         .padding(.horizontal, Spacing.s16)
         .background(Color.backGround.ignoresSafeArea())
-        .toolbar(.hidden, for: .navigationBar)
+        .careConnectNavigationBar(title: "Enaya", showBackButton: false)
     }
 }

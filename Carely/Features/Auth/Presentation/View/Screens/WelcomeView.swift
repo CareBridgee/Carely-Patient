@@ -19,18 +19,23 @@ struct WelcomeView : View {
     
     var body: some View {
         VStack {
+            Spacer(minLength: Spacing.s64)
+            Spacer(minLength: Spacing.s20)
+
             Image.careConnect
                 .resizable()
                 .scaledToFit()
                 .frame(width: 350, height: 350)
-            Spacer()
-            Text("Care Connect")
-                .carelyText(style: .display, weight: .light)
-                .foregroundColor(.brandPrimary)
+              Spacer()
+//            Text("Care Connect")
+//                .carelyText(style: .display, weight: .light)
+//                .foregroundColor(.brandPrimary)
                 
             
-            Text("Reassuring care for you and your loved ones")
+            Text("Your trusted partner for professional home healthcare, bringing reassuring care to you and your loved ones.")
                 .carelyText(style: .bodyRegular, weight: .light)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, Spacing.s24)
             
             Spacer()
             
@@ -72,15 +77,15 @@ struct WelcomeView : View {
                 +
                 Text("Terms of use ")
                     .foregroundColor(.brandPrimary)
-                    .bold()
+                    .fontWeight(.medium)
                 +
                 Text("and ")
                     .foregroundColor(.primaryFont)
-                    .bold()
+                    .fontWeight(.medium)
                 +
                 Text("privacy policy")
                     .foregroundColor(.brandPrimary)
-                    .bold()
+                    .fontWeight(.medium)
             )
             .carelyText(style: .bodySmall, weight: .regular)
             .multilineTextAlignment(.center)

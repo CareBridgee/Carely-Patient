@@ -14,7 +14,10 @@ struct ExistingConditionsView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: Spacing.s20) {
                 
-                headerTitles
+                ProfileSetupHeaderView(
+                    title: "Any existing conditions?",
+                    subtitle: "Select all that apply to help us provide more personalized care for your needs."
+                )
                 
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: Spacing.s20), GridItem(.flexible())], spacing: Spacing.s16) {
                     ForEach(viewModel.availableConditions, id: \.title) { condition in
@@ -44,21 +47,7 @@ struct ExistingConditionsView: View {
                 onContinueTapped: {
                     coordinator.save(existingConditions: viewModel.existingConditions)
                     coordinator.next() }
-            )
-        } .ignoresSafeArea(.keyboard, edges: .bottom)
+                )}
     }
     
-    
-    private var headerTitles: some View {
-        VStack(alignment: .leading, spacing: Spacing.s8) {
-            Text("Any existing conditions?")
-                .carelyText(style: .bodyLarge, weight: .medium )
-                .foregroundColor(.primaryFont)
-            
-            Text("Select all that apply to help us provide more personalized care for your needs.")
-                .carelyText(style: .bodySmall, weight: .light)
-                .foregroundColor(.secondaryFont)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
 }

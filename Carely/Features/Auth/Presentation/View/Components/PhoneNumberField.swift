@@ -20,7 +20,8 @@ struct PhoneNumberField: View {
         VStack(alignment: .leading, spacing: 8) {
 
             Text("Phone Number")
-                .carelyText(style: .bodyLarge)
+                .carelyText(style: .bodyRegular)
+                .foregroundStyle(Color.brandPrimary)
 
             HStack {
 

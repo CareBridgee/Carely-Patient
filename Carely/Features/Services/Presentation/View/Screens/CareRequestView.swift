@@ -57,12 +57,7 @@ struct CareRequestView: View {
             .background(Color.backGround)
         }
         .background(Color.backGround.ignoresSafeArea())
-        .toolbar(.hidden, for: .navigationBar)
-        .safeAreaInset(edge: .top) {
-            AppHeader(title: "Care Request", trailingIcon: "questionmark")
-                .padding(.horizontal, Spacing.s16)
-                .background(Color.backGround)
-        }
+        .careConnectNavigationBar(title: "Care Request", trailingIcon: "questionmark")
         .task { await viewModel.onAppear() }
         
         Spacer(minLength: Spacing.s56)

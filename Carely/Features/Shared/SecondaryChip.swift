@@ -10,16 +10,19 @@ import SwiftUI
 struct SecondaryChip: View {
     let title: String
     var background: Color = .backGround
-    var foreground: Color = .primaryFont
+    var foreground: Color = .brandPrimary
     var borderColor: Color = .hint
     var isSelected: Bool = false
+    var textStyle: CarelyTextStyle = .bodyRegular
+    var paddingHorizontal: CGFloat = 20
+    var paddingVertical: CGFloat = 12
 
     var body: some View {
         Text(title)
-            .carelyText(style: .bodyRegular)
+            .carelyText(style: textStyle)
             .foregroundColor(isSelected ? Color.onSecondary : foreground)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
+            .padding(.horizontal, paddingHorizontal)
+            .padding(.vertical, paddingVertical)
             .background(isSelected ? foreground : background)
             .clipShape(Capsule())
             .overlay(

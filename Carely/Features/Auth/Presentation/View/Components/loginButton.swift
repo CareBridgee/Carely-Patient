@@ -44,8 +44,7 @@ struct loginButton: View {
                 }
 
                 Text(title)
-                    .carelyText(style: .bodyLarge, weight: .light)
-                    .fontWeight(.semibold)
+                    .carelyText(style: .bodyRegular, weight: .medium)
             }
             .frame(maxWidth: .infinity)
             .padding()
@@ -60,4 +59,25 @@ struct loginButton: View {
             .padding(.bottom, 8)
         
     }
+}
+
+#Preview {
+    VStack(spacing: Spacing.s16) {
+        loginButton(
+            title: "Continue with Google",
+            image: Image(systemName: "globe"),
+            backgroundColor: .white,
+            foregroundColor: .black,
+            strokeColor: .gray
+        ) {}
+        
+        loginButton(
+            title: "Continue with Phone",
+            image: Image(systemName: "phone"),
+            backgroundColor: .blue,
+            foregroundColor: .white,
+            strokeColor: .blue
+        ) {}
+    }
+    .padding()
 }

@@ -17,7 +17,11 @@ struct SecurityCard: View {
                 .fill(Color.teal.opacity(0.25))
                 .frame(width: 56, height: 56)
                 .overlay {
-                    Image(systemName: "shield.fill")
+                    Image.secureCare
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                         .foregroundStyle(.teal)
                 }
 
