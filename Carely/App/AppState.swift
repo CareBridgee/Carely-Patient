@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import Foundation
 
 enum AppFlow: Equatable {
@@ -15,25 +16,19 @@ enum AppFlow: Equatable {
     case home
 }
 
+@MainActor
 final class AppState: ObservableObject {
-
     @Published private(set) var flow: AppFlow
 
-    private static let signedInKey = "isSignedIn"
+    private let sessionManager: SessionManager
+    private var cancellables = Set<AnyCancellable>()
 
-    init() {
-        let isSignedIn = UserDefaults.standard.bool(forKey: Self.signedInKey)
-        self.flow = isSignedIn ? .home : .auth
+    init(sessionManager: SessionManager) {
+        self.sessionManager = sessionManager
+        self.flow =  .auth
+        //sessionManager.state == .loggedIn ? .home :
     }
 
-    func signIn() {
-        UserDefaults.standard.set(true, forKey: Self.signedInKey)
-    }
-    
-    func signOut() {
-        UserDefaults.standard.set(false, forKey: Self.signedInKey)
-    }
-    
     func startProfileSetup() {
         flow = .profileSetup //ProfileSetupCoordinator
     }
@@ -45,9 +40,9 @@ final class AppState: ObservableObject {
     func goToProfileSetupDecision() {
         flow = .profileSetupDecision // oneScreen
     }
-    
+
     func startAuthFlow() {
         flow = .auth // AuthCoordinator
     }
-    
+
 }

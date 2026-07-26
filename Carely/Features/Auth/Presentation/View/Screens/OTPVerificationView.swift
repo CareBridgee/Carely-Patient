@@ -57,12 +57,4 @@ struct OTPVerificationView: View {
     }
 }
 
-#Preview {
-    OTPVerificationView(
-        viewModel: OTPVerificationViewModel(
-            phoneNumber: "+20 100 123 4567",
-            verifyOTPUseCase: VerifyOTPUseCase(repository: AuthRepositoryImpl()),
-            router: AuthRouter()
-        )
-    )
-}
+
