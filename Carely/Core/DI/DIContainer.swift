@@ -226,9 +226,21 @@ final class DIContainer {
         )
     }
     
+    // MARK: - Service Catalog (shared by Home + Services features)
+
+    private lazy var serviceTypeService: ServiceTypeServiceProtocol = ServiceTypeServiceImpl(
+        networkClient: networkClient
+    )
+
     // MARK: - Home Repository
+
+    private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl(
+        serviceTypeService: serviceTypeService
+    )
+    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
+        CareRequestRepositoryImpl(serviceTypeService: serviceTypeService)
+    }()
     
-    private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl()
     
     // MARK: - Home UseCases
     
@@ -254,7 +266,7 @@ final class DIContainer {
     
     // MARK: - Home ViewModels
     
-    func makeHomeViewModel(onServiceTabbed: @escaping () -> Void) -> HomeViewModel {
+    func makeHomeViewModel(onServiceTabbed: @escaping (String) -> Void) -> HomeViewModel {
         HomeViewModel(
             getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
@@ -280,9 +292,7 @@ final class DIContainer {
             coordinator: coordinator
         )
     }
-    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
-        CareRequestRepositoryImpl()
-    }()
+    
     
     func makeCareRequestViewModel(
         preselectedService: CareService,

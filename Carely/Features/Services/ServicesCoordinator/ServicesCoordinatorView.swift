@@ -28,9 +28,9 @@ struct ServicesCoordinatorView: View {
     private func destination(for route: ServicesRoute) -> some View {
         switch route {
             
-        case .serviceDetails(let source):
+        case .serviceDetails(let id, let source):
             ServiceDetailsView(
-                viewModel: container.makeServiceDetailsViewModel(serviceId: "injection",source: source,coordinator: coordinator)
+                viewModel: container.makeServiceDetailsViewModel(serviceId: id, source: source, coordinator: coordinator)
             )
 
         case .requestService(let entryPoint):

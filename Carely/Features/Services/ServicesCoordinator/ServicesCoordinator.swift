@@ -86,8 +86,8 @@ final class ServicesCoordinator: AppRouterProtocol {
     var onBackClicked: (() -> Void)?
     
     
-    func openServiceFromHome() {
-        push(to: .serviceDetails(source: .home))
+    func openServiceFromHome(id: String) {
+        push(to: .serviceDetails(id: id, source: .home))
     }
    
 

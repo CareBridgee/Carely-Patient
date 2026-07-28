@@ -27,13 +27,13 @@ final class HomeViewModel: ObservableObject {
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     
-    private var onServiceTabbed: () -> Void
+    private var onServiceTabbed: (String) -> Void
     init(
         getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
-        onServiceTabbed: @escaping () -> Void
-    ) {
+        onServiceTabbed: @escaping (String) -> Void
+    )  {
         self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
@@ -72,7 +72,7 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        onServiceTabbed()
+        onServiceTabbed(category.id)
     }
  
     func viewAllServicesTapped() {

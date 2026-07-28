@@ -122,6 +122,10 @@
 		396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C43010794F00AC4137 /* PriceDurationCard.swift */; };
 		396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C63010796600AC4137 /* IncludedItemRow.swift */; };
 		396495C93010797900AC4137 /* HelpBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C83010797800AC4137 /* HelpBannerView.swift */; };
+		39A06E7E301806F2008E9E7B /* ServiceTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */; };
+		39A06E813018073F008E9E7B /* ServiceTypeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */; };
+		39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E823018075F008E9E7B /* ServiceTypeService.swift */; };
+		39A06E8630180787008E9E7B /* ServiceTypeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E8530180786008E9E7B /* ServiceTypeMapper.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
 		B38E56AB3013A98000A9F153 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */; };
@@ -432,6 +436,10 @@
 		396495C43010794F00AC4137 /* PriceDurationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDurationCard.swift; sourceTree = "<group>"; };
 		396495C63010796600AC4137 /* IncludedItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncludedItemRow.swift; sourceTree = "<group>"; };
 		396495C83010797800AC4137 /* HelpBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBannerView.swift; sourceTree = "<group>"; };
+		39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeDTO.swift; sourceTree = "<group>"; };
+		39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeEndpoint.swift; sourceTree = "<group>"; };
+		39A06E823018075F008E9E7B /* ServiceTypeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeService.swift; sourceTree = "<group>"; };
+		39A06E8530180786008E9E7B /* ServiceTypeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeMapper.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
 		B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
@@ -712,7 +720,6 @@
 		0C3D8849300844BA00883999 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				0C3D88943008501500883999 /* Shared */,
 				0C906522301504EF00DDBAB7 /* AIAssistant */,
 				3926563A301429F100AFD6F4 /* VisitCompleted */,
 				0C6BAE2830124A3D00759ED0 /* NurseProfile */,
@@ -952,127 +959,6 @@
 				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		392656473014410300AFD6F4 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				392656753014423F00AFD6F4 /* ProfileCoordinator */,
-				3926565C3014419700AFD6F4 /* Presentation */,
-				392656583014417C00AFD6F4 /* Data */,
-				392656483014411300AFD6F4 /* Domain */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		392656483014411300AFD6F4 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				392656513014415300AFD6F4 /* UseCases */,
-				3926564E3014414200AFD6F4 /* Repositories */,
-				392656493014411900AFD6F4 /* Entities */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		392656493014411900AFD6F4 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				3926564C3014413500AFD6F4 /* FamilyMember.swift */,
-				3926564A3014412000AFD6F4 /* PatientProfile.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		3926564E3014414200AFD6F4 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		392656513014415300AFD6F4 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */,
-				392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
-		392656583014417C00AFD6F4 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				392656593014418200AFD6F4 /* Repositories */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		392656593014418200AFD6F4 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		3926565C3014419700AFD6F4 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				39265664301441CE00AFD6F4 /* View */,
-				3926565D3014419D00AFD6F4 /* ViewModel */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		39265664301441CE00AFD6F4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3926566E3014420D00AFD6F4 /* Screens */,
-				39265665301441D300AFD6F4 /* Components */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		3926565D3014419D00AFD6F4 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				39265662301441C100AFD6F4 /* SettingsViewModel.swift */,
-				39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */,
-				3926565E301441A600AFD6F4 /* ProfileViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		39265665301441D300AFD6F4 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				3926566C301441FF00AFD6F4 /* SettingsRow.swift */,
-				3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */,
-				39265668301441E600AFD6F4 /* ProfileMenuRow.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		3926566E3014420D00AFD6F4 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				392656733014422D00AFD6F4 /* SettingsView.swift */,
-				392656713014422000AFD6F4 /* FamilyMembersView.swift */,
-				3926566F3014421400AFD6F4 /* ProfileView.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		392656753014423F00AFD6F4 /* ProfileCoordinator */ = {
-			isa = PBXGroup;
-			children = (
-				3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */,
-				392656783014424F00AFD6F4 /* ProfileCoordinator.swift */,
-				392656763014424500AFD6F4 /* ProfileRoute.swift */,
-			);
-			path = ProfileCoordinator;
 			sourceTree = "<group>";
 		};
 		0C6BAE2430122CD700759ED0 /* OfferAccepted */ = {
@@ -1330,6 +1216,127 @@
 			path = VisitCompleted;
 			sourceTree = "<group>";
 		};
+		392656473014410300AFD6F4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				392656753014423F00AFD6F4 /* ProfileCoordinator */,
+				3926565C3014419700AFD6F4 /* Presentation */,
+				392656583014417C00AFD6F4 /* Data */,
+				392656483014411300AFD6F4 /* Domain */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		392656483014411300AFD6F4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				392656513014415300AFD6F4 /* UseCases */,
+				3926564E3014414200AFD6F4 /* Repositories */,
+				392656493014411900AFD6F4 /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		392656493014411900AFD6F4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				3926564C3014413500AFD6F4 /* FamilyMember.swift */,
+				3926564A3014412000AFD6F4 /* PatientProfile.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		3926564E3014414200AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		392656513014415300AFD6F4 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */,
+				392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		392656583014417C00AFD6F4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				392656593014418200AFD6F4 /* Repositories */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		392656593014418200AFD6F4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		3926565C3014419700AFD6F4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				39265664301441CE00AFD6F4 /* View */,
+				3926565D3014419D00AFD6F4 /* ViewModel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		3926565D3014419D00AFD6F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				39265662301441C100AFD6F4 /* SettingsViewModel.swift */,
+				39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */,
+				3926565E301441A600AFD6F4 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		39265664301441CE00AFD6F4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3926566E3014420D00AFD6F4 /* Screens */,
+				39265665301441D300AFD6F4 /* Components */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		39265665301441D300AFD6F4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3926566C301441FF00AFD6F4 /* SettingsRow.swift */,
+				3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */,
+				39265668301441E600AFD6F4 /* ProfileMenuRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3926566E3014420D00AFD6F4 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				392656733014422D00AFD6F4 /* SettingsView.swift */,
+				392656713014422000AFD6F4 /* FamilyMembersView.swift */,
+				3926566F3014421400AFD6F4 /* ProfileView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		392656753014423F00AFD6F4 /* ProfileCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */,
+				392656783014424F00AFD6F4 /* ProfileCoordinator.swift */,
+				392656763014424500AFD6F4 /* ProfileRoute.swift */,
+			);
+			path = ProfileCoordinator;
+			sourceTree = "<group>";
+		};
 		39649593301076CA00AC4137 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1344,6 +1351,9 @@
 		396495D230107ADB00AC4137 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				39A06E843018077D008E9E7B /* Mappers */,
+				39A06E7F30180734008E9E7B /* Services */,
+				39A06E7C301806CE008E9E7B /* DTOs */,
 				396495DE30107B9400AC4137 /* Repositories */,
 			);
 			path = Data;
@@ -1447,6 +1457,31 @@
 				396495A63010780700AC4137 /* HomeRepositoryImpl.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		39A06E7C301806CE008E9E7B /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		39A06E7F30180734008E9E7B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				39A06E823018075F008E9E7B /* ServiceTypeService.swift */,
+				39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		39A06E843018077D008E9E7B /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				39A06E8530180786008E9E7B /* ServiceTypeMapper.swift */,
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		B38E56B63013AE4900A9F153 /* Frameworks */ = {
@@ -2008,6 +2043,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39A06E813018073F008E9E7B /* ServiceTypeEndpoint.swift in Sources */,
 				C6C3BE07300A526600C5FC25 /* CompleteHealthProfileButton.swift in Sources */,
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */,
@@ -2037,6 +2073,7 @@
 				C6C28D973013B98C00FEDA97 /* PatientSelectorRow.swift in Sources */,
 				C6C28D983013B98C00FEDA97 /* FetchSavedAddressUseCase.swift in Sources */,
 				C6C28D993013B98C00FEDA97 /* NurseOffer.swift in Sources */,
+				39A06E7E301806F2008E9E7B /* ServiceTypeDTO.swift in Sources */,
 				C6C28D9A3013B98C00FEDA97 /* ObserveOffersUseCase.swift in Sources */,
 				C6C28D9B3013B98C00FEDA97 /* OfferSearchingRepositoryProtocol.swift in Sources */,
 				C6C28D9C3013B98C00FEDA97 /* ServiceDetailsViewModel.swift in Sources */,
@@ -2045,6 +2082,7 @@
 				C6C28D9F3013B98C00FEDA97 /* NurseOfferCardView.swift in Sources */,
 				C6C28DA03013B98C00FEDA97 /* AllServiceViewModel.swift in Sources */,
 				C6C28DA13013B98C00FEDA97 /* ChosenServiceRow.swift in Sources */,
+				39A06E8630180787008E9E7B /* ServiceTypeMapper.swift in Sources */,
 				C6C28DA23013B98C00FEDA97 /* PaymentMethodRow.swift in Sources */,
 				C6C28DA33013B98C00FEDA97 /* AllServiceView.swift in Sources */,
 				C6C28DA43013B98C00FEDA97 /* SubmitCareRequestUseCase.swift in Sources */,
@@ -2189,6 +2227,7 @@
 				39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */,
 				39265645301429F100AFD6F4 /* VisitRating.swift in Sources */,
 				39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */,
+				39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
