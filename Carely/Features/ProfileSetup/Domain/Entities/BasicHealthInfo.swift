@@ -12,3 +12,10 @@ struct BasicHealthInfo {
     var weight: Double?
     var bloodType : String
 }
+extension BasicHealthInfo: Equatable {
+    static func == (lhs: BasicHealthInfo, rhs: BasicHealthInfo) -> Bool {
+        return lhs.height == rhs.height &&
+               lhs.weight == rhs.weight &&
+               lhs.bloodType == rhs.bloodType
+    }
+}

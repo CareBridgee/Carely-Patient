@@ -1,3 +1,11 @@
+//
+//  ProfileSetupUseCases.swift
+//  Carely
+//
+//  Created by Mahmoud Raafat Mustafa on 28/07/2026.
+//
+
+
 import Foundation
 
 struct ProfileSetupUseCases {
@@ -12,23 +20,76 @@ struct ProfileSetupUseCases {
     let saveAddress: SaveHomeAddressUseCase
 }
 
-// Implementations:
+// MARK: - Implementations
+
 final class GetDefaultProfileIdUseCase {
     private let repo: ProfileSetupRepositoryProtocol
     init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
-    func execute() async throws -> String { try await repo.fetchDefaultProfileId() }
+    func execute() async throws -> String {
+        try await repo.fetchDefaultProfileId()
+    }
 }
 
 final class UpdateBasicHealthInfoUseCase {
     private let repo: ProfileSetupRepositoryProtocol
     init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
-    func execute(profileId: String, info: BasicHealthInfo) async throws { try await repo.updateBasicInfo(profileId: profileId, info: info) }
+    func execute(profileId: String, info: BasicHealthInfo) async throws {
+        try await repo.updateBasicInfo(profileId: profileId, info: info)
+    }
+}
+
+final class UpdateMobilityUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, mobility: Mobility) async throws {
+        try await repo.updateMobility(profileId: profileId, mobility: mobility)
+    }
+}
+
+final class SaveExistingConditionsUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, conditions: ExistingConditions) async throws {
+        try await repo.saveMedicalConditions(profileId: profileId, conditions: conditions)
+    }
+}
+
+final class SaveAllergiesUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, allergies: Allergies) async throws {
+        try await repo.saveAllergies(profileId: profileId, allergies: allergies)
+    }
+}
+
+final class SaveMedicationsUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, medications: CurrentMedication) async throws {
+        try await repo.saveMedications(profileId: profileId, medications: medications)
+    }
 }
 
 final class SaveMedicalHistoryUseCase {
     private let repo: ProfileSetupRepositoryProtocol
     init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
-    func execute(profileId: String, history: MedicalHistory) async throws { try await repo.saveMedicalHistory(profileId: profileId, history: history) }
+    func execute(profileId: String, history: MedicalHistory) async throws {
+        try await repo.saveMedicalHistory(profileId: profileId, history: history)
+    }
 }
 
-// ... [Repeat exact same 1-line wrapper pattern for Mobility, Conditions, Allergies, Medications, Contact, Address] ...
+final class SaveEmergencyContactUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, contact: EmergencyContact) async throws {
+        try await repo.saveEmergencyContact(profileId: profileId, contact: contact)
+    }
+}
+
+final class SaveHomeAddressUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, address: HomeAddress) async throws {
+        try await repo.saveAddress(profileId: profileId, address: address)
+    }
+}

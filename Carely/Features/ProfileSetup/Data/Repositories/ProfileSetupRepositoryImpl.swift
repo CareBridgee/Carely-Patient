@@ -1,5 +1,5 @@
 //
-//  HomeAddressRepositoryImpl.swift
+//  ProfileSetupRepositoryImpl.swift
 //  Carely
 //
 
@@ -7,14 +7,14 @@ import Foundation
 import CoreLocation
 import Combine
 
-final class HomeAddressRepositoryImpl: HomeAddressRepositoryProtocol {
+final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
 
     // MARK: - Services (private implementation details)
 
     private let searchService: MapSearchService
     private let geocodingService: GeocodingService
     private let locationProvider: CurrentLocationProviderProtocol
-
+    private let service: ProfileSetupServiceProtocol
     // MARK: - Internal Combine pipeline (never leaks past this boundary)
 
     private var cancellable: AnyCancellable?
@@ -25,11 +25,13 @@ final class HomeAddressRepositoryImpl: HomeAddressRepositoryProtocol {
     init(
         searchService: MapSearchService,
         geocodingService: GeocodingService,
-        locationProvider: CurrentLocationProviderProtocol
+        locationProvider: CurrentLocationProviderProtocol,
+        service: ProfileSetupServiceProtocol
     ) {
         self.searchService = searchService
         self.geocodingService = geocodingService
         self.locationProvider = locationProvider
+        self.service = service
     }
 
     // MARK: - Search
@@ -94,6 +96,62 @@ final class HomeAddressRepositoryImpl: HomeAddressRepositoryProtocol {
         }
         return try await reverseGeocode(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
+    func fetchDefaultProfileId() async throws -> String {
+            return try await service.fetchDefaultProfileId()
+        }
+
+        func updateBasicInfo(profileId: String, info: BasicHealthInfo) async throws {
+            let request = UpdateProfileRequestDTO(height: info.height, weight: info.weight, bloodType: info.bloodType)
+            try await service.updateProfile(id: profileId, request: request)
+        }
+        
+    func updateMobility(profileId: String, mobility: Mobility) async throws {
+    
+            let request = UpdateProfileRequestDTO(
+                mobilityStatus: mobility.status?.title,
+                mobilityNotes: mobility.additionalNotes
+            )
+            try await service.updateProfile(id: profileId, request: request)
+        }
+    func saveMedicalHistory(profileId: String, history: MedicalHistory) async throws {
+            let request = UpdateProfileRequestDTO(
+                previousSurgeries: history.previousSurgeries,
+                previousHospitalizations: history.previousHospitalizations
+            )
+            try await service.updateProfile(id: profileId, request: request)
+        }
+        func saveMedicalConditions(profileId: String, conditions: ExistingConditions) async throws {
+            let request = MedicalConditionRequestDTO(conditions: Array(conditions.selectedConditions), otherDiseases: conditions.otherDiseases)
+            try await service.saveMedicalConditions(profileId: profileId, request: request)
+        }
+
+        func saveAllergies(profileId: String, allergies: Allergies) async throws {
+            let request = AllergyRequestDTO(drugAllergies: Array(allergies.drugAllergies), foodAllergies: Array(allergies.foodAllergies), otherAllergiesNote: allergies.otherAllergiesNote)
+            try await service.saveAllergies(profileId: profileId, request: request)
+        }
+
+        func saveMedications(profileId: String, medications: CurrentMedication) async throws {
+            let medNames = medications.medications.map { $0.name }.filter { !$0.isEmpty }
+            let request = MedicationRequestDTO(medications: medNames)
+            try await service.saveMedications(profileId: profileId, request: request)
+        }
+
+ 
+
+        func saveEmergencyContact(profileId: String, contact: EmergencyContact) async throws {
+            let request = EmergencyContactRequestDTO(contactName: contact.name, phoneNumber: contact.phoneNumber, relationship: contact.relationship)
+            try await service.saveEmergencyContact(profileId: profileId, request: request)
+        }
+
+        func saveAddress(profileId: String, address: HomeAddress) async throws {
+            let request = AddressRequestDTO(
+                country: address.country, city: address.city, area: address.area,
+                street: address.streetName, buildingNumber: address.building, apartmentNumber: address.apartment,
+                latitude: address.latitude ?? 0.0, longitude: address.longitude ?? 0.0
+            )
+            try await service.saveAddress(profileId: profileId, request: request)
+        }
+
 }
 
 // MARK: - Errors
