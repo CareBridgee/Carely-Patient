@@ -50,7 +50,17 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
     }
 
     func savePersonalInfo(basicInfo: BasicUserInfo) async throws {
-        // TODO: Wire to actual API when backend endpoint is available
-        try await Task.sleep(nanoseconds: 1_200_000_000)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        let dobString = formatter.string(from: basicInfo.dateOfBirth)
+
+        try await authService.savePersonalInfo(
+            firstName: basicInfo.firstName,
+            lastName: basicInfo.secondName,
+            dateOfBirth: dobString,
+            gender: basicInfo.Gender.rawValue,
+            profileImage: basicInfo.profileImage
+        )
     }
-}
+    }
+
