@@ -89,12 +89,21 @@ struct HomeAddressView: View {
         }
         .background(Color.backGround)
         .safeAreaInset(edge: .bottom) {
-            HealthProfileBottomActionsView(
-                continueTitle: "Finish Setup",
-                onBackTapped: viewModel.backTapped,
-                onContinueTapped: viewModel.finishSetupTapped
-            )
-        }
+                    HealthProfileBottomActionsView(
+                        isContinueDisabled: false,
+                        showBackButton: true,
+                        continueTitle: viewModel.isLoading ? "Finishing..." : "Finish Setup",
+                        onBackTapped: viewModel.backTapped,
+                        onContinueTapped: viewModel.finishSetupTapped
+                    )
+                    .opacity(viewModel.isLoading ? 0.5 : 1)
+                    .disabled(viewModel.isLoading)
+                }
+                .alert("Error", isPresented: $viewModel.showError) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text(viewModel.errorMessage ?? "Something went wrong.")
+                }
         .sheet(isPresented: $viewModel.isMapPickerPresented) {
             AddressMapPickerBottomSheet(viewModel: viewModel.mapPickerViewModel)
                 .presentationDetents([.fraction(0.85), .large])
