@@ -5,36 +5,39 @@
 
 import Alamofire
 import Foundation
-
 enum AuthEndpoint: Endpoint {
     case login(phoneNumber: String)
-    case requestOTPDev(phoneNumber: String) // for developer not release
+    case requestOTPDev(phoneNumber: String)
     case verifyOTP(phoneNumber: String, otp: String)
     case profile(phoneNumber: String)
     case refresh(refreshToken: String)
     case logout(refreshToken: String)
+    case getDefaultProfile
+    case updateProfile(id: String, request: PersonalInfoRequestDTO)
+    case updateUser(request: UserUpdateRequestDTO)
+    case uploadFile
 
     var path: String {
         switch self {
-        case .login:
-            return "/api/v1/auth/login"
-        case .requestOTPDev:
-            return "/api/v1/auth/dev/request-otp"
-        case .verifyOTP:
-            return "/api/v1/auth/verify-otp"
-        case .profile:
-            return "/api/v1/auth/profile"
-        case .refresh:
-            return "/api/v1/auth/refresh"
-        case .logout:
-            return "/api/v1/auth/logout"
+        case .login: return "/api/v1/auth/login"
+        case .requestOTPDev: return "/api/v1/auth/dev/request-otp"
+        case .verifyOTP: return "/api/v1/auth/verify-otp"
+        case .profile: return "/api/v1/auth/profile"
+        case .refresh: return "/api/v1/auth/refresh"
+        case .logout: return "/api/v1/auth/logout"
+        case .getDefaultProfile: return "/api/v1/profiles/default"
+        case .updateProfile(let id, _): return "/api/v1/profiles/\(id)"
+        case .updateUser: return "/api/v1/users/me"
+        case .uploadFile: return "/api/v1/upload"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .profile:
+        case .profile, .getDefaultProfile:    
             return .get
+        case .updateProfile, .updateUser:
+            return .put
         default:
             return .post
         }
@@ -42,27 +45,22 @@ enum AuthEndpoint: Endpoint {
 
     var parameters: Parameters? {
         switch self {
-        case .login(let phoneNumber):
-            return ["phoneNumber": phoneNumber]
-        case .requestOTPDev(let phoneNumber):
-            return ["phoneNumber": phoneNumber]
-        case .verifyOTP(let phoneNumber, let otp):
-            return ["phoneNumber": phoneNumber, "otp": otp]
-        case .profile(let phoneNumber):
-            return ["phoneNumber": phoneNumber]
-        case .refresh(let refreshToken):
-            return ["refreshToken": refreshToken]
-        case .logout(let refreshToken):
-            return ["refreshToken": refreshToken]
+        case .login(let p): return ["phoneNumber": p]
+        case .requestOTPDev(let p): return ["phoneNumber": p]
+        case .verifyOTP(let p, let otp): return ["phoneNumber": p, "otp": otp]
+        case .profile(let p): return ["phoneNumber": p]
+        case .refresh(let r): return ["refreshToken": r]
+        case .logout(let r): return ["refreshToken": r]
+        case .getDefaultProfile, .uploadFile: return nil
+        case .updateProfile(_, let request): return request.asParameters()
+        case .updateUser(let request): return request.asParameters()
         }
     }
 
     var authorizationType: AuthorizationType {
         switch self {
-        case .login, .requestOTPDev, .verifyOTP, .refresh:
-            return .none
-        case .profile, .logout:
-            return .bearer
+        case .login, .requestOTPDev, .verifyOTP, .refresh: return .none
+        default: return .bearer
         }
     }
 }

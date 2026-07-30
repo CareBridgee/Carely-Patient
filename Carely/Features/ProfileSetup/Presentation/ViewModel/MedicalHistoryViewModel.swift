@@ -7,41 +7,77 @@
 
 import Foundation
 
-
 @MainActor
 final class MedicalHistoryViewModel: ObservableObject {
 
     @Published var previousSurgeries: String
     @Published var previousHospitalizations: String
 
-    private let coordinator: ProfileSetupCoordinator
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String? = nil
+    @Published var showError: Bool = false
 
-    init(coordinator: ProfileSetupCoordinator) {
-        self.coordinator = coordinator
-        self.previousSurgeries = coordinator.data.medicalHistory.previousSurgeries
-        self.previousHospitalizations = coordinator.data.medicalHistory.previousHospitalizations
+    private let getProfileIdUseCase: GetDefaultProfileIdUseCase
+    private let saveMedicalHistoryUseCase: SaveMedicalHistoryUseCase
+    private let onContinue: (MedicalHistory) -> Void
+    private let onBack: (MedicalHistory) -> Void
+
+    init(
+        existingData: MedicalHistory,
+        getProfileIdUseCase: GetDefaultProfileIdUseCase,
+        saveMedicalHistoryUseCase: SaveMedicalHistoryUseCase,
+        onContinue: @escaping (MedicalHistory) -> Void,
+        onBack: @escaping (MedicalHistory) -> Void
+    ) {
+        self.previousSurgeries = existingData.previousSurgeries
+        self.previousHospitalizations = existingData.previousHospitalizations
+        self.getProfileIdUseCase = getProfileIdUseCase
+        self.saveMedicalHistoryUseCase = saveMedicalHistoryUseCase
+        self.onContinue = onContinue
+        self.onBack = onBack
     }
 
-    var showBackButton: Bool {
-        !coordinator.isFirstStep
+    var history: MedicalHistory {
+        MedicalHistory(
+            previousSurgeries: previousSurgeries.trimmingCharacters(in: .whitespacesAndNewlines),
+            previousHospitalizations: previousHospitalizations.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
     }
 
     func backTapped() {
-        persist()
-        coordinator.previous()
+        onBack(history)
     }
 
     func continueTapped() {
-        persist()
-        coordinator.next()
-    }
+        let currentHistory = self.history
+        if currentHistory.previousSurgeries.isEmpty && currentHistory.previousHospitalizations.isEmpty {
+            onContinue(currentHistory)
+            return
+        }
 
-    private func persist() {
-        coordinator.save(
-            medicalHistory: MedicalHistory(
-                previousSurgeries: previousSurgeries.trimmingCharacters(in: .whitespacesAndNewlines),
-                previousHospitalizations: previousHospitalizations.trimmingCharacters(in: .whitespacesAndNewlines)
-            )
-        )
+        guard NetworkMonitor.shared.isConnected else {
+            self.errorMessage = "No internet connection. Please check your network."
+            self.showError = true
+            return
+        }
+
+        isLoading = true
+        errorMessage = nil
+
+        Task {
+            do {
+                let profileId = try await getProfileIdUseCase.execute()
+                
+                try await saveMedicalHistoryUseCase.execute(profileId: profileId, history: currentHistory)
+                
+                self.isLoading = false
+                self.onContinue(currentHistory)
+                
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
+                self.showError = true
+            }
+        }
     }
 }

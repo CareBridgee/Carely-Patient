@@ -42,7 +42,12 @@ struct ProfileSetupCoordinatorView: View {
             Group {
                 switch coordinator.currentStep {
                 case .basicHealthInfo:
-                    BasicHealthInfoView(coordinator: coordinator, viewModel: container.makeBasicInfoHealthViewModel(existingData: coordinator.data.basicHealthInfo ))
+                    BasicHealthInfoView(
+                        viewModel: container.makeBasicInfoHealthViewModel(
+                            existingData: coordinator.data.basicHealthInfo,
+                            coordinator: coordinator
+                        )
+                    )
 
                 case .existingConditions:
                     ExistingConditionsView(coordinator: coordinator,viewModel: container.makeExistingConditionsViewModel(existingData: coordinator.data.existingConditions)
@@ -56,41 +61,36 @@ struct ProfileSetupCoordinatorView: View {
                     CurrentMedicationView(viewModel: CurrentMedicationViewModel(coordinator: coordinator))
 
                 case .medicalHistory:
-                 MedicalHistoryView(
-                     viewModel: container.makeMedicalHistoryViewModel(coordinator: coordinator)
-                                    )
-
-                case .mobility:
-                      MobilityView(
-                        viewModel: container.makeMobilityViewModel(coordinator: coordinator)
-                                    )
-
-                case .emergencyContact:
-             
-                   EmergencyContactView(
-                       viewModel: container.makeEmergencyContactViewModel(
-                           initialContact: coordinator.data.emergencyContact,
-                           onContinue: { contact in
-                               coordinator.save(emergencyContact: contact)
-                               withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
-                                   coordinator.next()
-                               }
-                           },
-                           onBack: handleBack
-                       )
-                   )
-
-                case .homeAddress:
-                    HomeAddressView(
-                        viewModel: container.makeHomeAddressViewModel(
-                            initialAddress: coordinator.data.homeAddress,
-                            onFinishSetup: { address in
-                                coordinator.save(homeAddress: address)
-                                onFinish()
-                            },
-                            onBackTapped: handleBack
+                    MedicalHistoryView(
+                        viewModel: container.makeMedicalHistoryViewModel(
+                            existingData: coordinator.data.medicalHistory,
+                            coordinator: coordinator
                         )
                     )
+
+                case .mobility:
+                    MobilityView(
+                        viewModel: container.makeMobilityViewModel(
+                            existingData: coordinator.data.mobility,
+                            coordinator: coordinator
+                        )
+                    )
+                case .emergencyContact:
+                                    EmergencyContactView(
+                                        viewModel: container.makeEmergencyContactViewModel(
+                                            initialContact: coordinator.data.emergencyContact,
+                                            coordinator: coordinator
+                                        )
+                                    )
+
+                                case .homeAddress:
+                                    HomeAddressView(
+                                        viewModel: container.makeHomeAddressViewModel(
+                                            initialAddress: coordinator.data.homeAddress,
+                                            coordinator: coordinator,
+                                            onFinishSetup: onFinish
+                                        )
+                                    )
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

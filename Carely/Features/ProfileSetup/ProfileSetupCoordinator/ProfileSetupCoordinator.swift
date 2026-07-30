@@ -9,7 +9,11 @@ final class ProfileSetupCoordinator: ObservableObject {
 
     @Published private(set) var currentStep: ProfileSetupStep
     @Published private(set) var data: ProfileSetupData
+    @Published private(set) var profileId: String?
 
+        func setProfileId(_ id: String) {
+            self.profileId = id
+        }
     // MARK: - Init
 
     init(data: ProfileSetupData, startingStep: ProfileSetupStep = .basicHealthInfo) {
