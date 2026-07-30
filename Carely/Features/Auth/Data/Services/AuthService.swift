@@ -15,9 +15,9 @@ protocol AuthServiceProtocol {
     func logout(refreshToken: String) async throws
     func savePersonalInfo(
         firstName: String, lastName: String, dateOfBirth: String, gender: String,
-        profileImage: UIImage?
-    ) async throws}
-
+        profileImage: UIImage?, defaultProfileId: String?
+    ) async throws -> String?
+}
 final class AuthServiceImpl: AuthServiceProtocol {
     private let networkClient: NetworkClientProtocol
     private let cloudinaryService: CloudinaryUploadServiceProtocol
@@ -73,33 +73,33 @@ final class AuthServiceImpl: AuthServiceProtocol {
         )
     }
     func savePersonalInfo(
-            firstName: String, lastName: String, dateOfBirth: String, gender: String,
-            profileImage: UIImage?
-        ) async throws {
+        firstName: String, lastName: String, dateOfBirth: String, gender: String,
+        profileImage: UIImage?, defaultProfileId: String?
+    ) async throws -> String? {
 
-            // 0. Upload directly to Cloudinary (if a photo was picked) — bypasses your backend's /upload entirely.
-            var uploadedImageUrl: String?
-            if let profileImage {
-                let result = try await cloudinaryService.uploadImage(profileImage, compressionQuality: 0.5)
-                uploadedImageUrl = result.secureUrl
-            }
+        var uploadedImageUrl: String?
+        if let profileImage {
+            let result = try await cloudinaryService.uploadImage(profileImage, compressionQuality: 0.5)
+            uploadedImageUrl = result.secureUrl
+        }
 
-            // 1. Update the account.
-            let userRequest = UserUpdateRequestDTO(
-                firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth,
-                gender: gender, profileImageUrl: uploadedImageUrl
-            )
-            try await networkClient.requestWithoutResponse(AuthEndpoint.updateUser(request: userRequest))
+        let userRequest = UserUpdateRequestDTO(
+            firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth,
+            gender: gender, profileImageUrl: uploadedImageUrl
+        )
+        try await networkClient.requestWithoutResponse(AuthEndpoint.updateUser(request: userRequest))
 
-            // 2. Then the default health profile.
-            let defaultProfile: DefaultProfileResponse = try await networkClient.request(AuthEndpoint.getDefaultProfile)
+        if let profileId = defaultProfileId {
             let profileRequest = PersonalInfoRequestDTO(
                 relationship: "self", firstName: firstName, lastName: lastName,
                 dateOfBirth: dateOfBirth, gender: gender
             )
             try await networkClient.requestWithoutResponse(
-                AuthEndpoint.updateProfile(id: defaultProfile.id, request: profileRequest)
+                AuthEndpoint.updateProfile(id: profileId, request: profileRequest)
             )
         }
+        
+        return uploadedImageUrl
+    }
     }
 

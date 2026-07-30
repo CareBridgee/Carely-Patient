@@ -69,9 +69,11 @@ final class DIContainer {
     }
     
     private func makeSavePersonalInfoUseCase() -> SavePersonalInfoUseCaseProtocol {
-        SavePersonalInfoUseCase(repository: authRepository)
-    }
-    
+            SavePersonalInfoUseCase(
+                repository: authRepository,
+                sessionManager: sessionManager 
+            )
+        }
     private func makeVerifyOTPUseCase() -> VerifyOTPUseCaseProtocol {
         VerifyOTPUseCase(
             repository: authRepository,
@@ -141,9 +143,12 @@ final class DIContainer {
         }()
     
  
-        private lazy var profileSetupUseCases: ProfileSetupUseCases = {
+    private lazy var profileSetupUseCases: ProfileSetupUseCases = {
             ProfileSetupUseCases(
-                getProfileId: GetDefaultProfileIdUseCase(repo: profileSetupRepository),
+                getProfileId: GetDefaultProfileIdUseCase(
+                    repo: profileSetupRepository,
+                    sessionManager: sessionManager 
+                ),
                 updateBasicInfo: UpdateBasicHealthInfoUseCase(repo: profileSetupRepository),
                 updateMobility: UpdateMobilityUseCase(repo: profileSetupRepository),
                 saveConditions: SaveExistingConditionsUseCase(repo: profileSetupRepository),
@@ -315,8 +320,8 @@ final class DIContainer {
     // MARK: - Home UseCases
     
     private func makeGetGreetingNameUseCase() -> GetGreetingNameUseCaseProtocol {
-        GetGreetingNameUseCase(repository: homeRepository)
-    }
+            GetGreetingNameUseCase(sessionManager: sessionManager) 
+        }
     
     private func makeGetServiceCategoriesUseCase() -> GetServiceCategoriesUseCaseProtocol {
         GetServiceCategoriesUseCase(repository: homeRepository)

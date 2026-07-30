@@ -5,8 +5,8 @@
 //  Created by Mahmoud Raafat Mustafa on 16/07/2026.
 //
 
-
 import Foundation
+
 protocol VerifyOTPUseCaseProtocol {
     func execute(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity
 }
@@ -35,7 +35,7 @@ struct VerifyOTPUseCase: VerifyOTPUseCaseProtocol {
         tokenStore.saveTokens(access: entity.accessToken, refresh: entity.refreshToken ?? "")
 
         await MainActor.run {
-            sessionManager.setLoggedIn()
+            sessionManager.setLoggedIn(user: entity.user)
         }
 
         return entity

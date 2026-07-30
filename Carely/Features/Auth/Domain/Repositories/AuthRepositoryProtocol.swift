@@ -14,7 +14,5 @@ protocol AuthRepositoryProtocol {
     func verifyOTP(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity
     func getProfile(phoneNumber: String) async throws -> UserDTO
     func logout(refreshToken: String) async throws
-    func savePersonalInfo(
-        basicInfo: BasicUserInfo
-        ) async throws
+    func savePersonalInfo(basicInfo: BasicUserInfo, defaultProfileId: String?) async throws -> String?
 }
