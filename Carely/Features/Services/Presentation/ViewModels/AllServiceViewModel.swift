@@ -20,7 +20,7 @@ final class AllServiceViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
- 
+    @Published var profileImageUrl: String? = nil
     private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
@@ -63,10 +63,14 @@ final class AllServiceViewModel: ObservableObject {
 
         Task {
             do {
-                self.greetingName = try await getGreetingNameUseCase.execute()
+                async let profileData = getGreetingNameUseCase.execute()
+                let fetchedProfile = try await profileData
+                self.greetingName = fetchedProfile.name
+                self.profileImageUrl = fetchedProfile.imageUrl
             } catch {
-                // Intentionally not surfaced via errorMessage/showError,
-                // so it doesn't affect the existing categories error flow.
+                self.isLoading = false
+                                self.errorMessage = error.localizedDescription
+                                self.showError = true
             }
         }
     }

@@ -6,19 +6,24 @@
 //
 
 import Foundation
- 
+
 protocol GetGreetingNameUseCaseProtocol {
-    func execute() async throws -> String
+    func execute() async throws -> (name: String, imageUrl: String?)
 }
  
 final class GetGreetingNameUseCase: GetGreetingNameUseCaseProtocol {
-    private let repository: HomeRepositoryProtocol
+    private let sessionManager: SessionManager
  
-    init(repository: HomeRepositoryProtocol) {
-        self.repository = repository
+    init(sessionManager: SessionManager) {
+        self.sessionManager = sessionManager
     }
  
-    func execute() async throws -> String {
-        try await repository.fetchGreetingName()
+    func execute() async throws -> (name: String, imageUrl: String?) {
+        let user = await sessionManager.currentUser
+        
+        let firstName = user?.firstName ?? "User"
+        let imageUrl = user?.profileImageUrl
+        
+        return (name: firstName, imageUrl: imageUrl)
     }
 }
