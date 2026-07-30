@@ -10,13 +10,13 @@ import Foundation
 struct ServiceTypeDTO: Decodable {
     let id: String
     let name: String
-    let description: String
-    let imageUrl: String
     let category: String
-    let minimumDurationMinutes: Int
-    let estimatedDurationMinutes: Int
     let basePrice: Double
-    let includedItems: [String]
-    let preparationNote: String
-    let createdAt: Date
+    let minimumDurationMinutes: Int
+    let imageUrl: String?
+    let description: String?
+    let preparationNote: String?
+    let estimatedDurationMinutes: Int?
+    let includedItems: [String]?
+    let createdAt: Date?
 }

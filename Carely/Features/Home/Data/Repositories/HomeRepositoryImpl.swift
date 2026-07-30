@@ -40,11 +40,10 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return Self.mapToCategories(serviceTypes) }
 
-        // The backend doesn't expose a search endpoint yet, so we filter
-        // the already-fetched catalog locally.
         let filtered = serviceTypes.filter {
             $0.name.localizedCaseInsensitiveContains(trimmed) ||
-            $0.description.localizedCaseInsensitiveContains(trimmed) ||
+           ($0.description ?? "").localizedCaseInsensitiveContains(trimmed) ||
+            
             $0.category.localizedCaseInsensitiveContains(trimmed)
         }
         return Self.mapToCategories(filtered)

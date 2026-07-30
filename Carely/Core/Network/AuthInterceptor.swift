@@ -53,8 +53,8 @@ final class AuthInterceptor: RequestInterceptor, @unchecked Sendable {
         dueTo error: Error,
         completion: @escaping (RetryResult) -> Void
     ) {
-
-        guard request.response?.statusCode == 401 else {
+         let statusCode = request.response?.statusCode
+        guard statusCode == 401 || statusCode == 403  else {
             completion(.doNotRetryWithError(error))
             return
         }

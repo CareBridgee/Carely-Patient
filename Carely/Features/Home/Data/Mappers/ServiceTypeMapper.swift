@@ -63,8 +63,12 @@ enum ServiceTypeFormatter {
         String(format: "$%.2f", value)
     }
 
-    static func durationText(minimum: Int, estimated: Int) -> String {
-        "\(minimum)-\(estimated) min"
+    static func durationText(minimum: Int, estimated: Int?) -> String {
+        if let estimated = estimated {
+            return "\(minimum)-\(estimated) min"
+        } else {
+            return "\(minimum)+ min" 
+        }
     }
 }
 
@@ -75,7 +79,7 @@ extension ServiceCategory {
         self.init(
             id: dto.id,
             title: dto.name.capitalized,
-            subtitle: dto.description,
+            subtitle: dto.description ?? "",
             iconName: ServiceTypeIconMapper.icon(forCategory: dto.category),
             layout: ServiceCategoryLayoutMapper.layout(at: index),
             accent: ServiceCategoryLayoutMapper.accent(at: index)
@@ -83,14 +87,13 @@ extension ServiceCategory {
     }
 }
 
-// MARK: - ServiceDetail
 
 extension ServiceDetail {
     init(serviceType dto: ServiceTypeDTO) {
         self.init(
             id: dto.id,
             title: dto.name.capitalized,
-            subtitle: dto.description,
+            subtitle: dto.description ?? "",
             badgeText: dto.category.capitalized,
             heroIconName: ServiceTypeIconMapper.icon(forCategory: dto.category),
             priceText: ServiceTypeFormatter.priceText(dto.basePrice),
@@ -98,9 +101,10 @@ extension ServiceDetail {
                 minimum: dto.minimumDurationMinutes,
                 estimated: dto.estimatedDurationMinutes
             ),
-            aboutDescription: dto.description,
-            includedItems: dto.includedItems,
-            noteText: dto.preparationNote
+            aboutDescription: dto.description ?? "No description available.",
+            includedItems: dto.includedItems ?? [],
+            
+            noteText: dto.preparationNote ?? ""
         )
     }
 }
