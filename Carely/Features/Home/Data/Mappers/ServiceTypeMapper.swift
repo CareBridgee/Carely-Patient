@@ -104,7 +104,8 @@ extension ServiceDetail {
             aboutDescription: dto.description ?? "No description available.",
             includedItems: dto.includedItems ?? [],
             
-            noteText: dto.preparationNote ?? ""
+            noteText: dto.preparationNote ?? "",
+            imageUrl: dto.imageUrl
         )
     }
 }
