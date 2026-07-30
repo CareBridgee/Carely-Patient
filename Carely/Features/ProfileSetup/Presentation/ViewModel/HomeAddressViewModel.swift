@@ -4,13 +4,10 @@
 //
 //  Created by Mohamed Ayman on 19/07/2026.
 //
-
 import Foundation
 
 @MainActor
 final class HomeAddressViewModel: ObservableObject {
-
-    // MARK: - Manual Entry Fields
 
     @Published var country: String
     @Published var city: String
@@ -19,41 +16,34 @@ final class HomeAddressViewModel: ObservableObject {
     @Published var building: String
     @Published var apartment: String
 
-    // MARK: - Selected Coordinate
-
     @Published private(set) var selectedLatitude: Double?
     @Published private(set) var selectedLongitude: Double?
 
-    // MARK: - Map Picker State
-
     @Published var isMapPickerPresented = false
-
-    // MARK: - Current Location State
-
     @Published private(set) var isLocatingCurrentLocation = false
     @Published private(set) var locationErrorMessage: String?
-
-    // MARK: - Child ViewModel (owned, stable for the lifetime of this VM)
+    
+    // NEW: Network State
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String? = nil
+    @Published var showError: Bool = false
 
     let mapPickerViewModel: AddressMapPickerViewModel
 
-    // MARK: - Use Cases
-
     private let getCurrentLocationAddressUseCase: GetCurrentLocationAddressUseCase
-
-    // MARK: - Coordinator Callbacks
-
+    private let getProfileIdUseCase: GetDefaultProfileIdUseCase
+    private let saveAddressUseCase: SaveHomeAddressUseCase
     private let onFinishSetup: (HomeAddress) -> Void
-    private let onBackTapped: () -> Void
-
-    // MARK: - Init
+    private let onBackTapped: (HomeAddress) -> Void
 
     init(
         initialAddress: HomeAddress?,
         mapPickerViewModel: AddressMapPickerViewModel,
         getCurrentLocationAddressUseCase: GetCurrentLocationAddressUseCase,
+        getProfileIdUseCase: GetDefaultProfileIdUseCase,
+        saveAddressUseCase: SaveHomeAddressUseCase,
         onFinishSetup: @escaping (HomeAddress) -> Void,
-        onBackTapped: @escaping () -> Void
+        onBackTapped: @escaping (HomeAddress) -> Void
     ) {
         self.country = initialAddress?.country ?? ""
         self.city = initialAddress?.city ?? ""
@@ -65,10 +55,11 @@ final class HomeAddressViewModel: ObservableObject {
         self.selectedLongitude = initialAddress?.longitude
         self.mapPickerViewModel = mapPickerViewModel
         self.getCurrentLocationAddressUseCase = getCurrentLocationAddressUseCase
+        self.getProfileIdUseCase = getProfileIdUseCase
+        self.saveAddressUseCase = saveAddressUseCase
         self.onFinishSetup = onFinishSetup
         self.onBackTapped = onBackTapped
     }
-
     // MARK: - Map Picker
 
     func openMapPicker() {
@@ -119,40 +110,62 @@ final class HomeAddressViewModel: ObservableObject {
     }
 
     // MARK: - Validation
+    private var address: HomeAddress {
+            HomeAddress(country: country.trimmed, city: city.trimmed, area: area.trimmed, streetName: streetName.trimmed, building: building.trimmed, apartment: apartment.trimmed, latitude: selectedLatitude, longitude: selectedLongitude)
+        }
 
-    var isValid: Bool {
-        !country.trimmed.isEmpty
-            && !city.trimmed.isEmpty
-            && !streetName.trimmed.isEmpty
+        var isEmpty: Bool {
+            country.trimmed.isEmpty && city.trimmed.isEmpty && area.trimmed.isEmpty && streetName.trimmed.isEmpty && building.trimmed.isEmpty && apartment.trimmed.isEmpty
+        }
+
+        var isValid: Bool {
+            !country.trimmed.isEmpty && !city.trimmed.isEmpty && !streetName.trimmed.isEmpty
+        }
+
+        func backTapped() {
+            onBackTapped(address)
+        }
+
+        func finishSetupTapped() {
+            // MARK: - SKIP LOGIC
+            if isEmpty {
+                onFinishSetup(address)
+                return
+            }
+
+            // MARK: - VALIDATION LOGIC
+            guard isValid else {
+                self.errorMessage = "Please fill in all required fields (Country, City, Street)."
+                self.showError = true
+                return
+            }
+
+            guard NetworkMonitor.shared.isConnected else {
+                self.errorMessage = "No internet connection. Please check your network."
+                self.showError = true
+                return
+            }
+
+            isLoading = true
+            errorMessage = nil
+
+            Task {
+                do {
+                    let profileId = try await getProfileIdUseCase.execute()
+                    try await saveAddressUseCase.execute(profileId: profileId, address: address)
+                    
+                    self.isLoading = false
+                    self.onFinishSetup(address)
+                    
+                } catch {
+                    self.isLoading = false
+                    self.errorMessage = error.localizedDescription
+                    self.showError = true
+                }
+            }
+        }
     }
 
-    // MARK: - Actions
-
-    func finishSetupTapped() {
-        guard isValid else { return }
-
-        let address = HomeAddress(
-            country: country.trimmed,
-            city: city.trimmed,
-            area: area.trimmed,
-            streetName: streetName.trimmed,
-            building: building.trimmed,
-            apartment: apartment.trimmed,
-            latitude: selectedLatitude,
-            longitude: selectedLongitude
-        )
-        onFinishSetup(address)
+    private extension String {
+        var trimmed: String { trimmingCharacters(in: .whitespacesAndNewlines) }
     }
-
-    func backTapped() {
-        onBackTapped()
-    }
-}
-
-// MARK: - String + Trimmed
-
-private extension String {
-    var trimmed: String {
-        trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-}

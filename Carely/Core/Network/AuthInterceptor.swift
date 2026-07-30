@@ -53,9 +53,10 @@ final class AuthInterceptor: RequestInterceptor, @unchecked Sendable {
         dueTo error: Error,
         completion: @escaping (RetryResult) -> Void
     ) {
-         let statusCode = request.response?.statusCode
-        guard statusCode == 401 || statusCode == 403  else {
-            completion(.doNotRetryWithError(error))
+
+        let statusCode = request.response?.statusCode
+     guard statusCode == 401 || statusCode == 403 else { // that not right but till the backend slove 401 only for unauthriozed 
+         completion(.doNotRetryWithError(error))
             return
         }
 

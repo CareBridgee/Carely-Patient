@@ -7,23 +7,41 @@
 
 import Foundation
 
-
 @MainActor
 final class MobilityViewModel: ObservableObject {
 
     @Published var status: MobilityStatus?
     @Published var additionalNotes: String
 
-    private let coordinator: ProfileSetupCoordinator
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String? = nil
+    @Published var showError: Bool = false
 
-    init(coordinator: ProfileSetupCoordinator) {
-        self.coordinator = coordinator
-        self.status = coordinator.data.mobility.status
-        self.additionalNotes = coordinator.data.mobility.additionalNotes
+    private let getProfileIdUseCase: GetDefaultProfileIdUseCase
+    private let updateMobilityUseCase: UpdateMobilityUseCase
+    private let onContinue: (Mobility) -> Void
+    private let onBack: (Mobility) -> Void
+
+    init(
+        existingData: Mobility,
+        getProfileIdUseCase: GetDefaultProfileIdUseCase,
+        updateMobilityUseCase: UpdateMobilityUseCase,
+        onContinue: @escaping (Mobility) -> Void,
+        onBack: @escaping (Mobility) -> Void
+    ) {
+        self.status = existingData.status
+        self.additionalNotes = existingData.additionalNotes
+        self.getProfileIdUseCase = getProfileIdUseCase
+        self.updateMobilityUseCase = updateMobilityUseCase
+        self.onContinue = onContinue
+        self.onBack = onBack
     }
 
-    var showBackButton: Bool {
-        !coordinator.isFirstStep
+    var mobility: Mobility {
+        Mobility(
+            status: status,
+            additionalNotes: additionalNotes.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
     }
 
     func select(_ status: MobilityStatus) {
@@ -31,21 +49,39 @@ final class MobilityViewModel: ObservableObject {
     }
 
     func backTapped() {
-        persist()
-        coordinator.previous()
+        onBack(mobility)
     }
 
     func continueTapped() {
-        persist()
-        coordinator.next()
-    }
+        let currentMobility = self.mobility
+        if currentMobility.status == nil && currentMobility.additionalNotes.isEmpty {
+            onContinue(currentMobility)
+            return
+        }
 
-    private func persist() {
-        coordinator.save(
-            mobility: Mobility(
-                status: status,
-                additionalNotes: additionalNotes.trimmingCharacters(in: .whitespacesAndNewlines)
-            )
-        )
+        guard NetworkMonitor.shared.isConnected else {
+            self.errorMessage = "No internet connection. Please check your network."
+            self.showError = true
+            return
+        }
+
+        isLoading = true
+        errorMessage = nil
+
+        Task {
+            do {
+                let profileId = try await getProfileIdUseCase.execute()
+                
+                try await updateMobilityUseCase.execute(profileId: profileId, mobility: currentMobility)
+                
+                self.isLoading = false
+                self.onContinue(currentMobility)
+                
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
+                self.showError = true
+            }
+        }
     }
 }

@@ -4,9 +4,6 @@
 //
 //  Created by Mohamed Ayman on 16/07/2026.
 //
-
-import SwiftUI
-
 import SwiftUI
 
 struct PersonalInfoView: View {
@@ -16,16 +13,42 @@ struct PersonalInfoView: View {
     init(viewModel: @autoclosure @escaping () -> PersonalInfoViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel())
     }
+    
     var body: some View {
-        VStack(spacing: Spacing.s20) {
+        ZStack {
+            VStack(spacing: Spacing.s20) {
+                PersonalInfoFormCard(viewModel: viewModel)
+                    .padding(.top, Spacing.s24)
+                Spacer()
+            }
+            .padding(.horizontal, Spacing.s16)
+            .background(Color.backGround.ignoresSafeArea())
+            .careConnectNavigationBar(title: "Enaya", showBackButton: false)
+            .blur(radius: viewModel.isLoading ? 3 : 0)
             
-            PersonalInfoFormCard(viewModel: viewModel)
-                .padding(.top, Spacing.s24)
-            
-            Spacer()
+            if viewModel.isLoading {
+                ZStack {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                    
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .scaleEffect(1.5)
+                            .tint(.brandPrimary)
+                        
+                        Text("Please wait...")
+                            .carelyText(style: .bodyRegular, weight: .bold)
+                            .foregroundColor(.primaryFont)
+                    }
+                    .padding(32)
+                    .background(Color.surface)
+                    .cornerRadius(20)
+                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+                }
+                .zIndex(1)
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            }
         }
-        .padding(.horizontal, Spacing.s16)
-        .background(Color.backGround.ignoresSafeArea())
-        .careConnectNavigationBar(title: "Enaya", showBackButton: false)
+        .animation(.easeInOut(duration: 0.3), value: viewModel.isLoading)
     }
 }
