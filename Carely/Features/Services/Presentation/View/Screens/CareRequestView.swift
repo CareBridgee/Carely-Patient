@@ -60,7 +60,6 @@ struct CareRequestView: View {
         .careConnectNavigationBar(title: "Care Request", trailingIcon: "questionmark")
         .task { await viewModel.onAppear() }
         
-        Spacer(minLength: Spacing.s56)
     }
 
     private var fillWithAIButton: some View {

@@ -480,18 +480,14 @@ final class DIContainer {
         NurseProfileViewModel(nurseId: nurseId)
     }
     
-    // MARK: - AIAssistant Repository
-    
+    // MARK: - AIAssistant — Patient Selection
+
     private lazy var aiPatientRepository: AIPatientRepositoryProtocol = MockAIPatientRepository()
-    
-    // MARK: - AIAssistant UseCases
-    
+
     private func makeGetAIPatientsUseCase() -> GetAIPatientsUseCaseProtocol {
         GetAIPatientsUseCase(repository: aiPatientRepository)
     }
-    
-    // MARK: - AIAssistant ViewModels
-    
+
     func makeChoosePatientViewModel(
         onShowPatientDetails: @escaping (String) -> Void,
         onContinueWithAssessment: @escaping (String) -> Void
@@ -501,6 +497,24 @@ final class DIContainer {
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment
         )
+    }
+
+    // MARK: - AIAssistant — Chat
+
+    private lazy var aiChatService: AIChatServiceProtocol = AIChatServiceImpl(
+        networkClient: networkClient
+    )
+
+    private lazy var aiChatRepository: AIChatRepositoryProtocol = AIChatRepositoryImpl(
+        service: aiChatService
+    )
+
+    private func makeSendAIChatMessageUseCase() -> SendAIChatMessageUseCaseProtocol {
+        SendAIChatMessageUseCase(repository: aiChatRepository)
+    }
+
+    func makeAIChatViewModel() -> AIChatViewModel {
+        AIChatViewModel(sendAIChatMessageUseCase: makeSendAIChatMessageUseCase())
     }
     
     // MARK: - Profile Repository
