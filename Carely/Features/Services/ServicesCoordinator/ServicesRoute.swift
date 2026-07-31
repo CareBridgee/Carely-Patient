@@ -11,7 +11,7 @@ import Foundation
 // MARK: - ServicesRoute
 
 enum ServicesRoute: Hashable {
-    case serviceDetails(source: ServiceDetailsSource)
+    case serviceDetails(id: String, source: ServiceDetailsSource)
     case requestService(entryPoint: CareRequestEntryPoint)
     case waitingForOffers(requestId: String)
     case OfferAccepted(request: ConfirmedOffer)

@@ -69,9 +69,11 @@ final class DIContainer {
     }
     
     private func makeSavePersonalInfoUseCase() -> SavePersonalInfoUseCaseProtocol {
-        SavePersonalInfoUseCase(repository: authRepository)
-    }
-    
+            SavePersonalInfoUseCase(
+                repository: authRepository,
+                sessionManager: sessionManager 
+            )
+        }
     private func makeVerifyOTPUseCase() -> VerifyOTPUseCaseProtocol {
         VerifyOTPUseCase(
             repository: authRepository,
@@ -141,9 +143,12 @@ final class DIContainer {
         }()
     
  
-        private lazy var profileSetupUseCases: ProfileSetupUseCases = {
+    private lazy var profileSetupUseCases: ProfileSetupUseCases = {
             ProfileSetupUseCases(
-                getProfileId: GetDefaultProfileIdUseCase(repo: profileSetupRepository),
+                getProfileId: GetDefaultProfileIdUseCase(
+                    repo: profileSetupRepository,
+                    sessionManager: sessionManager 
+                ),
                 updateBasicInfo: UpdateBasicHealthInfoUseCase(repo: profileSetupRepository),
                 updateMobility: UpdateMobilityUseCase(repo: profileSetupRepository),
                 saveConditions: SaveExistingConditionsUseCase(repo: profileSetupRepository),
@@ -296,15 +301,27 @@ final class DIContainer {
         )
     }
     
+    // MARK: - Service Catalog (shared by Home + Services features)
+
+    private lazy var serviceTypeService: ServiceTypeServiceProtocol = ServiceTypeServiceImpl(
+        networkClient: networkClient
+    )
+
     // MARK: - Home Repository
+
+    private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl(
+        serviceTypeService: serviceTypeService
+    )
+    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
+        CareRequestRepositoryImpl(serviceTypeService: serviceTypeService)
+    }()
     
-    private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl()
     
     // MARK: - Home UseCases
     
     private func makeGetGreetingNameUseCase() -> GetGreetingNameUseCaseProtocol {
-        GetGreetingNameUseCase(repository: homeRepository)
-    }
+            GetGreetingNameUseCase(sessionManager: sessionManager) 
+        }
     
     private func makeGetServiceCategoriesUseCase() -> GetServiceCategoriesUseCaseProtocol {
         GetServiceCategoriesUseCase(repository: homeRepository)
@@ -324,7 +341,7 @@ final class DIContainer {
     
     // MARK: - Home ViewModels
     
-    func makeHomeViewModel(onServiceTabbed: @escaping () -> Void) -> HomeViewModel {
+    func makeHomeViewModel(onServiceTabbed: @escaping (String) -> Void) -> HomeViewModel {
         HomeViewModel(
             getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
@@ -350,9 +367,7 @@ final class DIContainer {
             coordinator: coordinator
         )
     }
-    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
-        CareRequestRepositoryImpl()
-    }()
+    
     
     func makeCareRequestViewModel(
         preselectedService: CareService,

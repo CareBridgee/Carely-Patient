@@ -20,13 +20,22 @@ struct ProfileSetupUseCases {
     let saveAddress: SaveHomeAddressUseCase
 }
 
-// MARK: - Implementations
 
 final class GetDefaultProfileIdUseCase {
     private let repo: ProfileSetupRepositoryProtocol
-    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    private let sessionManager: SessionManager
+    
+    init(repo: ProfileSetupRepositoryProtocol, sessionManager: SessionManager) {
+        self.repo = repo
+        self.sessionManager = sessionManager
+    }
+    
     func execute() async throws -> String {
-        try await repo.fetchDefaultProfileId()
+        if let cachedId = await sessionManager.currentUser?.defaultProfileId {
+            return cachedId
+        }
+        
+        return try await repo.fetchDefaultProfileId()
     }
 }
 

@@ -122,6 +122,10 @@
 		396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C43010794F00AC4137 /* PriceDurationCard.swift */; };
 		396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C63010796600AC4137 /* IncludedItemRow.swift */; };
 		396495C93010797900AC4137 /* HelpBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C83010797800AC4137 /* HelpBannerView.swift */; };
+		39A06E7E301806F2008E9E7B /* ServiceTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */; };
+		39A06E813018073F008E9E7B /* ServiceTypeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */; };
+		39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E823018075F008E9E7B /* ServiceTypeService.swift */; };
+		39A06E8630180787008E9E7B /* ServiceTypeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E8530180786008E9E7B /* ServiceTypeMapper.swift */; };
 		B32C19CE300B8C0900B8BEF5 /* CarelyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */; };
 		B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */; };
 		B38E56AB3013A98000A9F153 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */; };
@@ -144,6 +148,7 @@
 		B3A3131230094A5A00B5BB1D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130C30094A5A00B5BB1D /* Poppins-Light.ttf */; };
 		B3A3131330094A5A00B5BB1D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130B30094A5A00B5BB1D /* Poppins-Bold.ttf */; };
 		B3A3131430094A5A00B5BB1D /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A3130D30094A5A00B5BB1D /* Poppins-Medium.ttf */; };
+		B3A7EB9B301BF5530034662B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7EB9A301BF5530034662B /* User.swift */; };
 		B3EF0D243018F80900C46568 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EF0D233018F80900C46568 /* NetworkMonitor.swift */; };
 		B3EF0D263018FCE900C46568 /* ProfileEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EF0D253018FCE900C46568 /* ProfileEndpoint.swift */; };
 		B3EF0D2A3018FEA000C46568 /* ProfileSetupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EF0D293018FEA000C46568 /* ProfileSetupService.swift */; };
@@ -442,6 +447,10 @@
 		396495C43010794F00AC4137 /* PriceDurationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDurationCard.swift; sourceTree = "<group>"; };
 		396495C63010796600AC4137 /* IncludedItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncludedItemRow.swift; sourceTree = "<group>"; };
 		396495C83010797800AC4137 /* HelpBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBannerView.swift; sourceTree = "<group>"; };
+		39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeDTO.swift; sourceTree = "<group>"; };
+		39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeEndpoint.swift; sourceTree = "<group>"; };
+		39A06E823018075F008E9E7B /* ServiceTypeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeService.swift; sourceTree = "<group>"; };
+		39A06E8530180786008E9E7B /* ServiceTypeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeMapper.swift; sourceTree = "<group>"; };
 		B32C19CD300B8C0800B8BEF5 /* CarelyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextField.swift; sourceTree = "<group>"; };
 		B32C19CF300B8DE700B8BEF5 /* CarelyTextFieldSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyTextFieldSize.swift; sourceTree = "<group>"; };
 		B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
@@ -464,6 +473,7 @@
 		B3A3130E30094A5A00B5BB1D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		B3A3130F30094A5A00B5BB1D /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		B3A3131530094C9900B5BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B3A7EB9A301BF5530034662B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B3EF0D233018F80900C46568 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		B3EF0D253018FCE900C46568 /* ProfileEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEndpoint.swift; sourceTree = "<group>"; };
 		B3EF0D293018FEA000C46568 /* ProfileSetupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupService.swift; sourceTree = "<group>"; };
@@ -873,6 +883,7 @@
 		0C3D8877300848D700883999 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				B3A7EB9A301BF5530034662B /* User.swift */,
 				C6C3BE20300A63A800C5FC25 /* AuthError.swift */,
 				C6C3BE21300A63A800C5FC25 /* BasicUserInfo.swift */,
 				C6C3BE22300A63A800C5FC25 /* OTPVerificationEntity.swift */,
@@ -1369,6 +1380,9 @@
 		396495D230107ADB00AC4137 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				39A06E843018077D008E9E7B /* Mappers */,
+				39A06E7F30180734008E9E7B /* Services */,
+				39A06E7C301806CE008E9E7B /* DTOs */,
 				396495DE30107B9400AC4137 /* Repositories */,
 			);
 			path = Data;
@@ -1472,6 +1486,31 @@
 				396495A63010780700AC4137 /* HomeRepositoryImpl.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		39A06E7C301806CE008E9E7B /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		39A06E7F30180734008E9E7B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				39A06E823018075F008E9E7B /* ServiceTypeService.swift */,
+				39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		39A06E843018077D008E9E7B /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				39A06E8530180786008E9E7B /* ServiceTypeMapper.swift */,
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		B38E56B63013AE4900A9F153 /* Frameworks */ = {
@@ -2045,6 +2084,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39A06E813018073F008E9E7B /* ServiceTypeEndpoint.swift in Sources */,
 				C6C3BE07300A526600C5FC25 /* CompleteHealthProfileButton.swift in Sources */,
 				0C3D88173007B5E500883999 /* ContentView.swift in Sources */,
 				B32C19D0300B8DE700B8BEF5 /* CarelyTextFieldSize.swift in Sources */,
@@ -2077,6 +2117,7 @@
 				C6C28D973013B98C00FEDA97 /* PatientSelectorRow.swift in Sources */,
 				C6C28D983013B98C00FEDA97 /* FetchSavedAddressUseCase.swift in Sources */,
 				C6C28D993013B98C00FEDA97 /* NurseOffer.swift in Sources */,
+				39A06E7E301806F2008E9E7B /* ServiceTypeDTO.swift in Sources */,
 				C6C28D9A3013B98C00FEDA97 /* ObserveOffersUseCase.swift in Sources */,
 				C6C28D9B3013B98C00FEDA97 /* OfferSearchingRepositoryProtocol.swift in Sources */,
 				C6C28D9C3013B98C00FEDA97 /* ServiceDetailsViewModel.swift in Sources */,
@@ -2085,6 +2126,7 @@
 				C6C28D9F3013B98C00FEDA97 /* NurseOfferCardView.swift in Sources */,
 				C6C28DA03013B98C00FEDA97 /* AllServiceViewModel.swift in Sources */,
 				C6C28DA13013B98C00FEDA97 /* ChosenServiceRow.swift in Sources */,
+				39A06E8630180787008E9E7B /* ServiceTypeMapper.swift in Sources */,
 				C6C28DA23013B98C00FEDA97 /* PaymentMethodRow.swift in Sources */,
 				C6C28DA33013B98C00FEDA97 /* AllServiceView.swift in Sources */,
 				C6C28DA43013B98C00FEDA97 /* SubmitCareRequestUseCase.swift in Sources */,
@@ -2235,6 +2277,7 @@
 				39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */,
 				39265645301429F100AFD6F4 /* VisitRating.swift in Sources */,
 				39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */,
+				39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
@@ -2269,6 +2312,7 @@
 				392656793014425000AFD6F4 /* ProfileCoordinator.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,
+				B3A7EB9B301BF5530034662B /* User.swift in Sources */,
 				B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */,
 				0C5C345D300F08BB00A820EB /* HealthProfileBottomActionsView.swift in Sources */,
 				0C6BAE233012279300759ED0 /* ArrivalQRCodeViewModel.swift in Sources */,

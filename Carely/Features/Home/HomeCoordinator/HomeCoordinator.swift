@@ -14,7 +14,7 @@ final class HomeCoordinator: ObservableObject {
     // MARK: - Cross-Tab Callbacks
 
     var onViewAllServices: (() -> Void)?
-    var onOpenService: (() -> Void)?
+    var onOpenService: ((String) -> Void)?
     var onOpenActiveVisit: (() -> Void)?
     var onOpenAIAssistant: (() -> Void)?
 
@@ -24,8 +24,8 @@ final class HomeCoordinator: ObservableObject {
         onViewAllServices?()
     }
 
-    func serviceTapped() { // will inject service here
-        onOpenService?()
+    func serviceTapped(serviceId: String) {
+        onOpenService?(serviceId)
     }
 
     func activeVisitTapped() { // will inject visit here
