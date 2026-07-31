@@ -181,6 +181,10 @@
 		C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */; };
 		C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E85300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift */; };
 		C65A1E8E300ECC1C0003D6FB /* ResolveLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */; };
+		C667D05F301C29A200C62324 /* AIChatRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D05E301C29A200C62324 /* AIChatRepositoryProtocol.swift */; };
+		C667D06D301C2A2100C62324 /* SendAIChatMessageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D06C301C2A2100C62324 /* SendAIChatMessageUseCase.swift */; };
+		C667D072301C3D8E00C62324 /* AIChatReply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D070301C3D8E00C62324 /* AIChatReply.swift */; };
+		C667D073301C3D8E00C62324 /* ChatModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D071301C3D8E00C62324 /* ChatModels.swift */; };
 		C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */; };
 		C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */; };
 		C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11891300BA01A00DB27BF /* SecondaryButton.swift */; };
@@ -506,6 +510,10 @@
 		C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveLocationUseCase.swift; sourceTree = "<group>"; };
 		C65A1E87300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocodeUseCase.swift; sourceTree = "<group>"; };
 		C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesUseCase.swift; sourceTree = "<group>"; };
+		C667D05E301C29A200C62324 /* AIChatRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatRepositoryProtocol.swift; sourceTree = "<group>"; };
+		C667D06C301C2A2100C62324 /* SendAIChatMessageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAIChatMessageUseCase.swift; sourceTree = "<group>"; };
+		C667D070301C3D8E00C62324 /* AIChatReply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatReply.swift; sourceTree = "<group>"; };
+		C667D071301C3D8E00C62324 /* ChatModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModels.swift; sourceTree = "<group>"; };
 		C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyButtonStyle.swift; sourceTree = "<group>"; };
 		C6B11891300BA01A00DB27BF /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressHeader.swift; sourceTree = "<group>"; };
@@ -1052,6 +1060,8 @@
 		0C906512301504EF00DDBAB7 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				C667D070301C3D8E00C62324 /* AIChatReply.swift */,
+				C667D071301C3D8E00C62324 /* ChatModels.swift */,
 				0C906511301504EF00DDBAB7 /* AIPatient.swift */,
 			);
 			path = Entities;
@@ -1060,6 +1070,7 @@
 		0C906514301504EF00DDBAB7 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				C667D05E301C29A200C62324 /* AIChatRepositoryProtocol.swift */,
 				0C906513301504EF00DDBAB7 /* AIPatientRepositoryProtocol.swift */,
 			);
 			path = Repositories;
@@ -1068,6 +1079,7 @@
 		0C906516301504EF00DDBAB7 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				C667D06C301C2A2100C62324 /* SendAIChatMessageUseCase.swift */,
 				0C906515301504EF00DDBAB7 /* GetAIPatientsUseCase.swift */,
 			);
 			path = UseCases;
@@ -2128,6 +2140,7 @@
 				C6C28DA13013B98C00FEDA97 /* ChosenServiceRow.swift in Sources */,
 				39A06E8630180787008E9E7B /* ServiceTypeMapper.swift in Sources */,
 				C6C28DA23013B98C00FEDA97 /* PaymentMethodRow.swift in Sources */,
+				C667D05F301C29A200C62324 /* AIChatRepositoryProtocol.swift in Sources */,
 				C6C28DA33013B98C00FEDA97 /* AllServiceView.swift in Sources */,
 				C6C28DA43013B98C00FEDA97 /* SubmitCareRequestUseCase.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
@@ -2222,6 +2235,7 @@
 				0C3D888730084BB500883999 /* WelcomeView.swift in Sources */,
 				C6C0A4CE300D0C7C00AEB6D9 /* Mobility.swift in Sources */,
 				C6C3BE02300A4D0800C5FC25 /* IconSize.swift in Sources */,
+				C667D06D301C2A2100C62324 /* SendAIChatMessageUseCase.swift in Sources */,
 				0C4A511D30111EB800EA6EBE /* OfferAcceptedViewModel.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				B3EF0D353019060500C46568 /* BasicHealthInfoRequestDTO.swift in Sources */,
@@ -2322,6 +2336,8 @@
 				3926565B3014418900AFD6F4 /* ProfileRepositoryImpl.swift in Sources */,
 				C6C0A508300D334800AEB6D9 /* AllergiesView.swift in Sources */,
 				C6C0A509300D334800AEB6D9 /* MedicalHistoryView.swift in Sources */,
+				C667D072301C3D8E00C62324 /* AIChatReply.swift in Sources */,
+				C667D073301C3D8E00C62324 /* ChatModels.swift in Sources */,
 				396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */,
 				C6C0A50B300D334800AEB6D9 /* HomeAddressView.swift in Sources */,
 				392656553014416100AFD6F4 /* GetPatientProfileUseCase.swift in Sources */,
