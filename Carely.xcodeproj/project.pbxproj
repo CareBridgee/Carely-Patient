@@ -189,6 +189,11 @@
 		C667D07A301C3FE900C62324 /* AIChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D077301C3FE900C62324 /* AIChatService.swift */; };
 		C667D07B301C3FE900C62324 /* AIChatEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D076301C3FE900C62324 /* AIChatEndpoint.swift */; };
 		C667D07D301C41A900C62324 /* AIChatRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D07C301C41A900C62324 /* AIChatRepositoryImpl.swift */; };
+		C667D082301C426D00C62324 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D07E301C426D00C62324 /* ChatHeaderView.swift */; };
+		C667D083301C426D00C62324 /* ChatInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D07F301C426D00C62324 /* ChatInputBar.swift */; };
+		C667D084301C426D00C62324 /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D080301C426D00C62324 /* ChatMessageCell.swift */; };
+		C667D085301C426D00C62324 /* ServiceRecommendationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D081301C426D00C62324 /* ServiceRecommendationCard.swift */; };
+		C667D087301C429600C62324 /* AIChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C667D086301C429600C62324 /* AIChatViewModel.swift */; };
 		C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */; };
 		C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */; };
 		C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11891300BA01A00DB27BF /* SecondaryButton.swift */; };
@@ -522,6 +527,11 @@
 		C667D076301C3FE900C62324 /* AIChatEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatEndpoint.swift; sourceTree = "<group>"; };
 		C667D077301C3FE900C62324 /* AIChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatService.swift; sourceTree = "<group>"; };
 		C667D07C301C41A900C62324 /* AIChatRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatRepositoryImpl.swift; sourceTree = "<group>"; };
+		C667D07E301C426D00C62324 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
+		C667D07F301C426D00C62324 /* ChatInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputBar.swift; sourceTree = "<group>"; };
+		C667D080301C426D00C62324 /* ChatMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
+		C667D081301C426D00C62324 /* ServiceRecommendationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRecommendationCard.swift; sourceTree = "<group>"; };
+		C667D086301C429600C62324 /* AIChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatViewModel.swift; sourceTree = "<group>"; };
 		C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyButtonStyle.swift; sourceTree = "<group>"; };
 		C6B11891300BA01A00DB27BF /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressHeader.swift; sourceTree = "<group>"; };
@@ -1109,6 +1119,10 @@
 		0C90651A301504EF00DDBAB7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C667D07E301C426D00C62324 /* ChatHeaderView.swift */,
+				C667D07F301C426D00C62324 /* ChatInputBar.swift */,
+				C667D080301C426D00C62324 /* ChatMessageCell.swift */,
+				C667D081301C426D00C62324 /* ServiceRecommendationCard.swift */,
 				0C906518301504EF00DDBAB7 /* AddFamilyMemberCard.swift */,
 				0C906519301504EF00DDBAB7 /* PatientSelectionCard.swift */,
 			);
@@ -1136,6 +1150,7 @@
 		0C906520301504EF00DDBAB7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C667D086301C429600C62324 /* AIChatViewModel.swift */,
 				0C90651F301504EF00DDBAB7 /* ChoosePatientViewModel.swift */,
 			);
 			path = ViewModel;
@@ -2287,6 +2302,7 @@
 				C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */,
 				B396A9DF300E364A009620B0 /* ProfileFieldCard.swift in Sources */,
 				C6E897313015CBBA00E3D336 /* LogoutUseCase.swift in Sources */,
+				C667D087301C429600C62324 /* AIChatViewModel.swift in Sources */,
 				C6E897333015CBBA00E3D336 /* LoginUseCase.swift in Sources */,
 				C629359D300DD3E4000970D9 /* ProfileSetupRepositoryProtocol.swift in Sources */,
 				0C3D885B3008461300883999 /* Radius.swift in Sources */,
@@ -2324,6 +2340,10 @@
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
 				C6C0A4FE300D334800AEB6D9 /* BasicHealthInfoViewModel.swift in Sources */,
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
+				C667D082301C426D00C62324 /* ChatHeaderView.swift in Sources */,
+				C667D083301C426D00C62324 /* ChatInputBar.swift in Sources */,
+				C667D084301C426D00C62324 /* ChatMessageCell.swift in Sources */,
+				C667D085301C426D00C62324 /* ServiceRecommendationCard.swift in Sources */,
 				0C396EC8301669320036ACE5 /* AppConstants.swift in Sources */,
 				B3EF0D303019052F00C46568 /* Encodable+Parameters.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
