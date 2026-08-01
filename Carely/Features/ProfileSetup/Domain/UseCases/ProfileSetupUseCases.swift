@@ -10,6 +10,7 @@ import Foundation
 
 struct ProfileSetupUseCases {
     let getProfileId: GetDefaultProfileIdUseCase
+    let createFamilyMemberProfile: CreateFamilyMemberProfileUseCase
     let updateBasicInfo: UpdateBasicHealthInfoUseCase
     let updateMobility: UpdateMobilityUseCase
     let saveConditions: SaveExistingConditionsUseCase
@@ -18,9 +19,12 @@ struct ProfileSetupUseCases {
     let saveHistory: SaveMedicalHistoryUseCase
     let saveContact: SaveEmergencyContactUseCase
     let saveAddress: SaveHomeAddressUseCase
+    let updateAddress: UpdateHomeAddressUseCase
 }
 
-
+protocol ProfileIdProviding {
+    func execute() async throws -> String
+}
 final class GetDefaultProfileIdUseCase {
     private let repo: ProfileSetupRepositoryProtocol
     private let sessionManager: SessionManager
@@ -101,4 +105,25 @@ final class SaveHomeAddressUseCase {
     func execute(profileId: String, address: HomeAddress) async throws {
         try await repo.saveAddress(profileId: profileId, address: address)
     }
+}
+final class CreateFamilyMemberProfileUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(_ info: FamilyMemberBasicInfo) async throws -> String {
+        try await repo.createFamilyMemberProfile(info)
+    }
+}
+final class UpdateHomeAddressUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(profileId: String, address: HomeAddress) async throws {
+        try await repo.updateAddress(profileId: profileId, address: address)
+    }
+}
+extension GetDefaultProfileIdUseCase: ProfileIdProviding {}
+
+final class FixedProfileIdProvider: ProfileIdProviding {
+    private let profileId: String
+    init(profileId: String) { self.profileId = profileId }
+    func execute() async throws -> String { profileId }
 }
