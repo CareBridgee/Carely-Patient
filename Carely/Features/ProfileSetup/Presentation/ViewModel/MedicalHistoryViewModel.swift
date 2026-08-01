@@ -19,6 +19,7 @@ final class MedicalHistoryViewModel: ObservableObject {
 
     private let getProfileIdUseCase: GetDefaultProfileIdUseCase
     private let saveMedicalHistoryUseCase: SaveMedicalHistoryUseCase
+    private let overrideProfileId: String?
     private let onContinue: (MedicalHistory) -> Void
     private let onBack: (MedicalHistory) -> Void
 
@@ -26,6 +27,7 @@ final class MedicalHistoryViewModel: ObservableObject {
         existingData: MedicalHistory,
         getProfileIdUseCase: GetDefaultProfileIdUseCase,
         saveMedicalHistoryUseCase: SaveMedicalHistoryUseCase,
+        overrideProfileId: String? = nil,
         onContinue: @escaping (MedicalHistory) -> Void,
         onBack: @escaping (MedicalHistory) -> Void
     ) {
@@ -33,6 +35,7 @@ final class MedicalHistoryViewModel: ObservableObject {
         self.previousHospitalizations = existingData.previousHospitalizations
         self.getProfileIdUseCase = getProfileIdUseCase
         self.saveMedicalHistoryUseCase = saveMedicalHistoryUseCase
+        self.overrideProfileId = overrideProfileId
         self.onContinue = onContinue
         self.onBack = onBack
     }
@@ -66,13 +69,16 @@ final class MedicalHistoryViewModel: ObservableObject {
 
         Task {
             do {
-                let profileId = try await getProfileIdUseCase.execute()
-                
+                let profileId: String
+                if let overrideProfileId {
+                    profileId = overrideProfileId
+                } else {
+                    profileId = try await getProfileIdUseCase.execute()
+                }
                 try await saveMedicalHistoryUseCase.execute(profileId: profileId, history: currentHistory)
-                
+
                 self.isLoading = false
                 self.onContinue(currentHistory)
-                
             } catch {
                 self.isLoading = false
                 self.errorMessage = error.localizedDescription
