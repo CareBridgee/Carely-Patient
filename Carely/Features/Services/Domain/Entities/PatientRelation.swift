@@ -58,9 +58,8 @@ enum PaymentMethod: String, CaseIterable, Identifiable {
 }
 
 struct CareRequest {
-    var patient: PatientRelation
+    var patient: ServiceRequestPatient
     var service: CareService
     var description: String
-    var address: PatientAddress?
-    var paymentMethod: PaymentMethod
+    var address: ServiceRequestAddress?
 }
