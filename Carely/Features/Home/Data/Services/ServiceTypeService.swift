@@ -30,3 +30,4 @@ final class ServiceTypeServiceImpl: ServiceTypeServiceProtocol {
         return try await networkClient.request(ServiceTypeEndpoint.getServiceType(id: id))
     }
 }
+
