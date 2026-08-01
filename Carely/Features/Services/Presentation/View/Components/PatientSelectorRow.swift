@@ -5,12 +5,12 @@
 //  Created by Mahmoud Raafat Mustafa on 22/07/2026.
 //
 
-
 import SwiftUI
 
 struct PatientSelectorRow: View {
-    let selected: PatientRelation
-    let onSelect: (PatientRelation) -> Void
+    let patients: [ServiceRequestPatient]
+    let selected: ServiceRequestPatient?
+    let onSelect: (ServiceRequestPatient) -> Void
     let onAddTapped: () -> Void
 
     var body: some View {
@@ -18,14 +18,12 @@ struct PatientSelectorRow: View {
             Text("PATIENT")
                 .carelyText(style: .caption, weight: .semiBold)
                 .foregroundColor(.secondaryFont)
-
             HStack(spacing: Spacing.s8) {
-                ForEach(PatientRelation.allCases) { relation in
-                    SecondaryChip(title: relation.title, foreground: .brandPrimary, isSelected: selected == relation)
+                ForEach(patients) { patient in
+                    SecondaryChip(title: patient.relationship, foreground: .brandPrimary, isSelected: selected?.id == patient.id)
                         .fixedSize()
-                        .onTapGesture { onSelect(relation) }
+                        .onTapGesture { onSelect(patient) }
                 }
-
                 Button(action: onAddTapped) {
                     Image(systemName: "plus")
                         .foregroundColor(.hint)
