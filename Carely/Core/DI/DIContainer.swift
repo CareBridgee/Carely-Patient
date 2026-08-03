@@ -149,6 +149,7 @@ final class DIContainer {
                     repo: profileSetupRepository,
                     sessionManager: sessionManager 
                 ),
+                createFamilyMemberProfile: CreateFamilyMemberProfileUseCase(repo: profileSetupRepository),
                 updateBasicInfo: UpdateBasicHealthInfoUseCase(repo: profileSetupRepository),
                 updateMobility: UpdateMobilityUseCase(repo: profileSetupRepository),
                 saveConditions: SaveExistingConditionsUseCase(repo: profileSetupRepository),
@@ -156,7 +157,8 @@ final class DIContainer {
                 saveMedications: SaveMedicationsUseCase(repo: profileSetupRepository),
                 saveHistory: SaveMedicalHistoryUseCase(repo: profileSetupRepository),
                 saveContact: SaveEmergencyContactUseCase(repo: profileSetupRepository),
-                saveAddress: SaveHomeAddressUseCase(repo: profileSetupRepository)
+                saveAddress: SaveHomeAddressUseCase(repo: profileSetupRepository),
+                updateAddress: UpdateHomeAddressUseCase(repo: profileSetupRepository)
             )
         }()
     func makeProfileSetupCoordinator() -> ProfileSetupCoordinator {
@@ -164,37 +166,78 @@ final class DIContainer {
             data: ProfileSetupData())
     }
     
-    func makeMedicalHistoryViewModel(existingData: MedicalHistory, coordinator: ProfileSetupCoordinator) -> MedicalHistoryViewModel {
-            MedicalHistoryViewModel(
-                existingData: existingData,
-                getProfileIdUseCase: profileSetupUseCases.getProfileId,
-                saveMedicalHistoryUseCase: profileSetupUseCases.saveHistory,
-                onContinue: { history in
-                    coordinator.save(medicalHistory: history)
-                    coordinator.next()
-                },
-                onBack: { history in
-                    coordinator.save(medicalHistory: history)
-                    coordinator.previous()
-                }
-            )
-        }
-        
-        func makeMobilityViewModel(existingData: Mobility, coordinator: ProfileSetupCoordinator) -> MobilityViewModel {
-            MobilityViewModel(
-                existingData: existingData,
-                getProfileIdUseCase: profileSetupUseCases.getProfileId,
-                updateMobilityUseCase: profileSetupUseCases.updateMobility,
-                onContinue: { mobility in
-                    coordinator.save(mobility: mobility)
-                    coordinator.next()
-                },
-                onBack: { mobility in
-                    coordinator.save(mobility: mobility)
-                    coordinator.previous()
-                }
-            )
-        }
+    func makeMedicalHistoryViewModel(
+        existingData: MedicalHistory,
+        overrideProfileId: String? = nil,
+        coordinator: ProfileSetupCoordinator
+    ) -> MedicalHistoryViewModel {
+        MedicalHistoryViewModel(
+            existingData: existingData,
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            saveMedicalHistoryUseCase: profileSetupUseCases.saveHistory,
+            overrideProfileId: overrideProfileId,
+            onContinue: { history in
+                coordinator.save(medicalHistory: history)
+                coordinator.next()
+            },
+            onBack: { history in
+                coordinator.save(medicalHistory: history)
+                coordinator.previous()
+            }
+        )
+    }
+
+    func makeMobilityViewModel(
+        existingData: Mobility,
+        overrideProfileId: String? = nil,
+        coordinator: ProfileSetupCoordinator
+    ) -> MobilityViewModel {
+        MobilityViewModel(
+            existingData: existingData,
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            updateMobilityUseCase: profileSetupUseCases.updateMobility,
+            overrideProfileId: overrideProfileId,
+            onContinue: { mobility in
+                coordinator.save(mobility: mobility)
+                coordinator.next()
+            },
+            onBack: { mobility in
+                coordinator.save(mobility: mobility)
+                coordinator.previous()
+            }
+        )
+    }
+    
+    func makeAddFamilyMemberInfoViewModel(
+        onCreated: @escaping (String) -> Void,
+        onBack: @escaping () -> Void
+    ) -> AddFamilyMemberInfoViewModel {
+        AddFamilyMemberInfoViewModel(
+            createFamilyMemberProfileUseCase: profileSetupUseCases.createFamilyMemberProfile,
+            onCreated: onCreated,
+            onBack: onBack
+        )
+    }
+
+    func makeBasicInfoHealthViewModel(
+        existingData: BasicHealthInfo,
+        profileId: String,
+        coordinator: ProfileSetupCoordinator
+    ) -> BasicHealthInfoViewModel {
+        BasicHealthInfoViewModel(
+            existingData: existingData,
+            getProfileIdUseCase: FixedProfileIdProvider(profileId: profileId),
+            updateBasicInfoUseCase: profileSetupUseCases.updateBasicInfo,
+            onContinue: { [weak coordinator] info in
+                coordinator?.save(basicHealthInfo: info)
+                coordinator?.next()
+            },
+            onBack: { [weak coordinator] info in
+                coordinator?.save(basicHealthInfo: info)
+                coordinator?.previous()
+            }
+        )
+    }
     func makeBasicInfoHealthViewModel(
         existingData: BasicHealthInfo,
         coordinator: ProfileSetupCoordinator
@@ -219,11 +262,12 @@ final class DIContainer {
     }
     
     
-    func makeEmergencyContactViewModel(initialContact: EmergencyContact?, coordinator: ProfileSetupCoordinator) -> EmergencyContactViewModel {
+    func makeEmergencyContactViewModel(initialContact: EmergencyContact?, overrideProfileId: String? = nil, coordinator: ProfileSetupCoordinator) -> EmergencyContactViewModel {
             EmergencyContactViewModel(
                 initialContact: initialContact,
                 getProfileIdUseCase: profileSetupUseCases.getProfileId,
                 saveContactUseCase: profileSetupUseCases.saveContact,
+                overrideProfileId: overrideProfileId, 
                 onContinue: { contact in
                     coordinator.save(emergencyContact: contact)
                     coordinator.next()
@@ -235,30 +279,38 @@ final class DIContainer {
             )
         }
         
-        func makeHomeAddressViewModel(initialAddress: HomeAddress?, coordinator: ProfileSetupCoordinator, onFinishSetup: @escaping () -> Void) -> HomeAddressViewModel {
-            let mapPickerVM = makeAddressMapPickerViewModel()
-            
-            let homeVM = HomeAddressViewModel(
-                initialAddress: initialAddress,
-                mapPickerViewModel: mapPickerVM,
-                getCurrentLocationAddressUseCase: makeGetCurrentLocationAddressUseCase(),
-                getProfileIdUseCase: profileSetupUseCases.getProfileId,
-                saveAddressUseCase: profileSetupUseCases.saveAddress,
-                onFinishSetup: { address in
-                    coordinator.save(homeAddress: address)
-                    onFinishSetup() // Complete the flow
-                },
-                onBackTapped: { address in
-                    coordinator.save(homeAddress: address)
-                    coordinator.previous()
-                }
-            )
-            
-            mapPickerVM.onConfirm = { [weak homeVM] selection in homeVM?.handleAddressSelection(selection) }
-            mapPickerVM.onClose = { [weak homeVM] in homeVM?.closeMapPicker() }
-            
-            return homeVM
-        }
+    func makeHomeAddressViewModel(
+        initialAddress: HomeAddress?,
+        overrideProfileId: String? = nil,           
+        coordinator: ProfileSetupCoordinator,
+        onFinishSetup: @escaping () -> Void
+    ) -> HomeAddressViewModel {
+        let mapPickerVM = makeAddressMapPickerViewModel()
+
+        let homeVM = HomeAddressViewModel(
+            initialAddress: initialAddress,
+            mapPickerViewModel: mapPickerVM,
+            getCurrentLocationAddressUseCase: makeGetCurrentLocationAddressUseCase(),
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            saveAddressUseCase: profileSetupUseCases.saveAddress,
+            updateAddressUseCase: profileSetupUseCases.updateAddress,
+            overrideProfileId: overrideProfileId,
+            isEditingExistingAddress: false,
+            onFinishSetup: { address in
+                coordinator.save(homeAddress: address)
+                onFinishSetup()
+            },
+            onBackTapped: { address in
+                coordinator.save(homeAddress: address)
+                coordinator.previous()
+            }
+        )
+
+        mapPickerVM.onConfirm = { [weak homeVM] selection in homeVM?.handleAddressSelection(selection) }
+        mapPickerVM.onClose = { [weak homeVM] in homeVM?.closeMapPicker() }
+
+        return homeVM
+    }
     
     // MARK: - Home Address Repository
   
@@ -312,9 +364,12 @@ final class DIContainer {
     private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl(
         serviceTypeService: serviceTypeService
     )
-    private lazy var careRequestRepository: CareRequestRepositoryProtocol = {
-        CareRequestRepositoryImpl(serviceTypeService: serviceTypeService)
-    }()
+    private lazy var serviceRequestService: ServiceRequestServiceProtocol = ServiceRequestServiceImpl(networkClient: networkClient)
+
+    private lazy var careRequestRepository: CareRequestRepositoryProtocol = CareRequestRepositoryImpl(
+        serviceTypeService: serviceTypeService,
+        serviceRequestService: serviceRequestService
+    )
     
     
     // MARK: - Home UseCases
@@ -367,24 +422,51 @@ final class DIContainer {
             coordinator: coordinator
         )
     }
-    
-    
+    func makeAddressSheetViewModel(
+        profileId: String,
+        initialAddress: HomeAddress?,
+        onSaved: @escaping () -> Void,
+        onDismiss: @escaping () -> Void
+    ) -> HomeAddressViewModel {
+        HomeAddressViewModel(
+            initialAddress: initialAddress,
+            mapPickerViewModel: makeAddressMapPickerViewModel(),
+            getCurrentLocationAddressUseCase: makeGetCurrentLocationAddressUseCase(),
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            saveAddressUseCase: profileSetupUseCases.saveAddress,
+            updateAddressUseCase: profileSetupUseCases.updateAddress,
+            overrideProfileId: profileId,
+            isEditingExistingAddress: initialAddress != nil,
+            onFinishSetup: { _ in onSaved() },          // moved up
+            onBackTapped: { _ in onDismiss() },          // moved up
+            showBackButton: false,                       // moved down
+            continueButtonTitle: initialAddress != nil ? "Save Address" : "Add Address",
+            loadingButtonTitle: "Saving..."
+        )
+    }
     func makeCareRequestViewModel(
         preselectedService: CareService,
         entryPoint: CareRequestEntryPoint,
-        onSubmitted: @escaping (String) -> Void ) -> CareRequestViewModel {
-            CareRequestViewModel(
-                preselectedService: preselectedService,
-                entryPoint: entryPoint,
-                fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
-                fetchSavedAddressUseCase: FetchSavedAddressUseCase(repository: careRequestRepository),
-                submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
-                onSubmitted: onSubmitted
-                
-            )
-            
-        }
-    
+        onSubmitted: @escaping (String) -> Void
+    ) -> CareRequestViewModel {
+        CareRequestViewModel(
+            preselectedService: preselectedService,
+            entryPoint: entryPoint,
+            fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
+            fetchPatientsUseCase: FetchPatientsUseCase(repository: careRequestRepository),
+            fetchProfileAddressUseCase: FetchProfileAddressUseCase(repository: careRequestRepository),
+            submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
+            makeAddressSheetViewModel: { profileId, initialAddress, onSaved, onDismiss in
+                self.makeAddressSheetViewModel(
+                    profileId: profileId,
+                    initialAddress: initialAddress,
+                    onSaved: onSaved,
+                    onDismiss: onDismiss
+                )
+            },
+            onSubmitted: onSubmitted
+        )
+    }
     // MARK: - Visit Summary Repository
     
     private lazy var visitSummaryRepository: VisitSummaryRepositoryProtocol = {

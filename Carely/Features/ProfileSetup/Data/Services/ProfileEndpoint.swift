@@ -10,6 +10,8 @@ import Alamofire
 
 enum ProfileEndpoint: Endpoint {
     case getDefaultProfile
+    case createProfile(request: CreateProfileRequestDTO)
+
     case updateProfile(id: String, request: UpdateProfileRequestDTO)
     case saveMedicalConditions(profileId: String, request: MedicalConditionRequestDTO)
     case saveAllergies(profileId: String, request: AllergyRequestDTO)
@@ -17,10 +19,12 @@ enum ProfileEndpoint: Endpoint {
     case saveMedicalHistory(profileId: String, request: MedicalHistoryRequestDTO)
     case saveEmergencyContact(profileId: String, request: EmergencyContactRequestDTO)
     case saveAddress(profileId: String, request: AddressRequestDTO)
+    case updateAddress(profileId: String, request: AddressRequestDTO)
 
     var path: String {
         switch self {
         case .getDefaultProfile: return "/api/v1/profiles/default"
+        case .createProfile: return "/api/v1/profiles"
         case .updateProfile(let id, _): return "/api/v1/profiles/\(id)"
         case .saveMedicalConditions(let id, _): return "/api/v1/profiles/\(id)/medical-conditions"
         case .saveAllergies(let id, _): return "/api/v1/profiles/\(id)/allergies"
@@ -28,13 +32,14 @@ enum ProfileEndpoint: Endpoint {
         case .saveMedicalHistory(let id, _): return "/api/v1/profiles/\(id)/medical-history"
         case .saveEmergencyContact(let id, _): return "/api/v1/profiles/\(id)/emergency-contacts"
         case .saveAddress(let id, _): return "/api/v1/profiles/\(id)/address"
+        case .updateAddress(let id, _): return "/api/v1/profiles/\(id)/address"
         }
     }
 
     var method: HTTPMethod {
         switch self {
         case .getDefaultProfile: return .get
-        case .updateProfile: return .put
+        case .updateProfile, .updateAddress: return .put
         default: return .post
         }
     }
@@ -42,6 +47,7 @@ enum ProfileEndpoint: Endpoint {
     var parameters: Parameters? {
         switch self {
         case .getDefaultProfile: return nil
+        case .createProfile(let req): return req.asParameters()
         case .updateProfile(_, let req): return req.asParameters()
         case .saveMedicalConditions(_, let req): return req.asParameters()
         case .saveAllergies(_, let req): return req.asParameters()
@@ -49,8 +55,15 @@ enum ProfileEndpoint: Endpoint {
         case .saveMedicalHistory(_, let req): return req.asParameters()
         case .saveEmergencyContact(_, let req): return req.asParameters()
         case .saveAddress(_, let req): return req.asParameters()
+        case .updateAddress(_, let req): return req.asParameters()  
+
         }
     }
     
     var authorizationType: AuthorizationType { return .bearer }
 }
+
+
+   
+
+    

@@ -5,14 +5,16 @@
 //  Created by Mahmoud Raafat Mustafa on 22/07/2026.
 //
 
-import Foundation
-
 final class CareRequestRepositoryImpl: CareRequestRepositoryProtocol {
-    private let simulatedDelayNanoseconds: UInt64 = 600_000_000
     private let serviceTypeService: ServiceTypeServiceProtocol
+    private let serviceRequestService: ServiceRequestServiceProtocol
 
-    init(serviceTypeService: ServiceTypeServiceProtocol) {
+    init(
+        serviceTypeService: ServiceTypeServiceProtocol,
+        serviceRequestService: ServiceRequestServiceProtocol
+    ) {
         self.serviceTypeService = serviceTypeService
+        self.serviceRequestService = serviceRequestService
     }
 
     func fetchAvailableServices() async throws -> [CareService] {
@@ -20,14 +22,51 @@ final class CareRequestRepositoryImpl: CareRequestRepositoryProtocol {
         return serviceTypes.map { CareService(serviceType: $0) }
     }
 
-    func fetchSavedAddress() async throws -> PatientAddress? {
-        // TODO: Wire to a real "saved address" endpoint once available.
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
-        return PatientAddress(line1: "123 Serenity Lane", line2: "Apt 4B", district: "Health District")
+    func fetchPatients() async throws -> [ServiceRequestPatient] {
+        let profiles = try await serviceRequestService.getProfiles()
+        return profiles
+            .filter { !$0.isDeleted }
+            .map {
+                ServiceRequestPatient(
+                    id: $0.id, firstName: $0.firstName, lastName: $0.lastName,
+                    relationship: $0.relationship, isPrimary: $0.isPrimary
+                )
+            }
     }
 
-    func submitCareRequest(_ request: CareRequest) async throws {
-        // TODO: Wire to a real "submit care request" endpoint once available.
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
+    func fetchAddress(profileId: String) async throws -> ServiceRequestAddress? {
+        do {
+            let dto = try await serviceRequestService.getAddress(profileId: profileId)
+            return ServiceRequestAddress(
+                id: dto.id, profileId: dto.profileId, country: dto.country, city: dto.city,
+                area: dto.area, street: dto.street, buildingNumber: dto.buildingNumber,
+                apartmentNumber: dto.apartmentNumber, latitude: dto.latitude, longitude: dto.longitude
+            )
+        } catch let error as NetworkError {
+            if case .server(404, _) = error { return nil }   // no address yet — not an error
+            throw error
+        }
+    }
+
+    func submitCareRequest(_ request: CareRequest) async throws -> ServiceRequestResult {
+        guard let address = request.address else {
+            throw ServiceRequestValidationError.missingAddress
+        }
+        let body = ServiceRequestBodyDTO(
+            profileId: request.patient.id,
+            serviceTypeId: request.service.id,
+            latitude: address.latitude,
+            longitude: address.longitude,
+            serviceDescription: request.description
+        )
+        let response = try await serviceRequestService.submitServiceRequest(body)
+        return ServiceRequestResult(
+            serviceRequestId: response.serviceRequestId, profileId: response.profileId,
+            serviceTypeId: response.serviceTypeId, status: response.status,
+            latitude: response.latitude, longitude: response.longitude,
+            nearbyNurses: response.nearbyNurses.map {
+                NearbyNurseInfo(nurseId: $0.nurseId, latitude: $0.latitude, longitude: $0.longitude, distanceKm: $0.distanceKm)
+            }
+        )
     }
 }

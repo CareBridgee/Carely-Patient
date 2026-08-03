@@ -16,6 +16,8 @@ protocol ProfileSetupServiceProtocol {
     func saveMedicalHistory(profileId: String, request: MedicalHistoryRequestDTO) async throws
     func saveEmergencyContact(profileId: String, request: EmergencyContactRequestDTO) async throws
     func saveAddress(profileId: String, request: AddressRequestDTO) async throws
+    func createProfile(request: CreateProfileRequestDTO) async throws -> String
+    func updateAddress(profileId: String, request: AddressRequestDTO) async throws
 }
 
 final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
@@ -57,4 +59,15 @@ final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
     func saveAddress(profileId: String, request: AddressRequestDTO) async throws {
         try await networkClient.requestWithoutResponse(ProfileEndpoint.saveAddress(profileId: profileId, request: request))
     }
+    func createProfile(request: CreateProfileRequestDTO) async throws -> String {
+           let response: CreateProfileResponseDTO = try await networkClient.request(
+               ProfileEndpoint.createProfile(request: request)
+           )
+           return response.id
+       }
+    func updateAddress(profileId: String, request: AddressRequestDTO) async throws {
+           try await networkClient.requestWithoutResponse(
+               ProfileEndpoint.updateAddress(profileId: profileId, request: request)
+           )
+       }
 }
