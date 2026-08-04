@@ -11,7 +11,7 @@ import Foundation
 
 @MainActor
 final class MainTabCoordinator: ObservableObject {
-
+    @Published var currentNotification: NotificationData?
     @Published var selectedTab: AppTab = .home
 
     private var previousTab: AppTab = .home
@@ -19,10 +19,10 @@ final class MainTabCoordinator: ObservableObject {
     let servicesCoordinator: ServicesCoordinator
     let aiAssistantCoordinator: AIAssistantCoordinator
     let profileCoordinator: ProfileCoordinator
-
+    private var notificationsHubService: NotificationsHubServiceProtocol
     private let appState: AppState
 
-    init(appState: AppState) {
+    init(appState: AppState, container: DIContainer) {
         let home = HomeCoordinator()
         let services = ServicesCoordinator()
         let aiAssistant = AIAssistantCoordinator()
@@ -33,8 +33,10 @@ final class MainTabCoordinator: ObservableObject {
         self.aiAssistantCoordinator = aiAssistant
         self.profileCoordinator = profile
         self.appState = appState
-
-        wireCrossTabNavigation()
+        self.notificationsHubService = container.getNotificationsHubService()
+            
+            wireCrossTabNavigation()
+            setupNotifications()
     }
 
     // MARK: - Cross-Tab Wiring
@@ -108,6 +110,27 @@ final class MainTabCoordinator: ObservableObject {
             self.selectedTab = self.previousTab
                 
             router.popToRoot()
+        }
+    }
+    // Add these methods
+    private func setupNotifications() {
+        notificationsHubService.onNotificationReceived = { [weak self] response in
+            guard let self = self else { return }
+            
+            let data = NotificationData(
+                title: response.title,
+                message: response.message,
+                type: response.type
+            )
+            self.currentNotification = data
+        }
+        notificationsHubService.connectAndSubscribe()
+    }
+
+    func handleNotificationTap() {
+        guard let notif = currentNotification else { return }
+        if notif.type == "MESSAGE" {
+            self.selectedTab = .services 
         }
     }
 }

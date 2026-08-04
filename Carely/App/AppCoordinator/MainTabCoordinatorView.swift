@@ -18,7 +18,7 @@ struct MainTabCoordinatorView: View {
     init(container: DIContainer, appState: AppState) {
         self.container = container
         self.appState = appState
-        _coordinator = StateObject(wrappedValue: MainTabCoordinator(appState: appState))
+        _coordinator = StateObject(wrappedValue: MainTabCoordinator(appState: appState, container: container))
     }
 
     var body: some View {
@@ -34,6 +34,9 @@ struct MainTabCoordinatorView: View {
             )
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
+        .notificationBanner(data: $coordinator.currentNotification) {
+                coordinator.handleNotificationTap()
+            }
     }
     // MARK: - Tab Content
 

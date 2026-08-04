@@ -30,32 +30,35 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
     }
     
     private func setupSocketEvents() {
-        socketClient.onConnected = { [weak self] in
-            guard let self = self else { return }
-            self.socketClient.subscribe(to: "/topic/reservation/\(self.serviceRequestId)")
+            let key = "Offers_\(serviceRequestId)"
+            
+            socketClient.onConnectedListeners[key] = { [weak self] in
+                guard let self = self else { return }
+                self.socketClient.subscribe(to: "/topic/reservation/\(self.serviceRequestId)")
+            }
+
+            socketClient.onMessageReceivedListeners[key] = { [weak self] destination, body in
+                guard let self = self else { return }
+                if destination.contains("/topic/reservation/\(self.serviceRequestId)") {
+                    self.handleMessage(body: body)
+                }
+            }
         }
-        
-        socketClient.onMessageReceived = { [weak self] destination, body in
-            self?.handleMessage(body: body)
-        }
-        
-        socketClient.onDisconnected = {
-            // Optional: Handle disconnect (e.g. notify UI if needed)
-        }
-        
-        socketClient.onError = { error in
-            // Optional: Handle error
-        }
-    }
+
+        func disconnect() {
+            let key = "Offers_\(serviceRequestId)"
+                    
+                    socketClient.unsubscribe(from: "/topic/reservation/\(serviceRequestId)")
+                    
+                    socketClient.onConnectedListeners.removeValue(forKey: key)
+                    socketClient.onMessageReceivedListeners.removeValue(forKey: key)
+                    }
     
     func connect() {
         socketClient.connect()
     }
     
-    func disconnect() {
-        socketClient.unsubscribe(from: "/topic/reservation/\(serviceRequestId)")
-        socketClient.disconnect()
-    }
+
     
     private func handleMessage(body: String) {
         guard let data = body.data(using: .utf8) else { return }

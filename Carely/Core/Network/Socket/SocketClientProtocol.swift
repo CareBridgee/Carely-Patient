@@ -16,8 +16,8 @@ protocol SocketClientProtocol: AnyObject {
     func unsubscribe(from destination: String)
     func send(to destination: String, body: String)
 
-    var onConnected: (() -> Void)? { get set }
-    var onDisconnected: (() -> Void)? { get set }
-    var onMessageReceived: ((_ destination: String, _ body: String) -> Void)? { get set }
-    var onError: ((_ description: String) -> Void)? { get set }
+    var onConnectedListeners: [String: () -> Void] { get set }
+        var onDisconnectedListeners: [String: () -> Void] { get set }
+        var onMessageReceivedListeners: [String: (_ destination: String, _ body: String) -> Void] { get set }
+        var onErrorListeners: [String: (_ description: String) -> Void] { get set }
 }

@@ -115,6 +115,10 @@
 		B3694091301E3EA400BB26AD /* AddFamilyMemberInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3694090301E3EA400BB26AD /* AddFamilyMemberInfoViewModel.swift */; };
 		B3694093301E3EBF00BB26AD /* AddFamilyMemberInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3694092301E3EBF00BB26AD /* AddFamilyMemberInfoView.swift */; };
 		B3694095301E3ED900BB26AD /* AddFamilyMemberCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3694094301E3ED900BB26AD /* AddFamilyMemberCoordinatorView.swift */; };
+		B377AEFF302200A400DDBD86 /* NotificationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377AEFE302200A400DDBD86 /* NotificationResponseDTO.swift */; };
+		B377AF01302200AF00DDBD86 /* NotificationsHubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377AF00302200AF00DDBD86 /* NotificationsHubServiceProtocol.swift */; };
+		B377AF03302200CF00DDBD86 /* NotificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377AF02302200CF00DDBD86 /* NotificationData.swift */; };
+		B377AF05302200D800DDBD86 /* NotificationBannerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377AF04302200D800DDBD86 /* NotificationBannerModifier.swift */; };
 		B38E56AB3013A98000A9F153 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */; };
 		B38E56AD3013A99900A9F153 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AC3013A99900A9F153 /* Endpoint.swift */; };
 		B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E56AE3013A9B000A9F153 /* NetworkError.swift */; };
@@ -466,6 +470,10 @@
 		B3694090301E3EA400BB26AD /* AddFamilyMemberInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberInfoViewModel.swift; sourceTree = "<group>"; };
 		B3694092301E3EBF00BB26AD /* AddFamilyMemberInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberInfoView.swift; sourceTree = "<group>"; };
 		B3694094301E3ED900BB26AD /* AddFamilyMemberCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFamilyMemberCoordinatorView.swift; sourceTree = "<group>"; };
+		B377AEFE302200A400DDBD86 /* NotificationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationResponseDTO.swift; sourceTree = "<group>"; };
+		B377AF00302200AF00DDBD86 /* NotificationsHubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsHubServiceProtocol.swift; sourceTree = "<group>"; };
+		B377AF02302200CF00DDBD86 /* NotificationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationData.swift; sourceTree = "<group>"; };
+		B377AF04302200D800DDBD86 /* NotificationBannerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerModifier.swift; sourceTree = "<group>"; };
 		B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		B38E56AC3013A99900A9F153 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		B38E56AE3013A9B000A9F153 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -1027,6 +1035,8 @@
 		0C3D88943008501500883999 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				B377AF04302200D800DDBD86 /* NotificationBannerModifier.swift */,
+				B377AF02302200CF00DDBD86 /* NotificationData.swift */,
 				0C6BAE2B3012703800759ED0 /* CareConnectNavigationBarModifier.swift */,
 				0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */,
 				C6B11891300BA01A00DB27BF /* SecondaryButton.swift */,
@@ -1436,6 +1446,7 @@
 		39A06E7C301806CE008E9E7B /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				B377AEFE302200A400DDBD86 /* NotificationResponseDTO.swift */,
 				39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */,
 			);
 			path = DTOs;
@@ -1444,6 +1455,7 @@
 		39A06E7F30180734008E9E7B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B377AF00302200AF00DDBD86 /* NotificationsHubServiceProtocol.swift */,
 				39A06E823018075F008E9E7B /* ServiceTypeService.swift */,
 				39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */,
 			);
@@ -2252,6 +2264,7 @@
 				C6C3BE39300A644A00C5FC25 /* OTPResendSectionView.swift in Sources */,
 				0C906527301504EF00DDBAB7 /* AIPatient.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
+				B377AF03302200CF00DDBD86 /* NotificationData.swift in Sources */,
 				B3EF0D2A3018FEA000C46568 /* ProfileSetupService.swift in Sources */,
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
@@ -2261,6 +2274,7 @@
 				C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */,
 				0C4A512230111EDC00EA6EBE /* OfferAcceptedNurseCardView.swift in Sources */,
 				C6C0A4C5300D0C3E00AEB6D9 /* ExistingConditions.swift in Sources */,
+				B377AF05302200D800DDBD86 /* NotificationBannerModifier.swift in Sources */,
 				C6E897233015CB4300E3D336 /* KeychainTokenStore.swift in Sources */,
 				C6E897243015CB4300E3D336 /* RefreshState.swift in Sources */,
 				C6E897253015CB4300E3D336 /* AuthorizationType.swift in Sources */,
@@ -2423,6 +2437,7 @@
 				B3694093301E3EBF00BB26AD /* AddFamilyMemberInfoView.swift in Sources */,
 				C6C0A500300D334800AEB6D9 /* MobilityView.swift in Sources */,
 				C629359B300DD3D7000970D9 /* ProfileSetupRepositoryImpl.swift in Sources */,
+				B377AF01302200AF00DDBD86 /* NotificationsHubServiceProtocol.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
 				C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */,
@@ -2457,6 +2472,7 @@
 				C667D079301C3FE900C62324 /* AIChatResponseDTO.swift in Sources */,
 				C667D07A301C3FE900C62324 /* AIChatService.swift in Sources */,
 				C667D07B301C3FE900C62324 /* AIChatEndpoint.swift in Sources */,
+				B377AEFF302200A400DDBD86 /* NotificationResponseDTO.swift in Sources */,
 				C6C0A507300D334800AEB6D9 /* HomeAddressViewModel.swift in Sources */,
 				C6C0A508300D334800AEB6D9 /* AllergiesView.swift in Sources */,
 				C6C0A509300D334800AEB6D9 /* MedicalHistoryView.swift in Sources */,

@@ -352,7 +352,38 @@ final class DIContainer {
             getCurrentLocationCoordinateUseCase: makeGetCurrentLocationCoordinateUseCase()
         )
     }
-    
+    // MARK: - Core Socket (Shared)
+        private lazy var sharedSocketClient: SocketClientProtocol = {
+            guard let url = URL(string: NetworkConfiguration.socketURL) else {
+                fatalError("Invalid socket URL")
+            }
+            
+            let client = StompSocketClient(url: url, tokenStore: tokenStore)
+            
+            client.onTokenExpiredOrFailed = { [weak self] in
+                guard let self = self else { return false }
+                
+                guard let refreshToken = self.tokenStore.getRefreshToken(), !refreshToken.isEmpty else {
+                    return false
+                }
+                
+                do {
+                    let authResponse = try await self.authService.refresh(refreshToken: refreshToken)
+                    
+                    self.tokenStore.saveTokens(
+                        access: authResponse.accessToken,
+                        refresh: authResponse.refreshToken
+                    )
+                    
+                    return true
+                } catch {
+                    print("[Socket] Direct token refresh failed: \(error)")
+                    return false
+                }
+            }
+            
+            return client
+        }()
     // MARK: - Service Catalog (shared by Home + Services features)
 
     private lazy var serviceTypeService: ServiceTypeServiceProtocol = ServiceTypeServiceImpl(
@@ -497,11 +528,17 @@ final class DIContainer {
     // MARK: - Core Socket
     
     private func makeSocketClient(serviceRequestId: String) -> SocketClientProtocol {
-        guard let url = URL(string: NetworkConfiguration.socketURL) else {
-            fatalError("Invalid socket URL")
+            return sharedSocketClient
         }
-        return StompSocketClient(url: url, tokenStore: tokenStore)
-    }
+
+        // MARK: - Notifications
+        private lazy var notificationsHubService: NotificationsHubServiceProtocol = {
+            return NotificationsSocketDataSource(socketClient: sharedSocketClient)
+        }()
+        
+        func getNotificationsHubService() -> NotificationsHubServiceProtocol {
+            return notificationsHubService
+        }
 
     // MARK: - Search Offer Repository
     
