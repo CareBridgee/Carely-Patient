@@ -494,20 +494,34 @@ final class DIContainer {
         )
     }
     
+    // MARK: - Core Socket
+    
+    private func makeSocketClient(serviceRequestId: String) -> SocketClientProtocol {
+        guard let url = URL(string: NetworkConfiguration.socketURL) else {
+            fatalError("Invalid socket URL")
+        }
+        return StompSocketClient(url: url, tokenStore: tokenStore)
+    }
+
     // MARK: - Search Offer Repository
     
-    private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {
-        OfferSearchingRepositoryImpl(hubService: OffersSearchingHubServices())
-    }()
+    private func makeOfferSearchingRepository(serviceRequestId: String) -> OfferSearchingRepositoryProtocol {
+        let socketClient = makeSocketClient(serviceRequestId: serviceRequestId)
+        let dataSource = OffersSearchingSocketDataSource(
+            socketClient: socketClient,
+            serviceRequestId: serviceRequestId
+        )
+        return OfferSearchingRepositoryImpl(hubService: dataSource)
+    }
     
     // MARK: - Search Offer UseCases
     
-    private func makeObserveOffersUseCase() -> ObserveOffersUseCase {
-        ObserveOffersUseCase(repository: offerSearchingRepository)
+    private func makeObserveOffersUseCase(repository: OfferSearchingRepositoryProtocol) -> ObserveOffersUseCase {
+        ObserveOffersUseCase(repository: repository)
     }
     
-    private func makeManageOffersConnectionUseCase() -> ManageOffersConnectionUseCase {
-        ManageOffersConnectionUseCase(repository: offerSearchingRepository)
+    private func makeManageOffersConnectionUseCase(repository: OfferSearchingRepositoryProtocol) -> ManageOffersConnectionUseCase {
+        ManageOffersConnectionUseCase(repository: repository)
     }
     
     // MARK: - Search Offer ViewModels
@@ -517,10 +531,12 @@ final class DIContainer {
         onOfferAccepted: @escaping (ConfirmedOffer)->Void,
         onShowNurseProfile: @escaping (String)->Void
     ) -> OffersSearchingViewModel {
-        OffersSearchingViewModel(
+        let repo = makeOfferSearchingRepository(serviceRequestId: requestId)
+        
+        return OffersSearchingViewModel(
             requestId: requestId,
-            observeOffersUseCase: makeObserveOffersUseCase(),
-            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(),
+            observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
             onOfferAccepted: onOfferAccepted,
             onShowNurseProfile: onShowNurseProfile
         )

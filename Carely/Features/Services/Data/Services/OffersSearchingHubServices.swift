@@ -15,29 +15,89 @@ protocol OffersSearchingHubServicesProtocol {
     func disconnect()
 }
 
-
-final class OffersSearchingHubServices: OffersSearchingHubServicesProtocol {
+final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol {
     var onOfferReceived: ((NurseOffer) -> Void)?
     var onOfferCanceled: ((String) -> Void)?
     
-    private var task: Task<Void, Never>?
-
-    func connect() {
-        task = Task {
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
-            let offer1 = NurseOffer(id: "1", name: "Sarah Mitchell", title: "RN", price: 85.0, rating: 4.9, reviewsCount: 124, distance: 2.4, imageLink: "")
-            await MainActor.run { onOfferReceived?(offer1) }
-
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
-            let offer2 = NurseOffer(id: "2", name: "Elena Rodriguez", title: "RN", price: 78.0, rating: 5.0, reviewsCount: 45, distance: 5.1, imageLink: "")
-            await MainActor.run { onOfferReceived?(offer2) }
-
-            try? await Task.sleep(nanoseconds: 4_000_000_000)
-            await MainActor.run { onOfferCanceled?("1") }
+    private let socketClient: SocketClientProtocol
+    private let serviceRequestId: String
+    private let decoder = JSONDecoder()
+    
+    init(socketClient: SocketClientProtocol, serviceRequestId: String) {
+        self.socketClient = socketClient
+        self.serviceRequestId = serviceRequestId
+        self.setupSocketEvents()
+    }
+    
+    private func setupSocketEvents() {
+        socketClient.onConnected = { [weak self] in
+            guard let self = self else { return }
+            self.socketClient.subscribe(to: "/topic/reservation/\(self.serviceRequestId)")
+        }
+        
+        socketClient.onMessageReceived = { [weak self] destination, body in
+            self?.handleMessage(body: body)
+        }
+        
+        socketClient.onDisconnected = {
+            // Optional: Handle disconnect (e.g. notify UI if needed)
+        }
+        
+        socketClient.onError = { error in
+            // Optional: Handle error
         }
     }
-
-    func disconnect() {
-        task?.cancel()
+    
+    func connect() {
+        socketClient.connect()
     }
+    
+    func disconnect() {
+        socketClient.unsubscribe(from: "/topic/reservation/\(serviceRequestId)")
+        socketClient.disconnect()
+    }
+    
+    private func handleMessage(body: String) {
+        guard let data = body.data(using: .utf8) else { return }
+        
+        do {
+            let event = try decoder.decode(ReservationEventDTO.self, from: data)
+            
+            switch event.type {
+            case "OFFER_CREATED", "OFFER_UPDATED", "OFFER_COUNTERED", "OFFER_ACCEPTED":
+                if let offerData = event.data {
+                    let nurseOffer = NurseOffer(
+                        id: offerData.id,
+                        name: "Nurse \(String(offerData.nurseId.prefix(4)))", // Stub
+                        title: "RN", // Stub
+                        price: offerData.proposedPrice,
+                        rating: 0.0, // Stub
+                        reviewsCount: 0, // Stub
+                        distance: 0.0, // Stub
+                        imageLink: "" // Stub
+                    )
+                    DispatchQueue.main.async {
+                        self.onOfferReceived?(nurseOffer)
+                    }
+                }
+                
+            case "OFFER_WITHDRAWN", "OFFER_REJECTED":
+                let referenceEvent = try decoder.decode(OfferReferenceEventDTO.self, from: data)
+                if let offerId = referenceEvent.data?.offerId {
+                    DispatchQueue.main.async {
+                        self.onOfferCanceled?(offerId)
+                    }
+                }
+                
+            default:
+                break // Ignored event
+            }
+        } catch {
+            print("[Socket Data Source] Error decoding message: \(error)")
+        }
+    }
+}
+
+private struct OfferReferenceEventDTO: Decodable {
+    let data: OfferReferenceDTO?
 }
