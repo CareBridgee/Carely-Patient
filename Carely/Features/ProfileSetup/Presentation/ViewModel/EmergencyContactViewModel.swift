@@ -26,6 +26,8 @@ final class EmergencyContactViewModel: ObservableObject {
     // MARK: - Dependencies
     private let getProfileIdUseCase: GetDefaultProfileIdUseCase
     private let saveContactUseCase: SaveEmergencyContactUseCase
+    private let overrideProfileId: String?
+
     private let onContinue: (EmergencyContact) -> Void
     private let onBack: (EmergencyContact) -> Void
 
@@ -33,6 +35,7 @@ final class EmergencyContactViewModel: ObservableObject {
         initialContact: EmergencyContact?,
         getProfileIdUseCase: GetDefaultProfileIdUseCase,
         saveContactUseCase: SaveEmergencyContactUseCase,
+        overrideProfileId: String? = nil,
         onContinue: @escaping (EmergencyContact) -> Void,
         onBack: @escaping (EmergencyContact) -> Void
     ) {
@@ -41,6 +44,7 @@ final class EmergencyContactViewModel: ObservableObject {
         self.phoneNumber = initialContact?.phoneNumber ?? ""
         self.getProfileIdUseCase = getProfileIdUseCase
         self.saveContactUseCase = saveContactUseCase
+        self.overrideProfileId = overrideProfileId
         self.onContinue = onContinue
         self.onBack = onBack
     }
@@ -88,7 +92,12 @@ final class EmergencyContactViewModel: ObservableObject {
 
         Task {
             do {
-                let profileId = try await getProfileIdUseCase.execute()
+                let profileId: String
+                if let overrideProfileId {
+                    profileId = overrideProfileId
+                } else {
+                    profileId = try await getProfileIdUseCase.execute()
+                }
                 try await saveContactUseCase.execute(profileId: profileId, contact: contact)
                 
                 self.isLoading = false

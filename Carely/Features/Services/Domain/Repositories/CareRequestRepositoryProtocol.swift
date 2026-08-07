@@ -7,9 +7,9 @@
 
 
 import Foundation
-
 protocol CareRequestRepositoryProtocol {
     func fetchAvailableServices() async throws -> [CareService]
-    func fetchSavedAddress() async throws -> PatientAddress?
-    func submitCareRequest(_ request: CareRequest) async throws
+    func fetchPatients() async throws -> [ServiceRequestPatient]
+    func fetchAddress(profileId: String) async throws -> ServiceRequestAddress?
+    func submitCareRequest(_ request: CareRequest) async throws -> ServiceRequestResult
 }

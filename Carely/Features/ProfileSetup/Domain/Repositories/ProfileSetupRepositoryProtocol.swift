@@ -23,4 +23,6 @@ protocol ProfileSetupRepositoryProtocol {
         func saveMedicalHistory(profileId: String, history: MedicalHistory) async throws
         func saveEmergencyContact(profileId: String, contact: EmergencyContact) async throws
         func saveAddress(profileId: String, address: HomeAddress) async throws
+    func createFamilyMemberProfile(_ info: FamilyMemberBasicInfo) async throws -> String
+    func updateAddress(profileId: String, address: HomeAddress) async throws
 }

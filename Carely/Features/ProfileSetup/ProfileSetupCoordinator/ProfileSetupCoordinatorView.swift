@@ -42,12 +42,7 @@ struct ProfileSetupCoordinatorView: View {
             Group {
                 switch coordinator.currentStep {
                 case .basicHealthInfo:
-                    BasicHealthInfoView(
-                        viewModel: container.makeBasicInfoHealthViewModel(
-                            existingData: coordinator.data.basicHealthInfo,
-                            coordinator: coordinator
-                        )
-                    )
+                    BasicHealthInfoView(viewModel: makeBasicHealthInfoViewModel())
 
                 case .existingConditions:
                     ExistingConditionsView(coordinator: coordinator,viewModel: container.makeExistingConditionsViewModel(existingData: coordinator.data.existingConditions)
@@ -64,6 +59,7 @@ struct ProfileSetupCoordinatorView: View {
                     MedicalHistoryView(
                         viewModel: container.makeMedicalHistoryViewModel(
                             existingData: coordinator.data.medicalHistory,
+                            overrideProfileId: coordinator.profileId,
                             coordinator: coordinator
                         )
                     )
@@ -72,25 +68,29 @@ struct ProfileSetupCoordinatorView: View {
                     MobilityView(
                         viewModel: container.makeMobilityViewModel(
                             existingData: coordinator.data.mobility,
+                            overrideProfileId: coordinator.profileId,
                             coordinator: coordinator
                         )
                     )
-                case .emergencyContact:
-                                    EmergencyContactView(
-                                        viewModel: container.makeEmergencyContactViewModel(
-                                            initialContact: coordinator.data.emergencyContact,
-                                            coordinator: coordinator
-                                        )
-                                    )
 
-                                case .homeAddress:
-                                    HomeAddressView(
-                                        viewModel: container.makeHomeAddressViewModel(
-                                            initialAddress: coordinator.data.homeAddress,
-                                            coordinator: coordinator,
-                                            onFinishSetup: onFinish
-                                        )
-                                    )
+                case .emergencyContact:
+                    EmergencyContactView(
+                        viewModel: container.makeEmergencyContactViewModel(
+                            initialContact: coordinator.data.emergencyContact,
+                            overrideProfileId: coordinator.profileId,
+                            coordinator: coordinator
+                        )
+                    )
+
+                case .homeAddress:
+                    HomeAddressView(
+                        viewModel: container.makeHomeAddressViewModel(
+                            initialAddress: coordinator.data.homeAddress,
+                            overrideProfileId: coordinator.profileId,
+                            coordinator: coordinator,
+                            onFinishSetup: onFinish
+                        )
+                    )
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -112,6 +112,19 @@ struct ProfileSetupCoordinatorView: View {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
             coordinator.previous()
         }
+    }
+    private func makeBasicHealthInfoViewModel() -> BasicHealthInfoViewModel {
+        if let profileId = coordinator.profileId {
+            return container.makeBasicInfoHealthViewModel(
+                existingData: coordinator.data.basicHealthInfo,
+                profileId: profileId,
+                coordinator: coordinator
+            )
+        }
+        return container.makeBasicInfoHealthViewModel(
+            existingData: coordinator.data.basicHealthInfo,
+            coordinator: coordinator
+        )
     }
 }
 

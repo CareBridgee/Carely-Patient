@@ -151,7 +151,26 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
             )
             try await service.saveAddress(profileId: profileId, request: request)
         }
-
+    func createFamilyMemberProfile(_ info: FamilyMemberBasicInfo) async throws -> String {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        let request = CreateProfileRequestDTO(
+            relationship: info.relationship,
+            firstName: info.firstName,
+            lastName: info.lastName,
+            dateOfBirth: formatter.string(from: info.dateOfBirth),
+            gender: info.gender.rawValue
+        )
+        return try await service.createProfile(request: request)
+    }
+    func updateAddress(profileId: String, address: HomeAddress) async throws {
+        let request = AddressRequestDTO(
+            country: address.country, city: address.city, area: address.area,
+            street: address.streetName, buildingNumber: address.building, apartmentNumber: address.apartment,
+            latitude: address.latitude ?? 0.0, longitude: address.longitude ?? 0.0
+        )
+        try await service.updateAddress(profileId: profileId, request: request)
+    }
 }
 
 // MARK: - Errors

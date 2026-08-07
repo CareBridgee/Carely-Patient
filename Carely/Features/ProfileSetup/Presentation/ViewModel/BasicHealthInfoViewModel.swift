@@ -15,7 +15,7 @@ final class BasicHealthInfoViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
 
-    private let getProfileIdUseCase: GetDefaultProfileIdUseCase
+    private let getProfileIdUseCase: ProfileIdProviding
     private let updateBasicInfoUseCase: UpdateBasicHealthInfoUseCase
     private let onContinue: (BasicHealthInfo) -> Void
     private let onBack: (BasicHealthInfo) -> Void
@@ -28,7 +28,7 @@ final class BasicHealthInfoViewModel: ObservableObject {
 
     init(
         existingData: BasicHealthInfo,
-        getProfileIdUseCase: GetDefaultProfileIdUseCase,
+        getProfileIdUseCase: ProfileIdProviding,
         updateBasicInfoUseCase: UpdateBasicHealthInfoUseCase,
         onContinue: @escaping (BasicHealthInfo) -> Void,
         onBack: @escaping (BasicHealthInfo) -> Void

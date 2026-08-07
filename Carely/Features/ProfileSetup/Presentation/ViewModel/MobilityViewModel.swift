@@ -19,6 +19,8 @@ final class MobilityViewModel: ObservableObject {
 
     private let getProfileIdUseCase: GetDefaultProfileIdUseCase
     private let updateMobilityUseCase: UpdateMobilityUseCase
+    private let overrideProfileId: String?
+
     private let onContinue: (Mobility) -> Void
     private let onBack: (Mobility) -> Void
 
@@ -26,6 +28,7 @@ final class MobilityViewModel: ObservableObject {
         existingData: Mobility,
         getProfileIdUseCase: GetDefaultProfileIdUseCase,
         updateMobilityUseCase: UpdateMobilityUseCase,
+        overrideProfileId: String? = nil,
         onContinue: @escaping (Mobility) -> Void,
         onBack: @escaping (Mobility) -> Void
     ) {
@@ -33,6 +36,8 @@ final class MobilityViewModel: ObservableObject {
         self.additionalNotes = existingData.additionalNotes
         self.getProfileIdUseCase = getProfileIdUseCase
         self.updateMobilityUseCase = updateMobilityUseCase
+        self.overrideProfileId = overrideProfileId
+
         self.onContinue = onContinue
         self.onBack = onBack
     }
@@ -70,8 +75,12 @@ final class MobilityViewModel: ObservableObject {
 
         Task {
             do {
-                let profileId = try await getProfileIdUseCase.execute()
-                
+                let profileId: String
+                if let overrideProfileId {
+                    profileId = overrideProfileId
+                } else {
+                    profileId = try await getProfileIdUseCase.execute()
+                }
                 try await updateMobilityUseCase.execute(profileId: profileId, mobility: currentMobility)
                 
                 self.isLoading = false

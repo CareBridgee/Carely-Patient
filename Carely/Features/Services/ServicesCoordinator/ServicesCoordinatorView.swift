@@ -43,9 +43,21 @@ struct ServicesCoordinatorView: View {
                     }),
                 onEditProfileTapped: {
                     //
+                },
+                onAddFamilyMemberTapped: {
+                    coordinator.push(to: .addFamilyMember)
                 }
             )
-
+        case .addFamilyMember:
+            AddFamilyMemberCoordinatorView(
+                container: container,
+                onFinish: {
+                    coordinator.pop()
+                },
+                onCancel: {
+                    coordinator.pop()
+                }
+            )
         case .waitingForOffers(let requestId):
             OffersSearchingView(viewModel: container.makeOffersSearchingViewModel(
                 requestId: requestId,
