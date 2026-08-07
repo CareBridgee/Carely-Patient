@@ -18,4 +18,5 @@ struct ServiceDetail: Identifiable, Equatable {
     let aboutDescription: String
     let includedItems: [String]
     let noteText: String
+    let imageUrl : String?
 }

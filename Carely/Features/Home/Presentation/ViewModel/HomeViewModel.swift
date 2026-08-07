@@ -18,7 +18,7 @@ final class HomeViewModel: ObservableObject {
     @Published var greetingName: String = ""
     @Published var previewCategories: [ServiceCategory] = []
     @Published var upcomingBookings: [UpcomingBooking] = []
- 
+    @Published var profileImageUrl: String? = nil
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
@@ -27,13 +27,13 @@ final class HomeViewModel: ObservableObject {
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     
-    private var onServiceTabbed: () -> Void
+    private var onServiceTabbed: (String) -> Void
     init(
         getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
-        onServiceTabbed: @escaping () -> Void
-    ) {
+        onServiceTabbed: @escaping (String) -> Void
+    )  {
         self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
@@ -46,33 +46,36 @@ final class HomeViewModel: ObservableObject {
     }
  
     func loadDashboard() {
-        isLoading = true
-        errorMessage = nil
- 
-        Task {
-            do {
-                async let name = getGreetingNameUseCase.execute()
-                async let categories = getServiceCategoriesUseCase.execute()
-                async let bookings = getUpcomingBookingsUseCase.execute()
- 
-                let (fetchedName, fetchedCategories, fetchedBookings) = try await (name, categories, bookings)
- 
-                self.greetingName = fetchedName
-                self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
-                self.upcomingBookings = fetchedBookings
-                self.isLoading = false
-            } catch {
-                self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+            isLoading = true
+            errorMessage = nil
+     
+            Task {
+                do {
+                    async let profileData = getGreetingNameUseCase.execute() 
+                    async let categories = getServiceCategoriesUseCase.execute()
+                    async let bookings = getUpcomingBookingsUseCase.execute()
+     
+                    let (fetchedProfile, fetchedCategories, fetchedBookings) = try await (profileData, categories, bookings)
+                    print(fetchedProfile.imageUrl ?? "default value")
+     
+                    self.greetingName = fetchedProfile.name
+                    self.profileImageUrl = fetchedProfile.imageUrl
+                    self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
+                    self.upcomingBookings = fetchedBookings
+                    
+                    self.isLoading = false
+                } catch {
+                    self.isLoading = false
+                    self.errorMessage = error.localizedDescription
+                    self.showError = true
+                }
             }
         }
-    }
  
     // MARK: - Navigation
  
     func categoryTapped(_ category: ServiceCategory) {
-        onServiceTabbed()
+        onServiceTabbed(category.id)
     }
  
     func viewAllServicesTapped() {

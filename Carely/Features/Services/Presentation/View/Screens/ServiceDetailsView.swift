@@ -100,37 +100,69 @@ struct ServiceDetailsView: View {
     }
 
     private func heroSection(_ detail: ServiceDetail) -> some View {
-        ZStack(alignment: .bottomLeading) {
-            RoundedRectangle(cornerRadius: Radius.r24)
-                .fill(
-                    LinearGradient(
-                        colors: [Color.onProcessingContainer.opacity(0.2), Color.hint.opacity(0.35)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
+            ZStack(alignment: .bottomLeading) {
+                
+                if let imageUrlString = detail.imageUrl, let url = URL(string: imageUrlString) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ZStack {
+                                Color.onProcessingContainer.opacity(0.2)
+                                ProgressView()
+                            }
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        case .failure:
+                            fallbackPlaceholder
+                        @unknown default:
+                            fallbackPlaceholder
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    fallbackPlaceholder
+                }
+
+                LinearGradient(
+                    colors: [Color.black.opacity(0.0), Color.black.opacity(0.6)],
+                    startPoint: .center,
+                    endPoint: .bottom
                 )
 
-            Image(systemName: "photo")
-                .font(.system(size: 40))
-                .foregroundColor(.hint.opacity(0.6))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            HStack(spacing: Spacing.s8) {
-                Image(systemName: "cross.case.fill")
-                    .font(.system(size: 12))
-                Text(detail.badgeText.isEmpty ? "Clinical Grade" : detail.badgeText)
-                    .carelyText(style: .caption, weight: .semiBold)
+                HStack(spacing: Spacing.s8) {
+                    Image(systemName: "cross.case.fill")
+                        .font(.system(size: 12))
+                    Text(detail.badgeText.isEmpty ? "Clinical Grade" : detail.badgeText)
+                        .carelyText(style: .caption, weight: .semiBold)
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, Spacing.s12)
+                .padding(.vertical, Spacing.s8)
+                .background(Color.brandPrimary)
+                .clipShape(RoundedRectangle.carely(Radius.r12))
+                .padding(Spacing.s16)
             }
-            .foregroundColor(.white)
-            .padding(.horizontal, Spacing.s12)
-            .padding(.vertical, Spacing.s8)
-            .background(Color.brandPrimary)
-            .clipShape(RoundedRectangle.carely(Radius.r12))
-            .padding(Spacing.s16)
+            .frame(height: 200)
+            .clipShape(RoundedRectangle.carely(Radius.r24))
         }
-        .frame(height: 200)
-        .clipShape(RoundedRectangle.carely(Radius.r24))
-    }
+        
+        private var fallbackPlaceholder: some View {
+            ZStack {
+                RoundedRectangle(cornerRadius: Radius.r24)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.onProcessingContainer.opacity(0.2), Color.hint.opacity(0.35)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                Image(systemName: "photo")
+                    .font(.system(size: 40))
+                    .foregroundColor(.hint.opacity(0.6))
+            }
+        }
 
     private func infoHeader(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s4) {

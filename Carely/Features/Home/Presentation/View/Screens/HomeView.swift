@@ -22,7 +22,10 @@ struct HomeView: View {
             VStack {
                 ScrollView{
                     VStack(alignment: .leading, spacing: Spacing.s20) {
-                        HomeTopBar(greetingName: viewModel.greetingName) {}
+                        HomeTopBar(
+                                greetingName: viewModel.greetingName,
+                                profileImageUrl: viewModel.profileImageUrl 
+                            ) {}
 
                         SearchField(
                             placeholder: "Search services, symptoms...",

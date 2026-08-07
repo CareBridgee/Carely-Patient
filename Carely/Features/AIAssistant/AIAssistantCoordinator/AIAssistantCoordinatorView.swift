@@ -13,13 +13,7 @@ struct AIAssistantCoordinatorView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.path){
-            ChoosePatientView(viewModel: container.makeChoosePatientViewModel(
-                onShowPatientDetails: coordinator.viewProfiledetailsTapped,
-                onContinueWithAssessment: { selectedId in
-                    coordinator.push(to: .aiAssistantChat(patientId: selectedId)
-                    )
-                }
-            ))
+            AIChatView(viewModel: container.makeAIChatViewModel())
             .navigationDestination(for: AIAssistantRoute.self){ route in
                 destination(for: route)
             }
@@ -30,7 +24,7 @@ struct AIAssistantCoordinatorView: View {
         switch route{
             
         case .aiAssistantChat(let selectedId):
-            AIChatView()
+            AIChatView(viewModel: container.makeAIChatViewModel())
         }
     }
 }

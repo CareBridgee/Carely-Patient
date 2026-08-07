@@ -19,7 +19,10 @@ struct AllServiceView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: Spacing.s16) {
-                HomeTopBar(greetingName: viewModel.greetingName) {}
+                HomeTopBar(
+                        greetingName: viewModel.greetingName,
+                        profileImageUrl: viewModel.profileImageUrl
+                    ) {}
                     .padding(.horizontal)
                 SearchField(
                     placeholder: "Search for services...",

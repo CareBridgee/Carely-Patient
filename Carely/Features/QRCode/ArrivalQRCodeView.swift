@@ -92,8 +92,6 @@ struct ArrivalQRCodeView: View {
         }
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
-        Spacer(minLength: Spacing.s56)
-
     }
     
     private func generateQRCode(from string: String) -> UIImage {

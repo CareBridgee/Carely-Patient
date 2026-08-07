@@ -8,9 +8,9 @@ import CoreLocation
 
 final class ResolveLocationUseCase {
 
-    private let repository: HomeAddressRepositoryProtocol
+    private let repository: ProfileSetupRepositoryProtocol
 
-    init(repository: HomeAddressRepositoryProtocol) {
+    init(repository: ProfileSetupRepositoryProtocol) {
         self.repository = repository
     }
 

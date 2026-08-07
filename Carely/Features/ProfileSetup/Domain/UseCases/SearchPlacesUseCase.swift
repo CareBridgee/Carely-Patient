@@ -7,9 +7,9 @@ import Foundation
 
 final class SearchPlacesUseCase {
 
-    private let repository: HomeAddressRepositoryProtocol
+    private let repository: ProfileSetupRepositoryProtocol
 
-    init(repository: HomeAddressRepositoryProtocol) {
+    init(repository: ProfileSetupRepositoryProtocol) {
         self.repository = repository
     }
 

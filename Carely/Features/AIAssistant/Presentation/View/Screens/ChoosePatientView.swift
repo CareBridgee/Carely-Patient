@@ -96,7 +96,6 @@ struct ChoosePatientView: View {
             await viewModel.onAppear()
         }
         .navigationBarHidden(true)
-        Spacer(minLength: Spacing.s56)
     }
 }
 

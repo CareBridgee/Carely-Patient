@@ -8,6 +8,7 @@
 import Foundation
 
 final class AuthRepositoryImpl: AuthRepositoryProtocol {
+    
     private let authService: AuthServiceProtocol
 
     init(authService: AuthServiceProtocol) {
@@ -27,15 +28,32 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
     }
 
     func verifyOTP(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity {
-        let response = try await authService.verifyOTP(phoneNumber: phoneNumber, otp: otp)
+            let response = try await authService.verifyOTP(phoneNumber: phoneNumber, otp: otp)
+            
+            let user = User(
+                id: response.user.id,
+                phoneNumber: response.user.phoneNumber,
+                email: response.user.email,
+                firstName: response.user.firstName,
+                lastName: response.user.lastName,
+                dateOfBirth: response.user.dateOfBirth,
+                gender: response.user.gender?.rawValue, 
+                profileImageUrl: response.user.profileImageUrl,
+                isDeleted: response.user.isDeleted,
+                createdAt: response.user.createdAt,
+                updatedAt: response.user.updatedAt,
+                lastLoginAt: response.user.lastLoginAt,
+                defaultProfileId: response.user.defaultProfileId
+            )
 
-        return OTPVerificationEntity(
-            isNewUser: response.user.firstName == "User" || response.user.lastName?.isEmpty == true,
-            accessToken: response.accessToken,
-            refreshToken: response.refreshToken,
-            userId: response.user.id
-        )
-    }
+            return OTPVerificationEntity(
+                isNewUser: response.user.firstName == "User" || response.user.lastName?.isEmpty == true,
+                accessToken: response.accessToken,
+                refreshToken: response.refreshToken,
+                userId: response.user.id,
+                user: user
+            )
+        }
 
     func getProfile(phoneNumber: String) async throws -> UserDTO {
         try await authService.getProfile(phoneNumber: phoneNumber)
@@ -49,8 +67,21 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
         }
     }
 
-    func savePersonalInfo(basicInfo: BasicUserInfo) async throws {
-        // TODO: Wire to actual API when backend endpoint is available
-        try await Task.sleep(nanoseconds: 1_200_000_000)
+    func savePersonalInfo(basicInfo: BasicUserInfo, defaultProfileId: String?) async throws -> String? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        let dobString = formatter.string(from: basicInfo.dateOfBirth)
+
+        // Return the result from the service
+        return try await authService.savePersonalInfo(
+            firstName: basicInfo.firstName,
+            lastName: basicInfo.secondName,
+            dateOfBirth: dobString,
+            gender: basicInfo.Gender.rawValue,
+            profileImage: basicInfo.profileImage,
+            defaultProfileId: defaultProfileId
+        )
     }
-}
+    }
+    
+

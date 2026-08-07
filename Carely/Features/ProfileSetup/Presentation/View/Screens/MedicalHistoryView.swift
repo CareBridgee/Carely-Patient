@@ -47,13 +47,4 @@ struct MedicalHistoryView: View {
         .background(Color.backGround.ignoresSafeArea())
     }
 }
-#Preview {
-    MedicalHistoryView(
-        viewModel: MedicalHistoryViewModel(
-            coordinator: ProfileSetupCoordinator(
-                data: ProfileSetupData(),
-                startingStep: .medicalHistory
-            )
-        )
-    )
-}
+

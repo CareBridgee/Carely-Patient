@@ -7,9 +7,9 @@ import Foundation
 
 final class GetCurrentLocationAddressUseCase {
 
-    private let repository: HomeAddressRepositoryProtocol
+    private let repository: ProfileSetupRepositoryProtocol
 
-    init(repository: HomeAddressRepositoryProtocol) {
+    init(repository: ProfileSetupRepositoryProtocol) {
         self.repository = repository
     }
 

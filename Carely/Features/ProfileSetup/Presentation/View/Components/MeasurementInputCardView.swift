@@ -29,9 +29,11 @@ struct MeasurementInputCardView: View {
                 Text(error)
                     .carelyText(style: .bodySmall, weight: .medium)
                     .foregroundColor(.red)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(Spacing.s16)
+        .frame(maxWidth: .infinity, alignment: .top)
         .background(Color.white)
         .cornerRadius(Radius.r16)
         .carelyShadow(.sm)

@@ -22,15 +22,19 @@ struct MainTabCoordinatorView: View {
     }
 
     var body: some View {
-        tabContent
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                FloatingTabBar(selectedTab: Binding(
+        ZStack(alignment: .bottom) {
+            tabContent
+                .padding(.bottom, Spacing.s56)
+            
+            FloatingTabBar(
+                selectedTab: Binding(
                     get: { coordinator.selectedTab },
                     set: { coordinator.select($0) }
-                ))
-            }
+                )
+            )
+        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
-
     // MARK: - Tab Content
 
     private var tabContent: some View {

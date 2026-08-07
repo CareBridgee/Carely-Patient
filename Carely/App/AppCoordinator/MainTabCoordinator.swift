@@ -47,8 +47,8 @@ final class MainTabCoordinator: ObservableObject {
             self.selectedTab = .services
         }
 
-        homeCoordinator.onOpenService = { [weak self] in
-            self?.openService()
+        homeCoordinator.onOpenService = { [weak self] serviceId in
+            self?.openService(id: serviceId)
         }
 //
 //        homeCoordinator.onOpenActiveVisit = { [weak self] in
@@ -88,11 +88,10 @@ final class MainTabCoordinator: ObservableObject {
 
     // MARK: - Cross-Tab Navigation
 
-    func openService() { // will inject service here
+    func openService(id: String) {
         selectedTab = .services
-        servicesCoordinator.openServiceFromHome()
+        servicesCoordinator.openServiceFromHome(id: id)
     }
-
 //    func openActiveVisit() { // will inject current visit here
 //        selectedTab = .services
 //        servicesCoordinator.open()
