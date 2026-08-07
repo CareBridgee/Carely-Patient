@@ -22,39 +22,46 @@ protocol SessionMonitor: Sendable {
 final class SessionManager: ObservableObject, SessionMonitor {
     @Published private(set) var state: SessionState
     @Published private(set) var currentUser: User?
-
+    
     private let tokenStore: TokenStoring
     private let userDefaults: UserDefaults
     private let userKey = "com.carely.currentUser"
-
+    private let hasLaunchedBeforeKey = "com.carely.hasLaunchedBefore"
+    
     init(tokenStore: TokenStoring, userDefaults: UserDefaults = .standard) {
         self.tokenStore = tokenStore
         self.userDefaults = userDefaults
         
-        if tokenStore.getAccessToken() != nil {
+        let hasLaunchedBefore = userDefaults.bool(forKey: hasLaunchedBeforeKey)
+        if !hasLaunchedBefore {
+            tokenStore.clearTokens()
+            userDefaults.set(true, forKey: hasLaunchedBeforeKey)
+        }
+        
+        if let _ = tokenStore.getAccessToken(),
+           let data = userDefaults.data(forKey: userKey),
+           let user = try? JSONDecoder().decode(User.self, from: data) {
+            self.currentUser = user
             self.state = .loggedIn
-            if let data = userDefaults.data(forKey: userKey),
-               let user = try? JSONDecoder().decode(User.self, from: data) {
-                self.currentUser = user
-            } else {
-                self.currentUser = nil
-            }
         } else {
-            self.state = .loggedOut
+            tokenStore.clearTokens()
+            userDefaults.removeObject(forKey: userKey)
             self.currentUser = nil
+            self.state = .loggedOut
         }
     }
-
+    
     func setLoggedIn(user: User) {
         state = .loggedIn
         updateUser(user)
     }
-
+    
     func setLoggedOut() {
-        state = .loggedOut
+        tokenStore.clearTokens()
         clearUser()
+        state = .loggedOut
     }
-
+    
     // Call this whenever the user updates their profile remotely
     func updateUser(_ user: User) {
         self.currentUser = user
@@ -62,14 +69,16 @@ final class SessionManager: ObservableObject, SessionMonitor {
             userDefaults.set(data, forKey: userKey)
         }
     }
-
+    
     private func clearUser() {
         self.currentUser = nil
         userDefaults.removeObject(forKey: userKey)
     }
-
+    
     nonisolated func sessionDidExpire() {
         Task { @MainActor in
+            self.tokenStore.clearTokens()
+            self.clearUser()
             self.state = .expired
             // Keeping the user data might be useful for re-login context,
             // but you can call self.clearUser() here if security demands it.

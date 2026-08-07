@@ -24,11 +24,25 @@ struct CarelyApp: App {
     var body: some Scene {
         WindowGroup {
             switch appState.flow {
-
+            case .splash:
+                SplashView(
+                    viewModel: diContainer.makeSplashViewModel(),
+                    onSplashFinished: {
+                        appState.splashDidFinish()
+                    }
+                )
+            case .onboarding:
+                OnboardingView(
+                    viewModel: diContainer.makeOnboardingViewModel( onNavigate: {
+                        appState.completeOnboarding()
+                    })
+                    
+                )
+                
             case .auth:
                 AuthCoordinator(container: diContainer, appState: appState)
-
-
+                
+                
             case .profileSetupDecision:
                 ProfileSetupDecisionView(
                     viewModel: diContainer.makeProfileSetupDecisionViewModel(
@@ -42,11 +56,11 @@ struct CarelyApp: App {
                     container: diContainer,
                     onFinish: { appState.startHomeFlow() }
                 )
-
+                
             case .home:
                 MainTabCoordinatorView(container: diContainer, appState: appState)
-
             }
+            
         }
     }
 }
