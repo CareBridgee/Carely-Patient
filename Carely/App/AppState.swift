@@ -22,14 +22,30 @@ enum AppFlow: Equatable {
 final class AppState: ObservableObject {
     @Published private(set) var flow: AppFlow = .splash
     
+    private var cancellables = Set<AnyCancellable>()
     private let sessionManager: SessionManager
     private var appSettings: AppSettingsProtocol
     init(sessionManager: SessionManager, appSettings: AppSettingsProtocol = AppSettings.shared) {
         self.sessionManager = sessionManager
         self.appSettings = appSettings
-      //  self.flow = sessionManager.state == .loggedIn ? .home : .auth
+        //  self.flow = sessionManager.state == .loggedIn ? .home : .auth
+        setupSessionObserver()
     }
-    
+    private func setupSessionObserver() {
+        sessionManager.$state
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                switch state {
+                case .loggedOut, .expired:
+                    self.flow = .auth
+                case .loggedIn:
+                    self.flow = .home
+                }
+            }
+            .store(in: &cancellables)
+    }
     func splashDidFinish() {
         if !appSettings.hasSeenOnboarding {
             flow = .onboarding
