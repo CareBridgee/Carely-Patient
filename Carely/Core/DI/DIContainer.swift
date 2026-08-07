@@ -689,4 +689,18 @@ final class DIContainer {
             coordinator: coordinator
         )
     }
+    
+    // MARK: - Splash ViewModel
+    
+    func makeSplashViewModel() -> SplashViewModel {
+        SplashViewModel()
+    }
+    
+    // MARK: - Onboarding ViewModel
+    
+    func makeOnboardingViewModel(
+        onNavigate: @escaping ()->Void
+    ) -> OnboardingViewModel {
+        OnboardingViewModel(onNavigate: onNavigate)
+    }
 }

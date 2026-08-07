@@ -33,7 +33,7 @@ struct NotificationBannerModifier: ViewModifier {
                 )
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .zIndex(1)
-                .padding(.top, 40) // عشان ما يغطيش على النوتش
+                .padding(.top, 40) 
             }
         }
         .animation(.spring(), value: notification)

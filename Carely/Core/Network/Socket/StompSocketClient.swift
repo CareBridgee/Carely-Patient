@@ -166,7 +166,6 @@ extension StompSocketClient: SwiftStompDelegate {
                     log("SUBSCRIBE \(destination) (reconnect)")
                     swiftStomp.subscribe(to: destination)
                 }
-                // لُف على كل الـ Listeners وبلغهم
                 onConnectedListeners.values.forEach { $0() }
             }
         }
