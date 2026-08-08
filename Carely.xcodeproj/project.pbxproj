@@ -20,7 +20,6 @@
 		0C1F612F30191DDF002086EC /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F612830191DDF002086EC /* OnboardingViewModel.swift */; };
 		0C396EC6301663DF0036ACE5 /* ProfileSetupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C396EC5301663DF0036ACE5 /* ProfileSetupHeaderView.swift */; };
 		0C396EC8301669320036ACE5 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C396EC7301669320036ACE5 /* AppConstants.swift */; };
-		0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88143007B5E500883999 /* CarelyApp.swift */; };
 		0C3D88173007B5E500883999 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3D88163007B5E500883999 /* ContentView.swift */; };
 		0C3D88193007B5E600883999 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C3D88183007B5E600883999 /* Assets.xcassets */; };
 		0C3D881C3007B5E600883999 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C3D881B3007B5E600883999 /* Preview Assets.xcassets */; };
@@ -150,6 +149,16 @@
 		B396A9E1300E3655009620B0 /* MobilityOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */; };
 		B3998E54301A0A3200C97311 /* CloudinaryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3998E53301A0A3200C97311 /* CloudinaryConfiguration.swift */; };
 		B3998E56301A0BDF00C97311 /* UserUpdateRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3998E55301A0BDF00C97311 /* UserUpdateRequestDTO.swift */; };
+		B3A111FC302696A600292B50 /* ReconnectScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A111F8302696A600292B50 /* ReconnectScheduler.swift */; };
+		B3A111FD302696A600292B50 /* SocketClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A111F9302696A600292B50 /* SocketClientProtocol.swift */; };
+		B3A111FE302696A600292B50 /* StompSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A111FA302696A600292B50 /* StompSocketClient.swift */; };
+		B3A11201302696EC00292B50 /* NotificationBannerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A111FF302696EC00292B50 /* NotificationBannerModifier.swift */; };
+		B3A11202302696EC00292B50 /* NotificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A11200302696EC00292B50 /* NotificationData.swift */; };
+		B3A112043026971800292B50 /* NotificationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A112033026971800292B50 /* NotificationResponseDTO.swift */; };
+		B3A112063026974F00292B50 /* NotificationsHubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A112053026974F00292B50 /* NotificationsHubServiceProtocol.swift */; };
+		B3A11208302697E500292B50 /* NurseOfferResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A11207302697E500292B50 /* NurseOfferResponseDTO.swift */; };
+		B3A1120C3026998000292B50 /* CarelyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1120B3026998000292B50 /* CarelyApp.swift */; };
+		B3A1120E30269CC600292B50 /* SwiftStomp in Frameworks */ = {isa = PBXBuildFile; productRef = B3A1120D30269CC600292B50 /* SwiftStomp */; };
 		B3A31306300949C000B5BB1D /* Cairo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */; };
 		B3A31307300949C000B5BB1D /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31302300949C000B5BB1D /* Cairo-Light.ttf */; };
 		B3A31308300949C000B5BB1D /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */; };
@@ -371,7 +380,6 @@
 		0C396EC5301663DF0036ACE5 /* ProfileSetupHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileSetupHeaderView.swift; path = Components/ProfileSetupHeaderView.swift; sourceTree = "<group>"; };
 		0C396EC7301669320036ACE5 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		0C3D88113007B5E500883999 /* Carely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carely.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C3D88143007B5E500883999 /* CarelyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyApp.swift; sourceTree = "<group>"; };
 		0C3D88163007B5E500883999 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0C3D88183007B5E600883999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C3D881B3007B5E600883999 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -502,6 +510,15 @@
 		B396A9E0300E3655009620B0 /* MobilityOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityOptionRow.swift; sourceTree = "<group>"; };
 		B3998E53301A0A3200C97311 /* CloudinaryConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudinaryConfiguration.swift; sourceTree = "<group>"; };
 		B3998E55301A0BDF00C97311 /* UserUpdateRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateRequestDTO.swift; sourceTree = "<group>"; };
+		B3A111F8302696A600292B50 /* ReconnectScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconnectScheduler.swift; sourceTree = "<group>"; };
+		B3A111F9302696A600292B50 /* SocketClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketClientProtocol.swift; sourceTree = "<group>"; };
+		B3A111FA302696A600292B50 /* StompSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompSocketClient.swift; sourceTree = "<group>"; };
+		B3A111FF302696EC00292B50 /* NotificationBannerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerModifier.swift; sourceTree = "<group>"; };
+		B3A11200302696EC00292B50 /* NotificationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationData.swift; sourceTree = "<group>"; };
+		B3A112033026971800292B50 /* NotificationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationResponseDTO.swift; sourceTree = "<group>"; };
+		B3A112053026974F00292B50 /* NotificationsHubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsHubServiceProtocol.swift; sourceTree = "<group>"; };
+		B3A11207302697E500292B50 /* NurseOfferResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseOfferResponseDTO.swift; sourceTree = "<group>"; };
+		B3A1120B3026998000292B50 /* CarelyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyApp.swift; sourceTree = "<group>"; };
 		B3A31301300949C000B5BB1D /* Cairo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Bold.ttf"; sourceTree = "<group>"; };
 		B3A31302300949C000B5BB1D /* Cairo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Light.ttf"; sourceTree = "<group>"; };
 		B3A31303300949C000B5BB1D /* Cairo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cairo-Medium.ttf"; sourceTree = "<group>"; };
@@ -684,6 +701,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A1120E30269CC600292B50 /* SwiftStomp in Frameworks */,
 				B38E56B83013AE4F00A9F153 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,6 +899,7 @@
 		0C3D8848300844B500883999 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				B3A1120B3026998000292B50 /* CarelyApp.swift */,
 				C630BAD33010CC5D00255ECA /* AppCoordinator */,
 				C6E761FB300926F400481DB9 /* AppState.swift */,
 				0C3D88163007B5E500883999 /* ContentView.swift */,
@@ -975,6 +994,7 @@
 				B38E56AC3013A99900A9F153 /* Endpoint.swift */,
 				B38E56AA3013A98000A9F153 /* NetworkConfiguration.swift */,
 				0C3D8860300846B800883999 /* NetworkClient.swift */,
+				B3A111FB302696A600292B50 /* Socket */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1137,6 +1157,8 @@
 				C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */,
 				39008F61300BD89E0092118E /* PrimaryChip.swift */,
 				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
+				B3A111FF302696EC00292B50 /* NotificationBannerModifier.swift */,
+				B3A11200302696EC00292B50 /* NotificationData.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1655,6 +1677,7 @@
 			isa = PBXGroup;
 			children = (
 				39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */,
+				B3A112033026971800292B50 /* NotificationResponseDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -1664,6 +1687,7 @@
 			children = (
 				39A06E823018075F008E9E7B /* ServiceTypeService.swift */,
 				39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */,
+				B3A112053026974F00292B50 /* NotificationsHubServiceProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1681,6 +1705,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3A111FB302696A600292B50 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				B3A111F8302696A600292B50 /* ReconnectScheduler.swift */,
+				B3A111F9302696A600292B50 /* SocketClientProtocol.swift */,
+				B3A111FA302696A600292B50 /* StompSocketClient.swift */,
+			);
+			path = Socket;
 			sourceTree = "<group>";
 		};
 		B3A312FE3009491200B5BB1D /* Fonts */ = {
@@ -1720,6 +1754,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B53814301E057E00F57AF5 /* ProfileResponseDTO.swift */,
+				B3A11207302697E500292B50 /* NurseOfferResponseDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -1746,7 +1781,6 @@
 		C610010E301121C200FA385C /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B3B53813301E057100F57AF5 /* DTOs */,
 				C6C28D663013B98C00FEDA97 /* Data */,
 				C6C28D743013B98C00FEDA97 /* Domain */,
 				C6C28D883013B98C00FEDA97 /* Presentation */,
@@ -1768,7 +1802,6 @@
 			children = (
 				0C90652F3015052400DDBAB7 /* AppRouterProtocol.swift */,
 				C630BACD3010CC5D00255ECA /* AppTab.swift */,
-				0C3D88143007B5E500883999 /* CarelyApp.swift */,
 				C630BACE3010CC5D00255ECA /* FloatingTabBar.swift */,
 				C630BAD13010CC5D00255ECA /* MainTabCoordinator.swift */,
 				C630BAD23010CC5D00255ECA /* MainTabCoordinatorView.swift */,
@@ -1991,6 +2024,7 @@
 			children = (
 				C6C28D633013B98C00FEDA97 /* Repositories */,
 				C6C28D653013B98C00FEDA97 /* Services */,
+				B3B53813301E057100F57AF5 /* DTOs */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -2313,7 +2347,6 @@
 				C6C28D953013B98C00FEDA97 /* CareRequestRepositoryImpl.swift in Sources */,
 				C6C28D963013B98C00FEDA97 /* SearchingIndicatorView.swift in Sources */,
 				C6C28D973013B98C00FEDA97 /* PatientSelectorRow.swift in Sources */,
-				C6C28D983013B98C00FEDA97 /* FetchSavedAddressUseCase.swift in Sources */,
 				0C1F612B30191DDF002086EC /* OnboardingCard.swift in Sources */,
 				C6C28D993013B98C00FEDA97 /* NurseOffer.swift in Sources */,
 				39A06E7E301806F2008E9E7B /* ServiceTypeDTO.swift in Sources */,
@@ -2321,6 +2354,7 @@
 				C6C28D9B3013B98C00FEDA97 /* OfferSearchingRepositoryProtocol.swift in Sources */,
 				B3694091301E3EA400BB26AD /* AddFamilyMemberInfoViewModel.swift in Sources */,
 				C6C28D9C3013B98C00FEDA97 /* ServiceDetailsViewModel.swift in Sources */,
+				B3A1120C3026998000292B50 /* CarelyApp.swift in Sources */,
 				C6C28D9D3013B98C00FEDA97 /* OffersEvent.swift in Sources */,
 				C6C28D9E3013B98C00FEDA97 /* OffersSearchinView.swift in Sources */,
 				C6C28D9F3013B98C00FEDA97 /* NurseOfferCardView.swift in Sources */,
@@ -2329,6 +2363,9 @@
 				39A06E8630180787008E9E7B /* ServiceTypeMapper.swift in Sources */,
 				C6C28DA23013B98C00FEDA97 /* PaymentMethodRow.swift in Sources */,
 				C667D05F301C29A200C62324 /* AIChatRepositoryProtocol.swift in Sources */,
+				B3A111FC302696A600292B50 /* ReconnectScheduler.swift in Sources */,
+				B3A111FD302696A600292B50 /* SocketClientProtocol.swift in Sources */,
+				B3A111FE302696A600292B50 /* StompSocketClient.swift in Sources */,
 				C6C28DA33013B98C00FEDA97 /* AllServiceView.swift in Sources */,
 				C6C28DA43013B98C00FEDA97 /* SubmitCareRequestUseCase.swift in Sources */,
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
@@ -2351,7 +2388,6 @@
 				B369408D301E3C6500BB26AD /* FamilyMemberBasicInfo.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
 				392656743014422D00AFD6F4 /* SettingsView.swift in Sources */,
-				0C3D88153007B5E500883999 /* CarelyApp.swift in Sources */,
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				0C90652C301504EF00DDBAB7 /* AIChatView.swift in Sources */,
 				C6C0A4DF300D253500AEB6D9 /* ProfileSetupCoordinator.swift in Sources */,
@@ -2374,7 +2410,10 @@
 				0C906527301504EF00DDBAB7 /* AIPatient.swift in Sources */,
 				C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */,
 				B3EF0D2A3018FEA000C46568 /* ProfileSetupService.swift in Sources */,
+				B3A11208302697E500292B50 /* NurseOfferResponseDTO.swift in Sources */,
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
+				B3A11201302696EC00292B50 /* NotificationBannerModifier.swift in Sources */,
+				B3A11202302696EC00292B50 /* NotificationData.swift in Sources */,
 				392656703014421400AFD6F4 /* ProfileView.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
 				0C6BAE2A30124A3D00759ED0 /* NurseProfileViewModel.swift in Sources */,
@@ -2494,6 +2533,7 @@
 				C6C0A4FF300D334800AEB6D9 /* MobilityViewModel.swift in Sources */,
 				C667D082301C426D00C62324 /* ChatHeaderView.swift in Sources */,
 				C667D083301C426D00C62324 /* ChatInputBar.swift in Sources */,
+				B3A112043026971800292B50 /* NotificationResponseDTO.swift in Sources */,
 				C667D084301C426D00C62324 /* ChatMessageCell.swift in Sources */,
 				C667D085301C426D00C62324 /* ServiceRecommendationCard.swift in Sources */,
 				0C396EC8301669320036ACE5 /* AppConstants.swift in Sources */,
@@ -2531,6 +2571,7 @@
 				392656793014425000AFD6F4 /* ProfileCoordinator.swift in Sources */,
 				C6C0A503300D334800AEB6D9 /* MedicalHistoryViewModel.swift in Sources */,
 				C6C0A504300D334800AEB6D9 /* ExistingConditionsView.swift in Sources */,
+				B3A112063026974F00292B50 /* NotificationsHubServiceProtocol.swift in Sources */,
 				B3A7EB9B301BF5530034662B /* User.swift in Sources */,
 				B38E56AF3013A9B000A9F153 /* NetworkError.swift in Sources */,
 				0C5C345D300F08BB00A820EB /* HealthProfileBottomActionsView.swift in Sources */,
@@ -2928,6 +2969,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0C3D88463008365F00883999 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		B3A1120D30269CC600292B50 /* SwiftStomp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0CBA6365301E15D700E1258F /* XCRemoteSwiftPackageReference "SwiftStomp" */;
+			productName = SwiftStomp;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

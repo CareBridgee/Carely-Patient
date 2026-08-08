@@ -10,4 +10,5 @@ import Foundation
 
 enum NetworkConfiguration {
     static let baseURL = "https://home-nursing-system-production.up.railway.app"
+    static let socketURL = "ws://home-nursing-system-production.up.railway.app/ws"
 }

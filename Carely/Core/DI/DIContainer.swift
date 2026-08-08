@@ -352,7 +352,38 @@ final class DIContainer {
             getCurrentLocationCoordinateUseCase: makeGetCurrentLocationCoordinateUseCase()
         )
     }
-    
+    // MARK: - Core Socket (Shared)
+        private lazy var sharedSocketClient: SocketClientProtocol = {
+            guard let url = URL(string: NetworkConfiguration.socketURL) else {
+                fatalError("Invalid socket URL")
+            }
+            
+            let client = StompSocketClient(url: url, tokenStore: tokenStore)
+            
+            client.onTokenExpiredOrFailed = { [weak self] in
+                guard let self = self else { return false }
+                
+                guard let refreshToken = self.tokenStore.getRefreshToken(), !refreshToken.isEmpty else {
+                    return false
+                }
+                
+                do {
+                    let authResponse = try await self.authService.refresh(refreshToken: refreshToken)
+                    
+                    self.tokenStore.saveTokens(
+                        access: authResponse.accessToken,
+                        refresh: authResponse.refreshToken
+                    )
+                    
+                    return true
+                } catch {
+                    print("[Socket] Direct token refresh failed: \(error)")
+                    return false
+                }
+            }
+            
+            return client
+        }()
     // MARK: - Service Catalog (shared by Home + Services features)
 
     private lazy var serviceTypeService: ServiceTypeServiceProtocol = ServiceTypeServiceImpl(
@@ -494,20 +525,40 @@ final class DIContainer {
         )
     }
     
+    // MARK: - Core Socket
+    
+    private func makeSocketClient(serviceRequestId: String) -> SocketClientProtocol {
+            return sharedSocketClient
+        }
+
+        // MARK: - Notifications
+        private lazy var notificationsHubService: NotificationsHubServiceProtocol = {
+            return NotificationsSocketDataSource(socketClient: sharedSocketClient)
+        }()
+        
+        func getNotificationsHubService() -> NotificationsHubServiceProtocol {
+            return notificationsHubService
+        }
+
     // MARK: - Search Offer Repository
     
-    private lazy var offerSearchingRepository: OfferSearchingRepositoryProtocol = {
-        OfferSearchingRepositoryImpl(hubService: OffersSearchingHubServices())
-    }()
+    private func makeOfferSearchingRepository(serviceRequestId: String) -> OfferSearchingRepositoryProtocol {
+        let socketClient = makeSocketClient(serviceRequestId: serviceRequestId)
+        let dataSource = OffersSearchingSocketDataSource(
+            socketClient: socketClient,
+            serviceRequestId: serviceRequestId
+        )
+        return OfferSearchingRepositoryImpl(hubService: dataSource)
+    }
     
     // MARK: - Search Offer UseCases
     
-    private func makeObserveOffersUseCase() -> ObserveOffersUseCase {
-        ObserveOffersUseCase(repository: offerSearchingRepository)
+    private func makeObserveOffersUseCase(repository: OfferSearchingRepositoryProtocol) -> ObserveOffersUseCase {
+        ObserveOffersUseCase(repository: repository)
     }
     
-    private func makeManageOffersConnectionUseCase() -> ManageOffersConnectionUseCase {
-        ManageOffersConnectionUseCase(repository: offerSearchingRepository)
+    private func makeManageOffersConnectionUseCase(repository: OfferSearchingRepositoryProtocol) -> ManageOffersConnectionUseCase {
+        ManageOffersConnectionUseCase(repository: repository)
     }
     
     // MARK: - Search Offer ViewModels
@@ -517,10 +568,12 @@ final class DIContainer {
         onOfferAccepted: @escaping (ConfirmedOffer)->Void,
         onShowNurseProfile: @escaping (String)->Void
     ) -> OffersSearchingViewModel {
-        OffersSearchingViewModel(
+        let repo = makeOfferSearchingRepository(serviceRequestId: requestId)
+        
+        return OffersSearchingViewModel(
             requestId: requestId,
-            observeOffersUseCase: makeObserveOffersUseCase(),
-            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(),
+            observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
             onOfferAccepted: onOfferAccepted,
             onShowNurseProfile: onShowNurseProfile
         )
