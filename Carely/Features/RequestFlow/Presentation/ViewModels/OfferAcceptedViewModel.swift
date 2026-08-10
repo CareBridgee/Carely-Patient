@@ -7,14 +7,17 @@ final class OfferAcceptedViewModel: ObservableObject {
     private let onShowQRCode: (ConfirmedOffer) -> Void
     private let onCancelRequest: () -> Void
     private let onShowNurseProfile: (String) -> Void
+    private let cancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol
     
     init(
         request: ConfirmedOffer,
+        cancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol,
         onShowQRCode: @escaping (ConfirmedOffer) -> Void = { _ in },
         onCancelRequest: @escaping () -> Void = {},
         onShowNurseProfile: @escaping (String) -> Void = { _ in }
     ) {
         self.request = request
+        self.cancelServiceRequestUseCase = cancelServiceRequestUseCase
         self.onShowQRCode = onShowQRCode
         self.onCancelRequest = onCancelRequest
         self.onShowNurseProfile = onShowNurseProfile
@@ -37,7 +40,13 @@ final class OfferAcceptedViewModel: ObservableObject {
     }
     
     func cancelRequest() {
-        // Handle backend cancellation here if needed
-        onCancelRequest()
+        Task {
+            do {
+                try await cancelServiceRequestUseCase.execute(serviceRequestId: request.id)
+            } catch {
+                print("Failed to cancel request: \(error)")
+            }
+            onCancelRequest()
+        }
     }
 }

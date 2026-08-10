@@ -47,6 +47,7 @@ struct OffersSearchingView: View {
             }
             .background(Color.backGround.ignoresSafeArea())
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.offers)
+
         }
         .background(Color.backGround.ignoresSafeArea())
         .careConnectNavigationBar(title: "Request Status", trailingIcon: "ellipsis")
@@ -58,29 +59,29 @@ struct OffersSearchingView: View {
         }
     }
 }
-
-#Preview {
-    class MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
-        func observeOffers() -> AsyncStream<OffersEvent> {
-            return AsyncStream { continuation in
-                let offer1 = NurseOffer(id: "1", name: "Sarah Mitchell", title: "RN", price: 85.00, rating: 4.9, reviewsCount: 124, distance: 2.4, imageLink: "")
-                let offer2 = NurseOffer(id: "2", name: "Elena Rodriguez", title: "RN", price: 78.00, rating: 5.0, reviewsCount: 45, distance: 5.1, imageLink: "")
-                
-                continuation.yield(.offerReceived(offer1))
-                continuation.yield(.offerReceived(offer2))
-            }
-        }
-        func connect() {}
-        func disconnect() {}
-    }
-    
-    let mockRepo = MockOfferSearchingRepository()
-    let observeUseCase = ObserveOffersUseCase(repository: mockRepo)
-    let manageConnectionUseCase = ManageOffersConnectionUseCase(repository: mockRepo)
-    let viewModel = OffersSearchingViewModel(
-        requestId:"1", observeOffersUseCase: observeUseCase,
-        manageOffersConnectionUseCase: manageConnectionUseCase
-    )
-    
-    return OffersSearchingView(viewModel: viewModel)
-}
+//
+//#Preview {
+//    class MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
+//        func observeOffers() -> AsyncStream<OffersEvent> {
+//            return AsyncStream { continuation in
+//                let offer1 = NurseOffer(id: "1", name: "Sarah Mitchell", title: "RN", price: 85.00, rating: 4.9, reviewsCount: 124, distance: 2.4, imageLink: "")
+//                let offer2 = NurseOffer(id: "2", name: "Elena Rodriguez", title: "RN", price: 78.00, rating: 5.0, reviewsCount: 45, distance: 5.1, imageLink: "")
+//                
+//                continuation.yield(.offerReceived(offer1))
+//                continuation.yield(.offerReceived(offer2))
+//            }
+//        }
+//        func connect() {}
+//        func disconnect() {}
+//    }
+//    
+//    let mockRepo = MockOfferSearchingRepository()
+//    let observeUseCase = ObserveOffersUseCase(repository: mockRepo)
+//    let manageConnectionUseCase = ManageOffersConnectionUseCase(repository: mockRepo)
+//    let viewModel = OffersSearchingViewModel(
+//        requestId:"1", observeOffersUseCase: observeUseCase,
+//        manageOffersConnectionUseCase: manageConnectionUseCase
+//    )
+//    
+//    return OffersSearchingView(viewModel: viewModel)
+//}

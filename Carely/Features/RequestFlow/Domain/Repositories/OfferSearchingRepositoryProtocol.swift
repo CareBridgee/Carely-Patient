@@ -11,4 +11,7 @@ protocol OfferSearchingRepositoryProtocol {
     func observeOffers() -> AsyncStream<OffersEvent>
     func connect()
     func disconnect()
+    func acceptOffer(offerId: String)
+    func declineOffer(offerId: String)
+    func cancelServiceRequest(serviceRequestId: String) async throws
 }

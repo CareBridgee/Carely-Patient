@@ -119,6 +119,11 @@ struct OfferAcceptedView: View {
         nurse: mockNurse,
         contact: ConfirmedOffer.ContactDetails(phoneNumber: "", chatChannelId: "")
     )
-    let viewModel = OfferAcceptedViewModel(request: mockRequest)
+    
+    class MockCancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol {
+        func execute(serviceRequestId: String) async throws {}
+    }
+    
+    let viewModel = OfferAcceptedViewModel(request: mockRequest, cancelServiceRequestUseCase: MockCancelServiceRequestUseCase())
     return OfferAcceptedView(viewModel: viewModel)
 }

@@ -50,7 +50,10 @@ struct CareRequestView: View {
         .background(Color.backGround.ignoresSafeArea())
         .careConnectNavigationBar(title: "Care Request", trailingIcon: "questionmark")
         .task { await viewModel.onAppear() }
-        .alert("Something went wrong", isPresented: $viewModel.showSubmissionError) {
+        .alert(
+            viewModel.submissionErrorMessage?.contains("active care request") == true ? "Active Request Exists" : "Something went wrong",
+            isPresented: $viewModel.showSubmissionError
+        ) {
             Button("OK", role: .cancel) {}
         } message: {
             Text(viewModel.submissionErrorMessage ?? "Please try again.")
