@@ -28,8 +28,8 @@ final class AppState: ObservableObject {
     init(sessionManager: SessionManager, appSettings: AppSettingsProtocol = AppSettings.shared) {
         self.sessionManager = sessionManager
         self.appSettings = appSettings
-        //  self.flow = sessionManager.state == .loggedIn ? .home : .auth
-        setupSessionObserver()
+        // self.flow = sessionManager.state == .loggedIn ? .home : .auth
+        //setupSessionObserver()
     }
     private func setupSessionObserver() {
         sessionManager.$state

@@ -15,7 +15,7 @@ struct PersonalInfoRequestDTO: Encodable {
     let dateOfBirth: String
     let gender: String
 
-    init(relationship: String = "self", firstName: String, lastName: String, dateOfBirth: String, gender: String) {
+    init(relationship: String = "SELF", firstName: String, lastName: String, dateOfBirth: String, gender: String) {
         self.relationship = relationship
         self.firstName = firstName
         self.lastName = lastName

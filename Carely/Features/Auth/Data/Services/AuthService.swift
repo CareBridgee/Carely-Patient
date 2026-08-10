@@ -22,7 +22,7 @@ final class AuthServiceImpl: AuthServiceProtocol {
     private let networkClient: NetworkClientProtocol
     private let cloudinaryService: CloudinaryUploadServiceProtocol
 
-    var useLogs: Bool = false
+    var useLogs: Bool = true
 
     init(networkClient: NetworkClientProtocol,cloudinaryService: CloudinaryUploadServiceProtocol
 ) {

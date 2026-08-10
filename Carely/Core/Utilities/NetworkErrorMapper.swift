@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 enum NetworkErrorMapper {
-    static func map(_ error: Error, data: Data?, decoder: JSONDecoder) -> NetworkError {
+    static func map(_ error: Error, data: Data?, response: HTTPURLResponse?, decoder: JSONDecoder) -> NetworkError {
         guard let afError = error as? AFError else {
             return .unknown(underlying: error)
         }
@@ -24,8 +24,7 @@ enum NetworkErrorMapper {
             }
         }
 
-        if case .responseValidationFailed(let reason) = afError,
-           case .unacceptableStatusCode(let code) = reason {
+        if let code = response?.statusCode, code >= 400 {
             if code == 401 { return .unauthorized }
             let serverMessage = data.flatMap { try? decoder.decode(ServerErrorBody.self, from: $0) }?.message
             return .server(statusCode: code, message: serverMessage)

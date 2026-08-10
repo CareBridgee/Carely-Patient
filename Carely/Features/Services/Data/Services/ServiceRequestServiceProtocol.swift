@@ -12,11 +12,14 @@ protocol ServiceRequestServiceProtocol {
     func getProfiles() async throws -> [ProfileResponseDTO]
     func getAddress(profileId: String) async throws -> AddressResponseDTO
     func submitServiceRequest(_ body: ServiceRequestBodyDTO) async throws -> ServiceRequestResponseDTO
+    func acceptOffer(offerId: String) async throws
+    func declineOffer(offerId: String) async throws
+    func cancelServiceRequest(serviceRequestId: String) async throws
 }
 
 final class ServiceRequestServiceImpl: ServiceRequestServiceProtocol {
     private let networkClient: NetworkClientProtocol
-    var useLogs: Bool = false
+    var useLogs: Bool = true
 
     init(networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient
@@ -35,5 +38,25 @@ final class ServiceRequestServiceImpl: ServiceRequestServiceProtocol {
     func submitServiceRequest(_ body: ServiceRequestBodyDTO) async throws -> ServiceRequestResponseDTO {
         if useLogs { print("ServiceRequestService: submitServiceRequest \(body.profileId)") }
         return try await networkClient.request(ServiceRequestEndpoint.submitServiceRequest(body))
+    }
+
+struct EmptyResponse: Decodable {}
+
+    func acceptOffer(offerId: String) async throws {
+        if useLogs { print("ServiceRequestService: acceptOffer \(offerId)") }
+        let endpoint = ServiceRequestEndpoint.acceptOffer(offerId: offerId)
+        _ = try await networkClient.request(endpoint) as EmptyResponse
+    }
+
+    func declineOffer(offerId: String) async throws {
+        if useLogs { print("ServiceRequestService: declineOffer \(offerId)") }
+        let endpoint = ServiceRequestEndpoint.declineOffer(offerId: offerId)
+        _ = try await networkClient.request(endpoint) as EmptyResponse
+    }
+
+    func cancelServiceRequest(serviceRequestId: String) async throws {
+        if useLogs { print("ServiceRequestService: cancelServiceRequest \(serviceRequestId)") }
+        let endpoint = ServiceRequestEndpoint.cancelServiceRequest(serviceRequestId: serviceRequestId)
+        _ = try await networkClient.request(endpoint) as EmptyResponse
     }
 }

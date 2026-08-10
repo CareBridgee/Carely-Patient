@@ -66,6 +66,9 @@ struct ServicesCoordinatorView: View {
                 },
                 onShowNurseProfile: { nurseId in
                     coordinator.push(to: .nurseProfile(nurseId: nurseId))
+                },
+                onSearchCanceled: {
+                    coordinator.popToRoot()
                 }
             ))
             
@@ -76,7 +79,7 @@ struct ServicesCoordinatorView: View {
                     coordinator.push(to: .showQRCode(request: req))
                 },
                 onCancelRequest: {
-                    coordinator.popToRoot()
+                    coordinator.popToRequestForm()
                 },
                 onShowNurseProfile: { nurseId in
                     coordinator.push(to: .nurseProfile(nurseId: nurseId))

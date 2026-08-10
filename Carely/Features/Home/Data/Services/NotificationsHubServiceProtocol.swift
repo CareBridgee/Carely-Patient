@@ -32,12 +32,15 @@ final class NotificationsSocketDataSource: NotificationsHubServiceProtocol {
             socketClient.onConnectedListeners[key] = { [weak self] in
                 guard let self = self else { return }
                 self.socketClient.subscribe(to: self.destination)
+                self.socketClient.subscribe(to: "/user/queue/errors")
             }
 
             socketClient.onMessageReceivedListeners[key] = { [weak self] receivedDestination, body in
                 guard let self = self else { return }
                 if receivedDestination.contains("/queue/notifications") {
                     self.handleMessage(body: body)
+                } else if receivedDestination.contains("/queue/errors") {
+                    print("[Socket Error Payload] Received error from backend: \(body)")
                 }
             }
         }

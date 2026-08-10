@@ -19,15 +19,18 @@ final class ProfileViewModel: ObservableObject {
 
     private let getPatientProfileUseCase: GetPatientProfileUseCaseProtocol
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
+    private let logoutUseCase: LogoutUseCaseProtocol
     private let coordinator: ProfileCoordinator
 
     init(
         getPatientProfileUseCase: GetPatientProfileUseCaseProtocol,
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
+        logoutUseCase: LogoutUseCaseProtocol,
         coordinator: ProfileCoordinator
     ) {
         self.getPatientProfileUseCase = getPatientProfileUseCase
         self.getFamilyMembersUseCase = getFamilyMembersUseCase
+        self.logoutUseCase = logoutUseCase
         self.coordinator = coordinator
     }
 
@@ -83,6 +86,16 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func logoutTapped() {
-        coordinator.logoutTapped()
+        Task {
+            isLoading = true
+            do {
+                try await logoutUseCase.execute()
+                coordinator.logoutTapped()
+            } catch {
+                isLoading = false
+                errorMessage = "Failed to logout: \(error.localizedDescription)"
+                showError = true
+            }
+        }
     }
 }
