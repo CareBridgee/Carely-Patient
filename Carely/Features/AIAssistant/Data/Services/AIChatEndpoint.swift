@@ -9,26 +9,36 @@ import Alamofire
 import Foundation
 
 enum AIChatEndpoint: Endpoint {
-    case sendMessage(message: String)
+    case sendMessage(profileId: String, message: String)
+    case resetChat(profileId: String)
 
     var path: String {
         switch self {
         case .sendMessage:
             return "/api/v1/chat"
+        case .resetChat:
+            return "/api/v1/chat/reset"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .sendMessage:
+        case .sendMessage, .resetChat:
             return .post
         }
     }
 
     var parameters: Parameters? {
         switch self {
-        case .sendMessage(let message):
-            return ["message": message]
+        case .sendMessage(let profileId, let message):
+            return [
+                "profileId": profileId,
+                "message": message
+            ]
+        case .resetChat(let profileId):
+            return [
+                "profileId": profileId
+            ]
         }
     }
 
@@ -36,3 +46,4 @@ enum AIChatEndpoint: Endpoint {
         .bearer
     }
 }
+
