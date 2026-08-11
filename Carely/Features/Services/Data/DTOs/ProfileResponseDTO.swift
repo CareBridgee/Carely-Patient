@@ -11,7 +11,7 @@ import Foundation
 struct ProfileResponseDTO: Decodable {
     let id: String
     let userId: String
-    let relationship: String
+    let relationship: String?
     let firstName: String
     let lastName: String
     let isPrimary: Bool

@@ -2,11 +2,11 @@ import SwiftUI
 
 struct NurseProfileHeaderView: View {
     let profile: NurseDetails
-    
+
     var body: some View {
         VStack(spacing: Spacing.s16) {
             // Profile Image
-            AsyncImage(url: URL(string: profile.profileImageUrl)) { image in
+            AsyncImage(url: profile.profileImageUrl.flatMap(URL.init)) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
                 Color.gray.opacity(0.3)
@@ -17,18 +17,18 @@ struct NurseProfileHeaderView: View {
             .overlay(RoundedRectangle(cornerRadius: Spacing.s24).stroke(Color.surface, lineWidth: 4))
             .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
             .padding(.top, Spacing.s16)
-            
+
             // Name & Title
             VStack(spacing: Spacing.s4) {
                 Text("\(profile.fullName), \(profile.title)")
                     .carelyText(style: .bodyLarge, weight: .semiBold)
                     .foregroundColor(Color.primaryFont)
-                
+
                 Text(profile.specialty)
                     .carelyText(style: .bodyRegular)
                     .foregroundColor(Color.secondaryFont)
             }
-            
+
             // Stats Pill
             HStack(spacing: 0) {
                 VStack(spacing: Spacing.s2) {
@@ -39,16 +39,16 @@ struct NurseProfileHeaderView: View {
                             .carelyText(style: .bodyLarge, weight: .semiBold)
                     }
                     .foregroundColor(Color.brandPrimary)
-                    
+
                     Text("\(profile.reviewsCount) Reviews")
                         .carelyText(style: .caption)
                         .foregroundColor(Color.secondaryFont)
                 }
                 .frame(maxWidth: .infinity)
-                
+
                 Divider()
                     .frame(height: 30)
-                
+
                 VStack(spacing: Spacing.s2) {
                     HStack(spacing: Spacing.s4) {
                         Image(systemName: "clock")
@@ -57,7 +57,7 @@ struct NurseProfileHeaderView: View {
                             .carelyText(style: .bodyLarge, weight: .semiBold)
                     }
                     .foregroundColor(Color.brandPrimary)
-                    
+
                     Text("Experience")
                         .carelyText(style: .caption)
                         .foregroundColor(Color.secondaryFont)
