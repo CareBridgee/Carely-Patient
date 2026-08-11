@@ -40,7 +40,7 @@ struct ServiceDetailsView: View {
                     bookButton
                         .padding(Spacing.s16)
                         .background(Color.backGround.opacity(0.95))
-                        .padding(.bottom , Spacing.s64)
+                        .padding(.bottom , Spacing.s8)
                 }
             } else if viewModel.isLoading {
                 ProgressView()

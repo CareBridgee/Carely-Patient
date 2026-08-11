@@ -611,9 +611,9 @@ final class DIContainer {
     
     // MARK: - Nurse Profile ViewModels
     
-    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
-        NurseProfileViewModel(nurseId: nurseId)
-    }
+//    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
+//        NurseProfileViewModel(nurseId: nurseId)
+//    }
     
     // MARK: - AIAssistant — Patient Selection
 
@@ -723,5 +723,29 @@ final class DIContainer {
         onNavigate: @escaping ()->Void
     ) -> OnboardingViewModel {
         OnboardingViewModel(onNavigate: onNavigate)
+    }
+    
+    // MARK: - Nurse Profile Data
+
+    private lazy var nurseService: NurseServiceProtocol = NurseServiceImpl(
+        networkClient: networkClient
+    )
+    private lazy var nurseRepository: NurseRepositoryProtocol = NurseRepositoryImpl(
+        service: nurseService
+    )
+
+    // MARK: - Nurse Profile UseCases
+
+    private func makeGetNurseProfileUseCase() -> GetNurseProfileUseCaseProtocol {
+        GetNurseProfileUseCase(repository: nurseRepository)
+    }
+
+    // MARK: - Nurse Profile ViewModels
+
+    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
+        NurseProfileViewModel(
+            nurseId: nurseId,
+            getNurseProfileUseCase: makeGetNurseProfileUseCase()
+        )
     }
 }
