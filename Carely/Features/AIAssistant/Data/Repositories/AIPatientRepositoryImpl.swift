@@ -23,7 +23,7 @@ final class AIPatientRepositoryImpl: AIPatientRepositoryProtocol {
             return AIPatient(
                 id: dto.id,
                 name: name,
-                relation: dto.relationship,
+                relation: dto.relationship ?? "",
                 isSelf: dto.isPrimary
             )
         }
