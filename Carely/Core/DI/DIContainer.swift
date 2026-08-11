@@ -617,20 +617,24 @@ final class DIContainer {
     
     // MARK: - AIAssistant — Patient Selection
 
-    private lazy var aiPatientRepository: AIPatientRepositoryProtocol = MockAIPatientRepository()
+    private lazy var aiPatientRepository: AIPatientRepositoryProtocol = AIPatientRepositoryImpl(
+        serviceRequestService: serviceRequestService
+    )
 
     private func makeGetAIPatientsUseCase() -> GetAIPatientsUseCaseProtocol {
         GetAIPatientsUseCase(repository: aiPatientRepository)
     }
 
     func makeChoosePatientViewModel(
-        onShowPatientDetails: @escaping (String) -> Void,
-        onContinueWithAssessment: @escaping (String) -> Void
+        onShowPatientDetails: ((String) -> Void)? = nil,
+        onContinueWithAssessment: @escaping (String) -> Void,
+        onAddFamilyMember: (() -> Void)? = nil
     ) -> ChoosePatientViewModel {
         ChoosePatientViewModel(
             getAIPatientsUseCase: makeGetAIPatientsUseCase(),
             onShowPatientDetails: onShowPatientDetails,
-            onContinueWithAssessment: onContinueWithAssessment
+            onContinueWithAssessment: onContinueWithAssessment,
+            onAddFamilyMember: onAddFamilyMember
         )
     }
 
@@ -648,8 +652,25 @@ final class DIContainer {
         SendAIChatMessageUseCase(repository: aiChatRepository)
     }
 
-    func makeAIChatViewModel() -> AIChatViewModel {
-        AIChatViewModel(sendAIChatMessageUseCase: makeSendAIChatMessageUseCase())
+    func makeResetAIChatUseCase() -> ResetAIChatUseCaseProtocol {
+        ResetAIChatUseCase(repository: aiChatRepository)
+    }
+
+    func makeAIChatViewModel(
+        profileId: String,
+        coordinator: AIAssistantCoordinator? = nil
+    ) -> AIChatViewModel {
+        AIChatViewModel(
+            profileId: profileId,
+            sendAIChatMessageUseCase: makeSendAIChatMessageUseCase(),
+            resetAIChatUseCase: makeResetAIChatUseCase(),
+            onDismiss: { [weak coordinator] in
+                coordinator?.pop()
+            },
+            onProceedToBooking: { [weak coordinator] _ in
+                coordinator?.requestNowTapped()
+            }
+        )
     }
     
     // MARK: - Profile Repository

@@ -9,8 +9,21 @@ import SwiftUI
 
 struct ChatMessageCell: View {
     let message: ChatMessage
-    let onPrimaryRecommendationAction: (ServiceRecommendation) -> Void
-    let onSecondaryRecommendationAction: (ServiceRecommendation) -> Void
+    let onBookDraft: ((ReservationDraft) -> Void)?
+    let onPrimaryRecommendationAction: ((ServiceRecommendation) -> Void)?
+    let onSecondaryRecommendationAction: ((ServiceRecommendation) -> Void)?
+
+    init(
+        message: ChatMessage,
+        onBookDraft: ((ReservationDraft) -> Void)? = nil,
+        onPrimaryRecommendationAction: ((ServiceRecommendation) -> Void)? = nil,
+        onSecondaryRecommendationAction: ((ServiceRecommendation) -> Void)? = nil
+    ) {
+        self.message = message
+        self.onBookDraft = onBookDraft
+        self.onPrimaryRecommendationAction = onPrimaryRecommendationAction
+        self.onSecondaryRecommendationAction = onSecondaryRecommendationAction
+    }
 
     private var isUser: Bool {
         message.sender == .user
@@ -22,11 +35,27 @@ struct ChatMessageCell: View {
             case .text(let text):
                 textBubble(text)
 
+            case .draftCard(let draft):
+                ReservationDraftCard(
+                    draft: draft,
+                    onBookNow: { draft in
+                        onBookDraft?(draft)
+                    }
+                )
+                .frame(maxWidth: 320)
+
             case .serviceRecommendation(let recommendation):
                 ServiceRecommendationCard(
                     recommendation: recommendation,
-                    onPrimaryAction: { onPrimaryRecommendationAction(recommendation) },
-                    onSecondaryAction: { onSecondaryRecommendationAction(recommendation) }
+                    onPrimaryAction: { onPrimaryRecommendationAction?(recommendation) },
+                    onSecondaryAction: { onSecondaryRecommendationAction?(recommendation) }
+                )
+                .frame(maxWidth: 320)
+
+            case .emergencyCard(let advice, let phoneNumber):
+                EmergencyCard(
+                    advice: advice,
+                    phoneNumber: phoneNumber
                 )
                 .frame(maxWidth: 320)
             }
@@ -35,6 +64,7 @@ struct ChatMessageCell: View {
         }
         .frame(maxWidth: .infinity, alignment: isUser ? .trailing : .leading)
     }
+
 
     // MARK: - Sub-views
 
