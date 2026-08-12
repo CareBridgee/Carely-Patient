@@ -87,19 +87,45 @@ final class AuthServiceImpl: AuthServiceProtocol {
             firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth,
             gender: gender, profileImageUrl: uploadedImageUrl
         )
-        try await networkClient.requestWithoutResponse(AuthEndpoint.updateUser(request: userRequest))
+
+        // PUT /api/v1/users/me is documented (Swagger) as multipart/form-data only — it does not
+        // consume a JSON body. Sending it as JSON (the old `requestWithoutResponse` path, which
+        // defaults to JSONEncoding for PUT) silently reaches the server with no parsed fields.
+        var textParameters: [String: String] = [
+            "firstName": userRequest.firstName,
+            "lastName": userRequest.lastName,
+            "dateOfBirth": userRequest.dateOfBirth,
+            "gender": userRequest.gender
+        ]
+        if let profileImageUrl = userRequest.profileImageUrl {
+            textParameters["profileImageUrl"] = profileImageUrl
+        }
+
+        try await networkClient.requestMultipartWithoutResponse(
+            AuthEndpoint.updateUser(request: userRequest),
+            textParameters: textParameters
+        )
 
         if let profileId = defaultProfileId {
             let profileRequest = PersonalInfoRequestDTO(
-                relationship: "self", firstName: firstName, lastName: lastName,
+                relationship: "SELF", firstName: firstName, lastName: lastName,
                 dateOfBirth: dateOfBirth, gender: gender
             )
-            try await networkClient.requestWithoutResponse(
-                AuthEndpoint.updateProfile(id: profileId, request: profileRequest)
+            // PUT /api/v1/profiles/{id} is also documented as multipart/form-data only (confirmed via
+            // Swagger) — same issue as /users/me. Sending it as JSON reaches the server with nothing
+            // parsed, which is what was causing the 500 here.
+            try await networkClient.requestMultipartWithoutResponse(
+                AuthEndpoint.updateProfile(id: profileId, request: profileRequest),
+                textParameters: [
+                    "relationship": profileRequest.relationship,
+                    "firstName": profileRequest.firstName,
+                    "lastName": profileRequest.lastName,
+                    "dateOfBirth": profileRequest.dateOfBirth,
+                    "gender": profileRequest.gender
+                ]
             )
         }
         
         return uploadedImageUrl
     }
     }
-
