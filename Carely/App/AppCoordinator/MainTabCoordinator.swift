@@ -83,6 +83,13 @@ final class MainTabCoordinator: ObservableObject {
             self.selectedTab = .services
         }
 
+        aiAssistantCoordinator.onAddFamilyMember = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
+            self.servicesCoordinator.push(to: .addFamilyMember)
+        }
+
         profileCoordinator.onLoggedOut = { [weak self] in
             self?.appState.startAuthFlow()
         }

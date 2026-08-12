@@ -13,7 +13,18 @@ struct AIChatView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            ChatHeaderView()
+            ChatHeaderView(
+                onDismiss: {
+                    if let onDismiss = viewModel.onDismiss {
+                        onDismiss()
+                    } else {
+                        dismiss()
+                    }
+                },
+                onReset: {
+                    viewModel.resetChat()
+                }
+            )
 
             messageList
 
@@ -23,10 +34,9 @@ struct AIChatView: View {
 
             ChatInputBar(
                 text: $viewModel.inputText,
-                isLoading: viewModel.isLoading,
+                isLoading: viewModel.isLoading || viewModel.isResetting,
                 onSend: viewModel.sendMessage
             )
-            
         }
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
@@ -38,9 +48,16 @@ struct AIChatView: View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: Spacing.s16) {
+                    if viewModel.messages.isEmpty && !viewModel.isLoading {
+                        emptyStateWelcome
+                    }
+
                     ForEach(viewModel.messages) { message in
                         ChatMessageCell(
                             message: message,
+                            onBookDraft: { draft in
+                                viewModel.bookDraft(draft)
+                            },
                             onPrimaryRecommendationAction: { _ in },
                             onSecondaryRecommendationAction: { _ in }
                         )
@@ -63,6 +80,35 @@ struct AIChatView: View {
                 scrollToBottom(proxy: proxy)
             }
         }
+    }
+
+    // MARK: - Empty State Welcome
+
+    private var emptyStateWelcome: some View {
+        VStack(spacing: Spacing.s12) {
+            ZStack {
+                Circle()
+                    .fill(Color.brandPrimary.opacity(0.1))
+                    .frame(width: 60, height: 60)
+
+                Image(systemName: "sparkles")
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundColor(Color.brandPrimary)
+            }
+            .padding(.top, Spacing.s32)
+
+            Text("How can I help you today?")
+                .carelyText(style: .heading2, weight: .bold)
+                .foregroundColor(Color.primaryFont)
+
+            Text("Describe symptoms or request care advice. I will help determine the right service for your health profile.")
+                .carelyText(style: .bodyRegular, weight: .regular)
+                .foregroundColor(Color.secondaryFont)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, Spacing.s24)
+        }
+        .padding(.vertical, Spacing.s20)
+        .frame(maxWidth: .infinity)
     }
 
     // MARK: - Error Banner
@@ -126,25 +172,4 @@ private struct TypingIndicator: View {
     }
 }
 
-// MARK: - Preview
 
-#Preview {
-    // Mock use case for Xcode Previews — no network needed
-    struct MockSendAIChatMessageUseCase: SendAIChatMessageUseCaseProtocol {
-        func execute(message: String) async throws -> AIChatReply {
-            try await Task.sleep(nanoseconds: 1_000_000_000)
-            return AIChatReply(text: "Hello! I'm your AI health assistant. How can I help you today?")
-        }
-    }
-
-    let viewModel = AIChatViewModel(sendAIChatMessageUseCase: MockSendAIChatMessageUseCase())
-    // Seed with a sample message so the preview isn't empty
-    viewModel.messages = [
-        ChatMessage(
-            sender: .ai,
-            content: .text("Hello! Based on your health profile, I see you're managing Hypertension. How can I assist you today?"),
-            timestamp: "Just now"
-        )
-    ]
-    return AIChatView(viewModel: viewModel)
-}
