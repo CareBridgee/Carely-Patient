@@ -10,7 +10,8 @@ import Foundation
 // MARK: - Protocol
 
 protocol AIChatServiceProtocol {
-    func sendMessage(_ message: String) async throws -> AIChatResponseDTO
+    func sendMessage(profileId: String, message: String) async throws -> ChatTurnResponseDTO
+    func resetChat(profileId: String) async throws
 }
 
 // MARK: - Implementation
@@ -23,8 +24,14 @@ final class AIChatServiceImpl: AIChatServiceProtocol {
         self.networkClient = networkClient
     }
 
-    func sendMessage(_ message: String) async throws -> AIChatResponseDTO {
-        if useLogs { print("AIChatService: sending message to /api/v1/chat") }
-        return try await networkClient.request(AIChatEndpoint.sendMessage(message: message))
+    func sendMessage(profileId: String, message: String) async throws -> ChatTurnResponseDTO {
+        if useLogs { print("AIChatService: sending message to /api/v1/chat for profile: \(profileId)") }
+        return try await networkClient.request(AIChatEndpoint.sendMessage(profileId: profileId, message: message))
+    }
+
+    func resetChat(profileId: String) async throws {
+        if useLogs { print("AIChatService: resetting chat on /api/v1/chat/reset for profile: \(profileId)") }
+        try await networkClient.requestWithoutResponse(AIChatEndpoint.resetChat(profileId: profileId))
     }
 }
+
