@@ -15,14 +15,14 @@ final class AIAssistantCoordinator: AppRouterProtocol{
     var onBackClicked: (() -> Void)?
     
 
-    var onRequestNow: (() -> Void)?
+    var onRequestNow: ((ReservationDraft?, String?) -> Void)?
     var onAddFamilyMember: (() -> Void)?
     var onViewProfiledetails: ((String) -> Void)?
     var onViewAllServices: (() -> Void)?
     
     
-    func requestNowTapped() {
-        onRequestNow?()
+    func requestNowTapped(draft: ReservationDraft? = nil, profileId: String? = nil) {
+        onRequestNow?(draft, profileId)
     }
     
     func addFamilyMemberTapped() {

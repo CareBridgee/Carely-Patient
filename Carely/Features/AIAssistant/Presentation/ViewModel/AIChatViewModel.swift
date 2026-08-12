@@ -51,26 +51,28 @@ final class AIChatViewModel: ObservableObject {
     // MARK: - Actions
 
     func sendMessage() {
-        let trimmed = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
+        let message = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !message.isEmpty else { return }
+
+        inputText = ""
 
         let userMessage = ChatMessage(
             sender: .user,
-            content: .text(trimmed),
+            content: .text(message),
             timestamp: currentTimeString(),
             isSeen: false
         )
-        messages.append(userMessage)
-        inputText = ""
-        errorMessage = nil
 
+        messages.append(userMessage)
+        errorMessage = nil
         isLoading = true
+
         Task {
             defer { isLoading = false }
             do {
                 let response = try await sendAIChatMessageUseCase.execute(
                     profileId: profileId,
-                    message: trimmed
+                    message: message
                 )
                 handleChatTurnResponse(response)
             } catch {

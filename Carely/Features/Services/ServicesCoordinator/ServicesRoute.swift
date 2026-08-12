@@ -12,7 +12,7 @@ import Foundation
 
 enum ServicesRoute: Hashable {
     case serviceDetails(id: String, source: ServiceDetailsSource)
-    case requestService(entryPoint: CareRequestEntryPoint)
+    case requestService(entryPoint: CareRequestEntryPoint, aiDraft: ReservationDraft? = nil, aiProfileId: String? = nil)
     case waitingForOffers(requestId: String)
     case OfferAccepted(request: ConfirmedOffer)
     case showQRCode(request: ConfirmedOffer)

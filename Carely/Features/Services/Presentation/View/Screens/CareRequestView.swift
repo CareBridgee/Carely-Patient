@@ -48,7 +48,7 @@ struct CareRequestView: View {
             .background(Color.backGround)
         }
         .background(Color.backGround.ignoresSafeArea())
-        .careConnectNavigationBar(title: "Care Request", trailingIcon: "questionmark")
+        .careConnectNavigationBar(title: "Care Request")
         .task { await viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showSubmissionError) {
             Button("OK", role: .cancel) {}

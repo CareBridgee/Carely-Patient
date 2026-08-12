@@ -19,7 +19,7 @@ enum ChatMessageType: String, Equatable {
 
 // MARK: - ReservationDraft
 
-struct ReservationDraft: Equatable {
+struct ReservationDraft: Equatable, Hashable {
     let serviceTypeId: String?
     let serviceTypeName: String?
     let preferredDate: String?
