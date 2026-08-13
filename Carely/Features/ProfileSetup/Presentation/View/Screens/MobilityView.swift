@@ -28,6 +28,7 @@ struct MobilityView: View {
             )
         }
         .background(Color.backGround.ignoresSafeArea())
+        .navigationBarHidden(true)
     }
 }
 

@@ -46,7 +46,7 @@ enum MobilityStatus: CaseIterable, Hashable {
     }
 }
 
-struct Mobility {
+struct Mobility: Equatable {
     var status: MobilityStatus? = nil
     var additionalNotes = ""
 }

@@ -45,6 +45,7 @@ struct MedicalHistoryView: View {
             )
         }
         .background(Color.backGround.ignoresSafeArea())
+        .navigationBarHidden(true)
     }
 }
 

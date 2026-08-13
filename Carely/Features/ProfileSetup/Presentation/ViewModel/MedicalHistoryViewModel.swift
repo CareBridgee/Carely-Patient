@@ -17,6 +17,7 @@ final class MedicalHistoryViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
 
+    private var initialData: MedicalHistory
     private let getProfileIdUseCase: GetDefaultProfileIdUseCase
     private let saveMedicalHistoryUseCase: SaveMedicalHistoryUseCase
     private let overrideProfileId: String?
@@ -33,6 +34,10 @@ final class MedicalHistoryViewModel: ObservableObject {
     ) {
         self.previousSurgeries = existingData.previousSurgeries
         self.previousHospitalizations = existingData.previousHospitalizations
+        self.initialData = MedicalHistory(
+            previousSurgeries: existingData.previousSurgeries.trimmingCharacters(in: .whitespacesAndNewlines),
+            previousHospitalizations: existingData.previousHospitalizations.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
         self.getProfileIdUseCase = getProfileIdUseCase
         self.saveMedicalHistoryUseCase = saveMedicalHistoryUseCase
         self.overrideProfileId = overrideProfileId
@@ -53,7 +58,7 @@ final class MedicalHistoryViewModel: ObservableObject {
 
     func continueTapped() {
         let currentHistory = self.history
-        if currentHistory.previousSurgeries.isEmpty && currentHistory.previousHospitalizations.isEmpty {
+        if currentHistory == initialData || (currentHistory.previousSurgeries.isEmpty && currentHistory.previousHospitalizations.isEmpty) {
             onContinue(currentHistory)
             return
         }

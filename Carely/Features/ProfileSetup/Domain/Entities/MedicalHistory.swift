@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MedicalHistory {
+struct MedicalHistory: Equatable {
     var previousSurgeries = ""
     var previousHospitalizations = ""
 }
