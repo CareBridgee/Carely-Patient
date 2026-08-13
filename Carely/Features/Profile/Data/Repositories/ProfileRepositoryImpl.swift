@@ -6,50 +6,68 @@
 //
 
 import Foundation
+import UIKit
 
 final class ProfileRepositoryImpl: ProfileRepositoryProtocol {
 
-    private let simulatedDelayNanoseconds: UInt64 = 500_000_000
+    private let service: ProfileNetworkServiceProtocol
 
-    init() {}
+    init(service: ProfileNetworkServiceProtocol) {
+        self.service = service
+    }
+
+    // MARK: - Fetch
 
     func fetchPatientProfile() async throws -> PatientProfile {
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
-        return PatientProfile(
-            name: "Elena Rodriguez",
-            role: "Primary Caregiver",
-            avatarIconName: "person.fill",
-            appVersionText: "Serene Care v2.4.1"
-        )
+        let dto = try await service.fetchDefaultProfile()
+        return map(dto)
     }
 
     func fetchFamilyMembers() async throws -> [FamilyMember] {
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
-        return [
-            FamilyMember(
-                id: "member-maria",
-                name: "Maria Garcia",
-                relation: "Mother",
-                avatarIconName: "person.crop.circle.fill",
-                lastCheckupDateText: "Oct 12, 2023",
-                upcomingCareText: "Dental Care"
-            ),
-            FamilyMember(
-                id: "member-roberto",
-                name: "Roberto Garcia",
-                relation: "Father",
-                avatarIconName: "person.crop.circle.fill",
-                lastCheckupDateText: "Sept 28, 2023",
-                upcomingCareText: "Blood Work"
-            ),
-            FamilyMember(
-                id: "member-sofia",
-                name: "Sofia Garcia",
-                relation: "Daughter",
-                avatarIconName: "person.crop.circle.fill",
-                lastCheckupDateText: "Nov 05, 2023",
-                upcomingCareText: "Vaccination"
-            )
-        ]
+        let all = try await service.fetchAllProfiles()
+        return all
+            .filter { ($0.isDeleted == false || $0.isDeleted == nil) && ($0.isPrimary == false) }
+            .map { dto in
+                let fullName = "\(dto.firstName ?? "") \(dto.lastName ?? "")".trimmingCharacters(in: .whitespaces)
+                return FamilyMember(
+                    id: dto.id,
+                    name: fullName.isEmpty ? "Unknown" : fullName,
+                    relation: dto.relationship?.capitalized ?? "Dependent",
+                    profileImageUrl: dto.profileImageUrl
+                )
+            }
+    }
+
+    // MARK: - Mutate
+
+    func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws {
+        try await service.updateProfile(id: id, params: params, image: image)
+    }
+
+    func createProfile(params: ProfileUpdateRequestParams, image: UIImage?) async throws -> PatientProfile {
+        let dto = try await service.createProfile(params: params, image: image)
+        return map(dto)
+    }
+
+    // MARK: - Mapping
+
+    private func map(_ dto: FullProfileResponseDTO) -> PatientProfile {
+        PatientProfile(
+            id: dto.id,
+            firstName: dto.firstName ?? "",
+            lastName: dto.lastName ?? "",
+            relationship: dto.relationship,
+            gender: dto.gender,
+            dateOfBirth: dto.dateOfBirth,
+            bloodType: dto.bloodType,
+            height: dto.height,
+            weight: dto.weight,
+            mobilityStatus: dto.mobilityStatus,
+            mobilityNotes: dto.mobilityNotes,
+            previousSurgeries: dto.previousSurgeries,
+            previousHospitalizations: dto.previousHospitalizations,
+            profileImageUrl: dto.profileImageUrl,
+            isPrimary: dto.isPrimary ?? false
+        )
     }
 }

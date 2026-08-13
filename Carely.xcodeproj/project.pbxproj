@@ -109,24 +109,6 @@
 		39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */; };
 		39265645301429F100AFD6F4 /* VisitRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265626301429F100AFD6F4 /* VisitRating.swift */; };
 		39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */; };
-		3926564B3014412100AFD6F4 /* PatientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926564A3014412000AFD6F4 /* PatientProfile.swift */; };
-		3926564D3014413600AFD6F4 /* FamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926564C3014413500AFD6F4 /* FamilyMember.swift */; };
-		392656503014414800AFD6F4 /* ProfileRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */; };
-		392656553014416100AFD6F4 /* GetPatientProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */; };
-		392656573014416E00AFD6F4 /* GetFamilyMembersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */; };
-		3926565B3014418900AFD6F4 /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */; };
-		3926565F301441A700AFD6F4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926565E301441A600AFD6F4 /* ProfileViewModel.swift */; };
-		39265661301441B500AFD6F4 /* FamilyMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */; };
-		39265663301441C200AFD6F4 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265662301441C100AFD6F4 /* SettingsViewModel.swift */; };
-		39265669301441E600AFD6F4 /* ProfileMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265668301441E600AFD6F4 /* ProfileMenuRow.swift */; };
-		3926566B301441F200AFD6F4 /* FamilyMemberCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */; };
-		3926566D3014420000AFD6F4 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926566C301441FF00AFD6F4 /* SettingsRow.swift */; };
-		392656703014421400AFD6F4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926566F3014421400AFD6F4 /* ProfileView.swift */; };
-		392656723014422000AFD6F4 /* FamilyMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656713014422000AFD6F4 /* FamilyMembersView.swift */; };
-		392656743014422D00AFD6F4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656733014422D00AFD6F4 /* SettingsView.swift */; };
-		392656773014424600AFD6F4 /* ProfileRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656763014424500AFD6F4 /* ProfileRoute.swift */; };
-		392656793014425000AFD6F4 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392656783014424F00AFD6F4 /* ProfileCoordinator.swift */; };
-		3926567B3014426800AFD6F4 /* ProfileCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */; };
 		3953414E3027807A00BD21BE /* NurseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3953414D3027807900BD21BE /* NurseDTO.swift */; };
 		395341513027809600BD21BE /* NurseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395341503027809600BD21BE /* NurseEndpoint.swift */; };
 		39534153302780AD00BD21BE /* NurseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39534152302780AD00BD21BE /* NurseService.swift */; };
@@ -265,10 +247,40 @@
 		C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */; };
 		C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */; };
 		C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11891300BA01A00DB27BF /* SecondaryButton.swift */; };
+		C6BE31A3302E222300EB4A11 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE318D302E222300EB4A11 /* SettingsRow.swift */; };
+		C6BE31A4302E222300EB4A11 /* FamilyMembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3197302E222300EB4A11 /* FamilyMembersViewModel.swift */; };
+		C6BE31A5302E222300EB4A11 /* FamilyMemberCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE318B302E222300EB4A11 /* FamilyMemberCard.swift */; };
+		C6BE31A6302E222300EB4A11 /* ProfileMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE318C302E222300EB4A11 /* ProfileMenuRow.swift */; };
+		C6BE31A7302E222300EB4A11 /* GetFamilyMembersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3186302E222300EB4A11 /* GetFamilyMembersUseCase.swift */; };
+		C6BE31A8302E222300EB4A11 /* ProfileNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE317E302E222300EB4A11 /* ProfileNetworkService.swift */; };
+		C6BE31A9302E222300EB4A11 /* ProfileRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE317C302E222300EB4A11 /* ProfileRepositoryImpl.swift */; };
+		C6BE31AA302E222300EB4A11 /* ProfileHealthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3198302E222300EB4A11 /* ProfileHealthViewModel.swift */; };
+		C6BE31AB302E222300EB4A11 /* PatientProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3182302E222300EB4A11 /* PatientProfile.swift */; };
+		C6BE31AC302E222300EB4A11 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE319A302E222300EB4A11 /* ProfileViewModel.swift */; };
+		C6BE31AD302E222300EB4A11 /* ProfilePersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3192302E222300EB4A11 /* ProfilePersonalInfoView.swift */; };
+		C6BE31AE302E222300EB4A11 /* UpdateProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3188302E222300EB4A11 /* UpdateProfileUseCase.swift */; };
+		C6BE31AF302E222300EB4A11 /* ProfileHealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3191302E222300EB4A11 /* ProfileHealthView.swift */; };
+		C6BE31B0302E222300EB4A11 /* ProfileAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3190302E222300EB4A11 /* ProfileAddressView.swift */; };
+		C6BE31B1302E222300EB4A11 /* ProfileRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE31A0302E222300EB4A11 /* ProfileRoute.swift */; };
+		C6BE31B2302E222300EB4A11 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3194302E222300EB4A11 /* SettingsView.swift */; };
+		C6BE31B3302E222300EB4A11 /* ProfileRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3184302E222300EB4A11 /* ProfileRepositoryProtocol.swift */; };
+		C6BE31B4302E222300EB4A11 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE319B302E222300EB4A11 /* SettingsViewModel.swift */; };
+		C6BE31B5302E222300EB4A11 /* FamilyMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE318F302E222300EB4A11 /* FamilyMembersView.swift */; };
+		C6BE31B6302E222300EB4A11 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE319E302E222300EB4A11 /* ProfileCoordinator.swift */; };
+		C6BE31B7302E222300EB4A11 /* GetPatientProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3187302E222300EB4A11 /* GetPatientProfileUseCase.swift */; };
+		C6BE31B8302E222300EB4A11 /* ProfilePersonalInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3199302E222300EB4A11 /* ProfilePersonalInfoViewModel.swift */; };
+		C6BE31B9302E222300EB4A11 /* ProfileCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE319F302E222300EB4A11 /* ProfileCoordinatorView.swift */; };
+		C6BE31BA302E222300EB4A11 /* FamilyMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3181302E222300EB4A11 /* FamilyMember.swift */; };
+		C6BE31BB302E222300EB4A11 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BE3193302E222300EB4A11 /* ProfileView.swift */; };
 		C6C014813008BBB5006B5FDE /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6C014803008BBB5006B5FDE /* Colors.xcassets */; };
 		C6C0A4C3300D0C3100AEB6D9 /* BasicHealthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C2300D0C2F00AEB6D9 /* BasicHealthInfo.swift */; };
 		C6C0A4C5300D0C3E00AEB6D9 /* ExistingConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C4300D0C3B00AEB6D9 /* ExistingConditions.swift */; };
+		C6C0A4C5300D0C3E00AEB6E0 /* MedicalCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C4300D0C3B00AEB6E0 /* MedicalCondition.swift */; };
+		C6C0A4C5300D0C3E00AEB6E1 /* MedicalConditionDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C4300D0C3B00AEB6E1 /* MedicalConditionDTOs.swift */; };
 		C6C0A4C7300D0C4C00AEB6D9 /* Allergies.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C6300D0C4A00AEB6D9 /* Allergies.swift */; };
+		C6C0A4C5300D0C3E00AEB6F0 /* Allergy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C4300D0C3B00AEB6F0 /* Allergy.swift */; };
+		C6C0A4C5300D0C3E00AEB6F1 /* AllergyDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C4300D0C3B00AEB6F1 /* AllergyDTOs.swift */; };
+		C6C0A4C5300D0C3E00AEB6F2 /* MedicationDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C4300D0C3B00AEB6F2 /* MedicationDTOs.swift */; };
 		C6C0A4C9300D0C5B00AEB6D9 /* CurrentMedication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4C8300D0C5900AEB6D9 /* CurrentMedication.swift */; };
 		C6C0A4CB300D0C6900AEB6D9 /* MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4CA300D0C6700AEB6D9 /* MedicalHistory.swift */; };
 		C6C0A4CE300D0C7C00AEB6D9 /* Mobility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0A4CD300D0C7A00AEB6D9 /* Mobility.swift */; };
@@ -492,24 +504,6 @@
 		39265633301429F100AFD6F4 /* RatingBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBottomSheetView.swift; sourceTree = "<group>"; };
 		39265634301429F100AFD6F4 /* VisitCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedView.swift; sourceTree = "<group>"; };
 		39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedViewModel.swift; sourceTree = "<group>"; };
-		3926564A3014412000AFD6F4 /* PatientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfile.swift; sourceTree = "<group>"; };
-		3926564C3014413500AFD6F4 /* FamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMember.swift; sourceTree = "<group>"; };
-		3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryProtocol.swift; sourceTree = "<group>"; };
-		392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPatientProfileUseCase.swift; sourceTree = "<group>"; };
-		392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFamilyMembersUseCase.swift; sourceTree = "<group>"; };
-		3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
-		3926565E301441A600AFD6F4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMembersViewModel.swift; sourceTree = "<group>"; };
-		39265662301441C100AFD6F4 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		39265668301441E600AFD6F4 /* ProfileMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuRow.swift; sourceTree = "<group>"; };
-		3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCard.swift; sourceTree = "<group>"; };
-		3926566C301441FF00AFD6F4 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
-		3926566F3014421400AFD6F4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		392656713014422000AFD6F4 /* FamilyMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMembersView.swift; sourceTree = "<group>"; };
-		392656733014422D00AFD6F4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		392656763014424500AFD6F4 /* ProfileRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRoute.swift; sourceTree = "<group>"; };
-		392656783014424F00AFD6F4 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
-		3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorView.swift; sourceTree = "<group>"; };
 		3953414D3027807900BD21BE /* NurseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseDTO.swift; sourceTree = "<group>"; };
 		395341503027809600BD21BE /* NurseEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseEndpoint.swift; sourceTree = "<group>"; };
 		39534152302780AD00BD21BE /* NurseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseService.swift; sourceTree = "<group>"; };
@@ -647,10 +641,40 @@
 		C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyButtonStyle.swift; sourceTree = "<group>"; };
 		C6B11891300BA01A00DB27BF /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressHeader.swift; sourceTree = "<group>"; };
+		C6BE317C302E222300EB4A11 /* ProfileRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryImpl.swift; sourceTree = "<group>"; };
+		C6BE317E302E222300EB4A11 /* ProfileNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNetworkService.swift; sourceTree = "<group>"; };
+		C6BE3181302E222300EB4A11 /* FamilyMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMember.swift; sourceTree = "<group>"; };
+		C6BE3182302E222300EB4A11 /* PatientProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfile.swift; sourceTree = "<group>"; };
+		C6BE3184302E222300EB4A11 /* ProfileRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepositoryProtocol.swift; sourceTree = "<group>"; };
+		C6BE3186302E222300EB4A11 /* GetFamilyMembersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFamilyMembersUseCase.swift; sourceTree = "<group>"; };
+		C6BE3187302E222300EB4A11 /* GetPatientProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPatientProfileUseCase.swift; sourceTree = "<group>"; };
+		C6BE3188302E222300EB4A11 /* UpdateProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileUseCase.swift; sourceTree = "<group>"; };
+		C6BE318B302E222300EB4A11 /* FamilyMemberCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCard.swift; sourceTree = "<group>"; };
+		C6BE318C302E222300EB4A11 /* ProfileMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuRow.swift; sourceTree = "<group>"; };
+		C6BE318D302E222300EB4A11 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
+		C6BE318F302E222300EB4A11 /* FamilyMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMembersView.swift; sourceTree = "<group>"; };
+		C6BE3190302E222300EB4A11 /* ProfileAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAddressView.swift; sourceTree = "<group>"; };
+		C6BE3191302E222300EB4A11 /* ProfileHealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthView.swift; sourceTree = "<group>"; };
+		C6BE3192302E222300EB4A11 /* ProfilePersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePersonalInfoView.swift; sourceTree = "<group>"; };
+		C6BE3193302E222300EB4A11 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C6BE3194302E222300EB4A11 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C6BE3197302E222300EB4A11 /* FamilyMembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMembersViewModel.swift; sourceTree = "<group>"; };
+		C6BE3198302E222300EB4A11 /* ProfileHealthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHealthViewModel.swift; sourceTree = "<group>"; };
+		C6BE3199302E222300EB4A11 /* ProfilePersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePersonalInfoViewModel.swift; sourceTree = "<group>"; };
+		C6BE319A302E222300EB4A11 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		C6BE319B302E222300EB4A11 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		C6BE319E302E222300EB4A11 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		C6BE319F302E222300EB4A11 /* ProfileCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorView.swift; sourceTree = "<group>"; };
+		C6BE31A0302E222300EB4A11 /* ProfileRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRoute.swift; sourceTree = "<group>"; };
 		C6C014803008BBB5006B5FDE /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C6C0A4C2300D0C2F00AEB6D9 /* BasicHealthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHealthInfo.swift; sourceTree = "<group>"; };
 		C6C0A4C4300D0C3B00AEB6D9 /* ExistingConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingConditions.swift; sourceTree = "<group>"; };
+		C6C0A4C4300D0C3B00AEB6E0 /* MedicalCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalCondition.swift; sourceTree = "<group>"; };
+		C6C0A4C4300D0C3B00AEB6E1 /* MedicalConditionDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalConditionDTOs.swift; sourceTree = "<group>"; };
 		C6C0A4C6300D0C4A00AEB6D9 /* Allergies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allergies.swift; sourceTree = "<group>"; };
+		C6C0A4C4300D0C3B00AEB6F0 /* Allergy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allergy.swift; sourceTree = "<group>"; };
+		C6C0A4C4300D0C3B00AEB6F1 /* AllergyDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllergyDTOs.swift; sourceTree = "<group>"; };
+		C6C0A4C4300D0C3B00AEB6F2 /* MedicationDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDTOs.swift; sourceTree = "<group>"; };
 		C6C0A4C8300D0C5900AEB6D9 /* CurrentMedication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentMedication.swift; sourceTree = "<group>"; };
 		C6C0A4CA300D0C6700AEB6D9 /* MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistory.swift; sourceTree = "<group>"; };
 		C6C0A4CD300D0C7A00AEB6D9 /* Mobility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mobility.swift; sourceTree = "<group>"; };
@@ -955,6 +979,7 @@
 			children = (
 				0C7F5F2B302D4EFB005CFC20 /* RequestFlow */,
 				0C7F5EF5302D4E9A005CFC20 /* ReservationChat */,
+				C6BE31A2302E222300EB4A11 /* Profile */,
 				C6068581302B7878006A9DC3 /* AIAssistant */,
 				0C1F6117301918F1002086EC /* Onboarding */,
 				0C1F6116301918EA002086EC /* Splash */,
@@ -962,7 +987,6 @@
 				0C6BAE2830124A3D00759ED0 /* NurseProfile */,
 				0C6BAE2530122D6100759ED0 /* QRCode */,
 				C610010E301121C200FA385C /* Services */,
-				392656473014410300AFD6F4 /* Profile */,
 				0C3D88943008501500883999 /* Shared */,
 				39649593301076CA00AC4137 /* Home */,
 				0C3D886A3008483C00883999 /* Auth */,
@@ -1571,127 +1595,6 @@
 			path = VisitCompleted;
 			sourceTree = "<group>";
 		};
-		392656473014410300AFD6F4 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				392656753014423F00AFD6F4 /* ProfileCoordinator */,
-				3926565C3014419700AFD6F4 /* Presentation */,
-				392656583014417C00AFD6F4 /* Data */,
-				392656483014411300AFD6F4 /* Domain */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		392656483014411300AFD6F4 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				392656513014415300AFD6F4 /* UseCases */,
-				3926564E3014414200AFD6F4 /* Repositories */,
-				392656493014411900AFD6F4 /* Entities */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		392656493014411900AFD6F4 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				3926564C3014413500AFD6F4 /* FamilyMember.swift */,
-				3926564A3014412000AFD6F4 /* PatientProfile.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		3926564E3014414200AFD6F4 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				3926564F3014414800AFD6F4 /* ProfileRepositoryProtocol.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		392656513014415300AFD6F4 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				392656563014416E00AFD6F4 /* GetFamilyMembersUseCase.swift */,
-				392656543014416100AFD6F4 /* GetPatientProfileUseCase.swift */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
-		392656583014417C00AFD6F4 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				392656593014418200AFD6F4 /* Repositories */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		392656593014418200AFD6F4 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				3926565A3014418800AFD6F4 /* ProfileRepositoryImpl.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		3926565C3014419700AFD6F4 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				39265664301441CE00AFD6F4 /* View */,
-				3926565D3014419D00AFD6F4 /* ViewModel */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		3926565D3014419D00AFD6F4 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				39265662301441C100AFD6F4 /* SettingsViewModel.swift */,
-				39265660301441B500AFD6F4 /* FamilyMembersViewModel.swift */,
-				3926565E301441A600AFD6F4 /* ProfileViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		39265664301441CE00AFD6F4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3926566E3014420D00AFD6F4 /* Screens */,
-				39265665301441D300AFD6F4 /* Components */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		39265665301441D300AFD6F4 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				3926566C301441FF00AFD6F4 /* SettingsRow.swift */,
-				3926566A301441F200AFD6F4 /* FamilyMemberCard.swift */,
-				39265668301441E600AFD6F4 /* ProfileMenuRow.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		3926566E3014420D00AFD6F4 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				392656733014422D00AFD6F4 /* SettingsView.swift */,
-				392656713014422000AFD6F4 /* FamilyMembersView.swift */,
-				3926566F3014421400AFD6F4 /* ProfileView.swift */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		392656753014423F00AFD6F4 /* ProfileCoordinator */ = {
-			isa = PBXGroup;
-			children = (
-				3926567A3014426700AFD6F4 /* ProfileCoordinatorView.swift */,
-				392656783014424F00AFD6F4 /* ProfileCoordinator.swift */,
-				392656763014424500AFD6F4 /* ProfileRoute.swift */,
-			);
-			path = ProfileCoordinator;
-			sourceTree = "<group>";
-		};
 		3953414B3027806700BD21BE /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -2007,6 +1910,9 @@
 			children = (
 				B369408E301E3C7A00BB26AD /* CreateProfileRequestDTO.swift */,
 				B3EF0D343019060500C46568 /* BasicHealthInfoRequestDTO.swift */,
+				C6C0A4C4300D0C3B00AEB6E1 /* MedicalConditionDTOs.swift */,
+				C6C0A4C4300D0C3B00AEB6F1 /* AllergyDTOs.swift */,
+				C6C0A4C4300D0C3B00AEB6F2 /* MedicationDTOs.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -2229,6 +2135,142 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		C6BE317D302E222300EB4A11 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE317C302E222300EB4A11 /* ProfileRepositoryImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C6BE317F302E222300EB4A11 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE317E302E222300EB4A11 /* ProfileNetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C6BE3180302E222300EB4A11 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE317D302E222300EB4A11 /* Repositories */,
+				C6BE317F302E222300EB4A11 /* Services */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C6BE3183302E222300EB4A11 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3181302E222300EB4A11 /* FamilyMember.swift */,
+				C6BE3182302E222300EB4A11 /* PatientProfile.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C6BE3185302E222300EB4A11 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3184302E222300EB4A11 /* ProfileRepositoryProtocol.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		C6BE3189302E222300EB4A11 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3186302E222300EB4A11 /* GetFamilyMembersUseCase.swift */,
+				C6BE3187302E222300EB4A11 /* GetPatientProfileUseCase.swift */,
+				C6BE3188302E222300EB4A11 /* UpdateProfileUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		C6BE318A302E222300EB4A11 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3183302E222300EB4A11 /* Entities */,
+				C6BE3185302E222300EB4A11 /* Repositories */,
+				C6BE3189302E222300EB4A11 /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		C6BE318E302E222300EB4A11 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE318B302E222300EB4A11 /* FamilyMemberCard.swift */,
+				C6BE318C302E222300EB4A11 /* ProfileMenuRow.swift */,
+				C6BE318D302E222300EB4A11 /* SettingsRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C6BE3195302E222300EB4A11 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE318F302E222300EB4A11 /* FamilyMembersView.swift */,
+				C6BE3190302E222300EB4A11 /* ProfileAddressView.swift */,
+				C6BE3191302E222300EB4A11 /* ProfileHealthView.swift */,
+				C6BE3192302E222300EB4A11 /* ProfilePersonalInfoView.swift */,
+				C6BE3193302E222300EB4A11 /* ProfileView.swift */,
+				C6BE3194302E222300EB4A11 /* SettingsView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		C6BE3196302E222300EB4A11 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE318E302E222300EB4A11 /* Components */,
+				C6BE3195302E222300EB4A11 /* Screens */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C6BE319C302E222300EB4A11 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3197302E222300EB4A11 /* FamilyMembersViewModel.swift */,
+				C6BE3198302E222300EB4A11 /* ProfileHealthViewModel.swift */,
+				C6BE3199302E222300EB4A11 /* ProfilePersonalInfoViewModel.swift */,
+				C6BE319A302E222300EB4A11 /* ProfileViewModel.swift */,
+				C6BE319B302E222300EB4A11 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C6BE319D302E222300EB4A11 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3196302E222300EB4A11 /* View */,
+				C6BE319C302E222300EB4A11 /* ViewModel */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C6BE31A1302E222300EB4A11 /* ProfileCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE319E302E222300EB4A11 /* ProfileCoordinator.swift */,
+				C6BE319F302E222300EB4A11 /* ProfileCoordinatorView.swift */,
+				C6BE31A0302E222300EB4A11 /* ProfileRoute.swift */,
+			);
+			path = ProfileCoordinator;
+			sourceTree = "<group>";
+		};
+		C6BE31A2302E222300EB4A11 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C6BE3180302E222300EB4A11 /* Data */,
+				C6BE318A302E222300EB4A11 /* Domain */,
+				C6BE319D302E222300EB4A11 /* Presentation */,
+				C6BE31A1302E222300EB4A11 /* ProfileCoordinator */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		C6C0A4BE300D0BE000AEB6D9 /* ProfileSetup */ = {
 			isa = PBXGroup;
 			children = (
@@ -2271,9 +2313,11 @@
 				C6C0A4CA300D0C6700AEB6D9 /* MedicalHistory.swift */,
 				C6C0A4C8300D0C5900AEB6D9 /* CurrentMedication.swift */,
 				C6C0A4C6300D0C4A00AEB6D9 /* Allergies.swift */,
+				C6C0A4C4300D0C3B00AEB6F0 /* Allergy.swift */,
 				C65A1E7B300EC2320003D6FB /* AddressSelection.swift */,
 				C65A1E7C300EC2320003D6FB /* SearchSuggestion.swift */,
 				C6C0A4C4300D0C3B00AEB6D9 /* ExistingConditions.swift */,
+				C6C0A4C4300D0C3B00AEB6E0 /* MedicalCondition.swift */,
 				C6C0A4C2300D0C2F00AEB6D9 /* BasicHealthInfo.swift */,
 			);
 			path = Entities;
@@ -2686,8 +2730,6 @@
 				0C3D88583008461300883999 /* AppImages.swift in Sources */,
 				C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */,
 				395341623027818800BD21BE /* NurseRepositoryImpl.swift in Sources */,
-				3926565F301441A700AFD6F4 /* ProfileViewModel.swift in Sources */,
-				3926567B3014426800AFD6F4 /* ProfileCoordinatorView.swift in Sources */,
 				C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */,
 				0C1F612E30191DDF002086EC /* OnboardingView.swift in Sources */,
 				C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */,
@@ -2705,7 +2747,6 @@
 				B369408D301E3C6500BB26AD /* FamilyMemberBasicInfo.swift in Sources */,
 				0C7F5F3F302D4EFB005CFC20 /* NurseOfferCardView.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
-				392656743014422D00AFD6F4 /* SettingsView.swift in Sources */,
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,
 				C6C0A4DF300D253500AEB6D9 /* ProfileSetupCoordinator.swift in Sources */,
 				396495BB301078D800AC4137 /* ServiceCategoryTile.swift in Sources */,
@@ -2727,7 +2768,6 @@
 				3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */,
 				B3A11201302696EC00292B50 /* NotificationBannerModifier.swift in Sources */,
 				B3A11202302696EC00292B50 /* NotificationData.swift in Sources */,
-				392656703014421400AFD6F4 /* ProfileView.swift in Sources */,
 				396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */,
 				39008F62300BD89E0092118E /* PrimaryChip.swift in Sources */,
 				0C7F5F32302D4EFB005CFC20 /* OffersEvent.swift in Sources */,
@@ -2741,14 +2781,11 @@
 				C6E897273015CB4300E3D336 /* AuthInterceptor.swift in Sources */,
 				C6E897283015CB4300E3D336 /* JSONDecoder+Default.swift in Sources */,
 				C6E897293015CB4300E3D336 /* UserSession.swift in Sources */,
-				392656503014414800AFD6F4 /* ProfileRepositoryProtocol.swift in Sources */,
 				C6C3BE3A300A644A00C5FC25 /* CustomDatePickerView.swift in Sources */,
-				392656723014422000AFD6F4 /* FamilyMembersView.swift in Sources */,
 				39534153302780AD00BD21BE /* NurseService.swift in Sources */,
 				0C7F5F3D302D4EFB005CFC20 /* AddressPreviewCard.swift in Sources */,
 				3964959B3010774000AC4137 /* HomeRepositoryProtocol.swift in Sources */,
 				C65A1E75300EA77F0003D6FB /* CurrentLocationProvider.swift in Sources */,
-				3926566B301441F200AFD6F4 /* FamilyMemberCard.swift in Sources */,
 				396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
 				396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */,
@@ -2770,7 +2807,6 @@
 				C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */,
 				396495C93010797900AC4137 /* HelpBannerView.swift in Sources */,
 				0C3D885D3008461300883999 /* Spacing.swift in Sources */,
-				3926564B3014412100AFD6F4 /* PatientProfile.swift in Sources */,
 				C6E761F43008EB0D00481DB9 /* PhoneNumberView.swift in Sources */,
 				B3EF0D323019054C00C46568 /* PersonalInfoRequestDTO.swift in Sources */,
 				C6C3BE28300A63C100C5FC25 /* SavePersonalInfoUseCase.swift in Sources */,
@@ -2781,16 +2817,19 @@
 				C6C3BE02300A4D0800C5FC25 /* IconSize.swift in Sources */,
 				0C3D888530084BAB00883999 /* AuthViewModel.swift in Sources */,
 				B3EF0D353019060500C46568 /* BasicHealthInfoRequestDTO.swift in Sources */,
+				C6C0A4C5300D0C3E00AEB6E0 /* MedicalCondition.swift in Sources */,
+				C6C0A4C5300D0C3E00AEB6E1 /* MedicalConditionDTOs.swift in Sources */,
+				C6C0A4C5300D0C3E00AEB6F0 /* Allergy.swift in Sources */,
+				C6C0A4C5300D0C3E00AEB6F1 /* AllergyDTOs.swift in Sources */,
+				C6C0A4C5300D0C3E00AEB6F2 /* MedicationDTOs.swift in Sources */,
 				0C0312C630127A0F00C407FB /* NurseProfileCertificatesView.swift in Sources */,
 				0CC6DA77300BD7A300C903C4 /* InfoBannerView.swift in Sources */,
 				C6C3BE09300A531900C5FC25 /* SkipForNowButton.swift in Sources */,
 				C6C3BE15300A629E00C5FC25 /* DIContainer.swift in Sources */,
-				392656573014416E00AFD6F4 /* GetFamilyMembersUseCase.swift in Sources */,
 				0C3D885C3008461300883999 /* Shadow.swift in Sources */,
 				C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */,
 				3921F29C30112F5100CE77CF /* ServiceCategoryCard.swift in Sources */,
 				0C5C345C300F08BB00A820EB /* BloodTypeSelectionCardView.swift in Sources */,
-				39265661301441B500AFD6F4 /* FamilyMembersViewModel.swift in Sources */,
 				0C3D885E3008461300883999 /* Typography.swift in Sources */,
 				C6E761FE3009336100481DB9 /* ProfileSetupDecisionViewModel.swift in Sources */,
 				0CC59F47300D55BA00A5E40D /* CarelyDropdownField.swift in Sources */,
@@ -2815,6 +2854,31 @@
 				B3694095301E3ED900BB26AD /* AddFamilyMemberCoordinatorView.swift in Sources */,
 				C630BAD73010CC5D00255ECA /* HomeCoordinator.swift in Sources */,
 				C630BAD83010CC5D00255ECA /* MainTabCoordinatorView.swift in Sources */,
+				C6BE31A3302E222300EB4A11 /* SettingsRow.swift in Sources */,
+				C6BE31A4302E222300EB4A11 /* FamilyMembersViewModel.swift in Sources */,
+				C6BE31A5302E222300EB4A11 /* FamilyMemberCard.swift in Sources */,
+				C6BE31A6302E222300EB4A11 /* ProfileMenuRow.swift in Sources */,
+				C6BE31A7302E222300EB4A11 /* GetFamilyMembersUseCase.swift in Sources */,
+				C6BE31A8302E222300EB4A11 /* ProfileNetworkService.swift in Sources */,
+				C6BE31A9302E222300EB4A11 /* ProfileRepositoryImpl.swift in Sources */,
+				C6BE31AA302E222300EB4A11 /* ProfileHealthViewModel.swift in Sources */,
+				C6BE31AB302E222300EB4A11 /* PatientProfile.swift in Sources */,
+				C6BE31AC302E222300EB4A11 /* ProfileViewModel.swift in Sources */,
+				C6BE31AD302E222300EB4A11 /* ProfilePersonalInfoView.swift in Sources */,
+				C6BE31AE302E222300EB4A11 /* UpdateProfileUseCase.swift in Sources */,
+				C6BE31AF302E222300EB4A11 /* ProfileHealthView.swift in Sources */,
+				C6BE31B0302E222300EB4A11 /* ProfileAddressView.swift in Sources */,
+				C6BE31B1302E222300EB4A11 /* ProfileRoute.swift in Sources */,
+				C6BE31B2302E222300EB4A11 /* SettingsView.swift in Sources */,
+				C6BE31B3302E222300EB4A11 /* ProfileRepositoryProtocol.swift in Sources */,
+				C6BE31B4302E222300EB4A11 /* SettingsViewModel.swift in Sources */,
+				C6BE31B5302E222300EB4A11 /* FamilyMembersView.swift in Sources */,
+				C6BE31B6302E222300EB4A11 /* ProfileCoordinator.swift in Sources */,
+				C6BE31B7302E222300EB4A11 /* GetPatientProfileUseCase.swift in Sources */,
+				C6BE31B8302E222300EB4A11 /* ProfilePersonalInfoViewModel.swift in Sources */,
+				C6BE31B9302E222300EB4A11 /* ProfileCoordinatorView.swift in Sources */,
+				C6BE31BA302E222300EB4A11 /* FamilyMember.swift in Sources */,
+				C6BE31BB302E222300EB4A11 /* ProfileView.swift in Sources */,
 				C630BAD93010CC5D00255ECA /* HomeCoordinatorView.swift in Sources */,
 				C6C0A4FB300D334800AEB6D9 /* CurrentMedicationView.swift in Sources */,
 				C65A1E82300EC2970003D6FB /* AddressMapPickerBottomSheet.swift in Sources */,
@@ -2851,7 +2915,6 @@
 				0C7F5F4B302D4EFC005CFC20 /* OfferAcceptedViewModel.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
-				39265663301441C200AFD6F4 /* SettingsViewModel.swift in Sources */,
 				39534157302780CD00BD21BE /* NurseDetails.swift in Sources */,
 				C65A1E8A300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift in Sources */,
 				C65A1E8B300ECC1C0003D6FB /* GeocodeCountryUseCase.swift in Sources */,
@@ -2890,13 +2953,11 @@
 				C6C0A505300D334800AEB6D9 /* CurrentMedicationViewModel.swift in Sources */,
 				C6C0A506300D334800AEB6D9 /* BasicHealthInfoView.swift in Sources */,
 				C6C0A507300D334800AEB6D9 /* HomeAddressViewModel.swift in Sources */,
-				3926565B3014418900AFD6F4 /* ProfileRepositoryImpl.swift in Sources */,
 				C6C0A508300D334800AEB6D9 /* AllergiesView.swift in Sources */,
 				C6C0A509300D334800AEB6D9 /* MedicalHistoryView.swift in Sources */,
 				396495BD301078EC00AC4137 /* ServiceCategoryBentoCard.swift in Sources */,
 				0C7F5F39302D4EFB005CFC20 /* DeclineOfferUseCase.swift in Sources */,
 				C6C0A50B300D334800AEB6D9 /* HomeAddressView.swift in Sources */,
-				392656553014416100AFD6F4 /* GetPatientProfileUseCase.swift in Sources */,
 				C6C0A4D4300D0D1B00AEB6D9 /* ProfileSetupData.swift in Sources */,
 				C6068582302B7878006A9DC3 /* AIPatientRepositoryProtocol.swift in Sources */,
 				0C7F5EF8302D4E9A005CFC20 /* ChatNetworkService.swift in Sources */,
@@ -2944,7 +3005,6 @@
 				C6C3BE13300A61FC00C5FC25 /* PersonalInfoViewModel.swift in Sources */,
 				396495AF3010785100AC4137 /* HomeViewModel.swift in Sources */,
 				0C5C3460300F08BB00A820EB /* HealthInfoCardView.swift in Sources */,
-				39265669301441E600AFD6F4 /* ProfileMenuRow.swift in Sources */,
 				C6E761F83008EB9700481DB9 /* PersonalInfoView.swift in Sources */,
 				C6E761FA3008EBED00481DB9 /* ProfileSetupDecisionView.swift in Sources */,
 				396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */,
@@ -2956,7 +3016,6 @@
 				C6C3BE25300A63A800C5FC25 /* AuthError.swift in Sources */,
 				C6C3BE0F300A61D400C5FC25 /* OTPVerificationView.swift in Sources */,
 				B3B53817301E058F00F57AF5 /* ServiceRequestEndpoint.swift in Sources */,
-				3926566D3014420000AFD6F4 /* SettingsRow.swift in Sources */,
 				C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */,
 				396495B53010788D00AC4137 /* SearchField.swift in Sources */,
 				0C7F5F2C302D4EFB005CFC20 /* NurseOfferResponseDTO.swift in Sources */,

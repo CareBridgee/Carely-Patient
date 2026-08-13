@@ -30,6 +30,7 @@ final class KeychainTokenStore: TokenStoring, @unchecked Sendable {
     func saveTokens(access: String, refresh: String) {
         save(access, forKey: accessKey)
         save(refresh, forKey: refreshKey)
+        print("🔑 [Access Key Saved]: \(access)")
     }
 
     func getAccessToken() -> String? {

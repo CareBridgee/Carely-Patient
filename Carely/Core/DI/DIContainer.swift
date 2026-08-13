@@ -152,13 +152,21 @@ final class DIContainer {
                 createFamilyMemberProfile: CreateFamilyMemberProfileUseCase(repo: profileSetupRepository),
                 updateBasicInfo: UpdateBasicHealthInfoUseCase(repo: profileSetupRepository),
                 updateMobility: UpdateMobilityUseCase(repo: profileSetupRepository),
+                fetchConditions: FetchMedicalConditionsUseCase(repo: profileSetupRepository),
+                syncConditions: SyncMedicalConditionsUseCase(repo: profileSetupRepository),
                 saveConditions: SaveExistingConditionsUseCase(repo: profileSetupRepository),
+                fetchAllergies: FetchAllergiesUseCase(repo: profileSetupRepository),
+                syncAllergies: SyncAllergiesUseCase(repo: profileSetupRepository),
                 saveAllergies: SaveAllergiesUseCase(repo: profileSetupRepository),
+                fetchMedications: FetchMedicationsUseCase(repo: profileSetupRepository),
+                syncMedications: SyncMedicationsUseCase(repo: profileSetupRepository),
                 saveMedications: SaveMedicationsUseCase(repo: profileSetupRepository),
                 saveHistory: SaveMedicalHistoryUseCase(repo: profileSetupRepository),
+                fetchContact: FetchEmergencyContactUseCase(repo: profileSetupRepository),
                 saveContact: SaveEmergencyContactUseCase(repo: profileSetupRepository),
                 saveAddress: SaveHomeAddressUseCase(repo: profileSetupRepository),
-                updateAddress: UpdateHomeAddressUseCase(repo: profileSetupRepository)
+                updateAddress: UpdateHomeAddressUseCase(repo: profileSetupRepository),
+                fetchAddress: FetchHomeAddressUseCase(repo: profileSetupRepository)
             )
         }()
     func makeProfileSetupCoordinator() -> ProfileSetupCoordinator {
@@ -257,27 +265,81 @@ final class DIContainer {
         )
     }
     
-    func makeExistingConditionsViewModel(existingData: ExistingConditions) -> ExistingConditionsViewModel {
-        ExistingConditionsViewModel(existingData: existingData)
+    func makeExistingConditionsViewModel(
+        existingData: ExistingConditions,
+        overrideProfileId: String? = nil,
+        coordinator: ProfileSetupCoordinator
+    ) -> ExistingConditionsViewModel {
+        ExistingConditionsViewModel(
+            existingData: existingData,
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            fetchConditionsUseCase: profileSetupUseCases.fetchConditions,
+            syncConditionsUseCase: profileSetupUseCases.syncConditions,
+            overrideProfileId: overrideProfileId,
+            onContinue: { conditions in
+                coordinator.save(existingConditions: conditions)
+                coordinator.next()
+            },
+            onBack: { conditions in
+                coordinator.save(existingConditions: conditions)
+                coordinator.previous()
+            }
+        )
+    }
+
+    func makeAllergiesViewModel(
+        coordinator: ProfileSetupCoordinator,
+        overrideProfileId: String? = nil
+    ) -> AllergiesViewModel {
+        AllergiesViewModel(
+            coordinator: coordinator,
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            fetchAllergiesUseCase: profileSetupUseCases.fetchAllergies,
+            syncAllergiesUseCase: profileSetupUseCases.syncAllergies,
+            overrideProfileId: overrideProfileId
+        )
+    }
+
+    func makeCurrentMedicationViewModel(
+        coordinator: ProfileSetupCoordinator,
+        overrideProfileId: String? = nil
+    ) -> CurrentMedicationViewModel {
+        CurrentMedicationViewModel(
+            coordinator: coordinator,
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            fetchMedicationsUseCase: profileSetupUseCases.fetchMedications,
+            syncMedicationsUseCase: profileSetupUseCases.syncMedications,
+            overrideProfileId: overrideProfileId
+        )
     }
     
     
-    func makeEmergencyContactViewModel(initialContact: EmergencyContact?, overrideProfileId: String? = nil, coordinator: ProfileSetupCoordinator) -> EmergencyContactViewModel {
-            EmergencyContactViewModel(
-                initialContact: initialContact,
-                getProfileIdUseCase: profileSetupUseCases.getProfileId,
-                saveContactUseCase: profileSetupUseCases.saveContact,
-                overrideProfileId: overrideProfileId, 
-                onContinue: { contact in
-                    coordinator.save(emergencyContact: contact)
+    func makeEmergencyContactViewModel(
+        initialContact: EmergencyContact?,
+        overrideProfileId: String? = nil,
+        coordinator: ProfileSetupCoordinator,
+        onFinish: (() -> Void)? = nil
+    ) -> EmergencyContactViewModel {
+        EmergencyContactViewModel(
+            initialContact: initialContact,
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            fetchContactUseCase: profileSetupUseCases.fetchContact,
+            saveContactUseCase: profileSetupUseCases.saveContact,
+            overrideProfileId: overrideProfileId,
+            onContinue: { contact in
+                coordinator.save(emergencyContact: contact)
+                if coordinator.isLastStep {
+                    onFinish?()
+                } else {
                     coordinator.next()
-                },
-                onBack: { contact in
-                    coordinator.save(emergencyContact: contact)
-                    coordinator.previous()
                 }
-            )
-        }
+            },
+            onBack: { contact in
+                coordinator.save(emergencyContact: contact)
+                coordinator.previous()
+            }
+        )
+    }
         
     func makeHomeAddressViewModel(
         initialAddress: HomeAddress?,
@@ -705,41 +767,129 @@ final class DIContainer {
         )
     }
     
+    // MARK: - Profile Network Service
+
+    private lazy var profileNetworkService: ProfileNetworkServiceProtocol =
+        ProfileNetworkService(networkClient: networkClient)
+
+    func makeProfileNetworkService() -> ProfileNetworkServiceProtocol {
+        profileNetworkService
+    }
+
     // MARK: - Profile Repository
-    
-    private lazy var profileRepository: ProfileRepositoryProtocol = ProfileRepositoryImpl()
-    
+
+    private lazy var profileRepository: ProfileRepositoryProtocol =
+        ProfileRepositoryImpl(service: profileNetworkService)
+
     // MARK: - Profile UseCases
-    
+
     private func makeGetPatientProfileUseCase() -> GetPatientProfileUseCaseProtocol {
         GetPatientProfileUseCase(repository: profileRepository)
     }
-    
+
     private func makeGetFamilyMembersUseCase() -> GetFamilyMembersUseCaseProtocol {
         GetFamilyMembersUseCase(repository: profileRepository)
     }
-    
+
+    func makeUpdateProfileUseCase() -> UpdateProfileUseCaseProtocol {
+        UpdateProfileUseCase(repository: profileRepository)
+    }
+
     // MARK: - Profile ViewModels
-    
+
     func makeProfileViewModel(coordinator: ProfileCoordinator) -> ProfileViewModel {
         ProfileViewModel(
             getPatientProfileUseCase: makeGetPatientProfileUseCase(),
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
             logoutUseCase: makeLogoutUseCase(),
+            coordinator: coordinator,
+            sessionManager: sessionManager
+        )
+    }
+
+    func makeFamilyMembersViewModel(coordinator: ProfileCoordinator) -> FamilyMembersViewModel {
+        FamilyMembersViewModel(
+            getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            profileNetworkService: profileNetworkService,
             coordinator: coordinator
         )
     }
-    
-    func makeFamilyMembersViewModel(coordinator: ProfileCoordinator) -> FamilyMembersViewModel {
-        FamilyMembersViewModel(
+
+    func makeSettingsViewModel(coordinator: ProfileCoordinator) -> SettingsViewModel {
+        let user = sessionManager.currentUser
+        let firstName = user?.firstName ?? ""
+        let lastName  = user?.lastName  ?? ""
+        let name = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
+        return SettingsViewModel(
+            patientName: name.isEmpty ? "My Profile" : name,
+            coordinator: coordinator
+        )
+    }
+
+    /// Personal Info edit — pre-populates from sessionManager + profile (if already loaded).
+    func makeProfilePersonalInfoViewModel(
+        profileId: String,
+        coordinator: ProfileCoordinator,
+        profile: PatientProfile? = nil
+    ) -> ProfilePersonalInfoViewModel {
+        ProfilePersonalInfoViewModel(
+            profileId: profileId,
+            profile: profile,
+            sessionManager: sessionManager,
+            updateUseCase: makeUpdateProfileUseCase(),
+            coordinator: coordinator,
+            networkService: profileNetworkService
+        )
+    }
+
+    /// Health Profile edit — reuses step-based ProfileSetupCoordinator flow in edit mode.
+    func makeProfileHealthSetupCoordinator(profileId: String) -> ProfileSetupCoordinator {
+        let setupCoordinator = ProfileSetupCoordinator(data: ProfileSetupData(), startingStep: .basicHealthInfo)
+        setupCoordinator.setProfileId(profileId)
+        return setupCoordinator
+    }
+
+    /// Profile Address view model factory.
+    func makeProfileAddressViewModel(
+        profileId: String,
+        coordinator: ProfileCoordinator
+    ) -> ProfileAddressViewModel {
+        let mapPickerVM = makeAddressMapPickerViewModel()
+        let homeVM = HomeAddressViewModel(
+            initialAddress: nil,
+            mapPickerViewModel: mapPickerVM,
+            getCurrentLocationAddressUseCase: makeGetCurrentLocationAddressUseCase(),
+            getProfileIdUseCase: profileSetupUseCases.getProfileId,
+            saveAddressUseCase: profileSetupUseCases.saveAddress,
+            updateAddressUseCase: profileSetupUseCases.updateAddress,
+            fetchAddressUseCase: profileSetupUseCases.fetchAddress,
+            overrideProfileId: profileId,
+            isEditingExistingAddress: false,
+            onFinishSetup: { _ in coordinator.pop() },
+            onBackTapped: { _ in coordinator.pop() },
+            showBackButton: true,
+            continueButtonTitle: "Save Address",
+            loadingButtonTitle: "Saving..."
+        )
+        return ProfileAddressViewModel(
+            initialProfileId: profileId,
+            homeAddressViewModel: homeVM,
+            getPatientProfileUseCase: makeGetPatientProfileUseCase(),
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
             coordinator: coordinator
         )
     }
-    
-    func makeSettingsViewModel(coordinator: ProfileCoordinator) -> SettingsViewModel {
-        SettingsViewModel(
-            patientName: "Elena Rodriguez",
+
+    /// Health Profile edit — pre-populates from cached profile if provided.
+    func makeProfileHealthViewModel(
+        profileId: String,
+        coordinator: ProfileCoordinator,
+        profile: PatientProfile? = nil
+    ) -> ProfileHealthViewModel {
+        ProfileHealthViewModel(
+            profileId: profileId,
+            profile: profile,
+            updateUseCase: makeUpdateProfileUseCase(),
             coordinator: coordinator
         )
     }

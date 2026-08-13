@@ -19,6 +19,9 @@ struct CarelyApp: App {
 
         self.diContainer = container
         _appState = StateObject(wrappedValue: container.appState)
+
+        let token = KeychainTokenStore().getAccessToken()
+        print("🔑 [Access Key]: \(token ?? "No Access Key Saved")")
     }
     
     var body: some Scene {

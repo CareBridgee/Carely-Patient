@@ -120,28 +120,113 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
             )
             try await service.updateProfile(id: profileId, request: request)
         }
-        func saveMedicalConditions(profileId: String, conditions: ExistingConditions) async throws {
-            let request = MedicalConditionRequestDTO(conditions: Array(conditions.selectedConditions), otherDiseases: conditions.otherDiseases)
-            try await service.saveMedicalConditions(profileId: profileId, request: request)
+    func fetchAllMedicalConditions() async throws -> [MedicalCondition] {
+        let dtos = try await service.getAllMedicalConditions()
+        return dtos.map { dto in
+            MedicalCondition(
+                id: dto.id,
+                name: dto.name,
+                description: dto.description ?? ""
+            )
         }
+    }
 
-        func saveAllergies(profileId: String, allergies: Allergies) async throws {
-            let request = AllergyRequestDTO(drugAllergies: Array(allergies.drugAllergies), foodAllergies: Array(allergies.foodAllergies), otherAllergiesNote: allergies.otherAllergiesNote)
-            try await service.saveAllergies(profileId: profileId, request: request)
-        }
+    func fetchProfileMedicalConditions(profileId: String) async throws -> Set<String> {
+        let dtos = try await service.getProfileMedicalConditions(profileId: profileId)
+        return Set(dtos.map { $0.medicalConditionId })
+    }
 
-        func saveMedications(profileId: String, medications: CurrentMedication) async throws {
-            let medNames = medications.medications.map { $0.name }.filter { !$0.isEmpty }
-            let request = MedicationRequestDTO(medications: medNames)
-            try await service.saveMedications(profileId: profileId, request: request)
+    func addMedicalCondition(profileId: String, condition: MedicalCondition) async throws {
+        let req = AddMedicalConditionRequestDTO(
+            medicalConditionId: condition.id,
+            name: condition.name,
+            description: condition.description
+        )
+        try await service.addMedicalCondition(profileId: profileId, request: req)
+    }
+
+    func removeMedicalCondition(profileId: String, medicalConditionId: String) async throws {
+        try await service.removeMedicalCondition(profileId: profileId, medicalConditionId: medicalConditionId)
+    }
+
+    func fetchAllAllergies() async throws -> [Allergy] {
+        let dtos = try await service.getAllAllergies()
+        return dtos.map { dto in
+            let type = AllergyType(rawValue: dto.type.uppercased()) ?? .other
+            return Allergy(
+                id: dto.id,
+                name: dto.name,
+                type: type,
+                source: dto.source
+            )
         }
+    }
+
+    func fetchProfileAllergies(profileId: String) async throws -> Set<String> {
+        let dtos = try await service.getProfileAllergies(profileId: profileId)
+        return Set(dtos.map { $0.allergyId })
+    }
+
+    func addAllergy(profileId: String, allergy: Allergy) async throws {
+        let req = AddAllergyRequestDTO(
+            allergyId: allergy.id,
+            name: allergy.name,
+            type: allergy.type.rawValue
+        )
+        try await service.addAllergy(profileId: profileId, request: req)
+    }
+
+    func removeAllergy(profileId: String, allergyId: String) async throws {
+        try await service.removeAllergy(profileId: profileId, allergyId: allergyId)
+    }
+
+    func fetchProfileMedications(profileId: String) async throws -> [PatientMedication] {
+        let dtos = try await service.getProfileMedications(profileId: profileId)
+        return dtos.map { dto in
+            PatientMedication(
+                id: dto.medicationId,
+                recordId: dto.id,
+                name: dto.medicationName ?? ""
+            )
+        }
+    }
+
+    func addMedication(profileId: String, name: String) async throws -> PatientMedication {
+        let req = AddMedicationRequestDTO(name: name)
+        let dto = try await service.addMedication(profileId: profileId, request: req)
+        return PatientMedication(
+            id: dto.medicationId,
+            recordId: dto.id,
+            name: dto.medicationName ?? name
+        )
+    }
+
+    func removeMedication(profileId: String, medicationId: String) async throws {
+        try await service.removeMedication(profileId: profileId, medicationId: medicationId)
+    }
 
  
 
-        func saveEmergencyContact(profileId: String, contact: EmergencyContact) async throws {
-            let request = EmergencyContactRequestDTO(contactName: contact.name, phoneNumber: contact.phoneNumber, relationship: contact.relationship)
-            try await service.saveEmergencyContact(profileId: profileId, request: request)
-        }
+    func fetchEmergencyContact(profileId: String) async throws -> EmergencyContact? {
+        let dtos = try await service.getEmergencyContacts(profileId: profileId)
+        guard let first = dtos.first else { return nil }
+        return EmergencyContact(
+            id: first.id,
+            name: first.contactName,
+            phoneNumber: first.phoneNumber,
+            relationship: first.relationship
+        )
+    }
+
+    func saveEmergencyContact(profileId: String, contact: EmergencyContact) async throws {
+        let request = EmergencyContactRequestDTO(contactName: contact.name, relationship: contact.relationship, phoneNumber: contact.phoneNumber)
+        try await service.saveEmergencyContact(profileId: profileId, request: request)
+    }
+
+    func updateEmergencyContact(contactId: String, contact: EmergencyContact) async throws {
+        let request = EmergencyContactRequestDTO(contactName: contact.name, relationship: contact.relationship, phoneNumber: contact.phoneNumber)
+        try await service.updateEmergencyContact(contactId: contactId, request: request)
+    }
 
         func saveAddress(profileId: String, address: HomeAddress) async throws {
             let request = AddressRequestDTO(
@@ -170,6 +255,22 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
             latitude: address.latitude ?? 0.0, longitude: address.longitude ?? 0.0
         )
         try await service.updateAddress(profileId: profileId, request: request)
+    }
+
+    func fetchAddress(profileId: String) async throws -> HomeAddress? {
+        guard let dto = try await service.fetchAddress(profileId: profileId) else {
+            return nil
+        }
+        return HomeAddress(
+            country: dto.country,
+            city: dto.city,
+            area: dto.area,
+            streetName: dto.street,
+            building: dto.buildingNumber,
+            apartment: dto.apartmentNumber,
+            latitude: dto.latitude,
+            longitude: dto.longitude
+        )
     }
 }
 
