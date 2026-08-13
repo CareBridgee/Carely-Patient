@@ -56,7 +56,7 @@ struct ChoosePatientView: View {
                     }
                     
                     AddFamilyMemberCard(action: {
-                        // Action for adding family member
+                        viewModel.onAddFamilyMember?()
                     })
                 }
                 
@@ -85,9 +85,10 @@ struct ChoosePatientView: View {
                 customIconSize: 18,
                 icon: "arrow.right",
                 iconPosition: .trailing,
-                isLoading: false,
+                isLoading: viewModel.isLoading,
                 action: viewModel.continueWithAssessment
             )
+            .disabled(viewModel.selectedPatientId == nil)
             .padding(.horizontal, Spacing.s24)
             .padding(.vertical, Spacing.s16)
             .background(Color.backGround)
@@ -97,16 +98,4 @@ struct ChoosePatientView: View {
         }
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    let mockRepo = MockAIPatientRepository()
-    let useCase = GetAIPatientsUseCase(repository: mockRepo)
-    let viewModel = ChoosePatientViewModel(
-        getAIPatientsUseCase: useCase,
-        onShowPatientDetails: { _ in },
-        onContinueWithAssessment: { _ in }
-    )
-    
-    return ChoosePatientView(viewModel: viewModel)
 }

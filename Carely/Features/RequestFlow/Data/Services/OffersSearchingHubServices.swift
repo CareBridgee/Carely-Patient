@@ -11,6 +11,7 @@ protocol OffersSearchingHubServicesProtocol {
     var onOfferReceived: ((NurseOffer) -> Void)? { get set }
     var onOfferCanceled: ((String) -> Void)? { get set }
     var onOfferConfirmed: ((NurseOffer) -> Void)? { get set }
+    var onRequestCanceled: (() -> Void)? { get set }
     
     func connect()
     func disconnect()
@@ -23,10 +24,12 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
     var onOfferReceived: ((NurseOffer) -> Void)?
     var onOfferCanceled: ((String) -> Void)?
     var onOfferConfirmed: ((NurseOffer) -> Void)?
+    var onRequestCanceled: (() -> Void)?
     
     private let socketClient: SocketClientProtocol
     private let serviceRequestId: String
     private let decoder = JSONDecoder()
+    private var hasSubscribed = false
     
     init(socketClient: SocketClientProtocol, serviceRequestId: String) {
         self.socketClient = socketClient
@@ -35,13 +38,14 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
     }
     
     private func setupSocketEvents() {
-            let key = "Offers_\(serviceRequestId)"
+            let key = "Offers_\(ObjectIdentifier(self))"
             
             socketClient.onConnectedListeners[key] = { [weak self] in
                 guard let self = self else { return }
                 let topic = "/topic/reservation/\(self.serviceRequestId)"
                 print("[Socket Data Source] Connected! Subscribing to: \(topic)")
                 self.socketClient.subscribe(to: topic)
+                self.hasSubscribed = true
             }
 
             socketClient.onMessageReceivedListeners[key] = { [weak self] destination, body in
@@ -56,13 +60,20 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
         }
 
         func disconnect() {
-            let key = "Offers_\(serviceRequestId)"
+            let key = "Offers_\(ObjectIdentifier(self))"
                     
-                    socketClient.unsubscribe(from: "/topic/reservation/\(serviceRequestId)")
+                    if hasSubscribed {
+                        socketClient.unsubscribe(from: "/topic/reservation/\(serviceRequestId)")
+                        hasSubscribed = false
+                    }
                     
                     socketClient.onConnectedListeners.removeValue(forKey: key)
                     socketClient.onMessageReceivedListeners.removeValue(forKey: key)
                     }
+    
+    deinit {
+        disconnect()
+    }
     
     func connect() {
         socketClient.connect()
@@ -70,17 +81,17 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
     
     func acceptOffer(offerId: String) {
         let payload = "{\"offerId\":\"\(offerId)\"}"
-        socketClient.send(to: "/app/reservation/offer/accept", body: payload)
+        socketClient.send(to: "/app/reservation/offer/accept", body: payload, headers: ["content-type": "application/json"])
     }
     
     func declineOffer(offerId: String) {
         let payload = "{\"offerId\":\"\(offerId)\"}"
-        socketClient.send(to: "/app/reservation/offer/reject", body: payload)
+        socketClient.send(to: "/app/reservation/offer/reject", body: payload, headers: ["content-type": "application/json"])
     }
     
     func cancelServiceRequest(serviceRequestId: String) {
         let payload = "{\"serviceRequestId\":\"\(serviceRequestId)\"}"
-        socketClient.send(to: "/app/reservation/cancel", body: payload)
+        socketClient.send(to: "/app/reservation/cancel", body: payload, headers: ["content-type": "application/json"])
     }
     
 
@@ -108,12 +119,14 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
                     let nurseOffer = NurseOffer(
                         id: offerData.id,
                         name: fullName.isEmpty ? "Unknown Nurse" : fullName,
-                        title: offerData.serviceTypeName ?? "RN",
+                        title: "RN",
                         price: offerData.proposedPrice,
                         rating: offerData.nurse.ratingAvg ?? 0.0,
                         reviewsCount: offerData.nurse.totalReviews ?? 0,
                         distance: offerData.distanceKm ?? 0.0,
-                        imageLink: offerData.nurse.profileImageUrl ?? ""
+                        imageLink: offerData.nurse.profileImageUrl ?? "",
+                        specialty: offerData.serviceTypeName ?? "General",
+                        estimatedArrival: offerData.proposedTime ?? "TBD"
                     )
                     print("[Socket Data Source] Offer successfully parsed: \(nurseOffer)")
                     DispatchQueue.main.async {
@@ -133,12 +146,14 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
                     let nurseOffer = NurseOffer(
                         id: offerData.id,
                         name: fullName.isEmpty ? "Unknown Nurse" : fullName,
-                        title: offerData.serviceTypeName ?? "RN",
+                        title: "RN",
                         price: offerData.proposedPrice,
                         rating: offerData.nurse.ratingAvg ?? 0.0,
                         reviewsCount: offerData.nurse.totalReviews ?? 0,
                         distance: offerData.distanceKm ?? 0.0,
-                        imageLink: offerData.nurse.profileImageUrl ?? ""
+                        imageLink: offerData.nurse.profileImageUrl ?? "",
+                        specialty: offerData.serviceTypeName ?? "General",
+                        estimatedArrival: offerData.proposedTime ?? "TBD"
                     )
                     print("[Socket Data Source] Offer successfully parsed as ACCEPTED: \(nurseOffer)")
                     DispatchQueue.main.async {
@@ -154,6 +169,11 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
                     DispatchQueue.main.async {
                         self.onOfferCanceled?(offerId)
                     }
+                }
+                
+            case "REQUEST_CANCELLED":
+                DispatchQueue.main.async {
+                    self.onRequestCanceled?()
                 }
                 
             default:

@@ -18,7 +18,9 @@ enum MessageSender: Equatable {
 
 enum MessageContent: Equatable {
     case text(String)
+    case draftCard(ReservationDraft)
     case serviceRecommendation(ServiceRecommendation)
+    case emergencyCard(advice: String, phoneNumber: String)
 }
 
 // MARK: - ServiceRecommendation

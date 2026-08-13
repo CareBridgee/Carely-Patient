@@ -8,26 +8,44 @@
 import SwiftUI
 
 struct AIAssistantCoordinatorView: View {
-    let container : DIContainer
-    @ObservedObject var coordinator:AIAssistantCoordinator
-    
+    let container: DIContainer
+    @ObservedObject var coordinator: AIAssistantCoordinator
+
     var body: some View {
-        NavigationStack(path: $coordinator.path){
-            AIChatView(viewModel: container.makeAIChatViewModel())
-            .navigationDestination(for: AIAssistantRoute.self){ route in
+        NavigationStack(path: $coordinator.path) {
+            ChoosePatientView(
+                viewModel: container.makeChoosePatientViewModel(
+                    onShowPatientDetails: { patientId in
+                        coordinator.viewProfiledetailsTapped(profileId: patientId)
+                    },
+                    onContinueWithAssessment: { patientId in
+                        coordinator.push(to: .aiAssistantChat(patientId: patientId))
+                    },
+                    onAddFamilyMember: {
+                        coordinator.addFamilyMemberTapped()
+                    }
+                )
+            )
+            .navigationDestination(for: AIAssistantRoute.self) { route in
                 destination(for: route)
             }
         }
     }
+
     @ViewBuilder
-    private func destination(for route: AIAssistantRoute)-> some View{
-        switch route{
-            
-        case .aiAssistantChat(let selectedId):
-            AIChatView(viewModel: container.makeAIChatViewModel())
+    private func destination(for route: AIAssistantRoute) -> some View {
+        switch route {
+        case .aiAssistantChat(let patientId):
+            AIChatView(
+                viewModel: container.makeAIChatViewModel(
+                    profileId: patientId,
+                    coordinator: coordinator
+                )
+            )
         }
     }
 }
+
 //
 //#Preview {
 //    AIAssistantCoordinatorView(container: <#DIContainer#>, coordinator: <#AIAssistantCoordinator#>)

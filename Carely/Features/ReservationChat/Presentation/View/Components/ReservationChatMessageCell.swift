@@ -41,7 +41,8 @@ struct ReservationChatMessageCell: View {
         .padding(.vertical, 4)
     }
     
-    private func formatDate(_ dateString: String) -> String {
+    private func formatDate(_ dateString: String?) -> String {
+        guard let dateString = dateString else { return "" }
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         

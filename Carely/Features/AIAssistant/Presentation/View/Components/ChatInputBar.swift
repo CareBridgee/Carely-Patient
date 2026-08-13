@@ -13,23 +13,29 @@ struct ChatInputBar: View {
     let onSend: () -> Void
 
     var body: some View {
-        HStack(spacing: Spacing.s12) {
-            HStack(spacing: Spacing.s8) {
-                TextField("Ask about your health profile...", text: $text)
+        HStack(alignment: .bottom, spacing: Spacing.s12) {
+
+            // MARK: - Expanding text field container
+            HStack(alignment: .bottom, spacing: Spacing.s8) {
+                TextField("Ask about your health profile...", text: $text, axis: .vertical)
+                    .lineLimit(1...5)
                     .carelyText(style: .bodyRegular, weight: .regular)
                     .foregroundColor(Color.primaryFont)
+                    .tint(Color.brandPrimary)
 
                 Button(action: { }) {
                     Image(systemName: "mic")
                         .font(.system(size: 18))
                         .foregroundColor(Color.secondaryFont)
                 }
+                .padding(.bottom, 1)
             }
             .padding(.horizontal, Spacing.s16)
-            .frame(height: 52)
+            .padding(.vertical, Spacing.s16)
             .background(Color.backGround)
             .cornerRadius(26)
 
+            // MARK: - Send button (fixed size, bottom-aligned)
             Button(action: onSend) {
                 ZStack {
                     Circle()

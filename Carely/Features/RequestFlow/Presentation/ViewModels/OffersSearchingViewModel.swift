@@ -49,9 +49,11 @@ final class OffersSearchingViewModel: ObservableObject {
     func startSearching() {
         manageOffersConnectionUseCase.connect()
             
-        Task {
-            for await event in observeOffersUseCase.execute() {
-                handleEvent(event)
+        Task { [weak self] in
+            guard let stream = self?.observeOffersUseCase.execute() else { return }
+            for await event in stream {
+                guard let self = self else { break }
+                self.handleEvent(event)
             }
         }
     }
@@ -72,7 +74,7 @@ final class OffersSearchingViewModel: ObservableObject {
                 id: offer.id,
                 fullName: offer.name,
                 title: offer.title,
-                specialty: "General", // Placeholder
+                specialty: offer.specialty,
                 profileImageUrl: offer.imageLink,
                 rating: offer.rating,
                 reviewsCount: offer.reviewsCount
@@ -81,7 +83,7 @@ final class OffersSearchingViewModel: ObservableObject {
             let confirmedOffer = ConfirmedOffer(
                 id: requestId,
                 status: "CONFIRMED",
-                estimatedArrival: "10:30 AM", // Placeholder
+                estimatedArrival: offer.estimatedArrival,
                 distanceKm: offer.distance,
                 qrCodeData: "mock-qr-token-\(offer.id)", // Placeholder
                 cancellationDeadline: "10:32 AM", // Placeholder
@@ -91,6 +93,10 @@ final class OffersSearchingViewModel: ObservableObject {
             
             onOfferAccepted(confirmedOffer)
                 
+        case .requestCanceled:
+            cancelSearch()
+            onSearchCanceled()
+            
         case .searchCompleted:
             break
         }

@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Protocol
 
 protocol SendAIChatMessageUseCaseProtocol {
-    func execute(message: String) async throws -> AIChatReply
+    func execute(profileId: String, message: String) async throws -> ChatTurnResponse
 }
 
 // MARK: - Implementation
@@ -22,7 +22,8 @@ final class SendAIChatMessageUseCase: SendAIChatMessageUseCaseProtocol {
         self.repository = repository
     }
 
-    func execute(message: String) async throws -> AIChatReply {
-        try await repository.sendMessage(message)
+    func execute(profileId: String, message: String) async throws -> ChatTurnResponse {
+        try await repository.sendMessage(profileId: profileId, message: message)
     }
 }
+

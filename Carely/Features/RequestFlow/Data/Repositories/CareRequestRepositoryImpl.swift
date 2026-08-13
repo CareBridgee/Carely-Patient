@@ -29,7 +29,7 @@ final class CareRequestRepositoryImpl: CareRequestRepositoryProtocol {
             .map {
                 ServiceRequestPatient(
                     id: $0.id, firstName: $0.firstName, lastName: $0.lastName,
-                    relationship: $0.relationship, isPrimary: $0.isPrimary
+                    relationship: $0.relationship ?? "self", isPrimary: $0.isPrimary
                 )
             }
     }

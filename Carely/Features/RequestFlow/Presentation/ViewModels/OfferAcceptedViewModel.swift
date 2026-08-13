@@ -3,24 +3,52 @@ import Foundation
 @MainActor
 final class OfferAcceptedViewModel: ObservableObject {
     @Published var request: ConfirmedOffer
+    @Published var showNurseCanceledAlert = false
     
     private let onShowQRCode: (ConfirmedOffer) -> Void
     private let onCancelRequest: () -> Void
     private let onShowNurseProfile: (String) -> Void
+    private let onMessageNurse: (String) -> Void
     private let cancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol
+    private let observeOffersUseCase: ObserveOffersUseCase
+    private let manageOffersConnectionUseCase: ManageOffersConnectionUseCase
     
     init(
         request: ConfirmedOffer,
         cancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol,
+        observeOffersUseCase: ObserveOffersUseCase,
+        manageOffersConnectionUseCase: ManageOffersConnectionUseCase,
         onShowQRCode: @escaping (ConfirmedOffer) -> Void = { _ in },
         onCancelRequest: @escaping () -> Void = {},
-        onShowNurseProfile: @escaping (String) -> Void = { _ in }
+        onShowNurseProfile: @escaping (String) -> Void = { _ in },
+        onMessageNurse: @escaping (String) -> Void = { _ in }
     ) {
         self.request = request
         self.cancelServiceRequestUseCase = cancelServiceRequestUseCase
         self.onShowQRCode = onShowQRCode
         self.onCancelRequest = onCancelRequest
         self.onShowNurseProfile = onShowNurseProfile
+        self.onMessageNurse = onMessageNurse
+        self.observeOffersUseCase = observeOffersUseCase
+        self.manageOffersConnectionUseCase = manageOffersConnectionUseCase
+    }
+    
+    func onAppear() {
+        manageOffersConnectionUseCase.connect()
+        Task { [weak self] in
+            guard let stream = self?.observeOffersUseCase.execute() else { return }
+            for await event in stream {
+                guard let self = self else { break }
+                if case .requestCanceled = event {
+                    self.showNurseCanceledAlert = true
+                }
+            }
+        }
+    }
+    
+    func handleNurseCanceledConfirmation() {
+        manageOffersConnectionUseCase.disconnect()
+        onCancelRequest()
     }
     
     func callNurse() {
@@ -28,7 +56,7 @@ final class OfferAcceptedViewModel: ObservableObject {
     }
     
     func messageNurse() {
-        // Handle message action
+        onMessageNurse(request.id)
     }
     
     func showNurseProfile() {

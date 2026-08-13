@@ -32,10 +32,15 @@ final class OfferSearchingRepositoryImpl: OfferSearchingRepositoryProtocol {
                 continuation.yield(.offerAccepted(offer))
             }
             
+            hubService.onRequestCanceled = {
+                continuation.yield(.requestCanceled)
+            }
+            
             continuation.onTermination = { [weak self] _ in
                 self?.hubService.onOfferReceived = nil
                 self?.hubService.onOfferCanceled = nil
                 self?.hubService.onOfferConfirmed = nil
+                self?.hubService.onRequestCanceled = nil
             }
         }
     }

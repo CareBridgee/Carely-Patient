@@ -16,5 +16,5 @@ struct ChatMessageResponse: Codable, Identifiable, Equatable {
     let senderName: String
     let senderPhone: String
     let content: String
-    let createdAt: String
+    let createdAt: String?
 }

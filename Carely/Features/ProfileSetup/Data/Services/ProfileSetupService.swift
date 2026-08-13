@@ -32,7 +32,21 @@ final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
     }
 
     func updateProfile(id: String, request: UpdateProfileRequestDTO) async throws {
-        try await networkClient.requestWithoutResponse(ProfileEndpoint.updateProfile(id: id, request: request))
+        // PUT /api/v1/profiles/{id} is multipart/form-data only (per API contract) — JSON reaches
+        // the server with nothing parsed.
+        var textParameters: [String: String] = [:]
+        if let height = request.height { textParameters["height"] = String(height) }
+        if let weight = request.weight { textParameters["weight"] = String(weight) }
+        if let bloodType = request.bloodType { textParameters["bloodType"] = bloodType }
+        if let mobilityStatus = request.mobilityStatus { textParameters["mobilityStatus"] = mobilityStatus }
+        if let mobilityNotes = request.mobilityNotes { textParameters["mobilityNotes"] = mobilityNotes }
+        if let previousSurgeries = request.previousSurgeries { textParameters["previousSurgeries"] = previousSurgeries }
+        if let previousHospitalizations = request.previousHospitalizations { textParameters["previousHospitalizations"] = previousHospitalizations }
+
+        try await networkClient.requestMultipartWithoutResponse(
+            ProfileEndpoint.updateProfile(id: id, request: request),
+            textParameters: textParameters
+        )
     }
     
     func saveMedicalConditions(profileId: String, request: MedicalConditionRequestDTO) async throws {
@@ -60,8 +74,17 @@ final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
         try await networkClient.requestWithoutResponse(ProfileEndpoint.saveAddress(profileId: profileId, request: request))
     }
     func createProfile(request: CreateProfileRequestDTO) async throws -> String {
-           let response: CreateProfileResponseDTO = try await networkClient.request(
-               ProfileEndpoint.createProfile(request: request)
+           // POST /api/v1/profiles is multipart/form-data only (per API contract) — JSON reaches
+           // the server with nothing parsed.
+           let response: CreateProfileResponseDTO = try await networkClient.requestMultipart(
+               ProfileEndpoint.createProfile(request: request),
+               textParameters: [
+                   "relationship": request.relationship,
+                   "firstName": request.firstName,
+                   "lastName": request.lastName,
+                   "dateOfBirth": request.dateOfBirth,
+                   "gender": request.gender
+               ]
            )
            return response.id
        }

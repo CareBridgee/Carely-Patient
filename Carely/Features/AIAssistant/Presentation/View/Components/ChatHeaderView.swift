@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatHeaderView: View {
     var onDismiss: (() -> Void)? = nil
+    var onReset: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: Spacing.s12) {
@@ -31,7 +32,7 @@ struct ChatHeaderView: View {
             }
 
             VStack(alignment: .leading, spacing: 2) {
-                Text("AI Health Assistant")
+                Text("AI Assistant")
                     .carelyText(style: .bodyRegular, weight: .bold)
                     .foregroundColor(Color.brandPrimary)
 
@@ -48,10 +49,22 @@ struct ChatHeaderView: View {
 
             Spacer()
 
-            Button(action: { }) {
-                Image(systemName: "shield.checkmark")
-                    .font(.system(size: 20))
-                    .foregroundColor(Color.brandPrimary)
+            if let onReset = onReset {
+                Button(action: {
+                    onReset()
+                }) {
+                    HStack(spacing: Spacing.s4) {
+                        Image(systemName: "arrow.counterclockwise")
+                            .font(.system(size: 13, weight: .medium))
+                        Text("Start over")
+                            .carelyText(style: .caption, weight: .semiBold)
+                    }
+                    .foregroundColor(Color.secondaryFont)
+                    .padding(.horizontal, Spacing.s12)
+                    .padding(.vertical, Spacing.s8)
+                    .background(Color.backGround)
+                    .cornerRadius(12)
+                }
             }
         }
         .padding(.horizontal, Spacing.s20)
@@ -59,3 +72,4 @@ struct ChatHeaderView: View {
         .background(Color.surface)
     }
 }
+

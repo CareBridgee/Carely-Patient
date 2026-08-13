@@ -72,7 +72,7 @@ final class ChatHubService: ChatHubServiceProtocol {
         do {
             let data = try JSONEncoder().encode(request)
             if let stringBody = String(data: data, encoding: .utf8) {
-                socketClient.send(to: sendDestination, body: stringBody)
+                socketClient.send(to: sendDestination, body: stringBody, headers: ["content-type": "application/json"])
             }
         } catch {
             DispatchQueue.main.async {

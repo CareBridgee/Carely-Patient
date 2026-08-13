@@ -83,6 +83,9 @@ struct ServicesCoordinatorView: View {
                 },
                 onShowNurseProfile: { nurseId in
                     coordinator.push(to: .nurseProfile(nurseId: nurseId))
+                },
+                onMessageNurse: { reservationId in
+                    coordinator.push(to: .chat(reservationId: reservationId))
                 }
             )
             OfferAcceptedView(viewModel: viewModel)
@@ -118,8 +121,8 @@ struct ServicesCoordinatorView: View {
 //                onFinishVisit: { coordinator.openFinishVisitQR(for: visit) }
 //            )
 //
-//        case .chat(let visit):
-//            ChatView(visit: visit)
+        case .chat(let reservationId):
+            ChatView(viewModel: container.makeChatViewModel(reservationId: reservationId))
 //
 //        case .startVisitQR(let visit):
 //            StartVisitQRView(visit: visit)

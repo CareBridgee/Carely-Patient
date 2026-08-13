@@ -605,16 +605,20 @@ final class DIContainer {
         request: ConfirmedOffer,
         onShowQRCode: @escaping (ConfirmedOffer) -> Void,
         onCancelRequest: @escaping () -> Void,
-        onShowNurseProfile: @escaping (String) -> Void
+        onShowNurseProfile: @escaping (String) -> Void,
+        onMessageNurse: @escaping (String) -> Void
     ) -> OfferAcceptedViewModel {
         let repo = makeOfferSearchingRepository(serviceRequestId: request.id)
         
         return OfferAcceptedViewModel(
             request: request,
             cancelServiceRequestUseCase: makeCancelServiceRequestUseCase(repository: repo),
+            observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
             onShowQRCode: onShowQRCode,
             onCancelRequest: onCancelRequest,
-            onShowNurseProfile: onShowNurseProfile
+            onShowNurseProfile: onShowNurseProfile,
+            onMessageNurse: onMessageNurse
         )
     }
     
@@ -634,26 +638,30 @@ final class DIContainer {
     
     // MARK: - Nurse Profile ViewModels
     
-    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
-        NurseProfileViewModel(nurseId: nurseId)
-    }
+//    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
+//        NurseProfileViewModel(nurseId: nurseId)
+//    }
     
     // MARK: - AIAssistant — Patient Selection
 
-    private lazy var aiPatientRepository: AIPatientRepositoryProtocol = MockAIPatientRepository()
+    private lazy var aiPatientRepository: AIPatientRepositoryProtocol = AIPatientRepositoryImpl(
+        serviceRequestService: serviceRequestService
+    )
 
     private func makeGetAIPatientsUseCase() -> GetAIPatientsUseCaseProtocol {
         GetAIPatientsUseCase(repository: aiPatientRepository)
     }
 
     func makeChoosePatientViewModel(
-        onShowPatientDetails: @escaping (String) -> Void,
-        onContinueWithAssessment: @escaping (String) -> Void
+        onShowPatientDetails: ((String) -> Void)? = nil,
+        onContinueWithAssessment: @escaping (String) -> Void,
+        onAddFamilyMember: (() -> Void)? = nil
     ) -> ChoosePatientViewModel {
         ChoosePatientViewModel(
             getAIPatientsUseCase: makeGetAIPatientsUseCase(),
             onShowPatientDetails: onShowPatientDetails,
-            onContinueWithAssessment: onContinueWithAssessment
+            onContinueWithAssessment: onContinueWithAssessment,
+            onAddFamilyMember: onAddFamilyMember
         )
     }
 
@@ -671,8 +679,25 @@ final class DIContainer {
         SendAIChatMessageUseCase(repository: aiChatRepository)
     }
 
-    func makeAIChatViewModel() -> AIChatViewModel {
-        AIChatViewModel(sendAIChatMessageUseCase: makeSendAIChatMessageUseCase())
+    func makeResetAIChatUseCase() -> ResetAIChatUseCaseProtocol {
+        ResetAIChatUseCase(repository: aiChatRepository)
+    }
+
+    func makeAIChatViewModel(
+        profileId: String,
+        coordinator: AIAssistantCoordinator? = nil
+    ) -> AIChatViewModel {
+        AIChatViewModel(
+            profileId: profileId,
+            sendAIChatMessageUseCase: makeSendAIChatMessageUseCase(),
+            resetAIChatUseCase: makeResetAIChatUseCase(),
+            onDismiss: { [weak coordinator] in
+                coordinator?.pop()
+            },
+            onProceedToBooking: { [weak coordinator] _ in
+                coordinator?.requestNowTapped()
+            }
+        )
     }
     
     // MARK: - Profile Repository
@@ -728,6 +753,30 @@ final class DIContainer {
         OnboardingViewModel(onNavigate: onNavigate)
     }
     
+    // MARK: - Nurse Profile Data
+
+    private lazy var nurseService: NurseServiceProtocol = NurseServiceImpl(
+        networkClient: networkClient
+    )
+    private lazy var nurseRepository: NurseRepositoryProtocol = NurseRepositoryImpl(
+        service: nurseService
+    )
+
+    // MARK: - Nurse Profile UseCases
+
+    private func makeGetNurseProfileUseCase() -> GetNurseProfileUseCaseProtocol {
+        GetNurseProfileUseCase(repository: nurseRepository)
+    }
+
+    // MARK: - Nurse Profile ViewModels
+
+    func makeNurseProfileViewModel(nurseId: String) -> NurseProfileViewModel {
+        NurseProfileViewModel(
+            nurseId: nurseId,
+            getNurseProfileUseCase: makeGetNurseProfileUseCase()
+        )
+    }
+
     // MARK: - Reservation Chat
     
     private func makeChatHubService(reservationId: String) -> ChatHubServiceProtocol {
@@ -753,3 +802,4 @@ final class DIContainer {
         )
     }
 }
+   

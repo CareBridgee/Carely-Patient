@@ -94,6 +94,16 @@ struct OfferAcceptedView: View {
         }
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
+        .alert("Request Canceled", isPresented: $viewModel.showNurseCanceledAlert) {
+            Button("OK", role: .cancel) {
+                viewModel.handleNurseCanceledConfirmation()
+            }
+        } message: {
+            Text("This request was canceled by the nurse.")
+        }
+        .onAppear {
+            viewModel.onAppear()
+        }
         Spacer(minLength: Spacing.s64)
         Spacer(minLength: Spacing.s16)
     }
@@ -124,6 +134,24 @@ struct OfferAcceptedView: View {
         func execute(serviceRequestId: String) async throws {}
     }
     
-    let viewModel = OfferAcceptedViewModel(request: mockRequest, cancelServiceRequestUseCase: MockCancelServiceRequestUseCase())
+    class MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
+        func observeOffers() -> AsyncStream<OffersEvent> {
+            AsyncStream { _ in }
+        }
+        func connect() {}
+        func disconnect() {}
+        func acceptOffer(offerId: String) {}
+        func declineOffer(offerId: String) {}
+        func cancelServiceRequest(serviceRequestId: String) async throws {}
+    }
+    
+    let mockRepo = MockOfferSearchingRepository()
+    
+    let viewModel = OfferAcceptedViewModel(
+        request: mockRequest,
+        cancelServiceRequestUseCase: MockCancelServiceRequestUseCase(),
+        observeOffersUseCase: ObserveOffersUseCase(repository: mockRepo),
+        manageOffersConnectionUseCase: ManageOffersConnectionUseCase(repository: mockRepo)
+    )
     return OfferAcceptedView(viewModel: viewModel)
 }
