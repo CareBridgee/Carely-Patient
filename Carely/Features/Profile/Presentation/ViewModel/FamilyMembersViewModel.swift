@@ -16,15 +16,20 @@ final class FamilyMembersViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
 
+    @Published var deletingMemberId: String? = nil   // shows per-row spinner
+
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
+    private let profileNetworkService: ProfileNetworkServiceProtocol
     private let coordinator: ProfileCoordinator
 
     init(
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
+        profileNetworkService: ProfileNetworkServiceProtocol,
         coordinator: ProfileCoordinator
     ) {
-        self.getFamilyMembersUseCase = getFamilyMembersUseCase
-        self.coordinator = coordinator
+        self.getFamilyMembersUseCase  = getFamilyMembersUseCase
+        self.profileNetworkService    = profileNetworkService
+        self.coordinator              = coordinator
     }
 
     func onAppear() {
@@ -56,18 +61,37 @@ final class FamilyMembersViewModel: ObservableObject {
     }
 
     func editPersonalInfoTapped(for member: FamilyMember) {
-        //
+        coordinator.push(.editMemberPersonalInfo(profileId: member.id))
     }
 
     func editHealthProfileTapped(for member: FamilyMember) {
-        //
+        coordinator.push(.editMemberHealthProfile(profileId: member.id))
     }
 
-    func removeMemberTapped(_ member: FamilyMember) {
-        members.removeAll { $0.id == member.id }
+    func editAddressTapped(for member: FamilyMember) {
+        coordinator.push(.address(profileId: member.id))
     }
 
     func addFamilyMemberTapped() {
-        //
+        // Future: push an "Add Member" flow
+    }
+
+    // MARK: - Remove Member
+
+    func removeMemberTapped(_ member: FamilyMember) {
+        // Optimistic: remove from list immediately
+        members.removeAll { $0.id == member.id }
+
+        Task {
+            do {
+                try await profileNetworkService.deleteProfile(id: member.id)
+            } catch {
+                // Restore member on failure
+                members.append(member)
+                members.sort { $0.name < $1.name }
+                errorMessage = "Couldn't remove member. Please try again."
+                showError = true
+            }
+        }
     }
 }

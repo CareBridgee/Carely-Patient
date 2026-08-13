@@ -15,11 +15,11 @@ struct FamilyMemberCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.s16) {
-            HStack(alignment: .top, spacing: Spacing.s12) {
-                Image(systemName: member.avatarIconName)
-                    .resizable()
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 48, height: 48)
+
+            // Avatar + name row
+            HStack(alignment: .center, spacing: Spacing.s12) {
+                avatarView
+                    .frame(width: 52, height: 52)
                     .clipShape(Circle())
 
                 VStack(alignment: .leading, spacing: Spacing.s4) {
@@ -42,42 +42,21 @@ struct FamilyMemberCard: View {
                     Image(systemName: "trash")
                         .carelyText(style: .bodyRegular)
                         .foregroundColor(.error)
-                        .frame(width: 32, height: 32)
+                        .frame(width: 36, height: 36)
                         .background(Color.errorContainer.opacity(0.5))
                         .clipShape(Circle())
                 }
             }
 
-            HStack {
-                VStack(alignment: .leading, spacing: Spacing.s4) {
-                    Text("Last Checkup")
-                        .carelyText(style: .caption)
-                        .foregroundColor(.secondaryFont)
-                    Text(member.lastCheckupDateText)
-                        .carelyText(style: .bodySmall, weight: .medium)
-                        .foregroundColor(.primaryFont)
-                }
-
-                Spacer()
-
-                VStack(alignment: .trailing, spacing: Spacing.s4) {
-                    Text("Upcoming")
-                        .carelyText(style: .caption)
-                        .foregroundColor(.secondaryFont)
-                    Text(member.upcomingCareText)
-                        .carelyText(style: .bodySmall, weight: .semiBold)
-                        .foregroundColor(.brandPrimary)
-                }
-            }
-
-            HStack(spacing: Spacing.s12) {
+            // Action buttons
+            HStack(spacing: Spacing.s8) {
                 PrimaryButton(
-                    title: "Edit Personal Info",
+                    title: "Personal Info",
                     size: .small,
                     action: onEditPersonalInfo
                 )
                 SecondaryButton(
-                    title: "Edit Health Profile",
+                    title: "Health Profile",
                     size: .small,
                     action: onEditHealthProfile
                 )
@@ -88,19 +67,29 @@ struct FamilyMemberCard: View {
         .clipShape(RoundedRectangle.carely(Radius.r24))
         .carelyShadow(.sm)
     }
-}
 
-//#Preview {
-//    FamilyMemberCard(
-//        member: FamilyMember(
-//            id: "1",
-//            name: "Maria Garcia",
-//            relation: "Mother",
-//            avatarIconName: "person.crop.circle.fill",
-//            lastCheckupDateText: "Oct 12, 2023",
-//            upcomingCareText: "Dental Care"
-//        )
-//    )
-//    .padding()
-//    .background(Color.backGround)
-//}
+    @ViewBuilder
+    private var avatarView: some View {
+        if let urlString = member.profileImageUrl,
+           let url = URL(string: urlString) {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let image): image.resizable().scaledToFill()
+                default: placeholder
+                }
+            }
+        } else {
+            placeholder
+        }
+    }
+
+    private var placeholder: some View {
+        Circle()
+            .fill(Color.tint.opacity(0.35))
+            .overlay(
+                Image(systemName: "person.crop.circle.fill")
+                    .font(.system(size: 26))
+                    .foregroundColor(.brandPrimary)
+            )
+    }
+}

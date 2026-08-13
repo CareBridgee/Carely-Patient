@@ -5,8 +5,9 @@
 //  Created by Mahmoud Raafat Mustafa on 01/08/2026.
 //
 
-
 import Foundation
+import PhotosUI
+import SwiftUI
 
 @MainActor
 final class AddFamilyMemberInfoViewModel: ObservableObject {
@@ -15,6 +16,19 @@ final class AddFamilyMemberInfoViewModel: ObservableObject {
     @Published var lastName: String = ""
     @Published var dateOfBirth: Date? = nil
     @Published var gender: Gender = .male
+
+    @Published var photoSelection: PhotosPickerItem? = nil {
+        didSet {
+            guard let photoSelection else { return }
+            Task {
+                if let data = try? await photoSelection.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    self.selectedImage = image
+                }
+            }
+        }
+    }
+    @Published var selectedImage: UIImage? = nil
 
     @Published var relationshipError: String? = nil
     @Published var firstNameError: String? = nil

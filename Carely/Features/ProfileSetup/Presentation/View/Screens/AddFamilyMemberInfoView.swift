@@ -5,8 +5,8 @@
 //  Created by Mahmoud Raafat Mustafa on 01/08/2026.
 //
 
-
 import SwiftUI
+import PhotosUI
 
 struct AddFamilyMemberInfoView: View {
     @StateObject private var viewModel: AddFamilyMemberInfoViewModel
@@ -22,6 +22,8 @@ struct AddFamilyMemberInfoView: View {
                     Text("Family Member Info")
                         .carelyText(style: .heading3, weight: .regular)
 
+                    photoPicker
+
                     CarelyTextField(
                         label: "Relationship",
                         isRequired: true,
@@ -33,14 +35,14 @@ struct AddFamilyMemberInfoView: View {
                     HStack(spacing: Spacing.s12) {
                         CarelyTextField(
                             label: "First Name",
-                            isRequired: false,
+                            isRequired: true,
                             placeholder: "e.g. Sarah",
                             text: $viewModel.firstName,
                             errorMessage: viewModel.firstNameError
                         )
                         CarelyTextField(
                             label: "Last Name",
-                            isRequired: false,
+                            isRequired: true,
                             placeholder: "e.g. Jenkins",
                             text: $viewModel.lastName,
                             errorMessage: viewModel.lastNameError
@@ -103,6 +105,60 @@ struct AddFamilyMemberInfoView: View {
             Button("OK", role: .cancel) {}
         } message: {
             Text(viewModel.apiErrorMessage ?? "Something went wrong.")
+        }
+    }
+
+    // MARK: - Photo Picker
+
+    private var photoPicker: some View {
+        HStack {
+            Spacer()
+            VStack(spacing: Spacing.s8) {
+                PhotosPicker(selection: $viewModel.photoSelection, matching: .images) {
+                    ZStack(alignment: .bottomTrailing) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.surfaceVariant)
+                                .frame(width: 96, height: 96)
+
+                            if let selected = viewModel.selectedImage {
+                                Image(uiImage: selected)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 96, height: 96)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.fill")
+                                    .font(.system(size: 36))
+                                    .foregroundColor(.hint)
+                            }
+                        }
+                        .overlay(
+                            Circle()
+                                .strokeBorder(
+                                    Color.brandPrimary.opacity(0.5),
+                                    style: StrokeStyle(lineWidth: 1.5, dash: [6, 4])
+                                )
+                        )
+
+                        Circle()
+                            .fill(Color.brandPrimary)
+                            .frame(width: 28, height: 28)
+                            .overlay(
+                                Image(systemName: "camera.fill")
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(.white)
+                            )
+                            .offset(x: -4, y: -4)
+                    }
+                }
+                .buttonStyle(.plain)
+
+                Text("Add Photo")
+                    .carelyText(style: .bodySmall, weight: .bold)
+                    .foregroundColor(.brandPrimary)
+            }
+            Spacer()
         }
     }
 }
