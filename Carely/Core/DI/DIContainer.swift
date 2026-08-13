@@ -552,7 +552,10 @@ final class DIContainer {
             socketClient: socketClient,
             serviceRequestId: serviceRequestId
         )
-        return OfferSearchingRepositoryImpl(hubService: dataSource)
+        return OfferSearchingRepositoryImpl(
+            hubService: dataSource,
+            serviceRequestService: serviceRequestService
+        )
     }
     
     // MARK: - Search Offer UseCases
@@ -565,12 +568,25 @@ final class DIContainer {
         ManageOffersConnectionUseCase(repository: repository)
     }
     
+    private func makeAcceptOfferUseCase(repository: OfferSearchingRepositoryProtocol) -> AcceptOfferUseCase {
+        AcceptOfferUseCase(repository: repository)
+    }
+    
+    private func makeDeclineOfferUseCase(repository: OfferSearchingRepositoryProtocol) -> DeclineOfferUseCase {
+        DeclineOfferUseCase(repository: repository)
+    }
+    
+    private func makeCancelServiceRequestUseCase(repository: OfferSearchingRepositoryProtocol) -> CancelServiceRequestUseCase {
+        CancelServiceRequestUseCase(repository: repository)
+    }
+    
     // MARK: - Search Offer ViewModels
     
     func makeOffersSearchingViewModel(
         requestId: String,
         onOfferAccepted: @escaping (ConfirmedOffer)->Void,
-        onShowNurseProfile: @escaping (String)->Void
+        onShowNurseProfile: @escaping (String)->Void,
+        onSearchCanceled: @escaping () -> Void
     ) -> OffersSearchingViewModel {
         let repo = makeOfferSearchingRepository(serviceRequestId: requestId)
         
@@ -578,8 +594,12 @@ final class DIContainer {
             requestId: requestId,
             observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
             manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
+            acceptOfferUseCase: makeAcceptOfferUseCase(repository: repo),
+            declineOfferUseCase: makeDeclineOfferUseCase(repository: repo),
+            cancelServiceRequestUseCase: makeCancelServiceRequestUseCase(repository: repo),
             onOfferAccepted: onOfferAccepted,
-            onShowNurseProfile: onShowNurseProfile
+            onShowNurseProfile: onShowNurseProfile,
+            onSearchCanceled: onSearchCanceled
         )
     }
     
@@ -589,13 +609,20 @@ final class DIContainer {
         request: ConfirmedOffer,
         onShowQRCode: @escaping (ConfirmedOffer) -> Void,
         onCancelRequest: @escaping () -> Void,
-        onShowNurseProfile: @escaping (String) -> Void
+        onShowNurseProfile: @escaping (String) -> Void,
+        onMessageNurse: @escaping (String) -> Void
     ) -> OfferAcceptedViewModel {
-        OfferAcceptedViewModel(
+        let repo = makeOfferSearchingRepository(serviceRequestId: request.id)
+        
+        return OfferAcceptedViewModel(
             request: request,
+            cancelServiceRequestUseCase: makeCancelServiceRequestUseCase(repository: repo),
+            observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
+            manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
             onShowQRCode: onShowQRCode,
             onCancelRequest: onCancelRequest,
-            onShowNurseProfile: onShowNurseProfile
+            onShowNurseProfile: onShowNurseProfile,
+            onMessageNurse: onMessageNurse
         )
     }
     
@@ -698,6 +725,7 @@ final class DIContainer {
         ProfileViewModel(
             getPatientProfileUseCase: makeGetPatientProfileUseCase(),
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            logoutUseCase: makeLogoutUseCase(),
             coordinator: coordinator
         )
     }
@@ -753,4 +781,30 @@ final class DIContainer {
             getNurseProfileUseCase: makeGetNurseProfileUseCase()
         )
     }
+
+    // MARK: - Reservation Chat
+    
+    private func makeChatHubService(reservationId: String) -> ChatHubServiceProtocol {
+        ChatHubService(socketClient: makeSocketClient(serviceRequestId: reservationId), reservationId: reservationId)
+    }
+    
+    private func makeChatNetworkService() -> ChatNetworkServiceProtocol {
+        ChatNetworkService(networkClient: networkClient)
+    }
+    
+    private func makeChatRepository(reservationId: String) -> ChatRepositoryProtocol {
+        ChatRepository(
+            hubService: makeChatHubService(reservationId: reservationId),
+            networkService: makeChatNetworkService()
+        )
+    }
+    
+    func makeChatViewModel(reservationId: String) -> ChatViewModel {
+        ChatViewModel(
+            repository: makeChatRepository(reservationId: reservationId),
+            reservationId: reservationId,
+            currentUserId: sessionManager.currentUser?.id ?? ""
+        )
+    }
 }
+   

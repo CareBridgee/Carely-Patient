@@ -81,10 +81,10 @@ extension StompSocketClient: SocketClientProtocol {
         }
     }
 
-    func send(to destination: String, body: String) {
+    func send(to destination: String, body: String, headers: [String: String]? = nil) {
         if isConnected {
             log("SEND \(destination)")
-            swiftStomp?.send(body: body, to: destination)
+            swiftStomp?.send(body: body, to: destination, receiptId: nil, headers: headers)
         }
     }
 }

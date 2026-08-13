@@ -13,12 +13,18 @@ enum ServiceRequestEndpoint: Endpoint {
     case getProfiles
     case getAddress(profileId: String)
     case submitServiceRequest(ServiceRequestBodyDTO)
+    case acceptOffer(offerId: String)
+    case declineOffer(offerId: String)
+    case cancelServiceRequest(serviceRequestId: String)
 
     var path: String {
         switch self {
         case .getProfiles: return "/api/v1/profiles"
         case .getAddress(let profileId): return "/api/v1/profiles/\(profileId)/address"
         case .submitServiceRequest: return "/api/v1/service-requests"
+        case .acceptOffer(let offerId): return "/api/v1/nurse-offers/\(offerId)/accept"
+        case .declineOffer(let offerId): return "/api/v1/nurse-offers/\(offerId)/reject"
+        case .cancelServiceRequest(let id): return "/api/v1/service-requests/\(id)/cancel"
         }
     }
 
@@ -26,12 +32,13 @@ enum ServiceRequestEndpoint: Endpoint {
         switch self {
         case .getProfiles, .getAddress: return .get
         case .submitServiceRequest: return .post
+        case .acceptOffer, .declineOffer, .cancelServiceRequest: return .patch
         }
     }
 
     var parameters: Parameters? {
         switch self {
-        case .getProfiles, .getAddress: return nil
+        case .getProfiles, .getAddress, .acceptOffer, .declineOffer, .cancelServiceRequest: return nil
         case .submitServiceRequest(let body): return body.asParameters()
         }
     }

@@ -94,5 +94,12 @@ final class ServicesCoordinator: AppRouterProtocol {
     func openRequestFromAIAssistant(draft: ReservationDraft? = nil, profileId: String? = nil) {
         push(to: .requestService(entryPoint: .aiChat, aiDraft: draft, aiProfileId: profileId))
     }
-
+    
+    func popToRequestForm() {
+        if path.count >= 2 {
+            path.removeLast(2)
+        } else {
+            popToRoot()
+        }
+    }
 }

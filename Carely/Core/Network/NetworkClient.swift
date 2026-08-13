@@ -94,8 +94,13 @@ final class NetworkClient: NetworkClientProtocol {
             if useLogs { print("NetworkClient: request success for \(endpoint.url)") }
             return value
         case .failure(let error):
-            if useLogs { print("NetworkClient: request failure for \(endpoint.url) with error: \(error)") }
-            throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
+            if useLogs {
+                print("NetworkClient: request failure for \(endpoint.url) with error: \(error)")
+                if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                    print("NetworkClient: SERVER ERROR PAYLOAD (\(endpoint.url)): \(str)")
+                }
+            }
+            throw NetworkErrorMapper.map(error, data: response.data, response: response.response, decoder: decoder)
         }
     }
 
@@ -114,8 +119,13 @@ final class NetworkClient: NetworkClientProtocol {
         let response = await task.response
         
         if let error = response.error {
-            if useLogs { print("NetworkClient: request failure for \(endpoint.url) with error: \(error)") }
-            throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
+            if useLogs {
+                print("NetworkClient: request failure for \(endpoint.url) with error: \(error)")
+                if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                    print("NetworkClient: SERVER ERROR PAYLOAD (\(endpoint.url)): \(str)")
+                }
+            }
+            throw NetworkErrorMapper.map(error, data: response.data, response: response.response, decoder: decoder)
         } else {
             if useLogs { print("NetworkClient: request success for \(endpoint.url)") }
         }
@@ -144,9 +154,14 @@ final class NetworkClient: NetworkClientProtocol {
            case .success(let value):
                if useLogs { print("NetworkClient: upload success for \(endpoint.url)") }
                return value
-           case .failure(let error):
-               if useLogs { print("NetworkClient: upload failure for \(endpoint.url) with error: \(error)") }
-               throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
+            case .failure(let error):
+                if useLogs {
+                    print("NetworkClient: upload failure for \(endpoint.url) with error: \(error)")
+                    if let data = response.data, let str = String(data: data, encoding: .utf8) {
+                        print("NetworkClient: SERVER ERROR PAYLOAD (\(endpoint.url)): \(str)")
+                    }
+                }
+                throw NetworkErrorMapper.map(error, data: response.data, response: response.response, decoder: decoder)
            }
        }
     func requestMultipartWithoutResponse(
@@ -170,7 +185,7 @@ final class NetworkClient: NetworkClientProtocol {
 
         if let error = response.error {
             if useLogs { print("NetworkClient: multipart request failure for \(endpoint.url) with error: \(error)") }
-            throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
+            throw NetworkErrorMapper.map(error, data: response.data, response: response.response,decoder: decoder)
         } else {
             if useLogs { print("NetworkClient: multipart request success for \(endpoint.url)") }
         }
@@ -200,7 +215,7 @@ final class NetworkClient: NetworkClientProtocol {
             return value
         case .failure(let error):
             if useLogs { print("NetworkClient: multipart request failure for \(endpoint.url) with error: \(error)") }
-            throw NetworkErrorMapper.map(error, data: response.data, decoder: decoder)
+            throw NetworkErrorMapper.map(error, data: response.data,response: response.response, decoder: decoder)
         }
     }
 

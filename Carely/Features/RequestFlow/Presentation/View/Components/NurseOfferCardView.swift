@@ -115,7 +115,9 @@ struct NurseOfferCardView: View {
         rating: 4.9,
         reviewsCount: 124,
         distance: 2.4,
-        imageLink: ""
+        imageLink: "",
+        specialty: "Pediatrics",
+        estimatedArrival: "10:15 AM"
     ),
         onDeclineTapped: {
         print("Decline tapped in preview")

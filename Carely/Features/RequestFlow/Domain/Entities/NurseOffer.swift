@@ -15,4 +15,6 @@ struct NurseOffer: Identifiable, Equatable {
     let reviewsCount: Int
     let distance: Double
     let imageLink: String
+    let specialty: String
+    let estimatedArrival: String
 }

@@ -237,7 +237,11 @@ final class CareRequestViewModel: ObservableObject {
             } catch let error as NetworkError {
                 isSubmitting = false
                 if case .server(400, let message) = error {
-                    submissionErrorMessage = message ?? "No nurses are currently available near your location. Please try again shortly."
+                    if let msg = message, msg.contains("active service request") {
+                        submissionErrorMessage = "This patient already has an active care request. Please wait for it to complete or cancel it before submitting a new one."
+                    } else {
+                        submissionErrorMessage = message ?? "No nurses are currently available near your location. Please try again shortly."
+                    }
                 } else {
                     submissionErrorMessage = error.localizedDescription
                 }

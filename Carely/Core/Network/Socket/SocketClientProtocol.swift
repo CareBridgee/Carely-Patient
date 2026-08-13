@@ -14,7 +14,7 @@ protocol SocketClientProtocol: AnyObject {
     func disconnect()
     func subscribe(to destination: String)
     func unsubscribe(from destination: String)
-    func send(to destination: String, body: String)
+    func send(to destination: String, body: String, headers: [String: String]?)
 
     var onConnectedListeners: [String: () -> Void] { get set }
         var onDisconnectedListeners: [String: () -> Void] { get set }
