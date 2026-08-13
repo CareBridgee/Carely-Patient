@@ -48,7 +48,7 @@ struct CareRequestView: View {
             .background(Color.backGround)
         }
         .background(Color.backGround.ignoresSafeArea())
-        .careConnectNavigationBar(title: "Care Request", trailingIcon: "questionmark")
+        .careConnectNavigationBar(title: "Care Request")
         .task { await viewModel.onAppear() }
         .alert(
             viewModel.submissionErrorMessage?.contains("active care request") == true ? "Active Request Exists" : "Something went wrong",

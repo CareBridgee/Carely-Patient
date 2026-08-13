@@ -33,11 +33,13 @@ struct ServicesCoordinatorView: View {
                 viewModel: container.makeServiceDetailsViewModel(serviceId: id, source: source, coordinator: coordinator)
             )
 
-        case .requestService(let entryPoint):
+        case .requestService(let entryPoint, let aiDraft, let aiProfileId):
             CareRequestView(
                 viewModel: container.makeCareRequestViewModel(
                     preselectedService: CareService.init(id: "String", title: "Injection", icon: "syringe"),
                     entryPoint: entryPoint,
+                    aiDraft: aiDraft,
+                    aiProfileId: aiProfileId,
                     onSubmitted: { requestId in
                         coordinator.push(to: .waitingForOffers(requestId: requestId))
                     }),
