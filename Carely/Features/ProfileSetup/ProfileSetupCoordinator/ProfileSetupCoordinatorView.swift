@@ -30,30 +30,68 @@ struct ProfileSetupCoordinatorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-       //     AppHeader(title: "CareConnect",showBackButton: false)
+            HStack {
+                Button(action: onFinish) {
+                    HStack(spacing: Spacing.s4) {
+                        Image(systemName: "chevron.left")
+                        Text("Profile")
+                    }
+                    .carelyText(style: .bodyRegular, weight: .semiBold)
+                    .foregroundColor(.brandPrimary)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s8)
+
             StepProgressHeader(
                 currentStep: coordinator.currentStepIndex,
                 totalSteps: ProfileSetupStep.allCases.count,
                 stepTitle: coordinator.currentStep.stepTitle
             )
-            .padding(.top, Spacing.s16)
+            .padding(.top, Spacing.s12)
             .padding(.horizontal, Spacing.s16)
-            .padding(.bottom, Spacing.s24)
-            Group {
-                switch coordinator.currentStep {
-                case .basicHealthInfo:
-                    BasicHealthInfoView(viewModel: makeBasicHealthInfoViewModel())
+            if coordinator.isLoadingData {
+                VStack(spacing: Spacing.s16) {
+                    Spacer()
+                    ProgressView()
+                    Text("Loading Profile Data...")
+                        .carelyText(style: .bodyRegular, weight: .medium)
+                        .foregroundColor(.secondaryFont)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                Group {
+                    switch coordinator.currentStep {
+                    case .basicHealthInfo:
+                        BasicHealthInfoView(viewModel: makeBasicHealthInfoViewModel())
 
                 case .existingConditions:
-                    ExistingConditionsView(coordinator: coordinator,viewModel: container.makeExistingConditionsViewModel(existingData: coordinator.data.existingConditions)
-                                        )
+                    ExistingConditionsView(
+                        coordinator: coordinator,
+                        viewModel: container.makeExistingConditionsViewModel(
+                            existingData: coordinator.data.existingConditions,
+                            overrideProfileId: coordinator.profileId,
+                            coordinator: coordinator
+                        )
+                    )
 
                 case .allergies:
-                    AllergiesView(viewModel: AllergiesViewModel(coordinator: coordinator))
+                    AllergiesView(
+                        viewModel: container.makeAllergiesViewModel(
+                            coordinator: coordinator,
+                            overrideProfileId: coordinator.profileId
+                        )
+                    )
 
                 case .currentMedication:
-
-                    CurrentMedicationView(viewModel: CurrentMedicationViewModel(coordinator: coordinator))
+                    CurrentMedicationView(
+                        viewModel: container.makeCurrentMedicationViewModel(
+                            coordinator: coordinator,
+                            overrideProfileId: coordinator.profileId
+                        )
+                    )
 
                 case .medicalHistory:
                     MedicalHistoryView(
@@ -78,17 +116,8 @@ struct ProfileSetupCoordinatorView: View {
                         viewModel: container.makeEmergencyContactViewModel(
                             initialContact: coordinator.data.emergencyContact,
                             overrideProfileId: coordinator.profileId,
-                            coordinator: coordinator
-                        )
-                    )
-
-                case .homeAddress:
-                    HomeAddressView(
-                        viewModel: container.makeHomeAddressViewModel(
-                            initialAddress: coordinator.data.homeAddress,
-                            overrideProfileId: coordinator.profileId,
                             coordinator: coordinator,
-                            onFinishSetup: onFinish
+                            onFinish: onFinish
                         )
                     )
                 }
@@ -102,8 +131,16 @@ struct ProfileSetupCoordinatorView: View {
             )
             .animation(.spring(response: 0.4, dampingFraction: 0.85), value: coordinator.currentStep)
         }
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.backGround.ignoresSafeArea())
+        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
+        .onAppear {
+            Task {
+                await coordinator.loadExistingProfileData(networkService: container.makeProfileNetworkService())
+            }
+        }
     }
 
     // MARK: - Helpers

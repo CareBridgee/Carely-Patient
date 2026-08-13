@@ -29,6 +29,23 @@ struct ProfileCoordinatorView: View {
 
         case .settings:
             SettingsView(viewModel: container.makeSettingsViewModel(coordinator: coordinator))
+
+        case .personalInfo(let profileId), .editMemberPersonalInfo(let profileId):
+            ProfilePersonalInfoView(
+                viewModel: container.makeProfilePersonalInfoViewModel(profileId: profileId, coordinator: coordinator)
+            )
+
+        case .healthProfile(let profileId), .editMemberHealthProfile(let profileId):
+            ProfileSetupCoordinatorView(
+                coordinator: container.makeProfileHealthSetupCoordinator(profileId: profileId),
+                container: container,
+                onFinish: { coordinator.pop() }
+            )
+
+        case .address(let profileId):
+            ProfileAddressView(
+                viewModel: container.makeProfileAddressViewModel(profileId: profileId, coordinator: coordinator)
+            )
         }
     }
 }

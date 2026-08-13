@@ -10,10 +10,53 @@ final class ProfileSetupCoordinator: ObservableObject {
     @Published private(set) var currentStep: ProfileSetupStep
     @Published private(set) var data: ProfileSetupData
     @Published private(set) var profileId: String?
+    @Published private(set) var isLoadingData: Bool = false
 
-        func setProfileId(_ id: String) {
-            self.profileId = id
+    func setProfileId(_ id: String) {
+        self.profileId = id
+    }
+
+    func loadExistingProfileData(networkService: ProfileNetworkServiceProtocol) async {
+        guard let pid = profileId else { return }
+        isLoadingData = true
+        defer { isLoadingData = false }
+        do {
+            let allProfiles = try await networkService.fetchAllProfiles()
+            guard let match = allProfiles.first(where: { $0.id == pid }) else { return }
+            
+            var bloodTypeStr = match.bloodType ?? ""
+            if bloodTypeStr.count > 3 { bloodTypeStr = "" }
+            
+            let basic = BasicHealthInfo(
+                height: match.height,
+                weight: match.weight,
+                bloodType: bloodTypeStr
+            )
+            
+            let surgeries = match.previousSurgeries ?? ""
+            let hospitalizations = match.previousHospitalizations ?? ""
+            let history = MedicalHistory(
+                previousSurgeries: surgeries,
+                previousHospitalizations: hospitalizations
+            )
+            
+            var status: MobilityStatus? = nil
+            if let s = match.mobilityStatus {
+                status = MobilityStatus.allCases.first { $0.title.lowercased() == s.lowercased() }
+            }
+            let mobility = Mobility(
+                status: status,
+                additionalNotes: match.mobilityNotes ?? ""
+            )
+            
+            self.save(basicHealthInfo: basic)
+            self.save(medicalHistory: history)
+            self.save(mobility: mobility)
+        } catch {
+            // Keep current data on failure
         }
+    }
+    
     // MARK: - Init
 
     init(data: ProfileSetupData, startingStep: ProfileSetupStep = .basicHealthInfo) {

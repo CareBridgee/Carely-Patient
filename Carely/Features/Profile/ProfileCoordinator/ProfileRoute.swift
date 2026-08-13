@@ -10,4 +10,9 @@ import Foundation
 enum ProfileRoute: Hashable {
     case familyMembers
     case settings
+    case personalInfo(profileId: String)
+    case healthProfile(profileId: String)
+    case editMemberPersonalInfo(profileId: String)
+    case editMemberHealthProfile(profileId: String)
+    case address(profileId: String)
 }
