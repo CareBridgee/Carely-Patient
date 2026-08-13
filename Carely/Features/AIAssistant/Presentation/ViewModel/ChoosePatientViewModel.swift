@@ -13,19 +13,24 @@ class ChoosePatientViewModel: ObservableObject {
     @Published var patients: [AIPatient] = []
     @Published var selectedPatientId: String? = nil
     @Published var isLoading = false
+    @Published var greetingName: String = ""
+    @Published var profileImageUrl: String? = nil
 
     private let getAIPatientsUseCase: GetAIPatientsUseCaseProtocol
+    private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     let onShowPatientDetails: ((String) -> Void)?
     let onContinueWithAssessmentClosure: (String) -> Void
     var onAddFamilyMember: (() -> Void)?
 
     init(
         getAIPatientsUseCase: GetAIPatientsUseCaseProtocol,
+        getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         onShowPatientDetails: ((String) -> Void)?,
         onContinueWithAssessment: @escaping (String) -> Void,
         onAddFamilyMember: (() -> Void)? = nil
     ) {
         self.getAIPatientsUseCase = getAIPatientsUseCase
+        self.getGreetingNameUseCase = getGreetingNameUseCase
         self.onShowPatientDetails = onShowPatientDetails
         self.onContinueWithAssessmentClosure = onContinueWithAssessment
         self.onAddFamilyMember = onAddFamilyMember
@@ -34,8 +39,17 @@ class ChoosePatientViewModel: ObservableObject {
     func onAppear() async {
         isLoading = true
         defer { isLoading = false }
+
+        async let patientsTask = getAIPatientsUseCase.execute()
+        async let profileTask = getGreetingNameUseCase.execute()
+
+        if let profile = try? await profileTask {
+            self.greetingName = profile.name
+            self.profileImageUrl = profile.imageUrl
+        }
+
         do {
-            let fetchedPatients = try await getAIPatientsUseCase.execute()
+            let fetchedPatients = try await patientsTask
             self.patients = fetchedPatients
             if self.selectedPatientId == nil {
                 // Default to primary / self patient or first patient in list

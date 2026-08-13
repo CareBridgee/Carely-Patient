@@ -636,6 +636,7 @@ final class DIContainer {
     ) -> ChoosePatientViewModel {
         ChoosePatientViewModel(
             getAIPatientsUseCase: makeGetAIPatientsUseCase(),
+            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment,
             onAddFamilyMember: onAddFamilyMember
