@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum CareRequestEntryPoint {
+enum CareRequestEntryPoint: Hashable {
     case aiChat
     case manual
 }
@@ -16,7 +16,14 @@ enum CareRequestEntryPoint {
 @MainActor
 final class CareRequestViewModel: ObservableObject {
     let entryPoint: CareRequestEntryPoint
-    var showsFillWithAI: Bool { entryPoint == .aiChat }
+    var showsFillWithAI: Bool {
+        guard entryPoint == .aiChat,
+              let description = aiDraft?.serviceDescription else {
+            return false
+        }
+
+        return description.range(of: "User description:") != nil
+    }
 
     @Published private(set) var patients: [ServiceRequestPatient] = []
     @Published private(set) var selectedPatient: ServiceRequestPatient?
@@ -53,9 +60,15 @@ final class CareRequestViewModel: ObservableObject {
     ) -> HomeAddressViewModel
     private let onSubmitted: (String) -> Void
 
+    // MARK: - AI Draft (optional, only set when entry point is .aiChat)
+    private let aiDraft: ReservationDraft?
+    private let aiProfileId: String?
+
     init(
         preselectedService: CareService,
         entryPoint: CareRequestEntryPoint,
+        aiDraft: ReservationDraft? = nil,
+        aiProfileId: String? = nil,
         fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol,
         fetchPatientsUseCase: FetchPatientsUseCaseProtocol,
         fetchProfileAddressUseCase: FetchProfileAddressUseCaseProtocol,
@@ -70,6 +83,8 @@ final class CareRequestViewModel: ObservableObject {
     ) {
         self.selectedService = preselectedService
         self.entryPoint = entryPoint
+        self.aiDraft = aiDraft
+        self.aiProfileId = aiProfileId
         self.fetchAvailableServicesUseCase = fetchAvailableServicesUseCase
         self.fetchPatientsUseCase = fetchPatientsUseCase
         self.fetchProfileAddressUseCase = fetchProfileAddressUseCase
@@ -100,11 +115,57 @@ final class CareRequestViewModel: ObservableObject {
             showSubmissionError = true
         }
 
+        if let draft = aiDraft {
+            applyAIDraft(draft)
+        }
+
         isLoading = false
     }
 
     func fillWithAI() {
-        description = "Feeling dehydrated after the flu, needs routine IV administration and monitoring for the next few hours."
+        if let desc = aiDraft?.serviceDescription, !desc.isEmpty {
+            description = formatAIServiceDescription(desc)
+        }
+    }
+
+    private func formatAIServiceDescription(_ text: String) -> String {
+        let requestedServiceMarker = "Requested service:"
+
+        let cleanedText: String
+        if let range = text.range(of: requestedServiceMarker) {
+            cleanedText = String(text[..<range.lowerBound])
+        } else {
+            cleanedText = text
+        }
+
+        let pattern = #"(\d+)-year-old"#
+        let formattedText = cleanedText.replacingOccurrences(
+            of: pattern,
+            with: "$1 years old",
+            options: .regularExpression
+        )
+
+        return formattedText
+            .replacingOccurrences(
+                of: "User description:",
+                with: "\nReason for Request:"
+            )
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    // MARK: - AI Draft Application
+
+    private func applyAIDraft(_ draft: ReservationDraft) {
+       
+        if let pid = aiProfileId,
+           let match = patients.first(where: { $0.id == pid }) {
+            selectPatient(match)
+        }
+
+        if let sid = draft.serviceTypeId,
+           let match = availableServices.first(where: { $0.id == sid }) {
+            selectedService = match
+        }
     }
 
     func selectPatient(_ patient: ServiceRequestPatient) {

@@ -91,8 +91,8 @@ final class ServicesCoordinator: AppRouterProtocol {
     }
    
 
-    func openRequestFromAIAssistant() {
-        push(to: .requestService(entryPoint: .aiChat))
+    func openRequestFromAIAssistant(draft: ReservationDraft? = nil, profileId: String? = nil) {
+        push(to: .requestService(entryPoint: .aiChat, aiDraft: draft, aiProfileId: profileId))
     }
 
 }

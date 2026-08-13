@@ -70,11 +70,11 @@ final class MainTabCoordinator: ObservableObject {
 //            self.servicesCoordinator.popToRoot()
 //        }
         
-        aiAssistantCoordinator.onRequestNow = { [weak self] in
+        aiAssistantCoordinator.onRequestNow = { [weak self] draft, profileId in
             guard let self = self else { return }
             self.previousTab = self.selectedTab
             self.selectedTab = .services
-            self.servicesCoordinator.openRequestFromAIAssistant()
+            self.servicesCoordinator.openRequestFromAIAssistant(draft: draft, profileId: profileId)
         }
         
         aiAssistantCoordinator.onViewAllServices = { [weak self] in

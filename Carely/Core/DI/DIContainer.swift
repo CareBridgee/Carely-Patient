@@ -478,11 +478,15 @@ final class DIContainer {
     func makeCareRequestViewModel(
         preselectedService: CareService,
         entryPoint: CareRequestEntryPoint,
+        aiDraft: ReservationDraft? = nil,
+        aiProfileId: String? = nil,
         onSubmitted: @escaping (String) -> Void
     ) -> CareRequestViewModel {
         CareRequestViewModel(
             preselectedService: preselectedService,
             entryPoint: entryPoint,
+            aiDraft: aiDraft,
+            aiProfileId: aiProfileId,
             fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
             fetchPatientsUseCase: FetchPatientsUseCase(repository: careRequestRepository),
             fetchProfileAddressUseCase: FetchProfileAddressUseCase(repository: careRequestRepository),
@@ -632,6 +636,7 @@ final class DIContainer {
     ) -> ChoosePatientViewModel {
         ChoosePatientViewModel(
             getAIPatientsUseCase: makeGetAIPatientsUseCase(),
+            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment,
             onAddFamilyMember: onAddFamilyMember
@@ -667,8 +672,8 @@ final class DIContainer {
             onDismiss: { [weak coordinator] in
                 coordinator?.pop()
             },
-            onProceedToBooking: { [weak coordinator] _ in
-                coordinator?.requestNowTapped()
+            onProceedToBooking: { [weak coordinator] draft in
+                coordinator?.requestNowTapped(draft: draft, profileId: profileId)
             }
         )
     }
