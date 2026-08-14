@@ -11,5 +11,6 @@ struct AddressSelection {
     let city: String
     let area: String
     let street: String
+    var building: String = ""
     let coordinate: CLLocationCoordinate2D
 }

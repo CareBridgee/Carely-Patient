@@ -12,6 +12,7 @@ protocol ProfileSetupRepositoryProtocol {
     func resolveLocation(for suggestion: SearchSuggestion) async throws -> CLLocationCoordinate2D
     func reverseGeocode(latitude: Double, longitude: Double) async throws -> AddressSelection
     func geocodeCountry(_ country: String) async throws -> CLLocationCoordinate2D?
+    func geocodeAddress(_ addressString: String) async throws -> CLLocationCoordinate2D?
     func currentCoordinateIfAuthorized() async -> CLLocationCoordinate2D?
     func requestCurrentLocationAddress() async throws -> AddressSelection
     func fetchDefaultProfileId() async throws -> String

@@ -35,6 +35,7 @@ final class HomeAddressViewModel: ObservableObject {
     private let saveAddressUseCase: SaveHomeAddressUseCase
     private let updateAddressUseCase: UpdateHomeAddressUseCase
     private let fetchAddressUseCase: FetchHomeAddressUseCase?
+    private let geocodeAddressUseCase: GeocodeAddressUseCase?
     private let overrideProfileId: String?
     private(set) var isEditingExistingAddress: Bool
 
@@ -51,6 +52,7 @@ final class HomeAddressViewModel: ObservableObject {
         saveAddressUseCase: SaveHomeAddressUseCase,
         updateAddressUseCase: UpdateHomeAddressUseCase,
         fetchAddressUseCase: FetchHomeAddressUseCase? = nil,
+        geocodeAddressUseCase: GeocodeAddressUseCase? = nil,
         overrideProfileId: String? = nil,
         isEditingExistingAddress: Bool = false,
         onFinishSetup: @escaping (HomeAddress) -> Void,
@@ -74,6 +76,7 @@ final class HomeAddressViewModel: ObservableObject {
         self.saveAddressUseCase = saveAddressUseCase
         self.updateAddressUseCase = updateAddressUseCase
         self.fetchAddressUseCase = fetchAddressUseCase
+        self.geocodeAddressUseCase = geocodeAddressUseCase
         self.isEditingExistingAddress = isEditingExistingAddress
         self.overrideProfileId = overrideProfileId
         self.showBackButton = showBackButton
@@ -147,10 +150,11 @@ final class HomeAddressViewModel: ObservableObject {
     }
 
     func handleAddressSelection(_ selection: AddressSelection) {
-        country = selection.country
-        city = selection.city
-        area = selection.area
-        streetName = selection.street
+        if !selection.country.trimmed.isEmpty { country = selection.country }
+        if !selection.city.trimmed.isEmpty { city = selection.city }
+        if !selection.area.trimmed.isEmpty { area = selection.area }
+        if !selection.street.trimmed.isEmpty { streetName = selection.street }
+        if !selection.building.trimmed.isEmpty { building = selection.building }
         selectedLatitude = selection.coordinate.latitude
         selectedLongitude = selection.coordinate.longitude
         closeMapPicker()
@@ -167,10 +171,11 @@ final class HomeAddressViewModel: ObservableObject {
             defer { isLocatingCurrentLocation = false }
             do {
                 let selection = try await getCurrentLocationAddressUseCase.execute()
-                country = selection.country
-                city = selection.city
-                area = selection.area
-                streetName = selection.street
+                if !selection.country.trimmed.isEmpty { country = selection.country }
+                if !selection.city.trimmed.isEmpty { city = selection.city }
+                if !selection.area.trimmed.isEmpty { area = selection.area }
+                if !selection.street.trimmed.isEmpty { streetName = selection.street }
+                if !selection.building.trimmed.isEmpty { building = selection.building }
                 selectedLatitude = selection.coordinate.latitude
                 selectedLongitude = selection.coordinate.longitude
             } catch {
@@ -181,70 +186,109 @@ final class HomeAddressViewModel: ObservableObject {
 
     // MARK: - Validation
     private var address: HomeAddress {
-            HomeAddress(country: country.trimmed, city: city.trimmed, area: area.trimmed, streetName: streetName.trimmed, building: building.trimmed, apartment: apartment.trimmed, latitude: selectedLatitude, longitude: selectedLongitude)
+        HomeAddress(country: country.trimmed, city: city.trimmed, area: area.trimmed, streetName: streetName.trimmed, building: building.trimmed, apartment: apartment.trimmed, latitude: selectedLatitude, longitude: selectedLongitude)
+    }
+
+    var isEmpty: Bool {
+        country.trimmed.isEmpty && city.trimmed.isEmpty && area.trimmed.isEmpty && streetName.trimmed.isEmpty && building.trimmed.isEmpty && apartment.trimmed.isEmpty
+    }
+
+    var isValid: Bool {
+        !country.trimmed.isEmpty && !city.trimmed.isEmpty && !streetName.trimmed.isEmpty
+    }
+
+    func backTapped() {
+        onBackTapped(address)
+    }
+
+    func finishSetupTapped() {
+        // MARK: - UNCHANGED OR SKIP LOGIC
+        if address == initialAddress || isEmpty {
+            onFinishSetup(address)
+            return
         }
 
-        var isEmpty: Bool {
-            country.trimmed.isEmpty && city.trimmed.isEmpty && area.trimmed.isEmpty && streetName.trimmed.isEmpty && building.trimmed.isEmpty && apartment.trimmed.isEmpty
+        // MARK: - VALIDATION LOGIC
+        guard isValid else {
+            self.errorMessage = "Please fill in all required fields (Country, City, Street)."
+            self.showError = true
+            return
         }
 
-        var isValid: Bool {
-            !country.trimmed.isEmpty && !city.trimmed.isEmpty && !streetName.trimmed.isEmpty
+        guard NetworkMonitor.shared.isConnected else {
+            self.errorMessage = "No internet connection. Please check your network."
+            self.showError = true
+            return
         }
 
-        func backTapped() {
-            onBackTapped(address)
-        }
+        isLoading = true
+        errorMessage = nil
 
-        func finishSetupTapped() {
-            // MARK: - UNCHANGED OR SKIP LOGIC
-            if address == initialAddress || isEmpty {
-                onFinishSetup(address)
-                return
-            }
+        Task {
+            do {
+                var targetLatitude = selectedLatitude
+                var targetLongitude = selectedLongitude
 
-            // MARK: - VALIDATION LOGIC
-            guard isValid else {
-                self.errorMessage = "Please fill in all required fields (Country, City, Street)."
-                self.showError = true
-                return
-            }
+                // If coordinates are missing, forward geocode the complete address
+                if targetLatitude == nil || targetLongitude == nil {
+                    let fullAddressString = [streetName, building, area, city, country]
+                        .map { $0.trimmed }
+                        .filter { !$0.isEmpty }
+                        .joined(separator: ", ")
 
-            guard NetworkMonitor.shared.isConnected else {
-                self.errorMessage = "No internet connection. Please check your network."
-                self.showError = true
-                return
-            }
-
-            isLoading = true
-            errorMessage = nil
-
-            Task {
-                do {
-                    let profileId: String
-                    if let overrideProfileId {
-                        profileId = overrideProfileId
-                    } else {
-                        profileId = try await getProfileIdUseCase.execute()
+                    if let geocodeUseCase = geocodeAddressUseCase,
+                       let coordinate = try await geocodeUseCase.execute(address: fullAddressString) {
+                        targetLatitude = coordinate.latitude
+                        targetLongitude = coordinate.longitude
+                        self.selectedLatitude = coordinate.latitude
+                        self.selectedLongitude = coordinate.longitude
                     }
-
-                    if isEditingExistingAddress {
-                        try await updateAddressUseCase.execute(profileId: profileId, address: address) 
-                    } else {
-                        try await saveAddressUseCase.execute(profileId: profileId, address: address)
-                    }
-
-                    self.initialAddress = self.address
-                    self.isEditingExistingAddress = true
-                    self.isLoading = false
-                    self.onFinishSetup(self.address)
-                } catch {
-                    self.isLoading = false
-                    self.errorMessage = error.localizedDescription
-                    self.showError = true
                 }
+
+                guard let lat = targetLatitude, let lng = targetLongitude,
+                      (-90.0...90.0).contains(lat),
+                      (-180.0...180.0).contains(lng) else {
+                    self.isLoading = false
+                    self.errorMessage = "Unable to determine location coordinates for this address. Please verify your address or select it on the map."
+                    self.showError = true
+                    return
+                }
+
+                let finalAddress = HomeAddress(
+                    country: country.trimmed,
+                    city: city.trimmed,
+                    area: area.trimmed,
+                    streetName: streetName.trimmed,
+                    building: building.trimmed,
+                    apartment: apartment.trimmed,
+                    latitude: lat,
+                    longitude: lng
+                )
+
+                let profileId: String
+                if let overrideProfileId {
+                    profileId = overrideProfileId
+                } else {
+                    profileId = try await getProfileIdUseCase.execute()
+                }
+
+                if isEditingExistingAddress {
+                    try await updateAddressUseCase.execute(profileId: profileId, address: finalAddress) 
+                } else {
+                    try await saveAddressUseCase.execute(profileId: profileId, address: finalAddress)
+                }
+
+                self.initialAddress = finalAddress
+                self.isEditingExistingAddress = true
+                self.isLoading = false
+                self.onFinishSetup(finalAddress)
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
+                self.showError = true
             }
         }
+    }
     }
 
     private extension String {
