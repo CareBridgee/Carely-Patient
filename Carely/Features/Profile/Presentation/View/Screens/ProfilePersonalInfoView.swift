@@ -157,12 +157,15 @@ private struct ProfilePhotoPickerView: View {
                                 .clipShape(Circle())
                         } else if let existingImageUrl {
                             AsyncImage(url: existingImageUrl) { phase in
-                                if case .success(let img) = phase {
+                                if let img = phase.image {
                                     img.resizable().scaledToFill()
-                                } else {
+                                } else if phase.error != nil {
                                     Image(systemName: "person.fill")
                                         .font(.system(size: 36))
                                         .foregroundColor(.hint)
+                                } else {
+                                    ProgressView()
+                                        .tint(.brandPrimary)
                                 }
                             }
                             .frame(width: 96, height: 96)
