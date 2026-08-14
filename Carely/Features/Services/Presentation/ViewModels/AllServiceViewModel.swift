@@ -21,23 +21,36 @@ final class AllServiceViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
     @Published var profileImageUrl: String? = nil
-    private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
+    private let sessionManager: SessionManager
+    private var cancellables = Set<AnyCancellable>()
  
     private var searchTask: Task<Void, Never>?
     private var coordinator: ServicesCoordinator
     
     init(
-        getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol,
+        sessionManager: SessionManager,
         coordinator: ServicesCoordinator
     ) {
-        self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.searchServiceCategoriesUseCase = searchServiceCategoriesUseCase
+        self.sessionManager = sessionManager
         self.coordinator = coordinator
+        
+        setupUserObservation()
+    }
+    
+    private func setupUserObservation() {
+        sessionManager.$currentUser
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+                self?.greetingName = user?.firstName ?? "User"
+                self?.profileImageUrl = user?.profileImageUrl
+            }
+            .store(in: &cancellables)
     }
  
     func onAppear() {
@@ -58,19 +71,6 @@ final class AllServiceViewModel: ObservableObject {
                 self.isLoading = false
                 self.errorMessage = error.localizedDescription
                 self.showError = true
-            }
-        }
-
-        Task {
-            do {
-                async let profileData = getGreetingNameUseCase.execute()
-                let fetchedProfile = try await profileData
-                self.greetingName = fetchedProfile.name
-                self.profileImageUrl = fetchedProfile.imageUrl
-            } catch {
-                self.isLoading = false
-                                self.errorMessage = error.localizedDescription
-                                self.showError = true
             }
         }
     }
