@@ -27,8 +27,8 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
         try await authService.requestOTPDev(phoneNumber: phoneNumber)
     }
 
-    func verifyOTP(phoneNumber: String, otp: String) async throws -> OTPVerificationEntity {
-            let response = try await authService.verifyOTP(phoneNumber: phoneNumber, otp: otp)
+    func verifyOTP(phoneNumber: String, otp: String, pendingToken: String? = nil) async throws -> OTPVerificationEntity {
+            let response = try await authService.verifyOTP(phoneNumber: phoneNumber, otp: otp, pendingToken: pendingToken)
             
             let user = User(
                 id: response.user.id,
@@ -53,6 +53,10 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
                 userId: response.user.id,
                 user: user
             )
+        }
+
+        func googleLogin(idToken: String) async throws -> GoogleAuthResponse {
+            return try await authService.googleLogin(idToken: idToken)
         }
 
     func getProfile(phoneNumber: String) async throws -> UserDTO {

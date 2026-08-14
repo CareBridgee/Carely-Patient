@@ -9,7 +9,8 @@ import UIKit
 protocol AuthServiceProtocol {
     func login(phoneNumber: String) async throws
     func requestOTPDev(phoneNumber: String) async throws -> DevOTPResponse
-    func verifyOTP(phoneNumber: String, otp: String) async throws -> AuthResponse
+    func verifyOTP(phoneNumber: String, otp: String, pendingToken: String?) async throws -> AuthResponse
+    func googleLogin(idToken: String) async throws -> GoogleAuthResponse
     func getProfile(phoneNumber: String) async throws -> UserDTO
     func refresh(refreshToken: String) async throws -> AuthResponse
     func logout(refreshToken: String) async throws
@@ -18,17 +19,16 @@ protocol AuthServiceProtocol {
         profileImage: UIImage?, defaultProfileId: String?
     ) async throws -> String?
 }
+
 final class AuthServiceImpl: AuthServiceProtocol {
     private let networkClient: NetworkClientProtocol
     private let cloudinaryService: CloudinaryUploadServiceProtocol
 
     var useLogs: Bool = true
 
-    init(networkClient: NetworkClientProtocol,cloudinaryService: CloudinaryUploadServiceProtocol
-) {
+    init(networkClient: NetworkClientProtocol, cloudinaryService: CloudinaryUploadServiceProtocol) {
         self.networkClient = networkClient
         self.cloudinaryService = cloudinaryService
-
     }
 
     func login(phoneNumber: String) async throws {
@@ -45,11 +45,16 @@ final class AuthServiceImpl: AuthServiceProtocol {
         )
     }
 
-    func verifyOTP(phoneNumber: String, otp: String) async throws -> AuthResponse {
-        if useLogs { print("AuthService: verifyOTP with phoneNumber: \(phoneNumber), otp: \(otp)") }
+    func verifyOTP(phoneNumber: String, otp: String, pendingToken: String? = nil) async throws -> AuthResponse {
+        if useLogs { print("🟢 [Auth Flow 4]: AuthService request - verifyOTP with phoneNumber: \(phoneNumber), otp: \(otp), pendingToken: \(pendingToken ?? "nil")") }
         return try await networkClient.request(
-            AuthEndpoint.verifyOTP(phoneNumber: phoneNumber, otp: otp)
+            AuthEndpoint.verifyOTP(phoneNumber: phoneNumber, otp: otp, pendingToken: pendingToken)
         )
+    }
+
+    func googleLogin(idToken: String) async throws -> GoogleAuthResponse {
+        if useLogs { print("🟢 [Auth Flow 1]: AuthService: login with google") }
+        return try await networkClient.request(AuthEndpoint.googleLogin(idToken: idToken))
     }
 
     func getProfile(phoneNumber: String) async throws -> UserDTO {
@@ -72,6 +77,7 @@ final class AuthServiceImpl: AuthServiceProtocol {
             AuthEndpoint.logout(refreshToken: refreshToken)
         )
     }
+    
     func savePersonalInfo(
         firstName: String, lastName: String, dateOfBirth: String, gender: String,
         profileImage: UIImage?, defaultProfileId: String?
@@ -88,9 +94,6 @@ final class AuthServiceImpl: AuthServiceProtocol {
             gender: gender, profileImageUrl: uploadedImageUrl
         )
 
-        // PUT /api/v1/users/me is documented (Swagger) as multipart/form-data only — it does not
-        // consume a JSON body. Sending it as JSON (the old `requestWithoutResponse` path, which
-        // defaults to JSONEncoding for PUT) silently reaches the server with no parsed fields.
         var textParameters: [String: String] = [
             "firstName": userRequest.firstName,
             "lastName": userRequest.lastName,
@@ -111,9 +114,6 @@ final class AuthServiceImpl: AuthServiceProtocol {
                 relationship: "SELF", firstName: firstName, lastName: lastName,
                 dateOfBirth: dateOfBirth, gender: gender
             )
-            // PUT /api/v1/profiles/{id} is also documented as multipart/form-data only (confirmed via
-            // Swagger) — same issue as /users/me. Sending it as JSON reaches the server with nothing
-            // parsed, which is what was causing the 500 here.
             try await networkClient.requestMultipartWithoutResponse(
                 AuthEndpoint.updateProfile(id: profileId, request: profileRequest),
                 textParameters: [
@@ -128,4 +128,4 @@ final class AuthServiceImpl: AuthServiceProtocol {
         
         return uploadedImageUrl
     }
-    }
+}

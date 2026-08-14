@@ -8,7 +8,8 @@ import Foundation
 enum AuthEndpoint: Endpoint {
     case login(phoneNumber: String)
     case requestOTPDev(phoneNumber: String)
-    case verifyOTP(phoneNumber: String, otp: String)
+    case verifyOTP(phoneNumber: String, otp: String, pendingToken: String?)
+        case googleLogin(idToken: String)
     case profile(phoneNumber: String)
     case refresh(refreshToken: String)
     case logout(refreshToken: String)
@@ -22,6 +23,7 @@ enum AuthEndpoint: Endpoint {
         case .login: return "/api/v1/auth/login"
         case .requestOTPDev: return "/api/v1/auth/dev/request-otp"
         case .verifyOTP: return "/api/v1/auth/verify-otp"
+        case .googleLogin: return "/api/v1/auth/google"
         case .profile: return "/api/v1/auth/profile"
         case .refresh: return "/api/v1/auth/refresh"
         case .logout: return "/api/v1/auth/logout"
@@ -47,7 +49,12 @@ enum AuthEndpoint: Endpoint {
         switch self {
         case .login(let p): return ["phoneNumber": p]
         case .requestOTPDev(let p): return ["phoneNumber": p]
-        case .verifyOTP(let p, let otp): return ["phoneNumber": p, "otp": otp]
+        case .verifyOTP(let p, let otp, let pendingToken):
+                    var params: [String: Any] = ["phoneNumber": p, "otp": otp]
+                    if let pendingToken = pendingToken { params["pendingToken"] = pendingToken }
+                    return params
+                case .googleLogin(let idToken):
+                    return ["idToken": idToken]
         case .profile(let p): return ["phoneNumber": p]
         case .refresh(let r): return ["refreshToken": r]
         case .logout(let r): return ["refreshToken": r]
