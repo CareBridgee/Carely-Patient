@@ -6,33 +6,39 @@
 //
 
 import Foundation
-
-
+ 
+ 
 @MainActor
 final class HomeCoordinator: ObservableObject {
-
+ 
     // MARK: - Cross-Tab Callbacks
-
+ 
     var onViewAllServices: (() -> Void)?
     var onOpenService: ((String) -> Void)?
     var onOpenActiveVisit: (() -> Void)?
     var onOpenAIAssistant: (() -> Void)?
-
+    var onOpenHistory: (() -> Void)?
+ 
     // MARK: - Actions
-
+ 
     func viewAllServicesTapped() {
         onViewAllServices?()
     }
-
+ 
+    func seeAllHistoryTapped() {
+        onOpenHistory?()
+    }
+ 
     func serviceTapped(serviceId: String) {
         onOpenService?(serviceId)
     }
-
+ 
     func activeVisitTapped() { // will inject visit here
         onOpenActiveVisit?()
     }
-
+ 
     func aiBannerTapped() {
         onOpenAIAssistant?()
     }
 }
+ 

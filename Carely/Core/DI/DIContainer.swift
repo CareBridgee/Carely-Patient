@@ -71,7 +71,7 @@ final class DIContainer {
     private func makeSavePersonalInfoUseCase() -> SavePersonalInfoUseCaseProtocol {
             SavePersonalInfoUseCase(
                 repository: authRepository,
-                sessionManager: sessionManager 
+                sessionManager: sessionManager
             )
         }
     private func makeVerifyOTPUseCase() -> VerifyOTPUseCaseProtocol {
@@ -147,7 +147,7 @@ final class DIContainer {
             ProfileSetupUseCases(
                 getProfileId: GetDefaultProfileIdUseCase(
                     repo: profileSetupRepository,
-                    sessionManager: sessionManager 
+                    sessionManager: sessionManager
                 ),
                 createFamilyMemberProfile: CreateFamilyMemberProfileUseCase(repo: profileSetupRepository),
                 updateBasicInfo: UpdateBasicHealthInfoUseCase(repo: profileSetupRepository),
@@ -314,6 +314,7 @@ final class DIContainer {
     }
     
     
+
     func makeEmergencyContactViewModel(
         initialContact: EmergencyContact?,
         overrideProfileId: String? = nil,
@@ -343,7 +344,7 @@ final class DIContainer {
         
     func makeHomeAddressViewModel(
         initialAddress: HomeAddress?,
-        overrideProfileId: String? = nil,           
+        overrideProfileId: String? = nil,
         coordinator: ProfileSetupCoordinator,
         onFinishSetup: @escaping () -> Void
     ) -> HomeAddressViewModel {
@@ -454,9 +455,11 @@ final class DIContainer {
 
     // MARK: - Home Repository
 
-    private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl(
-        serviceTypeService: serviceTypeService
-    )
+        private lazy var homeRepository: HomeRepositoryProtocol = HomeRepositoryImpl(
+            serviceTypeService: serviceTypeService,
+            historyService: historyService
+        )
+    
     private lazy var serviceRequestService: ServiceRequestServiceProtocol = ServiceRequestServiceImpl(networkClient: networkClient)
 
     private lazy var careRequestRepository: CareRequestRepositoryProtocol = CareRequestRepositoryImpl(
@@ -468,7 +471,7 @@ final class DIContainer {
     // MARK: - Home UseCases
     
     private func makeGetGreetingNameUseCase() -> GetGreetingNameUseCaseProtocol {
-            GetGreetingNameUseCase(sessionManager: sessionManager) 
+            GetGreetingNameUseCase(sessionManager: sessionManager)
         }
     
     private func makeGetServiceCategoriesUseCase() -> GetServiceCategoriesUseCaseProtocol {
@@ -489,12 +492,16 @@ final class DIContainer {
     
     // MARK: - Home ViewModels
     
-    func makeHomeViewModel(onServiceTabbed: @escaping (String) -> Void) -> HomeViewModel {
+    func makeHomeViewModel(
+        onServiceTabbed: @escaping (String) -> Void,
+        onSeeAllHistory: @escaping () -> Void = {}
+    ) -> HomeViewModel {
         HomeViewModel(
             getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
-            onServiceTabbed: onServiceTabbed
+            onServiceTabbed: onServiceTabbed,
+            onSeeAllHistory: onSeeAllHistory
         )
     }
     
@@ -956,5 +963,39 @@ final class DIContainer {
             currentUserId: sessionManager.currentUser?.id ?? ""
         )
     }
+
+    // MARK: - History Data
+
+    private lazy var historyService: HistoryServiceProtocol = HistoryServiceImpl(
+        networkClient: networkClient
+    )
+    private lazy var historyRepository: HistoryRepositoryProtocol = HistoryRepositoryImpl(
+        historyService: historyService
+    )
+
+    // MARK: - History UseCases
+
+    private func makeGetHistoryUseCase() -> GetHistoryUseCaseProtocol {
+        GetHistoryUseCase(repository: historyRepository)
+    }
+
+    private func makeGetVisitDetailUseCase() -> GetVisitDetailUseCaseProtocol {
+        GetVisitDetailUseCase(repository: historyRepository)
+    }
+
+    // MARK: - History ViewModels
+
+    func makeHistoryViewModel(coordinator: HistoryCoordinator) -> HistoryViewModel {
+        HistoryViewModel(
+            getHistoryUseCase: makeGetHistoryUseCase(),
+            coordinator: coordinator
+        )
+    }
+
+    func makeVisitDetailViewModel(visitId: String) -> VisitDetailViewModel {
+        VisitDetailViewModel(
+            visitId: visitId,
+            getVisitDetailUseCase: makeGetVisitDetailUseCase()
+        )
+    }
 }
-   

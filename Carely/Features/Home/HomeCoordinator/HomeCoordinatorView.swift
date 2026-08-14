@@ -16,7 +16,10 @@ struct HomeCoordinatorView: View {
 
     var body: some View {
         NavigationStack {
-            HomeView(viewModel: container.makeHomeViewModel(onServiceTabbed: coordinator.serviceTapped))
+            HomeView(viewModel: container.makeHomeViewModel(
+                onServiceTabbed: coordinator.serviceTapped,
+                onSeeAllHistory: coordinator.seeAllHistoryTapped
+            ))
         }
     }
 }

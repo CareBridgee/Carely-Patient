@@ -6,32 +6,37 @@
 //
 
 import Foundation
-
+ 
 // MARK: - MainTabCoordinator
-
+ 
 @MainActor
 final class MainTabCoordinator: ObservableObject {
     @Published var currentNotification: NotificationData?
     @Published var selectedTab: AppTab = .home
-
+ 
     private var previousTab: AppTab = .home
     let homeCoordinator: HomeCoordinator
     let servicesCoordinator: ServicesCoordinator
+    let historyCoordinator: HistoryCoordinator
     let aiAssistantCoordinator: AIAssistantCoordinator
     let profileCoordinator: ProfileCoordinator
     private var notificationsHubService: NotificationsHubServiceProtocol
     private let appState: AppState
+
     /// Weakly held so MainTabCoordinator can refresh the list after adding a member from the Profile tab.
     weak var familyMembersViewModel: FamilyMembersViewModel?
 
-    init(appState: AppState, container: DIContainer) {
+
+     init(appState: AppState, container: DIContainer) {
         let home = HomeCoordinator()
         let services = ServicesCoordinator()
+        let history = HistoryCoordinator()
         let aiAssistant = AIAssistantCoordinator()
         let profile = ProfileCoordinator()
-
+ 
         self.homeCoordinator = home
         self.servicesCoordinator = services
+        self.historyCoordinator = history
         self.aiAssistantCoordinator = aiAssistant
         self.profileCoordinator = profile
         self.appState = appState
@@ -40,9 +45,9 @@ final class MainTabCoordinator: ObservableObject {
             wireCrossTabNavigation()
             setupNotifications()
     }
-
+ 
     // MARK: - Cross-Tab Wiring
-
+ 
     private func wireCrossTabNavigation() {
         
         homeCoordinator.onViewAllServices = { [weak self] in
@@ -50,7 +55,7 @@ final class MainTabCoordinator: ObservableObject {
             self.previousTab = self.selectedTab
             self.selectedTab = .services
         }
-
+ 
         homeCoordinator.onOpenService = { [weak self] serviceId in
             self?.openService(id: serviceId)
         }
@@ -58,13 +63,27 @@ final class MainTabCoordinator: ObservableObject {
 //        homeCoordinator.onOpenActiveVisit = { [weak self] in
 //            self?.openActiveVisit()
 //        }
-
+ 
         homeCoordinator.onOpenAIAssistant = { [weak self] in
             self?.selectedTab = .ai
+        }
+ 
+        homeCoordinator.onOpenHistory = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .history
+        }
+ 
+        historyCoordinator.onExploreServices = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
+            self.historyCoordinator.popToRoot()
         }
         
         bindCrossTabBack(to: servicesCoordinator)
         bindCrossTabBack(to: aiAssistantCoordinator)
+        bindCrossTabBack(to: historyCoordinator)
         
 //        servicesCoordinator.onBackClicked = { [weak self] in
 //            guard let self = self else { return }
@@ -84,14 +103,14 @@ final class MainTabCoordinator: ObservableObject {
             self.previousTab = self.selectedTab
             self.selectedTab = .services
         }
-
+ 
         aiAssistantCoordinator.onAddFamilyMember = { [weak self] in
             guard let self = self else { return }
             self.previousTab = self.selectedTab
             self.selectedTab = .services
             self.servicesCoordinator.push(to: .addFamilyMember)
         }
-
+ 
         profileCoordinator.onLoggedOut = { [weak self] in
             self?.appState.startAuthFlow()
         }
@@ -113,9 +132,9 @@ final class MainTabCoordinator: ObservableObject {
             }
         }
     }
-
+ 
     // MARK: - Cross-Tab Navigation
-
+ 
     func openService(id: String) {
         selectedTab = .services
         servicesCoordinator.openServiceFromHome(id: id)
@@ -124,7 +143,7 @@ final class MainTabCoordinator: ObservableObject {
 //        selectedTab = .services
 //        servicesCoordinator.open()
 //    }
-
+ 
     func select(_ tab: AppTab) {
         selectedTab = tab
     }
@@ -152,11 +171,12 @@ final class MainTabCoordinator: ObservableObject {
         }
         notificationsHubService.connectAndSubscribe()
     }
-
+ 
     func handleNotificationTap() {
         guard let notif = currentNotification else { return }
         if notif.type == "MESSAGE" {
-            self.selectedTab = .services 
+            self.selectedTab = .services
         }
     }
 }
+ 

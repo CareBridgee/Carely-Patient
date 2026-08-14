@@ -9,15 +9,21 @@ import Foundation
 
 final class HomeRepositoryImpl: HomeRepositoryProtocol {
 
+    /// Number of items shown in the Home "History" preview before the user
+    /// taps "See All" to go to the full History screen.
+    private let homePreviewBookingCount = 3
+
     private let simulatedDelayNanoseconds: UInt64 = 600_000_000
     private let serviceTypeService: ServiceTypeServiceProtocol
+    private let historyService: HistoryServiceProtocol
 
     /// In-memory cache so Home + AllServices + ServiceDetails don't each
     /// trigger their own round trip to /api/v1/service-types.
     private var cachedServiceTypes: [ServiceTypeDTO]?
 
-    init(serviceTypeService: ServiceTypeServiceProtocol) {
+    init(serviceTypeService: ServiceTypeServiceProtocol, historyService: HistoryServiceProtocol) {
         self.serviceTypeService = serviceTypeService
+        self.historyService = historyService
     }
 
     // MARK: - Greeting
@@ -51,19 +57,22 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
 
     // MARK: - Bookings
 
-    // TODO: Wire to a real bookings endpoint once available.
+    /// Backs the "History" preview on the Home screen. Pulls from the same
+    /// GET /api/v1/service-requests/confirmed endpoint the full History
+    /// screen uses, so both surfaces reflect real API data instead of the
+    /// old hardcoded mock booking.
     func fetchUpcomingBookings() async throws -> [UpcomingBooking] {
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
-        return [
-            UpcomingBooking(
-                id: "booking-1",
-                providerName: "Nurse Sarah Jenkins",
-                providerImageName: "person.crop.circle.fill",
-                serviceName: "General Nursing Care",
-                status: .confirmed,
-                dateTimeText: "Today, 02:30 PM"
-            )
-        ]
+        do {
+            let dtos = try await historyService.getConfirmedRequests()
+            return dtos
+                .filter { VisitStatus(rawStatus: $0.status) != .cancelled }
+                .prefix(homePreviewBookingCount)
+                .map(Self.mapToUpcomingBooking)
+        } catch is NetworkError {
+            throw HomeError.network
+        } catch {
+            throw HomeError.unknown
+        }
     }
 
     // MARK: - Service Detail
@@ -107,5 +116,28 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
         serviceTypes.enumerated().map { index, dto in
             ServiceCategory(serviceType: dto, index: index)
         }
+    }
+
+    private static func mapToUpcomingBooking(_ dto: ServiceRequestHistoryDTO) -> UpcomingBooking {
+        UpcomingBooking(
+            id: dto.serviceRequestId,
+            providerName: nurseDisplayName(dto.nurse),
+            providerImageName: "person.crop.circle.fill",
+            serviceName: dto.serviceName ?? "Service",
+            status: BookingStatus(visitStatus: VisitStatus(rawStatus: dto.status)),
+            dateTimeText: [dto.preferredDate, dto.preferredTime?.displayText]
+                .compactMap { $0 }
+                .filter { !$0.isEmpty }
+                .joined(separator: ", ")
+        )
+    }
+
+    private static func nurseDisplayName(_ nurse: NurseDetailsDTO?) -> String {
+        guard let nurse else { return "Care Provider" }
+        let name = [nurse.firstName, nurse.lastName]
+            .compactMap { $0 }
+            .joined(separator: " ")
+            .trimmingCharacters(in: .whitespaces)
+        return name.isEmpty ? "Care Provider" : name
     }
 }
