@@ -23,24 +23,37 @@ final class HomeViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
  
-    private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
+    private let sessionManager: SessionManager
+    private var cancellables = Set<AnyCancellable>()
     
     private var onServiceTabbed: (String) -> Void
     private var onSeeAllHistory: () -> Void
     init(
-        getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
+        sessionManager: SessionManager,
         onServiceTabbed: @escaping (String) -> Void,
         onSeeAllHistory: @escaping () -> Void = {}
     )  {
-        self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
+        self.sessionManager = sessionManager
         self.onServiceTabbed = onServiceTabbed
         self.onSeeAllHistory = onSeeAllHistory
+        
+        setupUserObservation()
+    }
+    
+    private func setupUserObservation() {
+        sessionManager.$currentUser
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+                self?.greetingName = user?.firstName ?? "User"
+                self?.profileImageUrl = user?.profileImageUrl
+            }
+            .store(in: &cancellables)
     }
  
     func onAppear() {
@@ -54,15 +67,11 @@ final class HomeViewModel: ObservableObject {
      
             Task {
                 do {
-                    async let profileData = getGreetingNameUseCase.execute()
                     async let categories = getServiceCategoriesUseCase.execute()
                     async let bookings = getUpcomingBookingsUseCase.execute()
      
-                    let (fetchedProfile, fetchedCategories, fetchedBookings) = try await (profileData, categories, bookings)
-                    print(fetchedProfile.imageUrl ?? "default value")
-     
-                    self.greetingName = fetchedProfile.name
-                    self.profileImageUrl = fetchedProfile.imageUrl
+                    let (fetchedCategories, fetchedBookings) = try await (categories, bookings)
+      
                     self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
                     self.upcomingBookings = fetchedBookings
                     

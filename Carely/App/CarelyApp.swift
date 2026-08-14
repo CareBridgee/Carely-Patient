@@ -45,7 +45,8 @@ struct CarelyApp: App {
             case .auth:
                 AuthCoordinator(container: diContainer, appState: appState)
                 
-                
+            case .incompleteProfile:
+                AuthCoordinator(container: diContainer, appState: appState, startWithPersonalInfo: true)
             case .profileSetupDecision:
                 ProfileSetupDecisionView(
                     viewModel: diContainer.makeProfileSetupDecisionViewModel(

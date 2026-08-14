@@ -8,13 +8,10 @@
 import Foundation
 import Alamofire
 
-protocol NetworkClientProtocol {
+protocol NetworkClientProtocol: Sendable {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
     func requestWithoutResponse(_ endpoint: Endpoint) async throws
     func upload<T: Decodable>(_ endpoint: Endpoint, data: Data, fileName: String, mimeType: String, fieldName: String) async throws -> T
-    /// Sends a multipart/form-data request (text fields + an optional file part) without decoding a response body.
-    /// Needed for endpoints (like PUT /users/me) whose Swagger contract is `multipart/form-data` — sending those
-    /// as JSON causes the server to receive no fields at all since it never parses the body.
     func requestMultipartWithoutResponse(
         _ endpoint: Endpoint,
         textParameters: [String: String],
@@ -23,8 +20,6 @@ protocol NetworkClientProtocol {
         fileName: String,
         mimeType: String
     ) async throws
-    /// Same as `requestMultipartWithoutResponse` but decodes a response body. Needed for multipart
-    /// endpoints like POST /profiles that return the created/updated resource.
     func requestMultipart<T: Decodable>(
         _ endpoint: Endpoint,
         textParameters: [String: String],
@@ -68,7 +63,7 @@ extension NetworkClientProtocol {
 final class NetworkClient: NetworkClientProtocol {
     private let session: Session
     private let decoder: JSONDecoder
-    var useLogs: Bool = true
+    let useLogs: Bool = true
 
     init(session: Session = .default, decoder: JSONDecoder = .standardDateDecoder) {
         self.session = session

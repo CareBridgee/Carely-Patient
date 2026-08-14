@@ -16,6 +16,7 @@ enum AuthEndpoint: Endpoint {
     case getDefaultProfile
     case updateProfile(id: String, request: PersonalInfoRequestDTO)
     case updateUser(request: UserUpdateRequestDTO)
+    case getUser
     case uploadFile
 
     var path: String {
@@ -29,14 +30,14 @@ enum AuthEndpoint: Endpoint {
         case .logout: return "/api/v1/auth/logout"
         case .getDefaultProfile: return "/api/v1/profiles/default"
         case .updateProfile(let id, _): return "/api/v1/profiles/\(id)"
-        case .updateUser: return "/api/v1/users/me"
+        case .updateUser, .getUser: return "/api/v1/users/me"
         case .uploadFile: return "/api/v1/upload"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .profile, .getDefaultProfile:    
+        case .profile, .getDefaultProfile, .getUser:    
             return .get
         case .updateProfile, .updateUser:
             return .put
@@ -58,7 +59,7 @@ enum AuthEndpoint: Endpoint {
         case .profile(let p): return ["phoneNumber": p]
         case .refresh(let r): return ["refreshToken": r]
         case .logout(let r): return ["refreshToken": r]
-        case .getDefaultProfile, .uploadFile: return nil
+        case .getDefaultProfile, .uploadFile, .getUser: return nil
         case .updateProfile(_, let request): return request.asParameters()
         case .updateUser(let request): return request.asParameters()
         }

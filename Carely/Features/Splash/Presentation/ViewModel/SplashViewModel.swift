@@ -19,7 +19,13 @@ final class SplashViewModel: ObservableObject {
     
     var onSplashFinished: (() -> Void)?
     
-    init() {}
+    private let sessionManager: SessionManager
+    private let restoreSessionUseCase: RestoreSessionUseCaseProtocol
+    
+    init(sessionManager: SessionManager, restoreSessionUseCase: RestoreSessionUseCaseProtocol) {
+        self.sessionManager = sessionManager
+        self.restoreSessionUseCase = restoreSessionUseCase
+    }
     
     func initializeApp() {
         Task {
@@ -33,6 +39,14 @@ final class SplashViewModel: ObservableObject {
     }
     
     private func performAppSetup() async {
-        
+        if sessionManager.state == .restoring {
+            do {
+                try await restoreSessionUseCase.execute()
+            } catch {
+                // If it fails (e.g. 401 Unauthorized), we set it to loggedOut
+                // For other errors, we might want to show a retry, but for now we just log out to be safe.
+                sessionManager.setLoggedOut()
+            }
+        }
     }
 }

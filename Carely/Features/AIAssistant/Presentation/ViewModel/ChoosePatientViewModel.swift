@@ -16,52 +16,80 @@ class ChoosePatientViewModel: ObservableObject {
     @Published var greetingName: String = ""
     @Published var profileImageUrl: String? = nil
 
-    private let getAIPatientsUseCase: GetAIPatientsUseCaseProtocol
-    private let getGreetingNameUseCase: GetGreetingNameUseCaseProtocol
+    private let patientProfilesStore: PatientProfilesStore
+    private let sessionManager: SessionManager
+    private var cancellables = Set<AnyCancellable>()
     let onShowPatientDetails: ((String) -> Void)?
     let onContinueWithAssessmentClosure: (String) -> Void
     var onAddFamilyMember: (() -> Void)?
 
     init(
-        getAIPatientsUseCase: GetAIPatientsUseCaseProtocol,
-        getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
+        patientProfilesStore: PatientProfilesStore,
+        sessionManager: SessionManager,
         onShowPatientDetails: ((String) -> Void)?,
         onContinueWithAssessment: @escaping (String) -> Void,
         onAddFamilyMember: (() -> Void)? = nil
     ) {
-        self.getAIPatientsUseCase = getAIPatientsUseCase
-        self.getGreetingNameUseCase = getGreetingNameUseCase
+        self.patientProfilesStore = patientProfilesStore
+        self.sessionManager = sessionManager
         self.onShowPatientDetails = onShowPatientDetails
         self.onContinueWithAssessmentClosure = onContinueWithAssessment
         self.onAddFamilyMember = onAddFamilyMember
+        bindToStore()
+    }
+
+    private func bindToStore() {
+        patientProfilesStore.$primaryProfile
+            .combineLatest(patientProfilesStore.$familyMembers)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] primary, family in
+                self?.updatePatientsList(primary: primary, family: family)
+            }
+            .store(in: &cancellables)
+
+        sessionManager.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.greetingName = user?.firstName ?? "User"
+                self?.profileImageUrl = user?.profileImageUrl
+            }
+            .store(in: &cancellables)
+    }
+
+    private func updatePatientsList(primary: PatientProfile?, family: [FamilyMember]) {
+        var list: [AIPatient] = []
+        if let p = primary {
+            list.append(AIPatient(
+                id: p.id,
+                name: p.displayName,
+                relation: "self",
+                isSelf: true,
+                imageUrl: p.profileImageUrl
+            ))
+        }
+        list.append(contentsOf: family.map { f in
+            AIPatient(
+                id: f.id,
+                name: f.name,
+                relation: f.relation,
+                isSelf: false,
+                imageUrl: f.profileImageUrl
+            )
+        })
+        
+        self.patients = list
+        
+        if self.selectedPatientId == nil {
+            if let primary = list.first(where: { $0.isSelf }) {
+                self.selectedPatientId = primary.id
+            } else if let first = list.first {
+                self.selectedPatientId = first.id
+            }
+        }
     }
 
     func onAppear() async {
-        isLoading = true
-        defer { isLoading = false }
-
-        async let patientsTask = getAIPatientsUseCase.execute()
-        async let profileTask = getGreetingNameUseCase.execute()
-
-        if let profile = try? await profileTask {
-            self.greetingName = profile.name
-            self.profileImageUrl = profile.imageUrl
-        }
-
-        do {
-            let fetchedPatients = try await patientsTask
-            self.patients = fetchedPatients
-            if self.selectedPatientId == nil {
-                // Default to primary / self patient or first patient in list
-                if let primary = fetchedPatients.first(where: { $0.isSelf }) {
-                    self.selectedPatientId = primary.id
-                } else if let first = fetchedPatients.first {
-                    self.selectedPatientId = first.id
-                }
-            }
-        } catch {
-            print("Error fetching AI patients: \(error)")
-        }
+        // Data is now handled reactively via bindToStore()
     }
 
     func selectPatient(_ patient: AIPatient) {

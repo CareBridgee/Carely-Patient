@@ -25,4 +25,5 @@ protocol ProfileRepositoryProtocol {
     func fetchFamilyMembers() async throws -> [FamilyMember]
     func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws
     func createProfile(params: ProfileUpdateRequestParams, image: UIImage?) async throws -> PatientProfile
+    func deleteProfile(id: String) async throws
 }

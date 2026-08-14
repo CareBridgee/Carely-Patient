@@ -84,14 +84,6 @@ struct ProfileView: View {
                 .frame(width: 96, height: 96)
                 .clipShape(Circle())
 
-                Circle()
-                    .fill(Color.brandPrimary)
-                    .frame(width: 30, height: 30)
-                    .overlay(
-                        Image(systemName: "pencil")
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(.onPrimary)
-                    )
             }
 
             VStack(spacing: Spacing.s4) {

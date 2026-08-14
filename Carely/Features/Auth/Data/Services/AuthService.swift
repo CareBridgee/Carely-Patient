@@ -6,12 +6,13 @@
 import Foundation
 import UIKit
 
-protocol AuthServiceProtocol {
+protocol AuthServiceProtocol: Sendable {
     func login(phoneNumber: String) async throws
     func requestOTPDev(phoneNumber: String) async throws -> DevOTPResponse
     func verifyOTP(phoneNumber: String, otp: String, pendingToken: String?) async throws -> AuthResponse
     func googleLogin(idToken: String) async throws -> GoogleAuthResponse
     func getProfile(phoneNumber: String) async throws -> UserDTO
+    func getUser() async throws -> UserDTO
     func refresh(refreshToken: String) async throws -> AuthResponse
     func logout(refreshToken: String) async throws
     func savePersonalInfo(
@@ -24,7 +25,7 @@ final class AuthServiceImpl: AuthServiceProtocol {
     private let networkClient: NetworkClientProtocol
     private let cloudinaryService: CloudinaryUploadServiceProtocol
 
-    var useLogs: Bool = true
+    let useLogs: Bool = true
 
     init(networkClient: NetworkClientProtocol, cloudinaryService: CloudinaryUploadServiceProtocol) {
         self.networkClient = networkClient
@@ -61,6 +62,13 @@ final class AuthServiceImpl: AuthServiceProtocol {
         if useLogs { print("AuthService: getProfile with phoneNumber: \(phoneNumber)") }
         return try await networkClient.request(
             AuthEndpoint.profile(phoneNumber: phoneNumber)
+        )
+    }
+
+    func getUser() async throws -> UserDTO {
+        if useLogs { print("AuthService: getUser") }
+        return try await networkClient.request(
+            AuthEndpoint.getUser
         )
     }
 

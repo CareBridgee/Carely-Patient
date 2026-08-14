@@ -6,8 +6,7 @@
 //
 
 import Foundation
-
-
+import Combine
 enum CareRequestEntryPoint: Hashable {
     case aiChat
     case manual
@@ -27,6 +26,9 @@ final class CareRequestViewModel: ObservableObject {
 
     @Published private(set) var patients: [ServiceRequestPatient] = []
     @Published private(set) var selectedPatient: ServiceRequestPatient?
+    
+    private let patientProfilesStore: PatientProfilesStore
+    private var storeCancellables = Set<AnyCancellable>()
 
     @Published var selectedService: CareService
     @Published var availableServices: [CareService] = []
@@ -49,8 +51,6 @@ final class CareRequestViewModel: ObservableObject {
     @Published var showSubmissionError = false
 
     private let fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol
-    private let fetchPatientsUseCase: FetchPatientsUseCaseProtocol
-    private let fetchProfileAddressUseCase: FetchProfileAddressUseCaseProtocol
     private let submitCareRequestUseCase: SubmitCareRequestUseCaseProtocol
     private let makeAddressSheetViewModel: (
         _ profileId: String,
@@ -70,9 +70,8 @@ final class CareRequestViewModel: ObservableObject {
         aiDraft: ReservationDraft? = nil,
         aiProfileId: String? = nil,
         fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol,
-        fetchPatientsUseCase: FetchPatientsUseCaseProtocol,
-        fetchProfileAddressUseCase: FetchProfileAddressUseCaseProtocol,
         submitCareRequestUseCase: SubmitCareRequestUseCaseProtocol,
+        patientProfilesStore: PatientProfilesStore,
         makeAddressSheetViewModel: @escaping (
             _ profileId: String,
             _ initialAddress: HomeAddress?,
@@ -86,9 +85,8 @@ final class CareRequestViewModel: ObservableObject {
         self.aiDraft = aiDraft
         self.aiProfileId = aiProfileId
         self.fetchAvailableServicesUseCase = fetchAvailableServicesUseCase
-        self.fetchPatientsUseCase = fetchPatientsUseCase
-        self.fetchProfileAddressUseCase = fetchProfileAddressUseCase
         self.submitCareRequestUseCase = submitCareRequestUseCase
+        self.patientProfilesStore = patientProfilesStore
         self.makeAddressSheetViewModel = makeAddressSheetViewModel
         self.onSubmitted = onSubmitted
     }
@@ -97,29 +95,81 @@ final class CareRequestViewModel: ObservableObject {
         isLoading = true
 
         async let servicesTask = fetchAvailableServicesUseCase.execute()
-        async let patientsTask = fetchPatientsUseCase.execute()
-
+        
         if let services = try? await servicesTask {
             availableServices = services
         }
-
-        do {
-            let fetchedPatients = try await patientsTask
-            patients = fetchedPatients
-            if let defaultPatient = fetchedPatients.first(where: { $0.isPrimary }) ?? fetchedPatients.first {
-                selectedPatient = defaultPatient
-                await loadAddress()
-            }
-        } catch {
-            submissionErrorMessage = "We couldn't load your profiles. Please try again."
-            showSubmissionError = true
-        }
+        
+        bindToStore()
 
         if let draft = aiDraft {
             applyAIDraft(draft)
         }
 
         isLoading = false
+    }
+
+    private func bindToStore() {
+        patientProfilesStore.$primaryProfile
+            .combineLatest(patientProfilesStore.$familyMembers)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] primary, family in
+                self?.updatePatientsList(primary: primary, family: family)
+            }
+            .store(in: &storeCancellables)
+
+        patientProfilesStore.$addressesByProfileId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] addresses in
+                guard let self = self, let pid = self.selectedPatient?.id else { return }
+                if let homeAddress = addresses[pid] {
+                    self.address = ServiceRequestAddress(
+                        id: "", // Or derived if needed
+                        profileId: pid,
+                        country: homeAddress.country,
+                        city: homeAddress.city,
+                        area: homeAddress.area,
+                        street: homeAddress.streetName,
+                        buildingNumber: homeAddress.building,
+                        apartmentNumber: homeAddress.apartment,
+                        latitude: homeAddress.latitude ?? 0,
+                        longitude: homeAddress.longitude ?? 0
+                    )
+                } else {
+                    self.address = nil
+                }
+            }
+            .store(in: &storeCancellables)
+    }
+
+    private func updatePatientsList(primary: PatientProfile?, family: [FamilyMember]) {
+        var list: [ServiceRequestPatient] = []
+        if let p = primary {
+            list.append(ServiceRequestPatient(
+                id: p.id,
+                firstName: p.firstName,
+                lastName: p.lastName,
+                relationship: "self",
+                isPrimary: true
+            ))
+        }
+        list.append(contentsOf: family.map { f in
+            let components = f.name.components(separatedBy: " ")
+            return ServiceRequestPatient(
+                id: f.id,
+                firstName: components.first ?? "",
+                lastName: components.dropFirst().joined(separator: " "),
+                relationship: f.relation,
+                isPrimary: false
+            )
+        })
+        
+        self.patients = list
+        
+        if selectedPatient == nil, let defaultPatient = list.first {
+            selectedPatient = defaultPatient
+            loadAddressFromStore(for: defaultPatient.id)
+        }
     }
 
     func fillWithAI() {
@@ -171,19 +221,26 @@ final class CareRequestViewModel: ObservableObject {
     func selectPatient(_ patient: ServiceRequestPatient) {
         guard patient.id != selectedPatient?.id else { return }
         selectedPatient = patient
-        address = nil
         addressError = nil
-        Task { await loadAddress() }
+        loadAddressFromStore(for: patient.id)
     }
 
-    private func loadAddress() async {
-        guard let profileId = selectedPatient?.id else { return }
-        do {
-            address = try await fetchProfileAddressUseCase.execute(profileId: profileId)
-            addressError = nil
-        } catch {
+    private func loadAddressFromStore(for profileId: String) {
+        if let homeAddress = patientProfilesStore.addressesByProfileId[profileId] {
+            address = ServiceRequestAddress(
+                id: "", 
+                profileId: profileId,
+                country: homeAddress.country,
+                city: homeAddress.city,
+                area: homeAddress.area,
+                street: homeAddress.streetName,
+                buildingNumber: homeAddress.building,
+                apartmentNumber: homeAddress.apartment,
+                latitude: homeAddress.latitude ?? 0,
+                longitude: homeAddress.longitude ?? 0
+            )
+        } else {
             address = nil
-            addressError = "Couldn't load the saved address. Please try again."
         }
     }
 
@@ -205,7 +262,11 @@ final class CareRequestViewModel: ObservableObject {
 
     private func addressSheetSaved() async {
         addressSheetViewModel = nil
-        await loadAddress()
+        // The store handles updates implicitly if the repository mutates it,
+        // but if the viewmodel doesn't wait for the store update, it will eventually re-trigger.
+        if let pid = selectedPatient?.id {
+            loadAddressFromStore(for: pid)
+        }
     }
 
     // MARK: - Submit
@@ -254,9 +315,7 @@ final class CareRequestViewModel: ObservableObject {
         }
     }
     func refreshPatients() async {
-        if let fetched = try? await fetchPatientsUseCase.execute() {
-            patients = fetched
-        }
+        // Patients are now reactive to patientProfilesStore
     }
     private func validate() -> Bool {
         var isValid = true

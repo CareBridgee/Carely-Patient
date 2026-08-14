@@ -6,39 +6,49 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 final class FamilyMembersViewModel: ObservableObject {
-
     @Published var members: [FamilyMember] = []
+    private var storeCancellables = Set<AnyCancellable>()
 
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
 
     @Published var deletingMemberId: String? = nil   // shows per-row spinner
-
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
-    private let profileNetworkService: ProfileNetworkServiceProtocol
+    private let deleteProfileUseCase: DeleteProfileUseCaseProtocol
+    private let patientProfilesStore: PatientProfilesStore
     private let coordinator: ProfileCoordinator
 
     init(
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
-        profileNetworkService: ProfileNetworkServiceProtocol,
+        deleteProfileUseCase: DeleteProfileUseCaseProtocol,
+        patientProfilesStore: PatientProfilesStore,
         coordinator: ProfileCoordinator
     ) {
         self.getFamilyMembersUseCase  = getFamilyMembersUseCase
-        self.profileNetworkService    = profileNetworkService
+        self.deleteProfileUseCase     = deleteProfileUseCase
+        self.patientProfilesStore     = patientProfilesStore
         self.coordinator              = coordinator
+        bindToStore()
+    }
+
+    private func bindToStore() {
+        patientProfilesStore.$familyMembers
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$members)
     }
 
     func onAppear() {
-        guard members.isEmpty else { return }
-        loadMembers()
+        if members.isEmpty {
+            loadMembers()
+        }
     }
 
     func refreshMembers() {
-        members = []
         loadMembers()
     }
 
@@ -48,8 +58,7 @@ final class FamilyMembersViewModel: ObservableObject {
 
         Task {
             do {
-                let fetched = try await getFamilyMembersUseCase.execute()
-                self.members = fetched
+                _ = try await getFamilyMembersUseCase.execute()
                 self.isLoading = false
             } catch {
                 self.isLoading = false
@@ -89,7 +98,7 @@ final class FamilyMembersViewModel: ObservableObject {
 
         Task {
             do {
-                try await profileNetworkService.deleteProfile(id: member.id)
+                try await deleteProfileUseCase.execute(id: member.id)
             } catch {
                 // Restore member on failure
                 members.append(member)

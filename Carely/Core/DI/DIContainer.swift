@@ -15,6 +15,7 @@ final class DIContainer {
     // MARK: - Auth Infrastructure
     
     let appState: AppState
+    let patientProfilesStore = PatientProfilesStore()
     
     private let tokenStore: TokenStoring
     private let sessionManager: SessionManager
@@ -64,6 +65,13 @@ final class DIContainer {
         LogoutUseCase(
             repository: authRepository,
             tokenStore: tokenStore,
+            sessionManager: sessionManager
+        )
+    }
+    
+    private func makeRestoreSessionUseCase() -> RestoreSessionUseCaseProtocol {
+        RestoreSessionUseCase(
+            repository: authRepository,
             sessionManager: sessionManager
         )
     }
@@ -166,7 +174,8 @@ final class DIContainer {
             ProfileSetupRepositoryImpl(  searchService: MapSearchService(),
                                          geocodingService: GeocodingService(),
                                          locationProvider: CurrentLocationProvider(),
-                                         service: profileSetupService)
+                                         service: profileSetupService,
+                                         patientProfilesStore: patientProfilesStore)
         }()
     
  
@@ -524,9 +533,9 @@ final class DIContainer {
         onSeeAllHistory: @escaping () -> Void = {}
     ) -> HomeViewModel {
         HomeViewModel(
-            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
+            sessionManager: sessionManager,
             onServiceTabbed: onServiceTabbed,
             onSeeAllHistory: onSeeAllHistory
         )
@@ -534,9 +543,9 @@ final class DIContainer {
     
     func makeAllServiceViewModel(coordinator: ServicesCoordinator) -> AllServiceViewModel {
         AllServiceViewModel(
-            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
+            sessionManager: sessionManager,
             coordinator: coordinator
         )
     }
@@ -584,9 +593,8 @@ final class DIContainer {
             aiDraft: aiDraft,
             aiProfileId: aiProfileId,
             fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
-            fetchPatientsUseCase: FetchPatientsUseCase(repository: careRequestRepository),
-            fetchProfileAddressUseCase: FetchProfileAddressUseCase(repository: careRequestRepository),
             submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
+            patientProfilesStore: patientProfilesStore,
             makeAddressSheetViewModel: { profileId, initialAddress, onSaved, onDismiss in
                 self.makeAddressSheetViewModel(
                     profileId: profileId,
@@ -758,8 +766,8 @@ final class DIContainer {
         onAddFamilyMember: (() -> Void)? = nil
     ) -> ChoosePatientViewModel {
         ChoosePatientViewModel(
-            getAIPatientsUseCase: makeGetAIPatientsUseCase(),
-            getGreetingNameUseCase: makeGetGreetingNameUseCase(),
+            patientProfilesStore: patientProfilesStore,
+            sessionManager: sessionManager,
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment,
             onAddFamilyMember: onAddFamilyMember
@@ -813,7 +821,7 @@ final class DIContainer {
     // MARK: - Profile Repository
 
     private lazy var profileRepository: ProfileRepositoryProtocol =
-        ProfileRepositoryImpl(service: profileNetworkService)
+        ProfileRepositoryImpl(service: profileNetworkService, store: patientProfilesStore, sessionManager: sessionManager)
 
     // MARK: - Profile UseCases
 
@@ -829,6 +837,10 @@ final class DIContainer {
         UpdateProfileUseCase(repository: profileRepository)
     }
 
+    private func makeDeleteProfileUseCase() -> DeleteProfileUseCaseProtocol {
+        DeleteProfileUseCase(repository: profileRepository)
+    }
+
     // MARK: - Profile ViewModels
 
     func makeProfileViewModel(coordinator: ProfileCoordinator) -> ProfileViewModel {
@@ -837,14 +849,16 @@ final class DIContainer {
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
             logoutUseCase: makeLogoutUseCase(),
             coordinator: coordinator,
-            sessionManager: sessionManager
+            sessionManager: sessionManager,
+            patientProfilesStore: patientProfilesStore
         )
     }
 
     func makeFamilyMembersViewModel(coordinator: ProfileCoordinator) -> FamilyMembersViewModel {
         FamilyMembersViewModel(
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
-            profileNetworkService: profileNetworkService,
+            deleteProfileUseCase: makeDeleteProfileUseCase(),
+            patientProfilesStore: patientProfilesStore,
             coordinator: coordinator
         )
     }
@@ -872,7 +886,7 @@ final class DIContainer {
             sessionManager: sessionManager,
             updateUseCase: makeUpdateProfileUseCase(),
             coordinator: coordinator,
-            networkService: profileNetworkService
+            patientProfilesStore: patientProfilesStore
         )
     }
 
@@ -931,7 +945,10 @@ final class DIContainer {
     // MARK: - Splash ViewModel
     
     func makeSplashViewModel() -> SplashViewModel {
-        SplashViewModel()
+        SplashViewModel(
+            sessionManager: sessionManager,
+            restoreSessionUseCase: makeRestoreSessionUseCase()
+        )
     }
     
     // MARK: - Onboarding ViewModel

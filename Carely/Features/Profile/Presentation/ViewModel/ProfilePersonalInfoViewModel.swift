@@ -38,7 +38,7 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
     private let updateUseCase: UpdateProfileUseCaseProtocol
     private let sessionManager: SessionManager
     private let coordinator: ProfileCoordinator
-    private let networkService: ProfileNetworkServiceProtocol?
+    private let patientProfilesStore: PatientProfilesStore
 
     private var initialFirstName: String
     private var initialLastName: String
@@ -54,13 +54,13 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
         sessionManager: SessionManager,
         updateUseCase: UpdateProfileUseCaseProtocol,
         coordinator: ProfileCoordinator,
-        networkService: ProfileNetworkServiceProtocol? = nil
+        patientProfilesStore: PatientProfilesStore
     ) {
         self.profileId      = profileId
         self.updateUseCase  = updateUseCase
         self.sessionManager = sessionManager
         self.coordinator    = coordinator
-        self.networkService = networkService
+        self.patientProfilesStore = patientProfilesStore
         self.existingRelationship = profile?.relationship
 
         let user = sessionManager.currentUser
@@ -99,40 +99,58 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
     }
 
     func onAppear() {
-        guard let service = networkService else { return }
-        Task {
-            do {
-                let all = try await service.fetchAllProfiles()
-                if let match = all.first(where: { $0.id == profileId }) {
-                    let fName = match.firstName ?? ""
-                    let lName = match.lastName  ?? ""
-                    self.firstName = fName
-                    self.lastName  = lName
-                    self.initialFirstName = fName
-                    self.initialLastName  = lName
+        // Read directly from patientProfilesStore
+        let match: PatientProfile?
+        if let primary = patientProfilesStore.primaryProfile, primary.id == profileId {
+            match = primary
+        } else {
+            match = patientProfilesStore.familyMembers.first { $0.id == profileId }.map { fm in
+                PatientProfile(
+                    id: fm.id,
+                    firstName: fm.name.components(separatedBy: " ").first ?? "",
+                    lastName: fm.name.components(separatedBy: " ").dropFirst().joined(separator: " "),
+                    relationship: fm.relation,
+                    gender: nil, // Only available if we fetch it, but usually not needed for UI if not stored
+                    dateOfBirth: nil,
+                    bloodType: nil,
+                    height: nil,
+                    weight: nil,
+                    mobilityStatus: nil,
+                    mobilityNotes: nil,
+                    previousSurgeries: nil,
+                    previousHospitalizations: nil,
+                    profileImageUrl: fm.profileImageUrl,
+                    isPrimary: false
+                )
+            }
+        }
+        
+        if let match = match {
+            let fName = match.firstName
+            let lName = match.lastName
+            self.firstName = fName
+            self.lastName  = lName
+            self.initialFirstName = fName
+            self.initialLastName  = lName
 
-                    if let dobString = match.dateOfBirth {
-                        let fmt = ISO8601DateFormatter()
-                        fmt.formatOptions = [.withFullDate]
-                        let parsed = fmt.date(from: dobString)
-                        self.dateOfBirth = parsed
-                        self.initialDateOfBirth = parsed
-                    }
+            if let dobString = match.dateOfBirth {
+                let fmt = ISO8601DateFormatter()
+                fmt.formatOptions = [.withFullDate]
+                let parsed = fmt.date(from: dobString)
+                self.dateOfBirth = parsed
+                self.initialDateOfBirth = parsed
+            }
 
-                    let g = Gender(rawValue: match.gender ?? "") ?? .male
-                    self.gender = g
-                    self.initialGender = g
+            let g = Gender(rawValue: match.gender ?? "") ?? .male
+            self.gender = g
+            self.initialGender = g
 
-                    if let rel = match.relationship, !rel.isEmpty {
-                        self.existingRelationship = rel
-                    }
+            if let rel = match.relationship, !rel.isEmpty {
+                self.existingRelationship = rel
+            }
 
-                    if let imgStr = match.profileImageUrl, !imgStr.isEmpty {
-                        self.existingImageUrl = URL(string: imgStr)
-                    }
-                }
-            } catch {
-                // Keep default
+            if let imgStr = match.profileImageUrl, !imgStr.isEmpty {
+                self.existingImageUrl = URL(string: imgStr)
             }
         }
     }
