@@ -63,6 +63,25 @@ final class AuthRepositoryImpl: AuthRepositoryProtocol {
         try await authService.getProfile(phoneNumber: phoneNumber)
     }
 
+    func getUser() async throws -> User {
+        let userDto = try await authService.getUser()
+        return User(
+            id: userDto.id,
+            phoneNumber: userDto.phoneNumber,
+            email: userDto.email,
+            firstName: userDto.firstName,
+            lastName: userDto.lastName,
+            dateOfBirth: userDto.dateOfBirth,
+            gender: userDto.gender?.rawValue, 
+            profileImageUrl: userDto.profileImageUrl,
+            isDeleted: userDto.isDeleted,
+            createdAt: userDto.createdAt,
+            updatedAt: userDto.updatedAt,
+            lastLoginAt: userDto.lastLoginAt,
+            defaultProfileId: userDto.defaultProfileId
+        )
+    }
+
     func logout(refreshToken: String) async throws {
         do {
             try await authService.logout(refreshToken: refreshToken)

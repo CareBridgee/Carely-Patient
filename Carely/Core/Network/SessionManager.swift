@@ -12,6 +12,7 @@ enum SessionState: Equatable {
     case loggedOut
     case loggedIn
     case expired
+    case restoring
 }
 
 protocol SessionMonitor: Sendable {
@@ -25,7 +26,6 @@ final class SessionManager: ObservableObject, SessionMonitor {
     
     private let tokenStore: TokenStoring
     private let userDefaults: UserDefaults
-    private let userKey = "com.carely.currentUser"
     private let hasLaunchedBeforeKey = "com.carely.hasLaunchedBefore"
     
     init(tokenStore: TokenStoring, userDefaults: UserDefaults = .standard) {
@@ -38,22 +38,19 @@ final class SessionManager: ObservableObject, SessionMonitor {
             userDefaults.set(true, forKey: hasLaunchedBeforeKey)
         }
         
-        if let _ = tokenStore.getAccessToken(),
-           let data = userDefaults.data(forKey: userKey),
-           let user = try? JSONDecoder().decode(User.self, from: data) {
-            self.currentUser = user
-            self.state = .loggedIn
+        if let _ = tokenStore.getAccessToken() {
+            self.currentUser = nil
+            self.state = .restoring
         } else {
             tokenStore.clearTokens()
-            userDefaults.removeObject(forKey: userKey)
             self.currentUser = nil
             self.state = .loggedOut
         }
     }
     
     func setLoggedIn(user: User) {
-        state = .loggedIn
-        updateUser(user)
+        self.currentUser = user
+        self.state = .loggedIn
     }
     
     func setLoggedOut() {
@@ -62,17 +59,18 @@ final class SessionManager: ObservableObject, SessionMonitor {
         state = .loggedOut
     }
     
+    func completeRestoration(user: User) {
+        self.currentUser = user
+        self.state = .loggedIn
+    }
+    
     // Call this whenever the user updates their profile remotely
     func updateUser(_ user: User) {
         self.currentUser = user
-        if let data = try? JSONEncoder().encode(user) {
-            userDefaults.set(data, forKey: userKey)
-        }
     }
     
     private func clearUser() {
         self.currentUser = nil
-        userDefaults.removeObject(forKey: userKey)
     }
     
     nonisolated func sessionDidExpire() {
