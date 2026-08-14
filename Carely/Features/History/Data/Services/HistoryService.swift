@@ -14,7 +14,7 @@ protocol HistoryServiceProtocol {
  
 final class HistoryServiceImpl: HistoryServiceProtocol {
     private let networkClient: NetworkClientProtocol
-    var useLogs: Bool = true
+    let useLogs: Bool = true
  
     init(networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient

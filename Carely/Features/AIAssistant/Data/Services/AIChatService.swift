@@ -18,7 +18,7 @@ protocol AIChatServiceProtocol {
 
 final class AIChatServiceImpl: AIChatServiceProtocol {
     private let networkClient: NetworkClientProtocol
-    var useLogs: Bool = false
+    let useLogs: Bool = false
 
     init(networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient

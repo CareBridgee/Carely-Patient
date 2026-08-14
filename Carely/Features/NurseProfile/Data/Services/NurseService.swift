@@ -13,7 +13,7 @@ protocol NurseServiceProtocol {
 
 final class NurseServiceImpl: NurseServiceProtocol {
     private let networkClient: NetworkClientProtocol
-    var useLogs: Bool = false
+    let useLogs: Bool = false
 
     init(networkClient: NetworkClientProtocol) {
         self.networkClient = networkClient

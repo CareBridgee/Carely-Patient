@@ -58,7 +58,7 @@ enum CloudinaryUploadError: LocalizedError {
 
 // MARK: - Service
 
-protocol CloudinaryUploadServiceProtocol {
+protocol CloudinaryUploadServiceProtocol: Sendable {
     func uploadImage(_ image: UIImage, compressionQuality: CGFloat) async throws -> CloudinaryUploadResponse
 }
 
