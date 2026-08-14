@@ -24,7 +24,7 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: Spacing.s20) {
                         HomeTopBar(
                                 greetingName: viewModel.greetingName,
-                                profileImageUrl: viewModel.profileImageUrl 
+                                profileImageUrl: viewModel.profileImageUrl
                             ) {}
 
                         SearchField(
@@ -93,7 +93,7 @@ struct HomeView: View {
 
                 Spacer()
 
-                Button("See All") { }
+                Button("See All") { viewModel.seeAllHistoryTapped() }
                     .carelyText(style: .bodySmall, weight: .semiBold)
                     .foregroundColor(.brandPrimary)
             }

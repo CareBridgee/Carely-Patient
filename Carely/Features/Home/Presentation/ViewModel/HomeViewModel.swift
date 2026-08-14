@@ -28,16 +28,19 @@ final class HomeViewModel: ObservableObject {
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     
     private var onServiceTabbed: (String) -> Void
+    private var onSeeAllHistory: () -> Void
     init(
         getGreetingNameUseCase: GetGreetingNameUseCaseProtocol,
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
-        onServiceTabbed: @escaping (String) -> Void
+        onServiceTabbed: @escaping (String) -> Void,
+        onSeeAllHistory: @escaping () -> Void = {}
     )  {
         self.getGreetingNameUseCase = getGreetingNameUseCase
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
         self.onServiceTabbed = onServiceTabbed
+        self.onSeeAllHistory = onSeeAllHistory
     }
  
     func onAppear() {
@@ -51,7 +54,7 @@ final class HomeViewModel: ObservableObject {
      
             Task {
                 do {
-                    async let profileData = getGreetingNameUseCase.execute() 
+                    async let profileData = getGreetingNameUseCase.execute()
                     async let categories = getServiceCategoriesUseCase.execute()
                     async let bookings = getUpcomingBookingsUseCase.execute()
      
@@ -81,5 +84,8 @@ final class HomeViewModel: ObservableObject {
     func viewAllServicesTapped() {
         //
     }
+
+    func seeAllHistoryTapped() {
+        onSeeAllHistory()
+    }
 }
- 
