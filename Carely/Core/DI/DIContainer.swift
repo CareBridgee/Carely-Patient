@@ -202,7 +202,8 @@ final class DIContainer {
                 saveContact: SaveEmergencyContactUseCase(repo: profileSetupRepository),
                 saveAddress: SaveHomeAddressUseCase(repo: profileSetupRepository),
                 updateAddress: UpdateHomeAddressUseCase(repo: profileSetupRepository),
-                fetchAddress: FetchHomeAddressUseCase(repo: profileSetupRepository)
+                fetchAddress: FetchHomeAddressUseCase(repo: profileSetupRepository),
+                geocodeAddress: GeocodeAddressUseCase(repository: profileSetupRepository)
             )
         }()
     func makeProfileSetupCoordinator() -> ProfileSetupCoordinator {
@@ -393,11 +394,17 @@ final class DIContainer {
             getProfileIdUseCase: profileSetupUseCases.getProfileId,
             saveAddressUseCase: profileSetupUseCases.saveAddress,
             updateAddressUseCase: profileSetupUseCases.updateAddress,
+            fetchAddressUseCase: profileSetupUseCases.fetchAddress,
+            geocodeAddressUseCase: profileSetupUseCases.geocodeAddress,
             overrideProfileId: overrideProfileId,
             isEditingExistingAddress: false,
             onFinishSetup: { address in
                 coordinator.save(homeAddress: address)
-                onFinishSetup()
+                if coordinator.isLastStep {
+                    onFinishSetup()
+                } else {
+                    coordinator.next()
+                }
             },
             onBackTapped: { address in
                 coordinator.save(homeAddress: address)
@@ -571,12 +578,14 @@ final class DIContainer {
             getProfileIdUseCase: profileSetupUseCases.getProfileId,
             saveAddressUseCase: profileSetupUseCases.saveAddress,
             updateAddressUseCase: profileSetupUseCases.updateAddress,
+            fetchAddressUseCase: profileSetupUseCases.fetchAddress,
+            geocodeAddressUseCase: profileSetupUseCases.geocodeAddress,
             overrideProfileId: profileId,
-            isEditingExistingAddress: initialAddress != nil,
+            isEditingExistingAddress: initialAddress != nil && !(initialAddress?.isEmpty ?? true),
             onFinishSetup: { _ in onSaved() },          // moved up
             onBackTapped: { _ in onDismiss() },          // moved up
             showBackButton: false,                       // moved down
-            continueButtonTitle: initialAddress != nil ? "Save Address" : "Add Address",
+            continueButtonTitle: (initialAddress != nil && !(initialAddress?.isEmpty ?? true)) ? "Save Address" : "Add Address",
             loadingButtonTitle: "Saving..."
         )
     }
@@ -593,6 +602,7 @@ final class DIContainer {
             aiDraft: aiDraft,
             aiProfileId: aiProfileId,
             fetchAvailableServicesUseCase: FetchAvailableServicesUseCase(repository: careRequestRepository),
+            fetchProfileAddressUseCase: FetchProfileAddressUseCase(repository: careRequestRepository),
             submitCareRequestUseCase: SubmitCareRequestUseCase(repository: careRequestRepository),
             patientProfilesStore: patientProfilesStore,
             makeAddressSheetViewModel: { profileId, initialAddress, onSaved, onDismiss in
@@ -892,7 +902,20 @@ final class DIContainer {
 
     /// Health Profile edit — reuses step-based ProfileSetupCoordinator flow in edit mode.
     func makeProfileHealthSetupCoordinator(profileId: String) -> ProfileSetupCoordinator {
-        let setupCoordinator = ProfileSetupCoordinator(data: ProfileSetupData(), startingStep: .basicHealthInfo)
+        let healthSteps: [ProfileSetupStep] = [
+            .basicHealthInfo,
+            .existingConditions,
+            .allergies,
+            .currentMedication,
+            .medicalHistory,
+            .mobility,
+            .emergencyContact
+        ]
+        let setupCoordinator = ProfileSetupCoordinator(
+            data: ProfileSetupData(),
+            steps: healthSteps,
+            startingStep: .basicHealthInfo
+        )
         setupCoordinator.setProfileId(profileId)
         return setupCoordinator
     }
@@ -911,6 +934,7 @@ final class DIContainer {
             saveAddressUseCase: profileSetupUseCases.saveAddress,
             updateAddressUseCase: profileSetupUseCases.updateAddress,
             fetchAddressUseCase: profileSetupUseCases.fetchAddress,
+            geocodeAddressUseCase: profileSetupUseCases.geocodeAddress,
             overrideProfileId: profileId,
             isEditingExistingAddress: false,
             onFinishSetup: { _ in coordinator.pop() },

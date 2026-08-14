@@ -10,6 +10,7 @@ enum ProfileSetupStep: CaseIterable {
     case medicalHistory
     case mobility
     case emergencyContact
+    case homeAddress
 }
 
 // MARK: - Sequencing
@@ -62,6 +63,8 @@ extension ProfileSetupStep {
             return "Mobility"
         case .emergencyContact:
             return "Emergency Contact"
+        case .homeAddress:
+            return "Home Address"
         }
     }
 }

@@ -46,7 +46,7 @@ struct ProfileSetupCoordinatorView: View {
 
             StepProgressHeader(
                 currentStep: coordinator.currentStepIndex,
-                totalSteps: ProfileSetupStep.allCases.count,
+                totalSteps: coordinator.totalSteps,
                 stepTitle: coordinator.currentStep.stepTitle
             )
             .padding(.top, Spacing.s12)
@@ -118,6 +118,16 @@ struct ProfileSetupCoordinatorView: View {
                             overrideProfileId: coordinator.profileId,
                             coordinator: coordinator,
                             onFinish: onFinish
+                        )
+                    )
+
+                case .homeAddress:
+                    HomeAddressView(
+                        viewModel: container.makeHomeAddressViewModel(
+                            initialAddress: coordinator.data.homeAddress,
+                            overrideProfileId: coordinator.profileId,
+                            coordinator: coordinator,
+                            onFinishSetup: onFinish
                         )
                     )
                 }
