@@ -12,14 +12,14 @@ import Foundation
 
 enum ServicesRoute: Hashable {
     case serviceDetails(id: String, source: ServiceDetailsSource)
-    case requestService(entryPoint: CareRequestEntryPoint, aiDraft: ReservationDraft? = nil, aiProfileId: String? = nil)
+    case requestService(entryPoint: CareRequestEntryPoint, preselectedServiceId: String? = nil, aiDraft: ReservationDraft? = nil, aiProfileId: String? = nil)
     case waitingForOffers(requestId: String)
     case OfferAccepted(request: ConfirmedOffer)
     case showQRCode(request: ConfirmedOffer)
     case nurseProfile(nurseId: String)
     case visitCompleted(visitId: String)
     case addFamilyMember
-    case chat(reservationId: String)
+    case chat(reservationId: String, nurseName: String? = nil, nurseImageUrl: String? = nil)
 //    case activeVisit(ActiveVisit)
 //    case startVisitQR(ActiveVisit)
 //    case finishVisitQR(ActiveVisit)

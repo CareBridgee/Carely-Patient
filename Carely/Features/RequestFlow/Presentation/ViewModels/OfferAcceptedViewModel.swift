@@ -5,6 +5,8 @@ final class OfferAcceptedViewModel: ObservableObject {
     @Published var request: ConfirmedOffer
     @Published var showNurseCanceledAlert = false
     
+    private var isCanceledByMe = false
+    
     private let onShowQRCode: (ConfirmedOffer) -> Void
     private let onCancelRequest: () -> Void
     private let onShowNurseProfile: (String) -> Void
@@ -40,7 +42,9 @@ final class OfferAcceptedViewModel: ObservableObject {
             for await event in stream {
                 guard let self = self else { break }
                 if case .requestCanceled = event {
-                    self.showNurseCanceledAlert = true
+                    if !self.isCanceledByMe {
+                        self.showNurseCanceledAlert = true
+                    }
                 }
             }
         }
@@ -68,11 +72,13 @@ final class OfferAcceptedViewModel: ObservableObject {
     }
     
     func cancelRequest() {
+        isCanceledByMe = true
         Task {
             do {
                 try await cancelServiceRequestUseCase.execute(serviceRequestId: request.id)
             } catch {
                 print("Failed to cancel request: \(error)")
+                isCanceledByMe = false
             }
             onCancelRequest()
         }

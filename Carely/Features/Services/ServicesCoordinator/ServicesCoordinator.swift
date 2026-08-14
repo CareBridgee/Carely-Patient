@@ -83,6 +83,7 @@ final class ServicesCoordinator: AppRouterProtocol {
     typealias Route = ServicesRoute
     
     @Published var path = NavigationPath()
+    @Published var isInsideChat: Bool = false
     var onBackClicked: (() -> Void)?
     var onAddFamilyMemberFromProfileFinished: (() -> Void)?
     

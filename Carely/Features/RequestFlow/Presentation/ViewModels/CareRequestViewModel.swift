@@ -98,6 +98,11 @@ final class CareRequestViewModel: ObservableObject {
         
         if let services = try? await servicesTask {
             availableServices = services
+            if let match = services.first(where: { $0.id == selectedService.id }) {
+                selectedService = match
+            } else if let first = services.first {
+                selectedService = first
+            }
         }
         
         bindToStore()
