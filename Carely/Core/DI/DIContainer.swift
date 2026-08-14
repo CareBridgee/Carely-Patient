@@ -770,7 +770,7 @@ final class DIContainer {
     // MARK: - Profile Network Service
 
     private lazy var profileNetworkService: ProfileNetworkServiceProtocol =
-        ProfileNetworkService(networkClient: networkClient)
+    ProfileNetworkService(networkClient: networkClient, sessionManager: sessionManager)
 
     func makeProfileNetworkService() -> ProfileNetworkServiceProtocol {
         profileNetworkService

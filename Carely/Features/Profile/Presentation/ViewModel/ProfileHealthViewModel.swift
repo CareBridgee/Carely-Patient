@@ -64,12 +64,12 @@ final class ProfileHealthViewModel: ObservableObject {
         self.coordinator   = coordinator
 
         // Pre-populate from existing profile data
-        self.heightText              = profile?.height.map { h in h.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", h) : String(h) } ?? ""
-        self.weightText              = profile?.weight.map { w in w.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", w) : String(w) } ?? ""
-        self.bloodType               = profile?.bloodType ?? ""
-        self.mobilityStatus          = profile?.mobilityStatus ?? ""
-        self.mobilityNotes           = profile?.mobilityNotes ?? ""
-        self.previousSurgeries       = profile?.previousSurgeries ?? ""
+        self.heightText               = profile?.height.map { h in h.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", h) : String(h) } ?? ""
+        self.weightText               = profile?.weight.map { w in w.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", w) : String(w) } ?? ""
+        self.bloodType                = profile?.bloodType ?? ""
+        self.mobilityStatus           = profile?.mobilityStatus ?? ""
+        self.mobilityNotes            = profile?.mobilityNotes ?? ""
+        self.previousSurgeries        = profile?.previousSurgeries ?? ""
         self.previousHospitalizations = profile?.previousHospitalizations ?? ""
     }
 
@@ -83,7 +83,7 @@ final class ProfileHealthViewModel: ObservableObject {
             lastName: "",
             dateOfBirth: "",
             gender: "",
-            relationship: "SELF",
+            relationship: "",
             bloodType: bloodType.isEmpty ? nil : bloodType,
             height: Double(heightText),
             weight: Double(weightText),
@@ -99,6 +99,7 @@ final class ProfileHealthViewModel: ObservableObject {
 
         Task {
             do {
+                // ProfileNetworkService decides internally whether to also call PUT /users/me
                 try await updateUseCase.execute(id: profileId, params: params, image: nil)
                 isLoading = false
                 isSaved   = true

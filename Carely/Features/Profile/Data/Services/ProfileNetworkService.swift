@@ -48,13 +48,12 @@ struct ProfileUpdateRequestParams {
 
     /// Builds the multipart text dictionary for PUT /api/v1/profiles/{id}.
     func asProfileTextParameters() -> [String: String] {
-        var p: [String: String] = [
-            "firstName": firstName,
-            "lastName": lastName,
-            "dateOfBirth": dateOfBirth,
-            "gender": gender,
-            "relationship": relationship
-        ]
+        var p: [String: String] = [:]
+        if !firstName.isEmpty    { p["firstName"]    = firstName }
+        if !lastName.isEmpty     { p["lastName"]     = lastName }
+        if !dateOfBirth.isEmpty  { p["dateOfBirth"]  = dateOfBirth }
+        if !gender.isEmpty       { p["gender"]       = gender }
+        if !relationship.isEmpty { p["relationship"] = relationship }
         if let bt = bloodType                { p["bloodType"]                = bt }
         if let h  = height                   { p["height"]                   = String(h) }
         if let w  = weight                   { p["weight"]                   = String(w) }
@@ -86,7 +85,7 @@ protocol ProfileNetworkServiceProtocol {
     func fetchAllProfiles() async throws -> [FullProfileResponseDTO]
     /// GET /api/v1/profiles/default
     func fetchDefaultProfile() async throws -> FullProfileResponseDTO
-    /// PUT /api/v1/profiles/{id}  +  (concurrently) PUT /api/v1/users/me
+    /// PUT /api/v1/profiles/{id}  — also calls PUT /api/v1/users/me when id is the primary profile.
     func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws
     /// POST /api/v1/profiles
     func createProfile(params: ProfileUpdateRequestParams, image: UIImage?) async throws -> FullProfileResponseDTO
@@ -137,9 +136,11 @@ private enum ProfileMutateEndpoint: Endpoint {
 final class ProfileNetworkService: ProfileNetworkServiceProtocol {
 
     private let networkClient: NetworkClientProtocol
+    private let sessionManager: SessionManager
 
-    init(networkClient: NetworkClientProtocol) {
-        self.networkClient = networkClient
+    init(networkClient: NetworkClientProtocol, sessionManager: SessionManager) {
+        self.networkClient  = networkClient
+        self.sessionManager = sessionManager
     }
 
     func fetchAllProfiles() async throws -> [FullProfileResponseDTO] {
@@ -150,32 +151,44 @@ final class ProfileNetworkService: ProfileNetworkServiceProtocol {
         try await networkClient.request(ProfileFetchEndpoint.defaultProfile)
     }
 
-    /// Dual-sync: fires PUT /api/v1/profiles/{id} and PUT /api/v1/users/me concurrently
-    /// so both backend resources stay perfectly in sync when personal info changes.
+    /// Always calls PUT /api/v1/profiles/{id}.
+    /// Also calls PUT /api/v1/users/me when the profileId matches the user's primary (default) profile.
     func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws {
         let imageData     = image?.jpegData(compressionQuality: 0.7)
         let profileParams = params.asProfileTextParameters()
-        let userParams    = params.asUserTextParameters()
 
-        async let profileUpdate: Void = networkClient.requestMultipartWithoutResponse(
-            ProfileMutateEndpoint.updateProfile(id: id),
-            textParameters: profileParams,
-            fileData: imageData,
-            fileFieldName: "profileImage",
-            fileName: "profile.jpg",
-            mimeType: "image/jpeg"
-        )
-        async let userUpdate: Void = networkClient.requestMultipartWithoutResponse(
-            ProfileMutateEndpoint.updateUser,
-            textParameters: userParams,
-            fileData: imageData,
-            fileFieldName: "profileImage",
-            fileName: "profile.jpg",
-            mimeType: "image/jpeg"
-        )
-        // Await both — if either fails the error propagates to the caller.
-        try await profileUpdate
-        try await userUpdate
+        let isPrimary = await (sessionManager.currentUser?.defaultProfileId == id)
+
+        if isPrimary {
+            let userParams = params.asUserTextParameters()
+            async let profileUpdate: Void = networkClient.requestMultipartWithoutResponse(
+                ProfileMutateEndpoint.updateProfile(id: id),
+                textParameters: profileParams,
+                fileData: imageData,
+                fileFieldName: "profileImage",
+                fileName: "profile.jpg",
+                mimeType: "image/jpeg"
+            )
+            async let userUpdate: Void = networkClient.requestMultipartWithoutResponse(
+                ProfileMutateEndpoint.updateUser,
+                textParameters: userParams,
+                fileData: imageData,
+                fileFieldName: "profileImage",
+                fileName: "profile.jpg",
+                mimeType: "image/jpeg"
+            )
+            try await profileUpdate
+            try await userUpdate
+        } else {
+            try await networkClient.requestMultipartWithoutResponse(
+                ProfileMutateEndpoint.updateProfile(id: id),
+                textParameters: profileParams,
+                fileData: imageData,
+                fileFieldName: "profileImage",
+                fileName: "profile.jpg",
+                mimeType: "image/jpeg"
+            )
+        }
     }
 
     func createProfile(params: ProfileUpdateRequestParams, image: UIImage?) async throws -> FullProfileResponseDTO {
@@ -195,4 +208,3 @@ final class ProfileNetworkService: ProfileNetworkServiceProtocol {
         try await networkClient.requestWithoutResponse(ProfileMutateEndpoint.deleteProfile(id: id))
     }
 }
-

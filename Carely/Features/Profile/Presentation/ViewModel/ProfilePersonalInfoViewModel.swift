@@ -21,7 +21,7 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
     }
     @Published private(set) var selectedImage: UIImage?
     /// URL of the existing remote image (shown when no new photo is chosen)
-    let existingImageUrl: URL?
+    @Published var existingImageUrl: URL?
 
     // MARK: - State
     @Published var isLoading = false
@@ -44,6 +44,7 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
     private var initialLastName: String
     private var initialDateOfBirth: Date?
     private var initialGender: Gender
+    private var existingRelationship: String?
 
     // MARK: - Init
 
@@ -60,18 +61,21 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
         self.sessionManager = sessionManager
         self.coordinator    = coordinator
         self.networkService = networkService
+        self.existingRelationship = profile?.relationship
 
-        // Pre-populate from session cache first, then API profile
         let user = sessionManager.currentUser
-        let fName = user?.firstName ?? profile?.firstName ?? ""
-        let lName = user?.lastName  ?? profile?.lastName  ?? ""
+        let isPrimaryUser = (user?.defaultProfileId == profileId)
+
+        // Pre-populate from session cache ONLY if editing the primary profile
+        let fName = (isPrimaryUser ? user?.firstName : nil) ?? profile?.firstName ?? ""
+        let lName = (isPrimaryUser ? user?.lastName : nil)  ?? profile?.lastName  ?? ""
         self.firstName = fName
         self.lastName  = lName
         self.initialFirstName = fName
         self.initialLastName  = lName
 
         // Parse dateOfBirth string → Date
-        let dobString = user?.dateOfBirth ?? profile?.dateOfBirth
+        let dobString = (isPrimaryUser ? user?.dateOfBirth : nil) ?? profile?.dateOfBirth
         if let s = dobString {
             let fmt = ISO8601DateFormatter()
             fmt.formatOptions = [.withFullDate]
@@ -84,13 +88,13 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
         }
 
         // Gender
-        let genderStr = user?.gender ?? profile?.gender ?? ""
+        let genderStr = (isPrimaryUser ? user?.gender : nil) ?? profile?.gender ?? ""
         let g = Gender(rawValue: genderStr) ?? .male
         self.gender = g
         self.initialGender = g
 
         // Existing image URL
-        let imageUrlStr = user?.profileImageUrl ?? profile?.profileImageUrl
+        let imageUrlStr = (isPrimaryUser ? user?.profileImageUrl : nil) ?? profile?.profileImageUrl
         self.existingImageUrl = imageUrlStr.flatMap(URL.init)
     }
 
@@ -118,6 +122,14 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
                     let g = Gender(rawValue: match.gender ?? "") ?? .male
                     self.gender = g
                     self.initialGender = g
+
+                    if let rel = match.relationship, !rel.isEmpty {
+                        self.existingRelationship = rel
+                    }
+
+                    if let imgStr = match.profileImageUrl, !imgStr.isEmpty {
+                        self.existingImageUrl = URL(string: imgStr)
+                    }
                 }
             } catch {
                 // Keep default
@@ -146,13 +158,15 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFullDate]
         let dobStr = dateOfBirth.map { formatter.string(from: $0) } ?? ""
+        let isPrimaryUser = (sessionManager.currentUser?.defaultProfileId == profileId)
+        let relationshipStr = isPrimaryUser ? "SELF" : (existingRelationship ?? "")
 
         let params = ProfileUpdateRequestParams(
-            firstName: firstName.trimmingCharacters(in: .whitespaces),
-            lastName: lastName.trimmingCharacters(in: .whitespaces),
+            firstName: trimmedFirst,
+            lastName: trimmedLast,
             dateOfBirth: dobStr,
             gender: gender.rawValue,
-            relationship: "SELF",
+            relationship: relationshipStr,
             bloodType: nil,
             height: nil,
             weight: nil,
@@ -168,13 +182,14 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
 
         Task {
             do {
+                // ProfileNetworkService decides internally whether to also call PUT /users/me
                 try await updateUseCase.execute(id: profileId, params: params, image: selectedImage)
 
-                // Update session cache so profile image & name refresh everywhere instantly
-                if var user = sessionManager.currentUser {
-                    user.firstName = params.firstName
-                    user.lastName  = params.lastName
-                    user.gender    = params.gender
+                // Update local session cache if editing the primary profile
+                if isPrimaryUser, var user = sessionManager.currentUser {
+                    user.firstName   = params.firstName
+                    user.lastName    = params.lastName
+                    user.gender      = params.gender
                     user.dateOfBirth = dobStr
                     sessionManager.updateUser(user)
                 }

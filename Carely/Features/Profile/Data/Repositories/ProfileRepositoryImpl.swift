@@ -29,10 +29,11 @@ final class ProfileRepositoryImpl: ProfileRepositoryProtocol {
             .filter { ($0.isDeleted == false || $0.isDeleted == nil) && ($0.isPrimary == false) }
             .map { dto in
                 let fullName = "\(dto.firstName ?? "") \(dto.lastName ?? "")".trimmingCharacters(in: .whitespaces)
+                let rel = (dto.relationship?.trimmingCharacters(in: .whitespaces).isEmpty == false) ? dto.relationship!.capitalized : "Family Member"
                 return FamilyMember(
                     id: dto.id,
                     name: fullName.isEmpty ? "Unknown" : fullName,
-                    relation: dto.relationship?.capitalized ?? "Dependent",
+                    relation: rel,
                     profileImageUrl: dto.profileImageUrl
                 )
             }
