@@ -55,9 +55,12 @@ struct ServicesCoordinatorView: View {
                 container: container,
                 onFinish: {
                     coordinator.pop()
+                    coordinator.onAddFamilyMemberFromProfileFinished?()
+                    coordinator.onAddFamilyMemberFromProfileFinished = nil
                 },
                 onCancel: {
                     coordinator.pop()
+                    coordinator.onAddFamilyMemberFromProfileFinished = nil
                 }
             )
         case .waitingForOffers(let requestId):

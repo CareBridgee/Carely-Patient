@@ -37,6 +37,11 @@ final class FamilyMembersViewModel: ObservableObject {
         loadMembers()
     }
 
+    func refreshMembers() {
+        members = []
+        loadMembers()
+    }
+
     func loadMembers() {
         isLoading = true
         errorMessage = nil
@@ -73,7 +78,7 @@ final class FamilyMembersViewModel: ObservableObject {
     }
 
     func addFamilyMemberTapped() {
-        // Future: push an "Add Member" flow
+        coordinator.addFamilyMemberTapped()
     }
 
     // MARK: - Remove Member

@@ -21,6 +21,8 @@ final class MainTabCoordinator: ObservableObject {
     let profileCoordinator: ProfileCoordinator
     private var notificationsHubService: NotificationsHubServiceProtocol
     private let appState: AppState
+    /// Weakly held so MainTabCoordinator can refresh the list after adding a member from the Profile tab.
+    weak var familyMembersViewModel: FamilyMembersViewModel?
 
     init(appState: AppState, container: DIContainer) {
         let home = HomeCoordinator()
@@ -92,6 +94,23 @@ final class MainTabCoordinator: ObservableObject {
 
         profileCoordinator.onLoggedOut = { [weak self] in
             self?.appState.startAuthFlow()
+        }
+
+        profileCoordinator.onFamilyMembersViewModelCreated = { [weak self] vm in
+            self?.familyMembersViewModel = vm
+        }
+
+        profileCoordinator.onAddFamilyMember = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
+            self.servicesCoordinator.push(to: .addFamilyMember)
+            // When the flow finishes, switch back to Profile and refresh the list
+            self.servicesCoordinator.onAddFamilyMemberFromProfileFinished = { [weak self] in
+                guard let self = self else { return }
+                self.selectedTab = self.previousTab
+                self.familyMembersViewModel?.refreshMembers()
+            }
         }
     }
 
