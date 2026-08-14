@@ -27,4 +27,8 @@ struct User: Codable, Equatable {
     let updatedAt: Date
     let lastLoginAt: Date?
     var defaultProfileId: String?
+    
+    var isProfileIncomplete: Bool {
+        return firstName == nil || firstName == "User" || lastName == nil || lastName?.isEmpty == true
+    }
 }

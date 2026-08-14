@@ -13,6 +13,7 @@ enum AppFlow: Equatable {
     case splash
     case onboarding
     case auth
+    case incompleteProfile
     case profileSetupDecision
     case profileSetup
     case home
@@ -28,7 +29,7 @@ final class AppState: ObservableObject {
     init(sessionManager: SessionManager, appSettings: AppSettingsProtocol = AppSettings.shared) {
         self.sessionManager = sessionManager
         self.appSettings = appSettings
-        self.flow = sessionManager.state == .loggedIn ? .home : .auth
+        self.flow = .splash // We always start at splash. splashDidFinish decides the next flow.
         // setupSessionObserver()
     }
     private func setupSessionObserver() {
@@ -41,7 +42,13 @@ final class AppState: ObservableObject {
                 case .loggedOut, .expired:
                     self.flow = .auth
                 case .loggedIn:
-                    self.flow = .home
+                    if let user = self.sessionManager.currentUser, user.isProfileIncomplete {
+                        self.flow = .incompleteProfile
+                    } else {
+                        self.flow = .home
+                    }
+                case .restoring:
+                    self.flow = .splash
                 }
             }
             .store(in: &cancellables)
@@ -50,7 +57,13 @@ final class AppState: ObservableObject {
         if !appSettings.hasSeenOnboarding {
             flow = .onboarding
         } else if sessionManager.state == .loggedIn {
-            flow = .home
+            if let user = sessionManager.currentUser, user.isProfileIncomplete {
+                flow = .incompleteProfile
+            } else {
+                flow = .home
+            }
+        } else if sessionManager.state == .restoring {
+            flow = .splash
         } else {
             flow = .auth
         }

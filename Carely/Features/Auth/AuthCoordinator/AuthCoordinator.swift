@@ -11,8 +11,15 @@ import SwiftUI
 struct AuthCoordinator: View {
     let container: DIContainer
     let appState: AppState
+    let startWithPersonalInfo: Bool
     
     @StateObject private var router = AuthRouter()
+    
+    init(container: DIContainer, appState: AppState, startWithPersonalInfo: Bool = false) {
+        self.container = container
+        self.appState = appState
+        self.startWithPersonalInfo = startWithPersonalInfo
+    }
     
     var body: some View {
         NavigationStack(path: $router.path){
@@ -26,6 +33,11 @@ struct AuthCoordinator: View {
             )
             .navigationDestination(for: AuthRoute.self){ route in
                 destination(for: route)
+            }
+            .onAppear {
+                if startWithPersonalInfo && router.path.isEmpty {
+                    router.pushAsRoot(to: .PersonalInfo)
+                }
             }
         }
     }
