@@ -2,8 +2,7 @@
 //  CurrentMedicationView.swift
 //  Carely
 //
-//  Created by Mohamed Ayman on 19/07/2026.
-//
+
 import SwiftUI
 import PhotosUI
 
@@ -28,19 +27,30 @@ struct CurrentMedicationView: View {
 
                     noCurrentMedicationsToggle
 
-                    VStack(spacing: Spacing.s12) {
-                        ForEach(viewModel.medications) { medication in
-                            medicationRow(medication: medication)
+                    if viewModel.isLoading {
+                        VStack(spacing: Spacing.s12) {
+                            ProgressView()
+                            Text("Loading medications...")
+                                .carelyText(style: .bodyRegular, weight: .medium)
+                                .foregroundColor(.secondaryFont)
                         }
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, Spacing.s32)
+                    } else {
+                        VStack(spacing: Spacing.s12) {
+                            ForEach(Array(viewModel.medications.enumerated()), id: \.offset) { index, medication in
+                                medicationRow(index: index, medication: medication)
+                            }
 
-                        addMedicationButton
-                    }
-                    .disabled(viewModel.hasNoCurrentMedications)
-                    .opacity(viewModel.hasNoCurrentMedications ? 0.4 : 1)
-
-                    prescriptionPhotoUpload
+                            addMedicationButton
+                        }
                         .disabled(viewModel.hasNoCurrentMedications)
                         .opacity(viewModel.hasNoCurrentMedications ? 0.4 : 1)
+
+                        prescriptionPhotoUpload
+                            .disabled(viewModel.hasNoCurrentMedications)
+                            .opacity(viewModel.hasNoCurrentMedications ? 0.4 : 1)
+                    }
                 }
                 .padding(.horizontal, Spacing.s16)
                 .padding(.top, Spacing.s0)
@@ -48,15 +58,22 @@ struct CurrentMedicationView: View {
             }
         }
         .background(Color.backGround.ignoresSafeArea())
+        .navigationBarHidden(true)
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .alert("Error", isPresented: $viewModel.showError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "An error occurred.")
+        }
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
                 onBackTapped: viewModel.backTapped,
                 onContinueTapped: viewModel.continueTapped
             )
         }
-        .careConnectNavigationBar(title: "CareConnect", trailingIcon: "person.fill")
     }
-
 
     private var noCurrentMedicationsToggle: some View {
         HStack(spacing: Spacing.s12) {
@@ -72,9 +89,12 @@ struct CurrentMedicationView: View {
 
             Spacer(minLength: Spacing.s8)
 
-            Toggle("", isOn: $viewModel.hasNoCurrentMedications)
-                .labelsHidden()
-                .tint(.success)
+            Toggle("", isOn: Binding(
+                get: { viewModel.hasNoCurrentMedications },
+                set: { _ in viewModel.toggleNoCurrentMedications() }
+            ))
+            .labelsHidden()
+            .tint(.success)
         }
         .padding(Spacing.s16)
         .background(Color.surface)
@@ -85,11 +105,11 @@ struct CurrentMedicationView: View {
         )
     }
 
-    private func medicationRow(medication: MedicationItem) -> some View {
+    private func medicationRow(index: Int, medication: PatientMedication) -> some View {
         HStack(spacing: Spacing.s8) {
             CarelyTextField(
                 placeholder: "Medication name (e.g. Lisinopril 10mg)",
-                text: binding(for: medication)
+                text: $viewModel.medications[index].name
             )
 
             if viewModel.medications.count > 1 {
@@ -133,10 +153,37 @@ struct CurrentMedicationView: View {
     }
 
     private var prescriptionPhotoUpload: some View {
+        PrescriptionPhotoUploadPickerView(
+            selectedPhotoItem: $selectedPhotoItem,
+            prescriptionPhotoData: viewModel.prescriptionPhotoData,
+            onRemovePhoto: {
+                selectedPhotoItem = nil
+                viewModel.prescriptionPhotoPicked(nil)
+            }
+        )
+        .onChange(of: selectedPhotoItem) { _, newItem in
+            guard let newItem else { return }
+            Task {
+                if let data = try? await newItem.loadTransferable(type: Data.self) {
+                    viewModel.prescriptionPhotoPicked(data)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - PrescriptionPhotoUploadPickerView
+
+private struct PrescriptionPhotoUploadPickerView: View {
+    @Binding var selectedPhotoItem: PhotosPickerItem?
+    let prescriptionPhotoData: Data?
+    let onRemovePhoto: () -> Void
+
+    var body: some View {
         PhotosPicker(selection: $selectedPhotoItem, matching: .images) {
             ZStack(alignment: .topTrailing) {
-                if let data = viewModel.prescriptionPhotoData,
-                   let uiImage = UIImage(data: data) {
+                if let prescriptionPhotoData,
+                   let uiImage = UIImage(data: prescriptionPhotoData) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
@@ -145,10 +192,7 @@ struct CurrentMedicationView: View {
                         .clipShape(RoundedRectangle.carely(Radius.r16))
                         .clipped()
 
-                    Button {
-                        selectedPhotoItem = nil
-                        viewModel.prescriptionPhotoPicked(nil)
-                    } label: {
+                    Button(action: onRemovePhoto) {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
                             .scaledToFit()
@@ -177,37 +221,5 @@ struct CurrentMedicationView: View {
             }
         }
         .buttonStyle(.plain)
-        .onChange(of: selectedPhotoItem) { _, newItem in
-            guard let newItem else { return }
-            Task {
-                if let data = try? await newItem.loadTransferable(type: Data.self) {
-                    viewModel.prescriptionPhotoPicked(data)
-                }
-            }
-        }
     }
-
-
-    private func binding(for medication: MedicationItem) -> Binding<String> {
-        Binding(
-            get: {
-                viewModel.medications.first(where: { $0.id == medication.id })?.name ?? ""
-            },
-            set: { newValue in
-                guard let index = viewModel.medications.firstIndex(where: { $0.id == medication.id }) else { return }
-                viewModel.medications[index].name = newValue
-            }
-        )
-    }
-}
-
-#Preview("Current Medication - In Coordinator") {
-    ProfileSetupCoordinatorView(
-        coordinator: ProfileSetupCoordinator(
-            data: ProfileSetupData(),
-            startingStep: .currentMedication
-        ),
-        container: DIContainer(),
-        onFinish: {}
-    )
 }

@@ -24,7 +24,8 @@ final class AIPatientRepositoryImpl: AIPatientRepositoryProtocol {
                 id: dto.id,
                 name: name,
                 relation: dto.relationship ?? "",
-                isSelf: dto.isPrimary
+                isSelf: dto.isPrimary,
+                imageUrl: dto.profileImageUrl
             )
         }
     }

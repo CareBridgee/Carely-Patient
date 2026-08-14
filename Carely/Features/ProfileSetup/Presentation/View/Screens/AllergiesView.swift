@@ -2,8 +2,6 @@
 //  AllergiesView.swift
 //  Carely
 //
-//  Created by Mohamed Ayman on 19/07/2026.
-//
 
 import SwiftUI
 
@@ -27,26 +25,28 @@ struct AllergiesView: View {
 
                     noKnownAllergiesToggle
 
-                    allergySection(
-                        icon: "cross.case.fill",
-                        title: "Drug Allergies",
-                        options: viewModel.drugAllergyOptions,
-                        isSelected: { viewModel.selectedDrugAllergies.contains($0) },
-                        onTap: viewModel.toggleDrugAllergy
-                    )
-                    .disabled(viewModel.hasNoKnownAllergies)
-
-                    allergySection(
-                        icon: "fork.knife",
-                        title: "Food Allergies",
-                        options: viewModel.foodAllergyOptions,
-                        isSelected: { viewModel.selectedFoodAllergies.contains($0) },
-                        onTap: viewModel.toggleFoodAllergy
-                    )
-                    .disabled(viewModel.hasNoKnownAllergies)
-
-                    otherAllergiesSection
-                        .disabled(viewModel.hasNoKnownAllergies)
+                    if viewModel.isLoading {
+                        VStack(spacing: Spacing.s12) {
+                            ProgressView()
+                            Text("Loading allergies...")
+                                .carelyText(style: .bodyRegular, weight: .medium)
+                                .foregroundColor(.secondaryFont)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, Spacing.s32)
+                    } else {
+                        ForEach(AllergyType.allCases, id: \.self) { type in
+                            let options = viewModel.allergies(for: type)
+                            if !options.isEmpty {
+                                allergySection(
+                                    icon: categoryIcon(for: type),
+                                    title: type.displayName,
+                                    options: options
+                                )
+                                .disabled(viewModel.hasNoKnownAllergies)
+                            }
+                        }
+                    }
                 }
                 .padding(.horizontal, Spacing.s16)
                 .padding(.top, Spacing.s0)
@@ -54,13 +54,21 @@ struct AllergiesView: View {
             }
         }
         .background(Color.backGround.ignoresSafeArea())
+        .navigationBarHidden(true)
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .alert("Error", isPresented: $viewModel.showError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "An error occurred.")
+        }
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
                 onBackTapped: viewModel.backTapped,
                 onContinueTapped: viewModel.continueTapped
             )
         }
-        .careConnectNavigationBar(title: "CareConnect", trailingIcon: "person.fill")
     }
 
     private var noKnownAllergiesToggle: some View {
@@ -83,9 +91,12 @@ struct AllergiesView: View {
 
             Spacer(minLength: Spacing.s8)
 
-            Toggle("", isOn: $viewModel.hasNoKnownAllergies)
-                .labelsHidden()
-                .tint(.success)
+            Toggle("", isOn: Binding(
+                get: { viewModel.hasNoKnownAllergies },
+                set: { _ in viewModel.toggleNoKnownAllergies() }
+            ))
+            .labelsHidden()
+            .tint(.success)
         }
         .padding(Spacing.s16)
         .background(Color.surface)
@@ -100,9 +111,7 @@ struct AllergiesView: View {
     private func allergySection(
         icon: String,
         title: String,
-        options: [String],
-        isSelected: @escaping (String) -> Bool,
-        onTap: @escaping (String) -> Void
+        options: [Allergy]
     ) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s12) {
             HStack(spacing: Spacing.s8) {
@@ -118,13 +127,13 @@ struct AllergiesView: View {
             }
 
             FlowLayout(spacing: Spacing.s8, lineSpacing: Spacing.s8) {
-                ForEach(options, id: \.self) { option in
+                ForEach(options) { allergy in
                     Button {
-                        onTap(option)
+                        viewModel.toggleAllergy(allergy.id)
                     } label: {
                         SecondaryChip(
-                            title: option,
-                            isSelected: isSelected(option),
+                            title: allergy.name,
+                            isSelected: viewModel.isSelected(allergy.id),
                             textStyle: .bodySmall,
                             paddingHorizontal: 12,
                             paddingVertical: 8
@@ -136,38 +145,11 @@ struct AllergiesView: View {
         }
     }
 
-    private var otherAllergiesSection: some View {
-        VStack(alignment: .leading, spacing: Spacing.s12) {
-            HStack(spacing: Spacing.s8) {
-                Image(systemName: "square.and.pencil")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: IconSize.s16, height: IconSize.s16)
-                    .foregroundColor(.brandPrimary)
-
-                Text("Other allergies")
-                    .carelyText(style: .bodyRegular, weight: .medium)
-                    .foregroundColor(.primaryFont)
-            }
-
-            CustomTextAreaView(
-                placeholder: "Enter environmental, seasonal, or other specific allergies...",
-                text: $viewModel.otherAllergiesText,
-                minHeight: 100
-            )
+    private func categoryIcon(for type: AllergyType) -> String {
+        switch type {
+        case .drug:  return "cross.case.fill"
+        case .food:  return "fork.knife"
+        case .other: return "leaf.fill"
         }
     }
-
-
-}
-
-#Preview("Allergies - In Coordinator") {
-    ProfileSetupCoordinatorView(
-        coordinator: ProfileSetupCoordinator(
-            data: ProfileSetupData(),
-            startingStep: .allergies
-        ),
-        container: DIContainer(),
-        onFinish: {}
-    )
 }

@@ -34,8 +34,9 @@ final class HomeAddressViewModel: ObservableObject {
     private let getProfileIdUseCase: GetDefaultProfileIdUseCase
     private let saveAddressUseCase: SaveHomeAddressUseCase
     private let updateAddressUseCase: UpdateHomeAddressUseCase
+    private let fetchAddressUseCase: FetchHomeAddressUseCase?
     private let overrideProfileId: String?
-    private let isEditingExistingAddress: Bool
+    private(set) var isEditingExistingAddress: Bool
 
     private let onFinishSetup: (HomeAddress) -> Void
     private let onBackTapped: (HomeAddress) -> Void
@@ -49,14 +50,16 @@ final class HomeAddressViewModel: ObservableObject {
         getProfileIdUseCase: GetDefaultProfileIdUseCase,
         saveAddressUseCase: SaveHomeAddressUseCase,
         updateAddressUseCase: UpdateHomeAddressUseCase,
-          overrideProfileId: String? = nil,
-          isEditingExistingAddress: Bool = false,
+        fetchAddressUseCase: FetchHomeAddressUseCase? = nil,
+        overrideProfileId: String? = nil,
+        isEditingExistingAddress: Bool = false,
         onFinishSetup: @escaping (HomeAddress) -> Void,
         onBackTapped: @escaping (HomeAddress) -> Void,
         showBackButton: Bool = true,
-           continueButtonTitle: String = "Finish Setup",
-           loadingButtonTitle: String = "Finishing..."
+        continueButtonTitle: String = "Finish Setup",
+        loadingButtonTitle: String = "Finishing..."
     ) {
+        self.initialAddress = initialAddress
         self.country = initialAddress?.country ?? ""
         self.city = initialAddress?.city ?? ""
         self.area = initialAddress?.area ?? ""
@@ -70,13 +73,62 @@ final class HomeAddressViewModel: ObservableObject {
         self.getProfileIdUseCase = getProfileIdUseCase
         self.saveAddressUseCase = saveAddressUseCase
         self.updateAddressUseCase = updateAddressUseCase
-           self.isEditingExistingAddress = isEditingExistingAddress
+        self.fetchAddressUseCase = fetchAddressUseCase
+        self.isEditingExistingAddress = isEditingExistingAddress
         self.overrideProfileId = overrideProfileId
-            self.showBackButton = showBackButton
-            self.continueButtonTitle = continueButtonTitle
-            self.loadingButtonTitle = loadingButtonTitle
-            self.onFinishSetup = onFinishSetup
-            self.onBackTapped = onBackTapped
+        self.showBackButton = showBackButton
+        self.continueButtonTitle = continueButtonTitle
+        self.loadingButtonTitle = loadingButtonTitle
+        self.onFinishSetup = onFinishSetup
+        self.onBackTapped = onBackTapped
+
+        self.mapPickerViewModel.onConfirm = { [weak self] selection in
+            self?.handleAddressSelection(selection)
+        }
+        self.mapPickerViewModel.onClose = { [weak self] in
+            self?.closeMapPicker()
+        }
+    }
+
+    private(set) var initialAddress: HomeAddress?
+
+    func loadAddress(profileId: String) {
+        guard let fetchUseCase = fetchAddressUseCase else { return }
+        isLoading = true
+        errorMessage = nil
+
+        Task {
+            do {
+                if let fetched = try await fetchUseCase.execute(profileId: profileId) {
+                    self.country = fetched.country
+                    self.city = fetched.city
+                    self.area = fetched.area
+                    self.streetName = fetched.streetName
+                    self.building = fetched.building
+                    self.apartment = fetched.apartment
+                    self.selectedLatitude = fetched.latitude
+                    self.selectedLongitude = fetched.longitude
+                    self.initialAddress = fetched
+                    self.isEditingExistingAddress = true
+                } else {
+                    self.country = ""
+                    self.city = ""
+                    self.area = ""
+                    self.streetName = ""
+                    self.building = ""
+                    self.apartment = ""
+                    self.selectedLatitude = nil
+                    self.selectedLongitude = nil
+                    self.initialAddress = HomeAddress()
+                    self.isEditingExistingAddress = false
+                }
+                self.isLoading = false
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
+                self.showError = true
+            }
+        }
     }
     // MARK: - Map Picker
 
@@ -145,8 +197,8 @@ final class HomeAddressViewModel: ObservableObject {
         }
 
         func finishSetupTapped() {
-            // MARK: - SKIP LOGIC
-            if isEmpty {
+            // MARK: - UNCHANGED OR SKIP LOGIC
+            if address == initialAddress || isEmpty {
                 onFinishSetup(address)
                 return
             }
@@ -182,8 +234,10 @@ final class HomeAddressViewModel: ObservableObject {
                         try await saveAddressUseCase.execute(profileId: profileId, address: address)
                     }
 
+                    self.initialAddress = self.address
+                    self.isEditingExistingAddress = true
                     self.isLoading = false
-                    self.onFinishSetup(address)
+                    self.onFinishSetup(self.address)
                 } catch {
                     self.isLoading = false
                     self.errorMessage = error.localizedDescription

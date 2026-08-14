@@ -25,10 +25,29 @@ struct ProfileCoordinatorView: View {
     private func destination(for route: ProfileRoute) -> some View {
         switch route {
         case .familyMembers:
-            FamilyMembersView(viewModel: container.makeFamilyMembersViewModel(coordinator: coordinator))
+            let vm = container.makeFamilyMembersViewModel(coordinator: coordinator)
+            let _ = { coordinator.onFamilyMembersViewModelCreated?(vm) }()
+            FamilyMembersView(viewModel: vm)
 
         case .settings:
             SettingsView(viewModel: container.makeSettingsViewModel(coordinator: coordinator))
+
+        case .personalInfo(let profileId), .editMemberPersonalInfo(let profileId):
+            ProfilePersonalInfoView(
+                viewModel: container.makeProfilePersonalInfoViewModel(profileId: profileId, coordinator: coordinator)
+            )
+
+        case .healthProfile(let profileId), .editMemberHealthProfile(let profileId):
+            ProfileSetupCoordinatorView(
+                coordinator: container.makeProfileHealthSetupCoordinator(profileId: profileId),
+                container: container,
+                onFinish: { coordinator.pop() }
+            )
+
+        case .address(let profileId):
+            ProfileAddressView(
+                viewModel: container.makeProfileAddressViewModel(profileId: profileId, coordinator: coordinator)
+            )
         }
     }
 }

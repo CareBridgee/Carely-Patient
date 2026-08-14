@@ -23,20 +23,8 @@ struct UpdateProfileRequestDTO: Encodable {
 }
 
 // MARK: - Sub-resource POST DTOs
-struct MedicalConditionRequestDTO: Encodable {
-    let conditions: [String]
-    let otherDiseases: String
-}
 
-struct AllergyRequestDTO: Encodable {
-    let drugAllergies: [String]
-    let foodAllergies: [String]
-    let otherAllergiesNote: String
-}
 
-struct MedicationRequestDTO: Encodable {
-    let medications: [String]
-}
 
 struct MedicalHistoryRequestDTO: Encodable {
     let previousSurgeries: String?
@@ -48,8 +36,18 @@ struct MobilityStatusRequestDTO: Encodable {
 }
 struct EmergencyContactRequestDTO: Encodable {
     let contactName: String 
-    let phoneNumber: String
     let relationship: String
+    let phoneNumber: String
+}
+
+struct EmergencyContactResponseDTO: Decodable {
+    let id: String
+    let profileId: String
+    let contactName: String
+    let relationship: String
+    let phoneNumber: String
+    let createdAt: String?
+    let updatedAt: String?
 }
 struct AddressRequestDTO: Encodable {
     let country: String

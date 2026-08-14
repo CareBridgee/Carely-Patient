@@ -155,7 +155,7 @@ struct HomeAddressView: View {
     ProfileSetupCoordinatorView(
         coordinator: ProfileSetupCoordinator(
             data: ProfileSetupData(),
-            startingStep: .homeAddress
+            startingStep: .emergencyContact
         ),
         container: DIContainer(),
         onFinish: {}

@@ -16,6 +16,7 @@ struct ProfileResponseDTO: Decodable {
     let lastName: String
     let isPrimary: Bool
     let isDeleted: Bool
+    let profileImageUrl: String?
 }
 
 struct AddressResponseDTO: Decodable {

@@ -62,14 +62,27 @@ struct ProfileView: View {
     private func profileHeader(_ profile: PatientProfile) -> some View {
         VStack(spacing: Spacing.s12) {
             ZStack(alignment: .bottomTrailing) {
-                Circle()
-                    .fill(Color.tint.opacity(0.35))
-                    .frame(width: 96, height: 96)
-                    .overlay(
-                        Image(systemName: profile.avatarIconName)
-                            .font(.system(size: 36))
-                            .foregroundColor(.brandPrimary)
-                    )
+                // Avatar — remote image or fallback icon
+                Group {
+                    if let url = viewModel.profileImageUrl {
+                        AsyncImage(url: url) { phase in
+                            switch phase {
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            case .failure, .empty:
+                                fallbackAvatar
+                            @unknown default:
+                                fallbackAvatar
+                            }
+                        }
+                    } else {
+                        fallbackAvatar
+                    }
+                }
+                .frame(width: 96, height: 96)
+                .clipShape(Circle())
 
                 Circle()
                     .fill(Color.brandPrimary)
@@ -82,15 +95,25 @@ struct ProfileView: View {
             }
 
             VStack(spacing: Spacing.s4) {
-                Text(profile.name)
+                Text(profile.displayName)
                     .carelyText(style: .heading3, weight: .bold)
                     .foregroundColor(.primaryFont)
-                Text(profile.role)
+                Text(profile.roleText)
                     .carelyText(style: .bodySmall)
                     .foregroundColor(.secondaryFont)
             }
         }
         .frame(maxWidth: .infinity)
+    }
+
+    private var fallbackAvatar: some View {
+        Circle()
+            .fill(Color.tint.opacity(0.35))
+            .overlay(
+                Image(systemName: "person.fill")
+                    .font(.system(size: 36))
+                    .foregroundColor(.brandPrimary)
+            )
     }
 
     private var logoutButton: some View {

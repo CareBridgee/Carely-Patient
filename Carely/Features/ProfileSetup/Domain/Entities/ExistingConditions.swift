@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExistingConditions {
-    var selectedConditions: Set<String> 
-    var otherDiseases: String
+struct ExistingConditions: Equatable {
+    var availableConditions: [MedicalCondition] = []
+    var selectedConditionIds: Set<String> = []
 }

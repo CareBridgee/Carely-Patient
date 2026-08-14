@@ -6,18 +6,30 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ProfileSetupServiceProtocol {
     func fetchDefaultProfileId() async throws -> String
     func updateProfile(id: String, request: UpdateProfileRequestDTO) async throws
-    func saveMedicalConditions(profileId: String, request: MedicalConditionRequestDTO) async throws
-    func saveAllergies(profileId: String, request: AllergyRequestDTO) async throws
-    func saveMedications(profileId: String, request: MedicationRequestDTO) async throws
+    func getAllMedicalConditions() async throws -> [SystemMedicalConditionDTO]
+    func getProfileMedicalConditions(profileId: String) async throws -> [ProfileMedicalConditionDTO]
+    func addMedicalCondition(profileId: String, request: AddMedicalConditionRequestDTO) async throws
+    func removeMedicalCondition(profileId: String, medicalConditionId: String) async throws
+    func getAllAllergies() async throws -> [SystemAllergyDTO]
+    func getProfileAllergies(profileId: String) async throws -> [ProfileAllergyDTO]
+    func addAllergy(profileId: String, request: AddAllergyRequestDTO) async throws
+    func removeAllergy(profileId: String, allergyId: String) async throws
+    func getProfileMedications(profileId: String) async throws -> [ProfileMedicationDTO]
+    func addMedication(profileId: String, request: AddMedicationRequestDTO) async throws -> ProfileMedicationDTO
+    func removeMedication(profileId: String, medicationId: String) async throws
     func saveMedicalHistory(profileId: String, request: MedicalHistoryRequestDTO) async throws
+    func getEmergencyContacts(profileId: String) async throws -> [EmergencyContactResponseDTO]
     func saveEmergencyContact(profileId: String, request: EmergencyContactRequestDTO) async throws
+    func updateEmergencyContact(contactId: String, request: EmergencyContactRequestDTO) async throws
     func saveAddress(profileId: String, request: AddressRequestDTO) async throws
-    func createProfile(request: CreateProfileRequestDTO) async throws -> String
+    func createProfile(request: CreateProfileRequestDTO, image: UIImage?) async throws -> String
     func updateAddress(profileId: String, request: AddressRequestDTO) async throws
+    func fetchAddress(profileId: String) async throws -> AddressResponseDTO?
 }
 
 final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
@@ -29,6 +41,71 @@ final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
     func fetchDefaultProfileId() async throws -> String {
         let response: DefaultProfileResponse = try await networkClient.request(ProfileEndpoint.getDefaultProfile)
         return response.id
+    }
+
+    func getAllMedicalConditions() async throws -> [SystemMedicalConditionDTO] {
+        try await networkClient.request(ProfileEndpoint.getAllMedicalConditions)
+    }
+
+    func getProfileMedicalConditions(profileId: String) async throws -> [ProfileMedicalConditionDTO] {
+        do {
+            return try await networkClient.request(ProfileEndpoint.getProfileMedicalConditions(profileId: profileId))
+        } catch {
+            return []
+        }
+    }
+
+    func addMedicalCondition(profileId: String, request: AddMedicalConditionRequestDTO) async throws {
+        try await networkClient.requestWithoutResponse(ProfileEndpoint.addMedicalCondition(profileId: profileId, request: request))
+    }
+
+    func removeMedicalCondition(profileId: String, medicalConditionId: String) async throws {
+        try await networkClient.requestWithoutResponse(ProfileEndpoint.removeMedicalCondition(profileId: profileId, medicalConditionId: medicalConditionId))
+    }
+
+    func getAllAllergies() async throws -> [SystemAllergyDTO] {
+        try await networkClient.request(ProfileEndpoint.getAllAllergies)
+    }
+
+    func getProfileAllergies(profileId: String) async throws -> [ProfileAllergyDTO] {
+        do {
+            return try await networkClient.request(ProfileEndpoint.getProfileAllergies(profileId: profileId))
+        } catch {
+            return []
+        }
+    }
+
+    func addAllergy(profileId: String, request: AddAllergyRequestDTO) async throws {
+        try await networkClient.requestWithoutResponse(ProfileEndpoint.addAllergy(profileId: profileId, request: request))
+    }
+
+    func removeAllergy(profileId: String, allergyId: String) async throws {
+        try await networkClient.requestWithoutResponse(ProfileEndpoint.removeAllergy(profileId: profileId, allergyId: allergyId))
+    }
+
+    func getProfileMedications(profileId: String) async throws -> [ProfileMedicationDTO] {
+        do {
+            return try await networkClient.request(ProfileEndpoint.getProfileMedications(profileId: profileId))
+        } catch {
+            return []
+        }
+    }
+
+    func addMedication(profileId: String, request: AddMedicationRequestDTO) async throws -> ProfileMedicationDTO {
+        try await networkClient.request(ProfileEndpoint.addMedication(profileId: profileId, request: request))
+    }
+
+    func removeMedication(profileId: String, medicationId: String) async throws {
+        try await networkClient.requestWithoutResponse(ProfileEndpoint.removeMedication(profileId: profileId, medicationId: medicationId))
+    }
+
+    func fetchAddress(profileId: String) async throws -> AddressResponseDTO? {
+        do {
+            return try await networkClient.request(ProfileEndpoint.getAddress(profileId: profileId))
+        } catch let error as NetworkError {
+            if case .server(404, _) = error { return nil }
+            throw error
+        }
     }
 
     func updateProfile(id: String, request: UpdateProfileRequestDTO) async throws {
@@ -49,48 +126,52 @@ final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
         )
     }
     
-    func saveMedicalConditions(profileId: String, request: MedicalConditionRequestDTO) async throws {
-        try await networkClient.requestWithoutResponse(ProfileEndpoint.saveMedicalConditions(profileId: profileId, request: request))
-    }
-    
-    func saveAllergies(profileId: String, request: AllergyRequestDTO) async throws {
-        try await networkClient.requestWithoutResponse(ProfileEndpoint.saveAllergies(profileId: profileId, request: request))
-    }
-    
-    func saveMedications(profileId: String, request: MedicationRequestDTO) async throws {
-        try await networkClient.requestWithoutResponse(ProfileEndpoint.saveMedications(profileId: profileId, request: request))
-    }
 
     func saveMedicalHistory(profileId: String, request: MedicalHistoryRequestDTO) async throws {
         try await networkClient.requestWithoutResponse(ProfileEndpoint.saveMedicalHistory(profileId: profileId, request: request))
     }
  
 
+    func getEmergencyContacts(profileId: String) async throws -> [EmergencyContactResponseDTO] {
+        do {
+            return try await networkClient.request(ProfileEndpoint.getEmergencyContacts(profileId: profileId))
+        } catch {
+            return []
+        }
+    }
+
     func saveEmergencyContact(profileId: String, request: EmergencyContactRequestDTO) async throws {
         try await networkClient.requestWithoutResponse(ProfileEndpoint.saveEmergencyContact(profileId: profileId, request: request))
+    }
+
+    func updateEmergencyContact(contactId: String, request: EmergencyContactRequestDTO) async throws {
+        try await networkClient.requestWithoutResponse(ProfileEndpoint.updateEmergencyContact(contactId: contactId, request: request))
     }
 
     func saveAddress(profileId: String, request: AddressRequestDTO) async throws {
         try await networkClient.requestWithoutResponse(ProfileEndpoint.saveAddress(profileId: profileId, request: request))
     }
-    func createProfile(request: CreateProfileRequestDTO) async throws -> String {
-           // POST /api/v1/profiles is multipart/form-data only (per API contract) — JSON reaches
-           // the server with nothing parsed.
-           let response: CreateProfileResponseDTO = try await networkClient.requestMultipart(
-               ProfileEndpoint.createProfile(request: request),
-               textParameters: [
-                   "relationship": request.relationship,
-                   "firstName": request.firstName,
-                   "lastName": request.lastName,
-                   "dateOfBirth": request.dateOfBirth,
-                   "gender": request.gender
-               ]
-           )
-           return response.id
-       }
+    func createProfile(request: CreateProfileRequestDTO, image: UIImage?) async throws -> String {
+        let imageData = image?.jpegData(compressionQuality: 0.7)
+        let response: CreateProfileResponseDTO = try await networkClient.requestMultipart(
+            ProfileEndpoint.createProfile(request: request),
+            textParameters: [
+                "relationship": request.relationship,
+                "firstName": request.firstName,
+                "lastName": request.lastName,
+                "dateOfBirth": request.dateOfBirth,
+                "gender": request.gender
+            ],
+            fileData: imageData,
+            fileFieldName: "profileImage",
+            fileName: "profile.jpg",
+            mimeType: "image/jpeg"
+        )
+        return response.id
+    }
     func updateAddress(profileId: String, request: AddressRequestDTO) async throws {
            try await networkClient.requestWithoutResponse(
                ProfileEndpoint.updateAddress(profileId: profileId, request: request)
            )
-       }
+        }
 }

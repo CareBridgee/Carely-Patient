@@ -7,11 +7,42 @@
 
 import Foundation
 
+// MARK: - PatientProfile (mapped from FullProfileResponseDTO)
+
 struct PatientProfile: Equatable {
-    let name: String
-    let role: String
-    let avatarIconName: String
-    let appVersionText: String
+    let id: String
+    let firstName: String
+    let lastName: String
+    let relationship: String?
+    let gender: String?
+    let dateOfBirth: String?
+    let bloodType: String?
+    let height: Double?
+    let weight: Double?
+    let mobilityStatus: String?
+    let mobilityNotes: String?
+    let previousSurgeries: String?
+    let previousHospitalizations: String?
+    let profileImageUrl: String?
+    let isPrimary: Bool
+
+    // MARK: Computed helpers for the UI
+
+    var displayName: String {
+        let full = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
+        return full.isEmpty ? "My Profile" : full
+    }
+
+    var roleText: String {
+        guard let r = relationship, !r.isEmpty else { return "Primary User" }
+        return r.capitalized
+    }
+
+    /// Legacy accessor kept for compatibility.
+    var name: String { displayName }
+    var role: String { roleText }
+    var avatarIconName: String { "person.fill" }
+    var appVersionText: String { "Carely" }
 }
 
 enum ProfileMenuItem: String, Identifiable {

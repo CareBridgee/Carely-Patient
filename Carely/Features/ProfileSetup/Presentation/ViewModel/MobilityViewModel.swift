@@ -17,6 +17,7 @@ final class MobilityViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
 
+    private var initialData: Mobility
     private let getProfileIdUseCase: GetDefaultProfileIdUseCase
     private let updateMobilityUseCase: UpdateMobilityUseCase
     private let overrideProfileId: String?
@@ -34,6 +35,10 @@ final class MobilityViewModel: ObservableObject {
     ) {
         self.status = existingData.status
         self.additionalNotes = existingData.additionalNotes
+        self.initialData = Mobility(
+            status: existingData.status,
+            additionalNotes: existingData.additionalNotes.trimmingCharacters(in: .whitespacesAndNewlines)
+        )
         self.getProfileIdUseCase = getProfileIdUseCase
         self.updateMobilityUseCase = updateMobilityUseCase
         self.overrideProfileId = overrideProfileId
@@ -59,7 +64,7 @@ final class MobilityViewModel: ObservableObject {
 
     func continueTapped() {
         let currentMobility = self.mobility
-        if currentMobility.status == nil && currentMobility.additionalNotes.isEmpty {
+        if currentMobility == initialData || (currentMobility.status == nil && currentMobility.additionalNotes.isEmpty) {
             onContinue(currentMobility)
             return
         }

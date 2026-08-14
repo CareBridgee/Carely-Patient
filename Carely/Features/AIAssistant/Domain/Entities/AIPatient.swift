@@ -12,4 +12,5 @@ struct AIPatient: Identifiable, Equatable {
     let name: String
     let relation: String
     let isSelf: Bool
+    let imageUrl: String?
 }

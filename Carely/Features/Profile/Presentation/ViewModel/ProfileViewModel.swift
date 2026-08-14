@@ -17,21 +17,33 @@ final class ProfileViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
 
+    /// Profile image URL — sessionManager cache is the most up-to-date source
+    /// (updated immediately on save), API response is the fallback.
+    var profileImageUrl: URL? {
+        let urlString = sessionManager.currentUser?.profileImageUrl
+            ?? profile?.profileImageUrl
+        guard let urlString else { return nil }
+        return URL(string: urlString)
+    }
+
     private let getPatientProfileUseCase: GetPatientProfileUseCaseProtocol
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
     private let logoutUseCase: LogoutUseCaseProtocol
     private let coordinator: ProfileCoordinator
+    private let sessionManager: SessionManager
 
     init(
         getPatientProfileUseCase: GetPatientProfileUseCaseProtocol,
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
         logoutUseCase: LogoutUseCaseProtocol,
-        coordinator: ProfileCoordinator
+        coordinator: ProfileCoordinator,
+        sessionManager: SessionManager
     ) {
         self.getPatientProfileUseCase = getPatientProfileUseCase
         self.getFamilyMembersUseCase = getFamilyMembersUseCase
         self.logoutUseCase = logoutUseCase
         self.coordinator = coordinator
+        self.sessionManager = sessionManager
     }
 
     func onAppear() {
@@ -76,11 +88,20 @@ final class ProfileViewModel: ObservableObject {
 
     func menuRowTapped(_ item: ProfileMenuItem) {
         switch item {
+        case .personalInfo:
+            guard let id = profile?.id else { return }
+            coordinator.push(.personalInfo(profileId: id))
+        case .healthProfile:
+            guard let id = profile?.id else { return }
+            coordinator.push(.healthProfile(profileId: id))
         case .familyMembers:
             coordinator.push(.familyMembers)
+        case .addresses:
+            guard let id = profile?.id else { return }
+            coordinator.push(.address(profileId: id))
         case .settings:
             coordinator.push(.settings)
-        case .personalInfo, .healthProfile, .addresses, .payment:
+        case .payment:
             break
         }
     }

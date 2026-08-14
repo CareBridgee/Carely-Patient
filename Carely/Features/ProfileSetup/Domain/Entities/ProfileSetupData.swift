@@ -11,7 +11,7 @@ struct ProfileSetupData {
 
     var basicHealthInfo = BasicHealthInfo(height: nil, weight: nil, bloodType: "")
 
-    var existingConditions = ExistingConditions(selectedConditions:[], otherDiseases: "")
+    var existingConditions = ExistingConditions()
 
     var allergies = Allergies()
 

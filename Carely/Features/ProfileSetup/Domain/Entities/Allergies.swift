@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct Allergies {
+struct Allergies: Equatable {
+    var availableAllergies: [Allergy] = []
+    var selectedAllergyIds: Set<String> = []
     var hasNoKnownAllergies: Bool = false
-    var drugAllergies: Set<String> = []
-    var foodAllergies: Set<String> = []
-    var otherAllergiesNote: String = ""
 }

@@ -11,7 +11,5 @@ struct FamilyMember: Identifiable, Equatable {
     let id: String
     let name: String
     let relation: String
-    let avatarIconName: String
-    let lastCheckupDateText: String
-    let upcomingCareText: String
+    let profileImageUrl: String?
 }

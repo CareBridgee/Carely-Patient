@@ -3,51 +3,77 @@ import SwiftUI
 struct ExistingConditionsView: View {
 
     let coordinator: ProfileSetupCoordinator
-    @StateObject private var viewModel : ExistingConditionsViewModel
+    @StateObject private var viewModel: ExistingConditionsViewModel
     
-    init(coordinator: ProfileSetupCoordinator,viewModel: @autoclosure @escaping () -> ExistingConditionsViewModel
-    ) {
+    init(coordinator: ProfileSetupCoordinator, viewModel: @autoclosure @escaping () -> ExistingConditionsViewModel) {
         self.coordinator = coordinator
         self._viewModel = StateObject(wrappedValue: viewModel())
     }
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: Spacing.s20) {
-                
                 ProfileSetupHeaderView(
                     title: "Any existing conditions?",
                     subtitle: "Select all that apply to help us provide more personalized care for your needs."
                 )
-                
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: Spacing.s20), GridItem(.flexible())], spacing: Spacing.s16) {
-                    ForEach(viewModel.availableConditions, id: \.title) { condition in
-                        ConditionCardView(
-                            title: condition.title,
-                            icon: condition.icon,
-                            isSelected: viewModel.existingConditions.selectedConditions.contains(condition.title),
-                            action: { viewModel.toggleCondition(condition.title) }
-                        )
+
+                if viewModel.isLoading {
+                    VStack(spacing: Spacing.s12) {
+                        ProgressView()
+                        Text("Loading conditions...")
+                            .carelyText(style: .bodyRegular, weight: .medium)
+                            .foregroundColor(.secondaryFont)
+                    }
+                    .padding(.top, Spacing.s32)
+                } else if viewModel.availableConditions.isEmpty {
+                    Text("No medical conditions found.")
+                        .carelyText(style: .bodyRegular, weight: .medium)
+                        .foregroundColor(.secondaryFont)
+                        .padding(.top, Spacing.s32)
+                } else {
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: Spacing.s20), GridItem(.flexible())], spacing: Spacing.s16) {
+                        ForEach(viewModel.availableConditions) { condition in
+                            ConditionCardView(
+                                title: condition.name,
+                                icon: conditionIcon(for: condition.name),
+                                isSelected: viewModel.isSelected(condition.id),
+                                action: { viewModel.toggleCondition(condition.id) }
+                            )
+                        }
                     }
                 }
-                
-                OtherDiseasesSectionView(text: $viewModel.existingConditions.otherDiseases)
-                    .padding(.top, Spacing.s8)
             }
             .padding(.horizontal, Spacing.s20)
             .padding(.bottom, Spacing.s32)
         }
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .alert("Error", isPresented: $viewModel.showError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "An error occurred.")
+        }
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
-                onBackTapped: {
-                    coordinator.previous()
-                    coordinator.save(existingConditions: viewModel.existingConditions)
-                    },
-                onContinueTapped: {
-                    coordinator.save(existingConditions: viewModel.existingConditions)
-                    coordinator.next() }
-                )}
+                onBackTapped: { viewModel.backTapped() },
+                onContinueTapped: { viewModel.continueTapped() }
+            )
+        }
     }
-    
+
+    private func conditionIcon(for name: String) -> String {
+        let lower = name.lowercased()
+        if lower.contains("diabet") { return "diabetes-icon" }
+        if lower.contains("hypertens") || lower.contains("pressure") { return "hypertension-icon" }
+        if lower.contains("heart") || lower.contains("cardio") { return "heart-disease-icon" }
+        if lower.contains("asthma") { return "asthma-icon" }
+        if lower.contains("copd") { return "COPD-icon" }
+        if lower.contains("epilep") || lower.contains("seizure") { return "epilepsy-icon" }
+        if lower.contains("liver") || lower.contains("hepat") { return "liver-disease-icon" }
+        return "heart-disease-icon"
+    }
 }

@@ -65,6 +65,15 @@ struct EmergencyContactView: View {
             .padding(.bottom, Spacing.s16)
         }
         .background(Color.backGround)
+        .navigationBarHidden(true)
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .alert("Error", isPresented: $viewModel.showError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "An error occurred.")
+        }
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
                 onBackTapped: viewModel.backTapped,

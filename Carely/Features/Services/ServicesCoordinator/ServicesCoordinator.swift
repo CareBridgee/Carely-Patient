@@ -84,6 +84,7 @@ final class ServicesCoordinator: AppRouterProtocol {
     
     @Published var path = NavigationPath()
     var onBackClicked: (() -> Void)?
+    var onAddFamilyMemberFromProfileFinished: (() -> Void)?
     
     
     func openServiceFromHome(id: String) {
