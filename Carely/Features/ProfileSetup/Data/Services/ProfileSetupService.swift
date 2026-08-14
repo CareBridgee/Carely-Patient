@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ProfileSetupServiceProtocol {
     func fetchDefaultProfileId() async throws -> String
@@ -26,7 +27,7 @@ protocol ProfileSetupServiceProtocol {
     func saveEmergencyContact(profileId: String, request: EmergencyContactRequestDTO) async throws
     func updateEmergencyContact(contactId: String, request: EmergencyContactRequestDTO) async throws
     func saveAddress(profileId: String, request: AddressRequestDTO) async throws
-    func createProfile(request: CreateProfileRequestDTO) async throws -> String
+    func createProfile(request: CreateProfileRequestDTO, image: UIImage?) async throws -> String
     func updateAddress(profileId: String, request: AddressRequestDTO) async throws
     func fetchAddress(profileId: String) async throws -> AddressResponseDTO?
 }
@@ -150,21 +151,24 @@ final class ProfileSetupServiceImpl: ProfileSetupServiceProtocol {
     func saveAddress(profileId: String, request: AddressRequestDTO) async throws {
         try await networkClient.requestWithoutResponse(ProfileEndpoint.saveAddress(profileId: profileId, request: request))
     }
-    func createProfile(request: CreateProfileRequestDTO) async throws -> String {
-           // POST /api/v1/profiles is multipart/form-data only (per API contract) — JSON reaches
-           // the server with nothing parsed.
-           let response: CreateProfileResponseDTO = try await networkClient.requestMultipart(
-               ProfileEndpoint.createProfile(request: request),
-               textParameters: [
-                   "relationship": request.relationship,
-                   "firstName": request.firstName,
-                   "lastName": request.lastName,
-                   "dateOfBirth": request.dateOfBirth,
-                   "gender": request.gender
-               ]
-           )
-           return response.id
-       }
+    func createProfile(request: CreateProfileRequestDTO, image: UIImage?) async throws -> String {
+        let imageData = image?.jpegData(compressionQuality: 0.7)
+        let response: CreateProfileResponseDTO = try await networkClient.requestMultipart(
+            ProfileEndpoint.createProfile(request: request),
+            textParameters: [
+                "relationship": request.relationship,
+                "firstName": request.firstName,
+                "lastName": request.lastName,
+                "dateOfBirth": request.dateOfBirth,
+                "gender": request.gender
+            ],
+            fileData: imageData,
+            fileFieldName: "profileImage",
+            fileName: "profile.jpg",
+            mimeType: "image/jpeg"
+        )
+        return response.id
+    }
     func updateAddress(profileId: String, request: AddressRequestDTO) async throws {
            try await networkClient.requestWithoutResponse(
                ProfileEndpoint.updateAddress(profileId: profileId, request: request)

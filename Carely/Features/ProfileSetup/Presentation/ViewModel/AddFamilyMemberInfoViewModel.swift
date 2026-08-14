@@ -71,7 +71,8 @@ final class AddFamilyMemberInfoViewModel: ObservableObject {
             firstName: firstName.trimmingCharacters(in: .whitespaces),
             lastName: lastName.trimmingCharacters(in: .whitespaces),
             dateOfBirth: dateOfBirth ?? Date(),
-            gender: gender
+            gender: gender,
+            profileImage: selectedImage
         )
 
         Task {

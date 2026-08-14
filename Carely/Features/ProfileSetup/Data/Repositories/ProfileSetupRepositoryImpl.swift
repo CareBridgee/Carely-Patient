@@ -246,7 +246,7 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
             dateOfBirth: formatter.string(from: info.dateOfBirth),
             gender: info.gender.rawValue
         )
-        return try await service.createProfile(request: request)
+        return try await service.createProfile(request: request, image: info.profileImage)
     }
     func updateAddress(profileId: String, address: HomeAddress) async throws {
         let request = AddressRequestDTO(
