@@ -86,7 +86,7 @@ protocol ProfileNetworkServiceProtocol {
     /// GET /api/v1/profiles/default
     func fetchDefaultProfile() async throws -> FullProfileResponseDTO
     /// PUT /api/v1/profiles/{id}  — also calls PUT /api/v1/users/me when id is the primary profile.
-    func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws
+    func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws -> FullProfileResponseDTO
     /// POST /api/v1/profiles
     func createProfile(params: ProfileUpdateRequestParams, image: UIImage?) async throws -> FullProfileResponseDTO
     /// DELETE /api/v1/profiles/{id}
@@ -153,7 +153,7 @@ final class ProfileNetworkService: ProfileNetworkServiceProtocol {
 
     /// Always calls PUT /api/v1/profiles/{id}.
     /// Also calls PUT /api/v1/users/me when the profileId matches the user's primary (default) profile.
-    func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws {
+    func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws -> FullProfileResponseDTO {
         let imageData     = image?.jpegData(compressionQuality: 0.7)
         let profileParams = params.asProfileTextParameters()
 
@@ -161,7 +161,7 @@ final class ProfileNetworkService: ProfileNetworkServiceProtocol {
 
         if isPrimary {
             let userParams = params.asUserTextParameters()
-            async let profileUpdate: Void = networkClient.requestMultipartWithoutResponse(
+            async let profileUpdate: FullProfileResponseDTO = networkClient.requestMultipart(
                 ProfileMutateEndpoint.updateProfile(id: id),
                 textParameters: profileParams,
                 fileData: imageData,
@@ -177,10 +177,11 @@ final class ProfileNetworkService: ProfileNetworkServiceProtocol {
                 fileName: "profile.jpg",
                 mimeType: "image/jpeg"
             )
-            try await profileUpdate
+            let updatedProfile = try await profileUpdate
             try await userUpdate
+            return updatedProfile
         } else {
-            try await networkClient.requestMultipartWithoutResponse(
+            return try await networkClient.requestMultipart(
                 ProfileMutateEndpoint.updateProfile(id: id),
                 textParameters: profileParams,
                 fileData: imageData,

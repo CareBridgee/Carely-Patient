@@ -26,7 +26,6 @@ struct ProfileCoordinatorView: View {
         switch route {
         case .familyMembers:
             let vm = container.makeFamilyMembersViewModel(coordinator: coordinator)
-            let _ = { coordinator.onFamilyMembersViewModelCreated?(vm) }()
             FamilyMembersView(viewModel: vm)
 
         case .settings:

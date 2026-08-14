@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
 
     @Published var profile: PatientProfile?
     @Published var menuRows: [ProfileMenuRowData] = []
+    private var storeCancellables = Set<AnyCancellable>()
 
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
@@ -31,24 +33,41 @@ final class ProfileViewModel: ObservableObject {
     private let logoutUseCase: LogoutUseCaseProtocol
     private let coordinator: ProfileCoordinator
     private let sessionManager: SessionManager
+    private let patientProfilesStore: PatientProfilesStore
 
     init(
         getPatientProfileUseCase: GetPatientProfileUseCaseProtocol,
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
         logoutUseCase: LogoutUseCaseProtocol,
         coordinator: ProfileCoordinator,
-        sessionManager: SessionManager
+        sessionManager: SessionManager,
+        patientProfilesStore: PatientProfilesStore
     ) {
         self.getPatientProfileUseCase = getPatientProfileUseCase
         self.getFamilyMembersUseCase = getFamilyMembersUseCase
         self.logoutUseCase = logoutUseCase
         self.coordinator = coordinator
         self.sessionManager = sessionManager
+        self.patientProfilesStore = patientProfilesStore
+        bindToStore()
     }
 
     func onAppear() {
         guard profile == nil else { return }
         loadProfile()
+    }
+
+    private func bindToStore() {
+        patientProfilesStore.$primaryProfile
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$profile)
+
+        patientProfilesStore.$familyMembers
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] members in
+                self?.menuRows = Self.makeMenuRows(activeFamilyMembersCount: members.count)
+            }
+            .store(in: &storeCancellables)
     }
 
     func loadProfile() {
@@ -57,13 +76,8 @@ final class ProfileViewModel: ObservableObject {
 
         Task {
             do {
-                async let profile = getPatientProfileUseCase.execute()
-                async let members = getFamilyMembersUseCase.execute()
-
-                let (fetchedProfile, fetchedMembers) = try await (profile, members)
-
-                self.profile = fetchedProfile
-                self.menuRows = Self.makeMenuRows(activeFamilyMembersCount: fetchedMembers.count)
+                _ = try await getPatientProfileUseCase.execute()
+                _ = try await getFamilyMembersUseCase.execute()
                 self.isLoading = false
             } catch {
                 self.isLoading = false

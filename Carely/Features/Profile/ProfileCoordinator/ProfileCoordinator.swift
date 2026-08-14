@@ -15,7 +15,6 @@ final class ProfileCoordinator: ObservableObject {
 
     var onLoggedOut: (() -> Void)?
     var onAddFamilyMember: (() -> Void)?
-    var onFamilyMembersViewModelCreated: ((FamilyMembersViewModel) -> Void)?
 
     func push(_ route: ProfileRoute) {
         path.append(route)

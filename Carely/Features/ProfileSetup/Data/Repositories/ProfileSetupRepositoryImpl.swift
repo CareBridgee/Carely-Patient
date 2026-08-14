@@ -15,6 +15,7 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
     private let geocodingService: GeocodingService
     private let locationProvider: CurrentLocationProviderProtocol
     private let service: ProfileSetupServiceProtocol
+    private let patientProfilesStore: PatientProfilesStore
     // MARK: - Internal Combine pipeline (never leaks past this boundary)
 
     private var cancellable: AnyCancellable?
@@ -26,12 +27,14 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
         searchService: MapSearchService,
         geocodingService: GeocodingService,
         locationProvider: CurrentLocationProviderProtocol,
-        service: ProfileSetupServiceProtocol
+        service: ProfileSetupServiceProtocol,
+        patientProfilesStore: PatientProfilesStore
     ) {
         self.searchService = searchService
         self.geocodingService = geocodingService
         self.locationProvider = locationProvider
         self.service = service
+        self.patientProfilesStore = patientProfilesStore
     }
 
     // MARK: - Search
