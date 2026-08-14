@@ -70,15 +70,15 @@ struct SettingsView: View {
 
     private var topBar: some View {
         HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-
+//            Button(action: viewModel.backTapped) {
+//                Image(systemName: "arrow.left")
+//                    .carelyText(style: .bodyLarge, weight: .semiBold)
+//                    .foregroundColor(.brandPrimary)
+//                    .frame(width: 40, height: 40)
+//                    .background(Color.surface)
+//                    .clipShape(Circle())
+//            }
+//
             Spacer()
 
             Text("Settings")
@@ -87,7 +87,7 @@ struct SettingsView: View {
 
             Spacer()
 
-            Color.clear.frame(width: 40, height: 40)
+//            Color.clear.frame(width: 40, height: 40)
         }
     }
 

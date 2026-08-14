@@ -37,6 +37,9 @@ struct MainTabCoordinatorView: View {
         .notificationBanner(data: $coordinator.currentNotification) {
                 coordinator.handleNotificationTap()
             }
+        .fullScreenCover(isPresented: $coordinator.isHistoryPresented) {
+            HistoryCoordinatorView(container: container, coordinator: coordinator.historyCoordinator)
+        }
     }
     // MARK: - Tab Content
 
@@ -49,10 +52,6 @@ struct MainTabCoordinatorView: View {
             ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
                 .opacity(coordinator.selectedTab == .services ? 1 : 0)
                 .allowsHitTesting(coordinator.selectedTab == .services)
-
-            HistoryCoordinatorView(container: container, coordinator: coordinator.historyCoordinator)
-                .opacity(coordinator.selectedTab == .history ? 1 : 0)
-                .allowsHitTesting(coordinator.selectedTab == .history)
             
             AIAssistantCoordinatorView(container: container, coordinator: coordinator.aiAssistantCoordinator)
                 .opacity(coordinator.selectedTab == .ai ? 1 : 0)
