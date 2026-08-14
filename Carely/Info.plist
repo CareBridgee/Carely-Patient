@@ -15,6 +15,21 @@
 		<string>Poppins-Regular.ttf</string>
 		<string>Poppins-SemiBold.ttf</string>
 	</array>
+    <key>GIDClientID</key>
+        <string>588669996312-kqkeu03csqmh030btmpfnq450l563dmo.apps.googleusercontent.com</string>
+        <key>GIDServerClientID</key>
+        <string>588669996312-j7mtte5q10a1lcsu4jfn4g18n9gri40e.apps.googleusercontent.com</string>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>com.googleusercontent.apps.588669996312-kqkeu03csqmh030btmpfnq450l563dmo</string>
+                </array>
+            </dict>
+        </array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>We use your location to help you quickly set your home address.</string>
 </dict>

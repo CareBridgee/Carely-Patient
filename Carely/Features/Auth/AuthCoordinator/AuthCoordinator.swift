@@ -16,8 +16,15 @@ struct AuthCoordinator: View {
     
     var body: some View {
         NavigationStack(path: $router.path){
-            WelcomeView(viewModel: WelcomeViewModel(router: router)).navigationDestination(for: AuthRoute.self){
-                route in
+            WelcomeView(
+                viewModel: container.makeWelcomeViewModel(
+                    router: router,
+                    onAuthFinished: {
+                        appState.startHomeFlow()
+                    }
+                )
+            )
+            .navigationDestination(for: AuthRoute.self){ route in
                 destination(for: route)
             }
         }
@@ -25,22 +32,31 @@ struct AuthCoordinator: View {
     
     @ViewBuilder
     private func destination(for route: AuthRoute) -> some View {
-        switch route { 
+        switch route {
             
-        case .PhoneNumber:
-            PhoneNumberView(viewModel: container.makePhoneNumberViewModel(router: router))
-            
-        case .OTPVerification(let phoneNumber):
-            OTPVerificationView(
-                viewModel: container.makeOTPVerificationViewModel(
-                    phoneNumber: phoneNumber,
-                    router: router,
-                    onAuthFinished: {
-                        appState.startHomeFlow()
-                    }
+        case .PhoneNumber(let pendingToken):
+            PhoneNumberView(
+                viewModel: container.makePhoneNumberViewModel(
+                    pendingToken: pendingToken,
+                    router: router
                 )
             )
             
+        case .OTPVerification(let phoneNumber, let devOTP, let pendingToken):
+                    OTPVerificationView(
+                        viewModel: container.makeOTPVerificationViewModel(
+                            phoneNumber: phoneNumber,
+                            devOTP: devOTP,
+                            pendingToken: pendingToken,
+                            router: router,
+                            onAuthFinished: {
+                                appState.startHomeFlow()
+                            },
+                            onGoToDecision: {
+                                appState.goToProfileSetupDecision()
+                            }
+                        )
+                    )
         case .PersonalInfo:
             PersonalInfoView(
                 viewModel: container.makePersonalInfoViewModel(

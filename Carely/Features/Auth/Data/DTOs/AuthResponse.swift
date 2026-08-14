@@ -13,3 +13,18 @@ struct AuthResponse: Decodable {
     let expiresIn: Int64
     let user: UserDTO
 }
+
+struct GoogleAuthResponse: Decodable {
+    let status: String
+    
+    let accessToken: String?
+    let refreshToken: String?
+    let expiresIn: Int64?
+    let user: UserDTO?
+    
+    let pendingToken: String?
+    let email: String?
+    let firstName: String?
+    let lastName: String?
+    let profileImageUrl: String?
+}

@@ -109,16 +109,43 @@ final class DIContainer {
         )
     }
     
-    func makePhoneNumberViewModel(router: AuthRouter) -> PhoneNumberViewModel {
-        PhoneNumberViewModel(
-            loginUseCase: makeLoginUseCase(),
-            router: router
-        )
-    }
-    
-    func makeWelcomeViewModel(router: AuthRouter) -> WelcomeViewModel {
-        WelcomeViewModel(router: router)
-    }
+    func makePhoneNumberViewModel(pendingToken: String?, router: AuthRouter) -> PhoneNumberViewModel {
+            PhoneNumberViewModel(
+                pendingToken: pendingToken,
+                loginUseCase: makeLoginUseCase(),
+                router: router
+            )
+        }
+        
+        func makeWelcomeViewModel(router: AuthRouter, onAuthFinished: @escaping () -> Void) -> WelcomeViewModel {
+            WelcomeViewModel(
+                router: router,
+                repository: authRepository,
+                tokenStore: tokenStore,
+                sessionManager: sessionManager,
+                onAuthFinished: onAuthFinished
+            )
+        }
+
+    func makeOTPVerificationViewModel(
+            phoneNumber: String,
+            devOTP: String? = nil,
+            pendingToken: String? = nil,
+            router: AuthRouter,
+            onAuthFinished: @escaping () -> Void,
+            onGoToDecision: @escaping () -> Void
+        ) -> OTPVerificationViewModel {
+            OTPVerificationViewModel(
+                phoneNumber: phoneNumber,
+                devOTP: devOTP,
+                pendingToken: pendingToken,
+                verifyOTPUseCase: makeVerifyOTPUseCase(),
+                loginUseCase: makeLoginUseCase(),
+                router: router,
+                onAuthFinished: onAuthFinished,
+                onGoToDecision: onGoToDecision
+            )
+        }
     
     func makeProfileSetupDecisionViewModel(
         oncompleteHealthProfileClicked: @escaping () -> Void,
