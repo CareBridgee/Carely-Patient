@@ -69,7 +69,7 @@ final class ServiceDetailsViewModel: ObservableObject {
         Task {
             try? await Task.sleep(nanoseconds: 800_000_000)
             self.isBooking = false
-            coordinator.push(to: .requestService(entryPoint: .manual))
+            coordinator.push(to: .requestService(entryPoint: .manual, preselectedServiceId: serviceId))
         }
     }
  

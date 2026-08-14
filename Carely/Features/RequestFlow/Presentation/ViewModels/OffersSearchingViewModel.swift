@@ -71,7 +71,7 @@ final class OffersSearchingViewModel: ObservableObject {
             
             // Map NurseOffer to ConfirmedOffer
             let nurseDetails = ConfirmedOffer.NurseDetails(
-                id: offer.id,
+                id: offer.nurseId,
                 fullName: offer.name,
                 title: offer.title,
                 specialty: offer.specialty,

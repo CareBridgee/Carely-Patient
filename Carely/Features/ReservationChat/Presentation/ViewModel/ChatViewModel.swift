@@ -13,16 +13,21 @@ final class ChatViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
+    @Published var nurseName: String?
+    @Published var nurseImageUrl: String?
+    
     private let repository: ChatRepositoryProtocol
     private let reservationId: String
     let currentUserId: String
     
     private var isSocketConnected: Bool = false
     
-    init(repository: ChatRepositoryProtocol, reservationId: String, currentUserId: String) {
+    init(repository: ChatRepositoryProtocol, reservationId: String, currentUserId: String, nurseName: String? = nil, nurseImageUrl: String? = nil) {
         self.repository = repository
         self.reservationId = reservationId
         self.currentUserId = currentUserId
+        self.nurseName = nurseName
+        self.nurseImageUrl = nurseImageUrl
         
         setupRepositoryListeners()
     }
@@ -87,5 +92,22 @@ final class ChatViewModel: ObservableObject {
                 self.errorMessage = "Failed to send message: \(error.localizedDescription)"
             }
         }
+    }
+    
+    func isCurrentUser(message: ChatMessageResponse) -> Bool {
+        return message.senderUserId == currentUserId
+    }
+    
+    func formatTime(dateString: String?) -> String {
+        guard let dateString = dateString else { return "" }
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        if let date = formatter.date(from: dateString) ?? ISO8601DateFormatter().date(from: dateString) {
+            let displayFormatter = DateFormatter()
+            displayFormatter.timeStyle = .short
+            return displayFormatter.string(from: date)
+        }
+        return dateString
     }
 }

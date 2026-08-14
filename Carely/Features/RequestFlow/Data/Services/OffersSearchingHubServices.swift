@@ -118,6 +118,7 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
                     
                     let nurseOffer = NurseOffer(
                         id: offerData.id,
+                        nurseId: offerData.nurse.id,
                         name: fullName.isEmpty ? "Unknown Nurse" : fullName,
                         title: "RN",
                         price: offerData.proposedPrice,
@@ -145,6 +146,7 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
                     
                     let nurseOffer = NurseOffer(
                         id: offerData.id,
+                        nurseId: offerData.nurse.id,
                         name: fullName.isEmpty ? "Unknown Nurse" : fullName,
                         title: "RN",
                         price: offerData.proposedPrice,

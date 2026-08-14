@@ -1,13 +1,8 @@
-//
-//  NurseOffer.swift
-//  Carely
-//
-//  Created by Mona Zarea on 22/07/2026.
-//
-
 import Foundation
+
 struct NurseOffer: Identifiable, Equatable {
     let id: String
+    let nurseId: String
     let name: String
     let title: String
     let price: Double

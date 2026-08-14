@@ -983,11 +983,13 @@ final class DIContainer {
         )
     }
     
-    func makeChatViewModel(reservationId: String) -> ChatViewModel {
+    func makeChatViewModel(reservationId: String, nurseName: String? = nil, nurseImageUrl: String? = nil) -> ChatViewModel {
         ChatViewModel(
             repository: makeChatRepository(reservationId: reservationId),
             reservationId: reservationId,
-            currentUserId: sessionManager.currentUser?.id ?? ""
+            currentUserId: sessionManager.currentUser?.id ?? "",
+            nurseName: nurseName,
+            nurseImageUrl: nurseImageUrl
         )
     }
 
