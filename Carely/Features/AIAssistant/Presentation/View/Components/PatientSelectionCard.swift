@@ -25,9 +25,28 @@ struct PatientSelectionCard: View {
                                 Circle().stroke(isSelected ? Color.brandPrimary : Color.clear, lineWidth: 2)
                             )
                         
-                        Image(systemName: "person.fill")
-                            .foregroundColor(Color.brandPrimary.opacity(0.5))
-                            .font(.system(size: 24))
+                        if let urlString = patient.imageUrl, let url = URL(string: urlString) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image.resizable().scaledToFill()
+                                case .failure:
+                                    Image(systemName: "person.fill")
+                                        .foregroundColor(Color.brandPrimary.opacity(0.5))
+                                        .font(.system(size: 24))
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                            .frame(width: 56, height: 56)
+                            .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person.fill")
+                                .foregroundColor(Color.brandPrimary.opacity(0.5))
+                                .font(.system(size: 24))
+                        }
                     }
                     
                     if isSelected {
@@ -76,13 +95,13 @@ struct PatientSelectionCard: View {
 #Preview {
     VStack(spacing: Spacing.s16) {
         PatientSelectionCard(
-            patient: AIPatient(id: "1", name: "Elena Rodriguez", relation: "Self", isSelf: true),
+            patient: AIPatient(id: "1", name: "Elena Rodriguez", relation: "Self", isSelf: true, imageUrl: nil),
             isSelected: true,
             action: {}
         )
         
         PatientSelectionCard(
-            patient: AIPatient(id: "2", name: "Robert Chen", relation: "Dad", isSelf: false),
+            patient: AIPatient(id: "2", name: "Robert Chen", relation: "Dad", isSelf: false, imageUrl: nil),
             isSelected: false,
             action: {}
         )
