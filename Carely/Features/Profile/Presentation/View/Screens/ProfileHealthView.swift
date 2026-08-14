@@ -32,8 +32,10 @@ struct ProfileHealthView: View {
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
         }
-        .onChange(of: viewModel.isSaved) { saved in
-            if saved { viewModel.backTapped() }
+        .onChange(of: viewModel.isSaved) {
+            if viewModel.isSaved {
+                viewModel.backTapped()
+            }
         }
     }
 

@@ -5,7 +5,7 @@
 
 import SwiftUI
 import PhotosUI
-
+@MainActor
 struct ProfilePersonalInfoView: View {
     @StateObject private var viewModel: ProfilePersonalInfoViewModel
 
@@ -79,8 +79,10 @@ struct ProfilePersonalInfoView: View {
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
         }
-        .onChange(of: viewModel.isSaved) { saved in
-            if saved { viewModel.backTapped() }
+        .onChange(of: viewModel.isSaved) {
+            if viewModel.isSaved {
+                viewModel.backTapped()
+            }
         }
         .onAppear {
             viewModel.onAppear()
@@ -122,24 +124,39 @@ struct ProfilePersonalInfoView: View {
     }
 
     // MARK: - Photo Picker
-
     private var photoPicker: some View {
+        ProfilePhotoPickerView(
+            photoSelection: $viewModel.photoSelection,
+            selectedImage: viewModel.selectedImage,
+            existingImageUrl: viewModel.existingImageUrl
+        )
+    }
+}
+
+// MARK: - ProfilePhotoPickerView
+
+private struct ProfilePhotoPickerView: View {
+    @Binding var photoSelection: PhotosPickerItem?
+    let selectedImage: UIImage?
+    let existingImageUrl: URL?
+
+    var body: some View {
         VStack(spacing: Spacing.s12) {
-            PhotosPicker(selection: $viewModel.photoSelection, matching: .images) {
+            PhotosPicker(selection: $photoSelection, matching: .images) {
                 ZStack(alignment: .bottomTrailing) {
                     ZStack {
                         Circle()
                             .fill(Color.surfaceVariant)
                             .frame(width: 96, height: 96)
 
-                        if let selected = viewModel.selectedImage {
-                            Image(uiImage: selected)
+                        if let selectedImage {
+                            Image(uiImage: selectedImage)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 96, height: 96)
                                 .clipShape(Circle())
-                        } else if let url = viewModel.existingImageUrl {
-                            AsyncImage(url: url) { phase in
+                        } else if let existingImageUrl {
+                            AsyncImage(url: existingImageUrl) { phase in
                                 if case .success(let img) = phase {
                                     img.resizable().scaledToFill()
                                 } else {

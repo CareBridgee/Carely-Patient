@@ -153,10 +153,37 @@ struct CurrentMedicationView: View {
     }
 
     private var prescriptionPhotoUpload: some View {
+        PrescriptionPhotoUploadPickerView(
+            selectedPhotoItem: $selectedPhotoItem,
+            prescriptionPhotoData: viewModel.prescriptionPhotoData,
+            onRemovePhoto: {
+                selectedPhotoItem = nil
+                viewModel.prescriptionPhotoPicked(nil)
+            }
+        )
+        .onChange(of: selectedPhotoItem) { _, newItem in
+            guard let newItem else { return }
+            Task {
+                if let data = try? await newItem.loadTransferable(type: Data.self) {
+                    viewModel.prescriptionPhotoPicked(data)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - PrescriptionPhotoUploadPickerView
+
+private struct PrescriptionPhotoUploadPickerView: View {
+    @Binding var selectedPhotoItem: PhotosPickerItem?
+    let prescriptionPhotoData: Data?
+    let onRemovePhoto: () -> Void
+
+    var body: some View {
         PhotosPicker(selection: $selectedPhotoItem, matching: .images) {
             ZStack(alignment: .topTrailing) {
-                if let data = viewModel.prescriptionPhotoData,
-                   let uiImage = UIImage(data: data) {
+                if let prescriptionPhotoData,
+                   let uiImage = UIImage(data: prescriptionPhotoData) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
@@ -165,10 +192,7 @@ struct CurrentMedicationView: View {
                         .clipShape(RoundedRectangle.carely(Radius.r16))
                         .clipped()
 
-                    Button {
-                        selectedPhotoItem = nil
-                        viewModel.prescriptionPhotoPicked(nil)
-                    } label: {
+                    Button(action: onRemovePhoto) {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
                             .scaledToFit()
@@ -197,13 +221,5 @@ struct CurrentMedicationView: View {
             }
         }
         .buttonStyle(.plain)
-        .onChange(of: selectedPhotoItem) { _, newItem in
-            guard let newItem else { return }
-            Task {
-                if let data = try? await newItem.loadTransferable(type: Data.self) {
-                    viewModel.prescriptionPhotoPicked(data)
-                }
-            }
-        }
     }
 }

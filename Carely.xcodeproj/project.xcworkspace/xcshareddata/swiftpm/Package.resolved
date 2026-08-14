@@ -1,0 +1,33 @@
+{
+  "originHash" : "a6990167714de6d444c3fa5fa453490f002e36747f6ddf2874654d8c9f87e90e",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
+    {
+      "identity" : "reachability.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ashleymills/Reachability.swift",
+      "state" : {
+        "revision" : "21d1dc412cfecbe6e34f1f4c4eb88d3f912654a6",
+        "version" : "5.2.4"
+      }
+    },
+    {
+      "identity" : "swiftstomp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Romixery/SwiftStomp.git",
+      "state" : {
+        "revision" : "f25926d2ab67ec0391de9a706cf71dfb08d36bbc",
+        "version" : "1.2.1"
+      }
+    }
+  ],
+  "version" : 3
+}

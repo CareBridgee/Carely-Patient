@@ -111,18 +111,32 @@ struct AddFamilyMemberInfoView: View {
     // MARK: - Photo Picker
 
     private var photoPicker: some View {
+        FamilyMemberPhotoPickerView(
+            photoSelection: $viewModel.photoSelection,
+            selectedImage: viewModel.selectedImage
+        )
+    }
+}
+
+// MARK: - FamilyMemberPhotoPickerView
+
+private struct FamilyMemberPhotoPickerView: View {
+    @Binding var photoSelection: PhotosPickerItem?
+    let selectedImage: UIImage?
+
+    var body: some View {
         HStack {
             Spacer()
             VStack(spacing: Spacing.s8) {
-                PhotosPicker(selection: $viewModel.photoSelection, matching: .images) {
+                PhotosPicker(selection: $photoSelection, matching: .images) {
                     ZStack(alignment: .bottomTrailing) {
                         ZStack {
                             Circle()
                                 .fill(Color.surfaceVariant)
                                 .frame(width: 96, height: 96)
 
-                            if let selected = viewModel.selectedImage {
-                                Image(uiImage: selected)
+                            if let selectedImage {
+                                Image(uiImage: selectedImage)
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 96, height: 96)
