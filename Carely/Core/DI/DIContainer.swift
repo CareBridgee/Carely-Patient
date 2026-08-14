@@ -397,7 +397,7 @@ final class DIContainer {
             fetchAddressUseCase: profileSetupUseCases.fetchAddress,
             geocodeAddressUseCase: profileSetupUseCases.geocodeAddress,
             overrideProfileId: overrideProfileId,
-            isEditingExistingAddress: initialAddress != nil,
+            isEditingExistingAddress: false,
             onFinishSetup: { address in
                 coordinator.save(homeAddress: address)
                 if coordinator.isLastStep {
@@ -581,11 +581,11 @@ final class DIContainer {
             fetchAddressUseCase: profileSetupUseCases.fetchAddress,
             geocodeAddressUseCase: profileSetupUseCases.geocodeAddress,
             overrideProfileId: profileId,
-            isEditingExistingAddress: initialAddress != nil,
+            isEditingExistingAddress: initialAddress != nil && !(initialAddress?.isEmpty ?? true),
             onFinishSetup: { _ in onSaved() },          // moved up
             onBackTapped: { _ in onDismiss() },          // moved up
             showBackButton: false,                       // moved down
-            continueButtonTitle: initialAddress != nil ? "Save Address" : "Add Address",
+            continueButtonTitle: (initialAddress != nil && !(initialAddress?.isEmpty ?? true)) ? "Save Address" : "Add Address",
             loadingButtonTitle: "Saving..."
         )
     }

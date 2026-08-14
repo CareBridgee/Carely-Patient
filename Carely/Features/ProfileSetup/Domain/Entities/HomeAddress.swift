@@ -38,4 +38,13 @@ struct HomeAddress: Equatable, Codable {
         self.latitude = latitude
         self.longitude = longitude
     }
+
+    var isEmpty: Bool {
+        country.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        area.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        streetName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        building.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        apartment.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 }

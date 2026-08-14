@@ -77,7 +77,7 @@ final class HomeAddressViewModel: ObservableObject {
         self.updateAddressUseCase = updateAddressUseCase
         self.fetchAddressUseCase = fetchAddressUseCase
         self.geocodeAddressUseCase = geocodeAddressUseCase
-        self.isEditingExistingAddress = isEditingExistingAddress
+        self.isEditingExistingAddress = isEditingExistingAddress && (initialAddress?.isEmpty == false)
         self.overrideProfileId = overrideProfileId
         self.showBackButton = showBackButton
         self.continueButtonTitle = continueButtonTitle
@@ -273,7 +273,15 @@ final class HomeAddressViewModel: ObservableObject {
                 }
 
                 if isEditingExistingAddress {
-                    try await updateAddressUseCase.execute(profileId: profileId, address: finalAddress) 
+                    do {
+                        try await updateAddressUseCase.execute(profileId: profileId, address: finalAddress) 
+                    } catch let error as NetworkError {
+                        if case .server(404, _) = error {
+                            try await saveAddressUseCase.execute(profileId: profileId, address: finalAddress)
+                        } else {
+                            throw error
+                        }
+                    }
                 } else {
                     try await saveAddressUseCase.execute(profileId: profileId, address: finalAddress)
                 }
