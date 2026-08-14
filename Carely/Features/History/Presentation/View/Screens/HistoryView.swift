@@ -37,7 +37,14 @@ struct HistoryView: View {
  
     private var topBar: some View {
         HStack {
-            Color.clear.frame(width: 40, height: 40)
+            Button {
+                viewModel.backTapped()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(.brandPrimary)
+                    .frame(width: 40, height: 40)
+            }
  
             Spacer()
  
@@ -76,4 +83,3 @@ struct HistoryView: View {
         }
     }
 }
- 

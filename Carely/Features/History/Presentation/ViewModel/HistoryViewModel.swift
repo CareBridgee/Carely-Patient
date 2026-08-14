@@ -52,5 +52,8 @@ final class HistoryViewModel: ObservableObject {
     func exploreServicesTapped() {
         coordinator.exploreServicesTapped()
     }
+
+    func backTapped() {
+        coordinator.onBackClicked?()
+    }
 }
- 

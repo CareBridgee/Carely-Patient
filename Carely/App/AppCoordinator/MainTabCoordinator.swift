@@ -13,6 +13,10 @@ import Foundation
 final class MainTabCoordinator: ObservableObject {
     @Published var currentNotification: NotificationData?
     @Published var selectedTab: AppTab = .home
+
+    /// Controls presentation of the History screen, which is opened from Home's
+    /// "See All" action rather than living in the tab bar.
+    @Published var isHistoryPresented = false
  
     private var previousTab: AppTab = .home
     let homeCoordinator: HomeCoordinator
@@ -67,20 +71,25 @@ final class MainTabCoordinator: ObservableObject {
  
         homeCoordinator.onOpenHistory = { [weak self] in
             guard let self = self else { return }
-            self.previousTab = self.selectedTab
-            self.selectedTab = .history
+            self.isHistoryPresented = true
         }
  
         historyCoordinator.onExploreServices = { [weak self] in
             guard let self = self else { return }
+            self.isHistoryPresented = false
+            self.historyCoordinator.popToRoot()
             self.previousTab = self.selectedTab
             self.selectedTab = .services
+        }
+        
+        historyCoordinator.onBackClicked = { [weak self] in
+            guard let self = self else { return }
+            self.isHistoryPresented = false
             self.historyCoordinator.popToRoot()
         }
         
         bindCrossTabBack(to: servicesCoordinator)
         bindCrossTabBack(to: aiAssistantCoordinator)
-        bindCrossTabBack(to: historyCoordinator)
         
 //        servicesCoordinator.onBackClicked = { [weak self] in
 //            guard let self = self else { return }
@@ -172,4 +181,3 @@ final class MainTabCoordinator: ObservableObject {
         }
     }
 }
- 

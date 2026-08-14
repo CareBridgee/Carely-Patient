@@ -12,7 +12,6 @@ import Foundation
 enum AppTab: CaseIterable {
     case home
     case services
-    case history
     case ai
     case profile
 }
@@ -24,7 +23,6 @@ extension AppTab {
         switch self {
         case .home: return "Home"
         case .services: return "Services"
-        case .history: return "History"
         case .ai: return "AI Assistant"
         case .profile: return "Profile"
         }
@@ -34,10 +32,8 @@ extension AppTab {
         switch self {
         case .home: return "house.fill"
         case .services: return "stethoscope"
-        case .history: return "calendar.badge.clock"
         case .ai: return "sparkles"
         case .profile: return "person.fill"
         }
     }
 }
- 
