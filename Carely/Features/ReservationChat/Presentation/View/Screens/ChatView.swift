@@ -216,4 +216,29 @@ struct ChatView: View {
             Spacer()
         }
     }
+
+    private var chatSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: Spacing.s16) {
+                HStack {
+                    EtmaenSkeletonRect(width: 180, height: 44, radius: Radius.r16)
+                    Spacer()
+                }
+                HStack {
+                    Spacer()
+                    EtmaenSkeletonRect(width: 220, height: 56, radius: Radius.r16)
+                }
+                HStack {
+                    EtmaenSkeletonRect(width: 150, height: 40, radius: Radius.r16)
+                    Spacer()
+                }
+                HStack {
+                    Spacer()
+                    EtmaenSkeletonRect(width: 190, height: 48, radius: Radius.r16)
+                }
+            }
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s16)
+        }
+    }
 }

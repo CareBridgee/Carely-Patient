@@ -25,7 +25,7 @@ struct HealthInfoCardView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(Spacing.s16)
-        .background(Color.white)
+        .background(Color.surface)
         .cornerRadius(Radius.r16)
         .carelyShadow(.sm)
     }

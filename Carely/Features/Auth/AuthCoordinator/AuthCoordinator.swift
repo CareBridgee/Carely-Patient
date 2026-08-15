@@ -75,6 +75,9 @@ struct AuthCoordinator: View {
                     router: router,
                     onOersonalDataSaved: {
                         appState.goToProfileSetupDecision()
+                    },
+                    onLogout: {
+                        appState.startAuthFlow()
                     }
                 )
             )

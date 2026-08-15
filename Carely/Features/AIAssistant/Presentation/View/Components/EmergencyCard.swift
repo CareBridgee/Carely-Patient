@@ -17,17 +17,17 @@ struct EmergencyCard: View {
             HStack(spacing: Spacing.s8) {
                 Image(systemName: "cross.case.fill")
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.onError)
 
                 Text("EMERGENCY MEDICAL NOTICE")
                     .carelyText(style: .caption, weight: .bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.onError)
 
                 Spacer()
             }
             .padding(.horizontal, Spacing.s12)
             .padding(.vertical, Spacing.s8)
-            .background(Color.red)
+            .background(Color.error)
             .cornerRadius(10)
 
             // Emergency Advice Content
@@ -49,12 +49,12 @@ struct EmergencyCard: View {
                     Text("Call Emergency Services (\(phoneNumber))")
                         .carelyText(style: .bodyRegular, weight: .bold)
                 }
-                .foregroundColor(.white)
+                .foregroundColor(Color.onError)
                 .frame(maxWidth: .infinity)
                 .frame(height: 48)
-                .background(Color.red)
+                .background(Color.error)
                 .cornerRadius(14)
-                .shadow(color: Color.red.opacity(0.3), radius: 6, x: 0, y: 3)
+                .shadow(color: Color.error.opacity(0.3), radius: 6, x: 0, y: 3)
             }
             .buttonStyle(PlainButtonStyle())
         }
@@ -63,7 +63,7 @@ struct EmergencyCard: View {
         .cornerRadius(18)
         .overlay(
             RoundedRectangle(cornerRadius: 18)
-                .stroke(Color.red.opacity(0.4), lineWidth: 1.5)
+                .stroke(Color.error.opacity(0.4), lineWidth: 1.5)
         )
         .shadow(color: Color.black.opacity(0.06), radius: 8, x: 0, y: 3)
     }

@@ -24,7 +24,7 @@ struct BloodTypeSelectionCardView: View {
             .padding(.top, Spacing.s4)
         }
         .padding(Spacing.s16)
-        .background(Color.white)
+        .background(Color.surface)
         .cornerRadius(Radius.r16)
         .carelyShadow(.sm)
     }

@@ -39,13 +39,13 @@ struct PhoneNumberField: View {
                 .focused($isFocused)
             }
             .padding()
-            .background(Color(.infoContainer))
+            .background(Color.infoContainer)
             .clipShape(RoundedRectangle(cornerRadius: 16))
 
             if showError {
                 Text("Enter a valid 10-digit number starting with 10, 11, 12, or 15")
                     .carelyText(style: .caption)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(Color.error)
             }
         }
         .onChange(of: isFocused) { _, newValue in

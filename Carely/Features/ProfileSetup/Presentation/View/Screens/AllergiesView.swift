@@ -25,15 +25,22 @@ struct AllergiesView: View {
 
                     noKnownAllergiesToggle
 
-                    if viewModel.isLoading {
-                        VStack(spacing: Spacing.s12) {
-                            ProgressView()
-                            Text("Loading allergies...")
-                                .carelyText(style: .bodyRegular, weight: .medium)
-                                .foregroundColor(.secondaryFont)
+                    if viewModel.isLoading && viewModel.availableAllergies.isEmpty {
+                        VStack(alignment: .leading, spacing: Spacing.s20) {
+                            ForEach(0..<2, id: \.self) { _ in
+                                VStack(alignment: .leading, spacing: Spacing.s12) {
+                                    HStack(spacing: Spacing.s8) {
+                                        EtmaenSkeletonCircle(size: 16)
+                                        EtmaenSkeletonRect(width: 100, height: 16, radius: Radius.r8)
+                                    }
+                                    HStack(spacing: Spacing.s8) {
+                                        EtmaenSkeletonRect(width: 80, height: 32, radius: 16)
+                                        EtmaenSkeletonRect(width: 110, height: 32, radius: 16)
+                                        EtmaenSkeletonRect(width: 90, height: 32, radius: 16)
+                                    }
+                                }
+                            }
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, Spacing.s32)
                     } else {
                         ForEach(AllergyType.allCases, id: \.self) { type in
                             let options = viewModel.allergies(for: type)

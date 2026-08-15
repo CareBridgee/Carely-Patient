@@ -15,7 +15,10 @@ struct OffersSearchingView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack {
+            Color.backGround
+                .ignoresSafeArea()
+            
             ScrollView {
                 VStack(spacing: Spacing.s24) {
                     SearchingIndicatorView(activeNursesCount: max(3, viewModel.offers.count))
@@ -44,12 +47,10 @@ struct OffersSearchingView: View {
                     .padding(.horizontal, Spacing.s20)
                     .padding(.bottom, Spacing.s24)
                 }
+                .frame(maxWidth: .infinity)
             }
-            .background(Color.backGround.ignoresSafeArea())
             .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.offers)
-
         }
-        .background(Color.backGround.ignoresSafeArea())
         .careConnectNavigationBar(title: "Request Status", trailingIcon: "ellipsis")
         .onAppear {
             viewModel.startSearching()
@@ -59,29 +60,3 @@ struct OffersSearchingView: View {
         }
     }
 }
-//
-//#Preview {
-//    class MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
-//        func observeOffers() -> AsyncStream<OffersEvent> {
-//            return AsyncStream { continuation in
-//                let offer1 = NurseOffer(id: "1", name: "Sarah Mitchell", title: "RN", price: 85.00, rating: 4.9, reviewsCount: 124, distance: 2.4, imageLink: "", specialty: "Pediatrics", estimatedArrival: "10:15 AM")
-//                let offer2 = NurseOffer(id: "2", name: "Michael Chen", title: "LPN", price: 65.00, rating: 4.7, reviewsCount: 89, distance: 3.1, imageLink: "", specialty: "General", estimatedArrival: "10:45 AM")
-//                
-//                continuation.yield(.offerReceived(offer1))
-//                continuation.yield(.offerReceived(offer2))
-//            }
-//        }
-//        func connect() {}
-//        func disconnect() {}
-//    }
-//    
-//    let mockRepo = MockOfferSearchingRepository()
-//    let observeUseCase = ObserveOffersUseCase(repository: mockRepo)
-//    let manageConnectionUseCase = ManageOffersConnectionUseCase(repository: mockRepo)
-//    let viewModel = OffersSearchingViewModel(
-//        requestId:"1", observeOffersUseCase: observeUseCase,
-//        manageOffersConnectionUseCase: manageConnectionUseCase
-//    )
-//    
-//    return OffersSearchingView(viewModel: viewModel)
-//}

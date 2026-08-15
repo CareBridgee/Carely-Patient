@@ -17,8 +17,7 @@ struct ProfileHealthView: View {
             Color.backGround.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: Spacing.s24) {
-                    topBar
+                VStack(alignment: .leading, spacing: Spacing.s20) {
                     header
                     formCard
                 }
@@ -26,7 +25,14 @@ struct ProfileHealthView: View {
                 .padding(.bottom, Spacing.s32)
             }
         }
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(
+            title: "Health Profile",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -36,27 +42,6 @@ struct ProfileHealthView: View {
             if viewModel.isSaved {
                 viewModel.backTapped()
             }
-        }
-    }
-
-    // MARK: - Top Bar
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-            Spacer()
-            Text("Health Profile")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-            Spacer()
-            Color.clear.frame(width: 40, height: 40)
         }
     }
 

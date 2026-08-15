@@ -346,6 +346,8 @@
 		C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE17300A631500C5FC25 /* AppHeader.swift */; };
 		C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE16300A631500C5FC25 /* AlertBanner.swift */; };
 		C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */; };
+		C6C3BE51300A631500C5FC25 /* EtmaenLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE50300A631500C5FC25 /* EtmaenLoadingView.swift */; };
+		C6C3BE53300A631500C5FC25 /* EtmaenShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE52300A631500C5FC25 /* EtmaenShimmer.swift */; };
 		C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */; };
 		C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */; };
 		C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE22300A63A800C5FC25 /* OTPVerificationEntity.swift */; };
@@ -367,6 +369,7 @@
 		C6C3BE41300A644A00C5FC25 /* PersonalInfoFormCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE33300A644A00C5FC25 /* PersonalInfoFormCard.swift */; };
 		C6C3BE43300A6E3400C5FC25 /* PhoneNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE42300A6E2900C5FC25 /* PhoneNumberViewModel.swift */; };
 		C6D28776302F3A1500F02201 /* PatientProfilesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D28774302F3A1500F02201 /* PatientProfilesStore.swift */; };
+		C6D2877B302F3A1500F02201 /* ServiceTypesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D2877C302F3A1500F02201 /* ServiceTypesStore.swift */; };
 		C6D28778302F3A3100F02201 /* DeleteProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D28777302F3A3100F02201 /* DeleteProfileUseCase.swift */; };
 		C6D2877A302F4BD700F02201 /* RestoreSessionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D28779302F4BD700F02201 /* RestoreSessionUseCase.swift */; };
 		C6E761ED3008E2ED00481DB9 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E761EC3008E2E500481DB9 /* AuthRouter.swift */; };
@@ -764,6 +767,8 @@
 		C6C3BE16300A631500C5FC25 /* AlertBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBanner.swift; sourceTree = "<group>"; };
 		C6C3BE17300A631500C5FC25 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
 		C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		C6C3BE50300A631500C5FC25 /* EtmaenLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtmaenLoadingView.swift; sourceTree = "<group>"; };
+		C6C3BE52300A631500C5FC25 /* EtmaenShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtmaenShimmer.swift; sourceTree = "<group>"; };
 		C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryProtocol.swift; sourceTree = "<group>"; };
 		C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
 		C6C3BE20300A63A800C5FC25 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -785,6 +790,7 @@
 		C6C3BE35300A644A00C5FC25 /* SecurityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCard.swift; sourceTree = "<group>"; };
 		C6C3BE42300A6E2900C5FC25 /* PhoneNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberViewModel.swift; sourceTree = "<group>"; };
 		C6D28774302F3A1500F02201 /* PatientProfilesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfilesStore.swift; sourceTree = "<group>"; };
+		C6D2877C302F3A1500F02201 /* ServiceTypesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypesStore.swift; sourceTree = "<group>"; };
 		C6D28777302F3A3100F02201 /* DeleteProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileUseCase.swift; sourceTree = "<group>"; };
 		C6D28779302F4BD700F02201 /* RestoreSessionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreSessionUseCase.swift; sourceTree = "<group>"; };
 		C6E761EC3008E2E500481DB9 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
@@ -1282,6 +1288,8 @@
 				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
 				B3A111FF302696EC00292B50 /* NotificationBannerModifier.swift */,
 				B3A11200302696EC00292B50 /* NotificationData.swift */,
+				C6C3BE50300A631500C5FC25 /* EtmaenLoadingView.swift */,
+				C6C3BE52300A631500C5FC25 /* EtmaenShimmer.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -2718,6 +2726,7 @@
 			isa = PBXGroup;
 			children = (
 				C6D28774302F3A1500F02201 /* PatientProfilesStore.swift */,
+				C6D2877C302F3A1500F02201 /* ServiceTypesStore.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -2946,6 +2955,8 @@
 				C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */,
 				0C1F612E30191DDF002086EC /* OnboardingView.swift in Sources */,
 				C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */,
+				C6C3BE51300A631500C5FC25 /* EtmaenLoadingView.swift in Sources */,
+				C6C3BE53300A631500C5FC25 /* EtmaenShimmer.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,
@@ -2959,6 +2970,7 @@
 				0C6BAE2C3012703900759ED0 /* CareConnectNavigationBarModifier.swift in Sources */,
 				B369408D301E3C6500BB26AD /* FamilyMemberBasicInfo.swift in Sources */,
 				C6D28776302F3A1500F02201 /* PatientProfilesStore.swift in Sources */,
+				C6D2877B302F3A1500F02201 /* ServiceTypesStore.swift in Sources */,
 				0C7F5F3F302D4EFB005CFC20 /* NurseOfferCardView.swift in Sources */,
 				C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */,
 				0CC6DA79300BDFFE00C903C4 /* CustomTextAreaView.swift in Sources */,

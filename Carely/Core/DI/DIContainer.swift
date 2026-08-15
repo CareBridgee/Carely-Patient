@@ -16,6 +16,7 @@ final class DIContainer {
     
     let appState: AppState
     let patientProfilesStore = PatientProfilesStore()
+    let serviceTypesStore = ServiceTypesStore()
     
     private let tokenStore: TokenStoring
     private let sessionManager: SessionManager
@@ -72,7 +73,8 @@ final class DIContainer {
     private func makeRestoreSessionUseCase() -> RestoreSessionUseCaseProtocol {
         RestoreSessionUseCase(
             repository: authRepository,
-            sessionManager: sessionManager
+            sessionManager: sessionManager,
+            profileRepository: profileRepository
         )
     }
     
@@ -108,12 +110,15 @@ final class DIContainer {
     
     func makePersonalInfoViewModel(
         router: AuthRouter,
-        onOersonalDataSaved: @escaping () -> Void
+        onOersonalDataSaved: @escaping () -> Void,
+        onLogout: (() -> Void)? = nil
     ) -> PersonalInfoViewModel {
         PersonalInfoViewModel(
             savePersonalInfoUseCase: makeSavePersonalInfoUseCase(),
+            logoutUseCase: makeLogoutUseCase(),
             router: router,
-            onOersonalDataSaved: onOersonalDataSaved
+            onOersonalDataSaved: onOersonalDataSaved,
+            onLogout: onLogout
         )
     }
     
@@ -543,6 +548,7 @@ final class DIContainer {
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
             sessionManager: sessionManager,
+            serviceTypesStore: serviceTypesStore,
             onServiceTabbed: onServiceTabbed,
             onSeeAllHistory: onSeeAllHistory
         )
@@ -553,6 +559,7 @@ final class DIContainer {
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
             sessionManager: sessionManager,
+            serviceTypesStore: serviceTypesStore,
             coordinator: coordinator
         )
     }
@@ -778,6 +785,7 @@ final class DIContainer {
         ChoosePatientViewModel(
             patientProfilesStore: patientProfilesStore,
             sessionManager: sessionManager,
+            profileRepository: profileRepository,
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment,
             onAddFamilyMember: onAddFamilyMember
@@ -880,7 +888,8 @@ final class DIContainer {
         let name = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
         return SettingsViewModel(
             patientName: name.isEmpty ? "My Profile" : name,
-            coordinator: coordinator
+            coordinator: coordinator,
+            appState: appState
         )
     }
 
@@ -948,6 +957,7 @@ final class DIContainer {
             homeAddressViewModel: homeVM,
             getPatientProfileUseCase: makeGetPatientProfileUseCase(),
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            patientProfilesStore: patientProfilesStore,
             coordinator: coordinator
         )
     }

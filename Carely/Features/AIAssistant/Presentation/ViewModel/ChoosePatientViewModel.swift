@@ -18,6 +18,7 @@ class ChoosePatientViewModel: ObservableObject {
 
     private let patientProfilesStore: PatientProfilesStore
     private let sessionManager: SessionManager
+    private let profileRepository: ProfileRepositoryProtocol?
     private var cancellables = Set<AnyCancellable>()
     let onShowPatientDetails: ((String) -> Void)?
     let onContinueWithAssessmentClosure: (String) -> Void
@@ -26,12 +27,14 @@ class ChoosePatientViewModel: ObservableObject {
     init(
         patientProfilesStore: PatientProfilesStore,
         sessionManager: SessionManager,
+        profileRepository: ProfileRepositoryProtocol? = nil,
         onShowPatientDetails: ((String) -> Void)?,
         onContinueWithAssessment: @escaping (String) -> Void,
         onAddFamilyMember: (() -> Void)? = nil
     ) {
         self.patientProfilesStore = patientProfilesStore
         self.sessionManager = sessionManager
+        self.profileRepository = profileRepository
         self.onShowPatientDetails = onShowPatientDetails
         self.onContinueWithAssessmentClosure = onContinueWithAssessment
         self.onAddFamilyMember = onAddFamilyMember
@@ -89,7 +92,19 @@ class ChoosePatientViewModel: ObservableObject {
     }
 
     func onAppear() async {
-        // Data is now handled reactively via bindToStore()
+        guard let profileRepository else { return }
+        // If data is already populated from store, do not show loading spinner/skeleton
+        if patients.isEmpty {
+            isLoading = true
+        }
+        async let fetchProfile: () = {
+            _ = try? await profileRepository.fetchPatientProfile()
+        }()
+        async let fetchFamily: () = {
+            _ = try? await profileRepository.fetchFamilyMembers()
+        }()
+        _ = await (fetchProfile, fetchFamily)
+        isLoading = false
     }
 
     func selectPatient(_ patient: AIPatient) {

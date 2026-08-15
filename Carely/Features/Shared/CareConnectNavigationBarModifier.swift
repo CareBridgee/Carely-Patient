@@ -41,11 +41,11 @@ struct CareConnectNavigationBarModifier: ViewModifier {
                             onTrailingIconTapped?()
                         }) {
                             Circle()
-                                .fill(Color.purple.opacity(0.1))
+                                .fill(Color.brandPrimary.opacity(0.1))
                                 .frame(width: 32, height: 32)
                                 .overlay(
                                     Image(systemName: icon)
-                                        .foregroundColor(.purple.opacity(0.5))
+                                        .foregroundColor(Color.brandPrimary)
                                         .font(.system(size: 12))
                                 )
                         }

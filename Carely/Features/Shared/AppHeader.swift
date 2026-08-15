@@ -37,11 +37,11 @@ struct AppHeader: View {
                     onTrailingIconTapped?()
                 }) {
                     Circle()
-                        .fill(Color.purple.opacity(0.1))
+                        .fill(Color.brandPrimary.opacity(0.1))
                         .frame(width: 36, height: 36)
                         .overlay(
                             Image(systemName: iconName)
-                                .foregroundColor(.purple.opacity(0.5))
+                                .foregroundColor(Color.brandPrimary)
                                 .font(.system(size: 14))
                         )
                 }

@@ -32,8 +32,12 @@ struct ChatInputBar: View {
             }
             .padding(.horizontal, Spacing.s16)
             .padding(.vertical, Spacing.s16)
-            .background(Color.backGround)
+            .background(Color.surface)
             .cornerRadius(26)
+            .overlay(
+                RoundedRectangle(cornerRadius: 26)
+                    .stroke(Color.divider, lineWidth: 1)
+            )
 
             // MARK: - Send button (fixed size, bottom-aligned)
             Button(action: onSend) {
@@ -44,12 +48,12 @@ struct ChatInputBar: View {
 
                     if isLoading {
                         ProgressView()
-                            .tint(.white)
+                            .tint(Color.onPrimary)
                             .scaleEffect(0.8)
                     } else {
                         Image(systemName: "paperplane.fill")
                             .font(.system(size: 18))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color.onPrimary)
                             .rotationEffect(.degrees(45))
                             .offset(x: -1, y: 1)
                     }
@@ -60,6 +64,6 @@ struct ChatInputBar: View {
         }
         .padding(.horizontal, Spacing.s20)
         .padding(.vertical, Spacing.s12)
-        .background(Color.surface)
+        .background(Color.backGround)
     }
 }

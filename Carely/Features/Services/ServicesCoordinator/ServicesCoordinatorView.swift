@@ -14,10 +14,17 @@ struct ServicesCoordinatorView: View {
 
     let container: DIContainer
     @ObservedObject var coordinator: ServicesCoordinator
+    @StateObject private var allServiceViewModel: AllServiceViewModel
+
+    init(container: DIContainer, coordinator: ServicesCoordinator) {
+        self.container = container
+        self.coordinator = coordinator
+        _allServiceViewModel = StateObject(wrappedValue: container.makeAllServiceViewModel(coordinator: coordinator))
+    }
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            AllServiceView(viewModel: container.makeAllServiceViewModel(coordinator: coordinator))
+            AllServiceView(viewModel: allServiceViewModel)
             .navigationDestination(for: ServicesRoute.self) { route in
                 destination(for: route)
             }

@@ -23,7 +23,7 @@ struct PriceDurationCard: View {
                     .carelyText(style: .caption)
                     .foregroundColor(.secondaryFont)
                 Text(value)
-                    .carelyText(style: .heading3, weight: .semiBold)
+                    .carelyText(style: .bodyLarge, weight: .semiBold)
                     .foregroundColor(tintColor)
             }
         }

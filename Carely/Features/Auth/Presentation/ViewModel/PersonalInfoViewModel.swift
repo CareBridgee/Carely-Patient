@@ -31,17 +31,40 @@ final class PersonalInfoViewModel: ObservableObject {
     @Published var showError: Bool = false
 
     private let savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol
+    private let logoutUseCase: LogoutUseCaseProtocol?
     private let router: AuthRouter
     private var onOersonalDataSaved: () -> Void
+    private var onLogout: (() -> Void)?
 
     init(
         savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol,
+        logoutUseCase: LogoutUseCaseProtocol? = nil,
         router: AuthRouter,
-        onOersonalDataSaved: @escaping () -> Void
+        onOersonalDataSaved: @escaping () -> Void,
+        onLogout: (() -> Void)? = nil
     ) {
         self.savePersonalInfoUseCase = savePersonalInfoUseCase
+        self.logoutUseCase = logoutUseCase
         self.router = router
         self.onOersonalDataSaved = onOersonalDataSaved
+        self.onLogout = onLogout
+    }
+
+    @Published var showLogoutConfirmation: Bool = false
+
+    func logoutTapped() {
+        showLogoutConfirmation = true
+    }
+
+    func confirmLogout() {
+        Task {
+            do {
+                try await logoutUseCase?.execute()
+            } catch {
+                print("Failed to logout: \(error.localizedDescription)")
+            }
+            onLogout?()
+        }
     }
 
     func continueTapped() {
@@ -65,7 +88,7 @@ final class PersonalInfoViewModel: ObservableObject {
 
         Task {
             do {
-                try await savePersonalInfoUseCase.execute(basicInfo: basicInfo)
+                try await self.savePersonalInfoUseCase.execute(basicInfo: basicInfo)
                 isLoading = false
                 onOersonalDataSaved()
             } catch {

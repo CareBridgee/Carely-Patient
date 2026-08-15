@@ -71,7 +71,13 @@ final class OfferAcceptedViewModel: ObservableObject {
         onShowQRCode(request)
     }
     
+    @Published var showCancelConfirmation: Bool = false
+
     func cancelRequest() {
+        showCancelConfirmation = true
+    }
+
+    func confirmCancelRequest() {
         isCanceledByMe = true
         Task {
             do {

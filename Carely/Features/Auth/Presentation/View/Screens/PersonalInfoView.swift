@@ -16,39 +16,32 @@ struct PersonalInfoView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: Spacing.s20) {
-                PersonalInfoFormCard(viewModel: viewModel)
-                    .padding(.top, Spacing.s24)
-                Spacer()
-            }
-            .padding(.horizontal, Spacing.s16)
-            .background(Color.backGround.ignoresSafeArea())
-            .careConnectNavigationBar(title: "Enaya", showBackButton: false)
-            .blur(radius: viewModel.isLoading ? 3 : 0)
-            
-            if viewModel.isLoading {
-                ZStack {
-                    Color.black.opacity(0.3)
-                        .ignoresSafeArea()
-                    
-                    VStack(spacing: 16) {
-                        ProgressView()
-                            .scaleEffect(1.5)
-                            .tint(.brandPrimary)
-                        
-                        Text("Please wait...")
-                            .carelyText(style: .bodyRegular, weight: .bold)
-                            .foregroundColor(.primaryFont)
-                    }
-                    .padding(32)
-                    .background(Color.surface)
-                    .cornerRadius(20)
-                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+            Color.backGround.ignoresSafeArea()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: Spacing.s20) {
+                    PersonalInfoFormCard(viewModel: viewModel)
+                        .padding(.top, Spacing.s16)
                 }
-                .zIndex(1)
-                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                .padding(.horizontal, Spacing.s16)
+                .padding(.bottom, Spacing.s32)
             }
+            .careConnectNavigationBar(
+                title: "Etmaen",
+                showBackButton: true,
+                onBackTapped: {
+                    viewModel.logoutTapped()
+                }
+            )
         }
-        .animation(.easeInOut(duration: 0.3), value: viewModel.isLoading)
+        .etmaenLoadingOverlay(isPresented: viewModel.isLoading, message: "Please wait...")
+        .alert("Log Out?", isPresented: $viewModel.showLogoutConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Log Out", role: .destructive) {
+                viewModel.confirmLogout()
+            }
+        } message: {
+            Text("Are you sure you want to log out and exit the setup?")
+        }
     }
 }

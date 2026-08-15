@@ -20,6 +20,7 @@ final class ProfileAddressViewModel: ObservableObject {
     let homeAddressViewModel: HomeAddressViewModel
     private let getPatientProfileUseCase: GetPatientProfileUseCaseProtocol
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
+    private let patientProfilesStore: PatientProfilesStore
     private let coordinator: ProfileCoordinator
 
     init(
@@ -27,22 +28,51 @@ final class ProfileAddressViewModel: ObservableObject {
         homeAddressViewModel: HomeAddressViewModel,
         getPatientProfileUseCase: GetPatientProfileUseCaseProtocol,
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
+        patientProfilesStore: PatientProfilesStore,
         coordinator: ProfileCoordinator
     ) {
         self.selectedProfileId = initialProfileId
         self.homeAddressViewModel = homeAddressViewModel
         self.getPatientProfileUseCase = getPatientProfileUseCase
         self.getFamilyMembersUseCase = getFamilyMembersUseCase
+        self.patientProfilesStore = patientProfilesStore
         self.coordinator = coordinator
+        populateFromStore()
     }
 
     func onAppear() {
-        loadProfiles()
+        if profiles.isEmpty {
+            loadProfiles()
+        } else {
+            loadAddressForSelectedProfile()
+        }
+    }
+
+    private func populateFromStore() {
+        var options: [ProfileAddressProfileOption] = []
+        if let primary = patientProfilesStore.primaryProfile {
+            options.append(ProfileAddressProfileOption(id: primary.id, name: primary.displayName, relation: "Primary"))
+        }
+        for m in patientProfilesStore.familyMembers {
+            options.append(ProfileAddressProfileOption(id: m.id, name: m.name, relation: m.relation))
+        }
+        if !options.isEmpty {
+            self.profiles = options
+        }
     }
 
     func selectProfile(_ profileId: String) {
+        guard selectedProfileId != profileId else { return }
         selectedProfileId = profileId
-        homeAddressViewModel.loadAddress(profileId: profileId)
+        loadAddressForSelectedProfile()
+    }
+
+    private func loadAddressForSelectedProfile() {
+        if let cachedAddress = patientProfilesStore.addressesByProfileId[selectedProfileId] {
+            homeAddressViewModel.applyAddress(cachedAddress)
+        } else {
+            homeAddressViewModel.loadAddress(profileId: selectedProfileId)
+        }
     }
 
     func backTapped() {
@@ -89,8 +119,6 @@ struct ProfileAddressView: View {
             Color.backGround.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                topBar
-
                 if viewModel.profiles.count > 1 {
                     profileSelector
                         .padding(.vertical, Spacing.s12)
@@ -100,37 +128,16 @@ struct ProfileAddressView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(
+            title: "Addresses",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
         .onAppear {
             viewModel.onAppear()
         }
-    }
-
-    // MARK: - Top Bar
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-
-            Spacer()
-
-            Text("Addresses")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-
-            Spacer()
-
-            Color.clear.frame(width: 40, height: 40)
-        }
-        .padding(.horizontal, Spacing.s16)
-        .padding(.top, Spacing.s8)
     }
 
     // MARK: - Profile Selector Tabs

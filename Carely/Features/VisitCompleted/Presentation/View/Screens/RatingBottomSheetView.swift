@@ -48,17 +48,17 @@ struct RatingBottomSheetView: View {
     private var illustration: some View {
         ZStack(alignment: .bottomTrailing) {
             Circle()
-                .fill(Color.purple.opacity(0.12))
+                .fill(Color.brandPrimary.opacity(0.12))
                 .frame(width: 96, height: 96)
                 .overlay(
                     Image(systemName: "photo.fill")
                         .carelyText(style: .heading2)
-                        .foregroundColor(.purple.opacity(0.55))
+                        .foregroundColor(Color.brandPrimary.opacity(0.55))
                 )
  
             Image(systemName: "checkmark.seal.fill")
                 .carelyText(style: .heading3)
-                .foregroundColor(.onSuccessContainer)
+                .foregroundColor(.success)
                 .background(
                     Circle()
                         .fill(Color.surface)

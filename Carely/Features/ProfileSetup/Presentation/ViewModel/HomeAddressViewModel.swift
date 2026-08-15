@@ -36,8 +36,9 @@ final class HomeAddressViewModel: ObservableObject {
     private let updateAddressUseCase: UpdateHomeAddressUseCase
     private let fetchAddressUseCase: FetchHomeAddressUseCase?
     private let geocodeAddressUseCase: GeocodeAddressUseCase?
-    private let overrideProfileId: String?
+    private(set) var overrideProfileId: String?
     private(set) var isEditingExistingAddress: Bool
+    private(set) var initialAddress: HomeAddress?
 
     private let onFinishSetup: (HomeAddress) -> Void
     private let onBackTapped: (HomeAddress) -> Void
@@ -93,7 +94,31 @@ final class HomeAddressViewModel: ObservableObject {
         }
     }
 
-    private(set) var initialAddress: HomeAddress?
+    func applyAddress(_ address: HomeAddress?) {
+        if let address, !address.isEmpty {
+            self.country = address.country
+            self.city = address.city
+            self.area = address.area
+            self.streetName = address.streetName
+            self.building = address.building
+            self.apartment = address.apartment
+            self.selectedLatitude = address.latitude
+            self.selectedLongitude = address.longitude
+            self.initialAddress = address
+            self.isEditingExistingAddress = true
+        } else {
+            self.country = ""
+            self.city = ""
+            self.area = ""
+            self.streetName = ""
+            self.building = ""
+            self.apartment = ""
+            self.selectedLatitude = nil
+            self.selectedLongitude = nil
+            self.initialAddress = HomeAddress()
+            self.isEditingExistingAddress = false
+        }
+    }
 
     func loadAddress(profileId: String) {
         guard let fetchUseCase = fetchAddressUseCase else { return }
@@ -103,27 +128,9 @@ final class HomeAddressViewModel: ObservableObject {
         Task {
             do {
                 if let fetched = try await fetchUseCase.execute(profileId: profileId) {
-                    self.country = fetched.country
-                    self.city = fetched.city
-                    self.area = fetched.area
-                    self.streetName = fetched.streetName
-                    self.building = fetched.building
-                    self.apartment = fetched.apartment
-                    self.selectedLatitude = fetched.latitude
-                    self.selectedLongitude = fetched.longitude
-                    self.initialAddress = fetched
-                    self.isEditingExistingAddress = true
+                    self.applyAddress(fetched)
                 } else {
-                    self.country = ""
-                    self.city = ""
-                    self.area = ""
-                    self.streetName = ""
-                    self.building = ""
-                    self.apartment = ""
-                    self.selectedLatitude = nil
-                    self.selectedLongitude = nil
-                    self.initialAddress = HomeAddress()
-                    self.isEditingExistingAddress = false
+                    self.applyAddress(nil)
                 }
                 self.isLoading = false
             } catch {

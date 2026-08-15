@@ -47,7 +47,7 @@ struct ServiceRecommendationCard: View {
                     Button(action: onPrimaryAction) {
                         Text(recommendation.primaryButtonTitle)
                             .carelyText(style: .bodyRegular, weight: .bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color.onPrimary)
                             .frame(maxWidth: .infinity)
                             .frame(height: 48)
                             .background(Color.brandPrimary)

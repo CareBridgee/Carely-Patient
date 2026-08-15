@@ -22,7 +22,7 @@ struct AddressMapPickerBottomSheet: View {
                                     .foregroundColor(.brandPrimary)
                                     .background(
                                         Circle()
-                                            .fill(Color.white)
+                                            .fill(Color.surface)
                                             .frame(width: 20, height: 20)
                                     )
                             }

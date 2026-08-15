@@ -21,7 +21,9 @@ struct ProfileView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: Spacing.s24) {
 
-                    if let profile = viewModel.profile {
+                    if viewModel.isLoading && viewModel.profile == nil {
+                        profileSkeletonView
+                    } else if let profile = viewModel.profile {
                         profileHeader(profile)
 
                         VStack(spacing: Spacing.s12) {
@@ -44,18 +46,40 @@ struct ProfileView: View {
                 .padding(Spacing.s16)
                 .padding(.bottom, Spacing.s32)
             }
-
-            if viewModel.isLoading && viewModel.profile == nil {
-                ProgressView()
-            }
         }
         .navigationBarHidden(true)
         .onAppear { viewModel.onAppear() }
+        .alert("Log Out?", isPresented: $viewModel.showLogoutConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Log Out", role: .destructive) {
+                viewModel.confirmLogout()
+            }
+        } message: {
+            Text("Are you sure you want to log out of your account?")
+        }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadProfile() }
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
+        }
+    }
+
+    private var profileSkeletonView: some View {
+        VStack(spacing: Spacing.s24) {
+            VStack(spacing: Spacing.s12) {
+                EtmaenSkeletonCircle(size: 88)
+                EtmaenSkeletonRect(width: 160, height: 20, radius: Radius.r8)
+                EtmaenSkeletonRect(width: 100, height: 14, radius: Radius.r8)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, Spacing.s16)
+
+            VStack(spacing: Spacing.s12) {
+                ForEach(0..<4, id: \.self) { _ in
+                    EtmaenCardSkeleton(height: 64)
+                }
+            }
         }
     }
 
@@ -71,19 +95,29 @@ struct ProfileView: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                            case .failure, .empty:
+                                    .frame(width: 96, height: 96)
+                                    .clipped()
+                            case .empty:
+                                Circle()
+                                    .fill(Color.surfaceVariant)
+                                    .overlay(
+                                        ProgressView()
+                                            .tint(Color.brandPrimary)
+                                    )
+                                    .frame(width: 96, height: 96)
+                            case .failure:
                                 fallbackAvatar
                             @unknown default:
                                 fallbackAvatar
                             }
                         }
+                        .frame(width: 96, height: 96)
                     } else {
                         fallbackAvatar
                     }
                 }
                 .frame(width: 96, height: 96)
                 .clipShape(Circle())
-
             }
 
             VStack(spacing: Spacing.s4) {

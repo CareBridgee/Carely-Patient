@@ -10,22 +10,27 @@ import SwiftUI
 struct AIAssistantCoordinatorView: View {
     let container: DIContainer
     @ObservedObject var coordinator: AIAssistantCoordinator
+    @StateObject private var choosePatientViewModel: ChoosePatientViewModel
+
+    init(container: DIContainer, coordinator: AIAssistantCoordinator) {
+        self.container = container
+        self.coordinator = coordinator
+        _choosePatientViewModel = StateObject(wrappedValue: container.makeChoosePatientViewModel(
+            onShowPatientDetails: { patientId in
+                coordinator.viewProfiledetailsTapped(profileId: patientId)
+            },
+            onContinueWithAssessment: { patientId in
+                coordinator.push(to: .aiAssistantChat(patientId: patientId))
+            },
+            onAddFamilyMember: {
+                coordinator.addFamilyMemberTapped()
+            }
+        ))
+    }
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            ChoosePatientView(
-                viewModel: container.makeChoosePatientViewModel(
-                    onShowPatientDetails: { patientId in
-                        coordinator.viewProfiledetailsTapped(profileId: patientId)
-                    },
-                    onContinueWithAssessment: { patientId in
-                        coordinator.push(to: .aiAssistantChat(patientId: patientId))
-                    },
-                    onAddFamilyMember: {
-                        coordinator.addFamilyMemberTapped()
-                    }
-                )
-            )
+            ChoosePatientView(viewModel: choosePatientViewModel)
             .navigationDestination(for: AIAssistantRoute.self) { route in
                 destination(for: route)
             }
