@@ -90,13 +90,12 @@ struct HomeAddressView: View {
         .background(Color.backGround)
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
-                isContinueDisabled: false,
+                isContinueDisabled: viewModel.isLoading,
                 showBackButton: viewModel.showBackButton,
                 continueTitle: viewModel.isLoading ? viewModel.loadingButtonTitle : viewModel.continueButtonTitle, 
                 onBackTapped: viewModel.backTapped,
                 onContinueTapped: viewModel.finishSetupTapped
             )
-            .opacity(viewModel.isLoading ? 0.5 : 1)
             .disabled(viewModel.isLoading)
         }
                 .alert("Error", isPresented: $viewModel.showError) {

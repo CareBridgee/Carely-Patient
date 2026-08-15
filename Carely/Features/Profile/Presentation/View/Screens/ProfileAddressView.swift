@@ -44,7 +44,7 @@ final class ProfileAddressViewModel: ObservableObject {
         if profiles.isEmpty {
             loadProfiles()
         } else {
-            homeAddressViewModel.loadAddress(profileId: selectedProfileId)
+            loadAddressForSelectedProfile()
         }
     }
 
@@ -62,8 +62,17 @@ final class ProfileAddressViewModel: ObservableObject {
     }
 
     func selectProfile(_ profileId: String) {
+        guard selectedProfileId != profileId else { return }
         selectedProfileId = profileId
-        homeAddressViewModel.loadAddress(profileId: profileId)
+        loadAddressForSelectedProfile()
+    }
+
+    private func loadAddressForSelectedProfile() {
+        if let cachedAddress = patientProfilesStore.addressesByProfileId[selectedProfileId] {
+            homeAddressViewModel.applyAddress(cachedAddress)
+        } else {
+            homeAddressViewModel.loadAddress(profileId: selectedProfileId)
+        }
     }
 
     func backTapped() {
