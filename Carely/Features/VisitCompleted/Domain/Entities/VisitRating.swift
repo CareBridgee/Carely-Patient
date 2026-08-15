@@ -10,4 +10,13 @@ import Foundation
 struct VisitRating: Equatable {
     let visitId: String
     let stars: Int
+    let reviewText: String
+    let isAnonymous: Bool
+
+    init(visitId: String, stars: Int, reviewText: String = "", isAnonymous: Bool = false) {
+        self.visitId = visitId
+        self.stars = stars
+        self.reviewText = reviewText
+        self.isAnonymous = isAnonymous
+    }
 }
