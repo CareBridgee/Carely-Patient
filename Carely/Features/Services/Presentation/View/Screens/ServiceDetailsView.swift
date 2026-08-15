@@ -136,10 +136,10 @@ struct ServiceDetailsView: View {
     private func infoHeader(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s4) {
             Text(detail.title)
-                .carelyText(style: .heading1, weight: .bold)
+                .carelyText(style: .heading2, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
             Text(detail.subtitle)
-                .carelyText(style: .bodyRegular)
+                .carelyText(style: .bodySmall, weight: .regular)
                 .foregroundColor(.secondaryFont)
         }
     }
@@ -162,10 +162,10 @@ struct ServiceDetailsView: View {
     private func aboutSection(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s12) {
             Text("About this service")
-                .carelyText(style: .heading3, weight: .bold)
+                .carelyText(style: .bodyLarge, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
             Text(detail.aboutDescription)
-                .carelyText(style: .bodyRegular)
+                .carelyText(style: .bodySmall, weight: .regular)
                 .foregroundColor(.secondaryFont)
                 .lineSpacing(4)
         }
@@ -179,7 +179,7 @@ struct ServiceDetailsView: View {
     private func includedSection(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s16) {
             Text("What's included")
-                .carelyText(style: .heading3, weight: .bold)
+                .carelyText(style: .bodyLarge, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
 
             VStack(alignment: .leading, spacing: Spacing.s12) {
