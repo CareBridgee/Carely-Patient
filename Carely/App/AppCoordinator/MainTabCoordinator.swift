@@ -60,10 +60,11 @@ final class MainTabCoordinator: ObservableObject {
         homeCoordinator.onOpenService = { [weak self] serviceId in
             self?.openService(id: serviceId)
         }
-//
-//        homeCoordinator.onOpenActiveVisit = { [weak self] in
-//            self?.openActiveVisit()
-//        }
+        homeCoordinator.onOpenActiveVisit = { [weak self] offer in
+            guard let self = self else { return }
+            self.selectedTab = .services
+            self.servicesCoordinator.openActiveVisit(offer: offer)
+        }
  
         homeCoordinator.onOpenAIAssistant = { [weak self] in
             self?.selectedTab = .ai

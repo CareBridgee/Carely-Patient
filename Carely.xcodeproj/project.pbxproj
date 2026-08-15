@@ -131,6 +131,9 @@
 		39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */; };
 		39265645301429F100AFD6F4 /* VisitRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265626301429F100AFD6F4 /* VisitRating.swift */; };
 		39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */; };
+		39999903301429F100AFD6F4 /* ReviewDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999901301429F100AFD6F4 /* ReviewDTOs.swift */; };
+		39999904301429F100AFD6F4 /* ReviewEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999902301429F100AFD6F4 /* ReviewEndpoint.swift */; };
+		39999906301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999905301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift */; };
 		3953414E3027807A00BD21BE /* NurseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3953414D3027807900BD21BE /* NurseDTO.swift */; };
 		395341513027809600BD21BE /* NurseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395341503027809600BD21BE /* NurseEndpoint.swift */; };
 		39534153302780AD00BD21BE /* NurseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39534152302780AD00BD21BE /* NurseService.swift */; };
@@ -147,6 +150,7 @@
 		3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3964959C3010775800AC4137 /* GetGreetingNameUseCase.swift */; };
 		3964959F3010777700AC4137 /* GetServiceCategoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3964959E3010777600AC4137 /* GetServiceCategoriesUseCase.swift */; };
 		396495A1301077A100AC4137 /* GetUpcomingBookingsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A0301077A000AC4137 /* GetUpcomingBookingsUseCase.swift */; };
+		39999908301429F100AFD6F4 /* GetActiveVisitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999907301429F100AFD6F4 /* GetActiveVisitUseCase.swift */; };
 		396495A3301077C800AC4137 /* GetServiceDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A2301077C500AC4137 /* GetServiceDetailUseCase.swift */; };
 		396495A5301077DF00AC4137 /* SearchServiceCategoriesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */; };
 		396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495A63010780700AC4137 /* HomeRepositoryImpl.swift */; };
@@ -385,6 +389,7 @@
 		C6E897243015CB4300E3D336 /* RefreshState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897203015CB4300E3D336 /* RefreshState.swift */; };
 		C6E897253015CB4300E3D336 /* AuthorizationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971D3015CB4300E3D336 /* AuthorizationType.swift */; };
 		C6E897263015CB4300E3D336 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897213015CB4300E3D336 /* SessionManager.swift */; };
+		3999990A301429F200AFD6F4 /* ActiveVisitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999909301429F200AFD6F4 /* ActiveVisitStore.swift */; };
 		C6E897273015CB4300E3D336 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971C3015CB4300E3D336 /* AuthInterceptor.swift */; };
 		C6E897283015CB4300E3D336 /* JSONDecoder+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E8971E3015CB4300E3D336 /* JSONDecoder+Default.swift */; };
 		C6E897293015CB4300E3D336 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E897223015CB4300E3D336 /* UserSession.swift */; };
@@ -538,6 +543,7 @@
 		3913283B302E846F00270CDB /* VisitDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitDetailRow.swift; sourceTree = "<group>"; };
 		3921F29730112EB000CE77CF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3921F29B30112F5100CE77CF /* ServiceCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryCard.swift; sourceTree = "<group>"; };
+		39999905301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift"; sourceTree = "<group>"; };
 		3921F2A1301131FC00CE77CF /* ServiceCategoryTileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategoryTileCard.swift; sourceTree = "<group>"; };
 		39225EF0300EF85C00D6AE1A /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		39265623301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitSummaryRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -552,6 +558,8 @@
 		39265633301429F100AFD6F4 /* RatingBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingBottomSheetView.swift; sourceTree = "<group>"; };
 		39265634301429F100AFD6F4 /* VisitCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedView.swift; sourceTree = "<group>"; };
 		39265637301429F100AFD6F4 /* VisitCompletedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitCompletedViewModel.swift; sourceTree = "<group>"; };
+		39999901301429F100AFD6F4 /* ReviewDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift"; sourceTree = "<group>"; };
+		39999902301429F100AFD6F4 /* ReviewEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift"; sourceTree = "<group>"; };
 		3953414D3027807900BD21BE /* NurseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseDTO.swift; sourceTree = "<group>"; };
 		395341503027809600BD21BE /* NurseEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseEndpoint.swift; sourceTree = "<group>"; };
 		39534152302780AD00BD21BE /* NurseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseService.swift; sourceTree = "<group>"; };
@@ -568,6 +576,7 @@
 		3964959C3010775800AC4137 /* GetGreetingNameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGreetingNameUseCase.swift; sourceTree = "<group>"; };
 		3964959E3010777600AC4137 /* GetServiceCategoriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceCategoriesUseCase.swift; sourceTree = "<group>"; };
 		396495A0301077A000AC4137 /* GetUpcomingBookingsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUpcomingBookingsUseCase.swift; sourceTree = "<group>"; };
+		39999907301429F100AFD6F4 /* GetActiveVisitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift"; sourceTree = "<group>"; };
 		396495A2301077C500AC4137 /* GetServiceDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceDetailUseCase.swift; sourceTree = "<group>"; };
 		396495A4301077DE00AC4137 /* SearchServiceCategoriesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceCategoriesUseCase.swift; sourceTree = "<group>"; };
 		396495A63010780700AC4137 /* HomeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -805,6 +814,7 @@
 		C6E8971F3015CB4300E3D336 /* KeychainTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTokenStore.swift; sourceTree = "<group>"; };
 		C6E897203015CB4300E3D336 /* RefreshState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshState.swift; sourceTree = "<group>"; };
 		C6E897213015CB4300E3D336 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		39999909301429F200AFD6F4 /* ActiveVisitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Carely/Core/State/ActiveVisitStore.swift"; sourceTree = "<group>"; };
 		C6E897223015CB4300E3D336 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		C6E8972A3015CB7C00E3D336 /* AuthEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndpoint.swift; sourceTree = "<group>"; };
 		C6E8972B3015CB7C00E3D336 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -2996,6 +3006,7 @@
 				C6E897243015CB4300E3D336 /* RefreshState.swift in Sources */,
 				C6E897253015CB4300E3D336 /* AuthorizationType.swift in Sources */,
 				C6E897263015CB4300E3D336 /* SessionManager.swift in Sources */,
+				3999990A301429F200AFD6F4 /* ActiveVisitStore.swift in Sources */,
 				C6E897273015CB4300E3D336 /* AuthInterceptor.swift in Sources */,
 				C6E897283015CB4300E3D336 /* JSONDecoder+Default.swift in Sources */,
 				C6E897293015CB4300E3D336 /* UserSession.swift in Sources */,
@@ -3122,6 +3133,9 @@
 				39265644301429F100AFD6F4 /* VisitSummaryRepositoryImpl.swift in Sources */,
 				39265645301429F100AFD6F4 /* VisitRating.swift in Sources */,
 				39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */,
+				39999903301429F100AFD6F4 /* ReviewDTOs.swift in Sources */,
+				39999904301429F100AFD6F4 /* ReviewEndpoint.swift in Sources */,
+				39999906301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift in Sources */,
 				39132818302E82EE00270CDB /* ServiceRequestHistoryDTO.swift in Sources */,
 				39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
@@ -3139,6 +3153,7 @@
 				0C7F5F49302D4EFC005CFC20 /* OffersSearchinView.swift in Sources */,
 				0C7F5F4B302D4EFC005CFC20 /* OfferAcceptedViewModel.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
+				39999908301429F100AFD6F4 /* GetActiveVisitUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
 				3913283A302E845D00270CDB /* EmptyHistoryView.swift in Sources */,
 				39534157302780CD00BD21BE /* NurseDetails.swift in Sources */,
