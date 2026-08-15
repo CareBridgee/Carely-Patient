@@ -82,7 +82,8 @@ extension ServiceCategory {
             subtitle: dto.description ?? "",
             iconName: ServiceTypeIconMapper.icon(forCategory: dto.category),
             layout: ServiceCategoryLayoutMapper.layout(at: index),
-            accent: ServiceCategoryLayoutMapper.accent(at: index)
+            accent: ServiceCategoryLayoutMapper.accent(at: index),
+            imageUrl: dto.imageUrl
         )
     }
 }

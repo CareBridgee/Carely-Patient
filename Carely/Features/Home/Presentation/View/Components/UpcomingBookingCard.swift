@@ -14,12 +14,7 @@ struct UpcomingBookingCard: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: Spacing.s16) {
-                Image(systemName: booking.providerImageName)
-                    .resizable()
-                    .frame(width: 48,height: 48)
-                    .foregroundColor(.brandPrimary)
-                    .clipShape(RoundedRectangle.carely(Radius.r16))
-                
+                avatar
                 
                 VStack(alignment: .leading, spacing: Spacing.s4) {
                     HStack {
@@ -51,7 +46,42 @@ struct UpcomingBookingCard: View {
             .carelyShadow(.sm)
         }
         .buttonStyle(.plain)
-    }    
+    }
+
+    private var avatar: some View {
+        Group {
+            if let urlString = booking.providerImageUrl, let url = URL(string: urlString) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .tint(Color.brandPrimary)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    case .failure:
+                        fallbackIcon
+                    @unknown default:
+                        fallbackIcon
+                    }
+                }
+            } else {
+                fallbackIcon
+            }
+        }
+        .frame(width: 48, height: 48)
+        .background(Color.primaryContainer.opacity(0.3))
+        .clipShape(RoundedRectangle.carely(Radius.r16))
+    }
+
+    private var fallbackIcon: some View {
+        Image(systemName: booking.providerImageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 28, height: 28)
+            .foregroundColor(.brandPrimary)
+    }
 }
 
 private struct StatusBadge: View {

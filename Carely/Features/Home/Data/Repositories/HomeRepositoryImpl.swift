@@ -114,6 +114,7 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
             id: dto.serviceRequestId,
             providerName: nurseDisplayName(dto.nurse),
             providerImageName: "person.crop.circle.fill",
+            providerImageUrl: dto.nurse?.profileImageUrl,
             serviceName: dto.serviceName ?? "Service",
             status: BookingStatus(visitStatus: VisitStatus(rawStatus: dto.status)),
             dateTimeText: [dto.preferredDate, dto.preferredTime?.displayText]

@@ -97,6 +97,7 @@ struct HomeView: View {
                     ServiceCategoryTile(
                         title: category.title,
                         iconName: category.iconName,
+                        imageUrl: category.imageUrl,
                         action: { viewModel.categoryTapped(category) }
                     )
                 }

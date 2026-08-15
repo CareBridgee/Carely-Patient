@@ -14,15 +14,33 @@ struct ServiceCategoryCard: View {
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: Spacing.s12) {
-                // Top Circular Icon Badge
+                // Top Circular Icon Badge / Image
                 ZStack {
                     Circle()
                         .fill(Color.surfaceVariant)
                         .frame(width: 44, height: 44)
                     
-                    Image(systemName: category.iconName)
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(Color.onBankContainer)
+                    if let imageUrlString = category.imageUrl, let url = URL(string: imageUrlString) {
+                        AsyncImage(url: url) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                    .tint(Color.brandPrimary)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 44, height: 44)
+                                    .clipShape(Circle())
+                            case .failure:
+                                fallbackIcon
+                            @unknown default:
+                                fallbackIcon
+                            }
+                        }
+                    } else {
+                        fallbackIcon
+                    }
                 }
                 
                 VStack(alignment: .leading, spacing: Spacing.s4) {
@@ -45,6 +63,12 @@ struct ServiceCategoryCard: View {
             .carelyShadow(.sm)
         }
         .buttonStyle(.plain)
+    }
+
+    private var fallbackIcon: some View {
+        Image(systemName: category.iconName)
+            .font(.system(size: 20, weight: .semibold))
+            .foregroundColor(Color.onBankContainer)
     }
 }
 
