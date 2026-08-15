@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
  
 // MARK: - MainTabCoordinator
  
@@ -26,6 +27,21 @@ final class MainTabCoordinator: ObservableObject {
     let profileCoordinator: ProfileCoordinator
     private var notificationsHubService: NotificationsHubServiceProtocol
     private let appState: AppState
+    private var cancellables = Set<AnyCancellable>()
+
+    /// Tab bar is visible ONLY on the root screen of each tab.
+    var isTabBarVisible: Bool {
+        switch selectedTab {
+        case .home:
+            return homeCoordinator.path.isEmpty
+        case .services:
+            return servicesCoordinator.path.isEmpty
+        case .ai:
+            return aiAssistantCoordinator.path.isEmpty
+        case .profile:
+            return profileCoordinator.path.isEmpty
+        }
+    }
 
 
      init(appState: AppState, container: DIContainer) {
@@ -45,6 +61,25 @@ final class MainTabCoordinator: ObservableObject {
             
             wireCrossTabNavigation()
             setupNotifications()
+            observeChildCoordinators()
+    }
+
+    private func observeChildCoordinators() {
+        homeCoordinator.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+
+        servicesCoordinator.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+
+        aiAssistantCoordinator.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+
+        profileCoordinator.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
     }
  
     // MARK: - Cross-Tab Wiring

@@ -19,13 +19,17 @@ struct HistoryView: View {
             Color.backGround.ignoresSafeArea()
  
             VStack(spacing: Spacing.s20) {
-                topBar
-                    .padding(.horizontal, Spacing.s16)
-                    .padding(.top, Spacing.s8)
- 
                 content
             }
         }
+        .careConnectNavigationBar(
+            title: "History",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadHistory() }
@@ -35,35 +39,39 @@ struct HistoryView: View {
         }
     }
  
-    private var topBar: some View {
-        HStack {
-            Button {
-                viewModel.backTapped()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-            }
- 
-            Spacer()
- 
-            Text("History")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
- 
-            Spacer()
- 
-            Color.clear.frame(width: 40, height: 40)
-        }
-    }
- 
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading && viewModel.items.isEmpty {
-            Spacer()
-            ProgressView()
-            Spacer()
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: Spacing.s16) {
+                    ForEach(0..<4, id: \.self) { _ in
+                        HStack(alignment: .top, spacing: Spacing.s16) {
+                            EtmaenSkeletonRect(width: 48, height: 48, radius: Radius.r16)
+
+                            VStack(alignment: .leading, spacing: Spacing.s4) {
+                                HStack {
+                                    EtmaenSkeletonRect(width: 120, height: 16, radius: Radius.r8)
+                                    Spacer()
+                                    EtmaenSkeletonRect(width: 70, height: 20, radius: Radius.r12)
+                                }
+
+                                EtmaenSkeletonRect(width: 140, height: 14, radius: Radius.r8)
+
+                                HStack(spacing: Spacing.s4) {
+                                    EtmaenSkeletonCircle(size: 12)
+                                    EtmaenSkeletonRect(width: 100, height: 12, radius: Radius.r8)
+                                }
+                            }
+                        }
+                        .padding(Spacing.s16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.surface)
+                        .clipShape(RoundedRectangle.carely(Radius.r24))
+                        .carelyShadow(.sm)
+                    }
+                }
+                .padding(Spacing.s16)
+            }
         } else if viewModel.items.isEmpty {
             Spacer()
             EmptyHistoryView(onExploreServices: viewModel.exploreServicesTapped)

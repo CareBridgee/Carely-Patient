@@ -20,7 +20,7 @@ struct IncludedItemRow: View {
                 .clipShape(Circle())
  
             Text(text)
-                .carelyText(style: .bodyRegular)
+                .carelyText(style: .bodySmall, weight: .regular)
                 .foregroundColor(.secondaryFont)
  
             Spacer()

@@ -9,8 +9,8 @@ struct NurseProfileHeaderView: View {
             AsyncImage(url: profile.profileImageUrl.flatMap(URL.init)) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
-                Color.gray.opacity(0.3)
-                    .overlay(Image(systemName: "person.fill").foregroundColor(.white))
+                Color.surfaceVariant
+                    .overlay(Image(systemName: "person.fill").foregroundColor(Color.hint))
             }
             .frame(width: 120, height: 120)
             .clipShape(RoundedRectangle(cornerRadius: Spacing.s24))

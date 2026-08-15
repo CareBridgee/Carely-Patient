@@ -22,12 +22,13 @@ enum ServiceCategoryAccent: Equatable {
     case neutral
 }
  
-struct ServiceCategory: Identifiable, Equatable,Hashable {
+struct ServiceCategory: Identifiable, Equatable, Hashable {
     let id: String
     let title: String
     let subtitle: String
     let iconName: String
     let layout: ServiceCategoryLayout
     let accent: ServiceCategoryAccent
+    let imageUrl: String?
 }
  

@@ -29,8 +29,8 @@ struct AIAssessmentBannerView: View {
                 .fixedSize(horizontal: false, vertical: true)
  
             PrimaryButton(
-                colorOfBackground: Color.white,
-                colorOfForground: Color.onPrimaryContainer,
+                colorOfBackground: Color.surface,
+                colorOfForground: Color.brandPrimary,
                 title: "Start Chat",
                 size: .medium,
                 icon: "message.fill",

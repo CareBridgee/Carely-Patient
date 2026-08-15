@@ -22,7 +22,7 @@ struct ConditionCardView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(Spacing.s16)
-            .background(isSelected ? Color.mintSurface : Color.white)
+            .background(isSelected ? Color.mintSurface : Color.surface)
             .cornerRadius(Radius.r12)
             .overlay(
                 RoundedRectangle.carely(Radius.r12)

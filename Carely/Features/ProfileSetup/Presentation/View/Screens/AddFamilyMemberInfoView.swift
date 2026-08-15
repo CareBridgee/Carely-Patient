@@ -80,27 +80,8 @@ struct AddFamilyMemberInfoView: View {
                     onContinueTapped: viewModel.continueTapped
                 )
             }
-            .blur(radius: viewModel.isLoading ? 3 : 0)
-
-            if viewModel.isLoading {
-                ZStack {
-                    Color.black.opacity(0.3).ignoresSafeArea()
-                    VStack(spacing: 16) {
-                        ProgressView().scaleEffect(1.5).tint(.brandPrimary)
-                        Text("Please wait...")
-                            .carelyText(style: .bodyRegular, weight: .bold)
-                            .foregroundColor(.primaryFont)
-                    }
-                    .padding(32)
-                    .background(Color.surface)
-                    .cornerRadius(20)
-                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
-                }
-                .zIndex(1)
-                .transition(.opacity.combined(with: .scale(scale: 0.95)))
-            }
         }
-        .animation(.easeInOut(duration: 0.3), value: viewModel.isLoading)
+        .etmaenLoadingOverlay(isPresented: viewModel.isLoading, message: "Please wait...")
         .alert("Error", isPresented: $viewModel.showError) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -161,7 +142,7 @@ private struct FamilyMemberPhotoPickerView: View {
                             .overlay(
                                 Image(systemName: "camera.fill")
                                     .font(.system(size: 12, weight: .bold))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(Color.onPrimary)
                             )
                             .offset(x: -4, y: -4)
                     }

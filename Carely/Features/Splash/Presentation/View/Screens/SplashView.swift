@@ -28,7 +28,7 @@ struct SplashView: View {
                     Image.logo
                         .resizable()
                         .renderingMode(.template)
-                        .foregroundColor(.white)
+                        .foregroundColor(.onPrimary)
                         .frame(width: 180, height: 180)
                         .scaleEffect(isAnimating ? 1.0 : 0.5)
                         .opacity(isAnimating ? 1.0 : 0.0)

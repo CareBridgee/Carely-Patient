@@ -33,6 +33,7 @@ struct UpcomingBooking: Identifiable, Equatable {
     let id: String
     let providerName: String
     let providerImageName: String
+    let providerImageUrl: String?
     let serviceName: String
     let status: BookingStatus
     let dateTimeText: String

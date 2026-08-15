@@ -6,10 +6,11 @@
 //
 
 import Foundation
- 
+import SwiftUI
  
 @MainActor
 final class HomeCoordinator: ObservableObject {
+    @Published var path = NavigationPath()
  
     // MARK: - Cross-Tab Callbacks
  

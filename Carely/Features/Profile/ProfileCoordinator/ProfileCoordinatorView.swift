@@ -11,10 +11,17 @@ struct ProfileCoordinatorView: View {
 
     let container: DIContainer
     @ObservedObject var coordinator: ProfileCoordinator
+    @StateObject private var profileViewModel: ProfileViewModel
+
+    init(container: DIContainer, coordinator: ProfileCoordinator) {
+        self.container = container
+        self.coordinator = coordinator
+        _profileViewModel = StateObject(wrappedValue: container.makeProfileViewModel(coordinator: coordinator))
+    }
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            ProfileView(viewModel: container.makeProfileViewModel(coordinator: coordinator))
+            ProfileView(viewModel: profileViewModel)
                 .navigationDestination(for: ProfileRoute.self) { route in
                     destination(for: route)
                 }

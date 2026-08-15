@@ -11,17 +11,36 @@ import SwiftUI
 struct ServiceCategoryTile: View {
     let title: String
     let iconName: String
+    var imageUrl: String? = nil
     var action: () -> Void = {}
 
     var body: some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: Spacing.s12) {
-                Image(systemName: iconName)
-                    .font(.system(size: 22))
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 48, height: 48)
-                    .background(Color.primaryContainer)
-                    .clipShape(RoundedRectangle.carely(Radius.r16))
+                Group {
+                    if let imageUrlString = imageUrl, let url = URL(string: imageUrlString) {
+                        AsyncImage(url: url) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                    .tint(Color.brandPrimary)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            case .failure:
+                                fallbackIcon
+                            @unknown default:
+                                fallbackIcon
+                            }
+                        }
+                    } else {
+                        fallbackIcon
+                    }
+                }
+                .frame(width: 48, height: 48)
+                .background(Color.primaryContainer)
+                .clipShape(RoundedRectangle.carely(Radius.r16))
 
                 Text(title)
                     .carelyText(style: .bodySmall)
@@ -34,6 +53,12 @@ struct ServiceCategoryTile: View {
             .carelyShadow(.sm)
         }
         .buttonStyle(.plain)
+    }
+
+    private var fallbackIcon: some View {
+        Image(systemName: iconName)
+            .font(.system(size: 22))
+            .foregroundColor(.brandPrimary)
     }
 }
 

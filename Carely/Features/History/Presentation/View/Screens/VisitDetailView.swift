@@ -21,42 +21,21 @@ struct VisitDetailView: View {
             Color.backGround.ignoresSafeArea()
  
             VStack(spacing: Spacing.s20) {
-                topBar
-                    .padding(.horizontal, Spacing.s16)
-                    .padding(.top, Spacing.s8)
- 
                 content
             }
         }
+        .careConnectNavigationBar(
+            title: "Visit Details",
+            showBackButton: true,
+            onBackTapped: onBackTapped
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadDetail() }
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
-        }
-    }
- 
-    private var topBar: some View {
-        HStack {
-            Button(action: onBackTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
- 
-            Spacer()
- 
-            Text("Visit Details")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
- 
-            Spacer()
- 
-            Color.clear.frame(width: 40, height: 40)
         }
     }
  
@@ -76,11 +55,70 @@ struct VisitDetailView: View {
                 .padding(.bottom, Spacing.s32)
             }
         } else if viewModel.isLoading {
-            Spacer()
-            ProgressView()
-            Spacer()
+            visitDetailSkeletonView
         } else {
             Spacer()
+        }
+    }
+
+    private var visitDetailSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: Spacing.s24) {
+                // Status Header Skeleton
+                VStack(spacing: Spacing.s16) {
+                    EtmaenSkeletonCircle(size: 96)
+                    EtmaenSkeletonRect(width: 180, height: 22, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 100, height: 24, radius: Radius.r12)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, Spacing.s16)
+
+                // Visit Details Card Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s20) {
+                    EtmaenSkeletonRect(width: 110, height: 14, radius: Radius.r8)
+                    
+                    VStack(spacing: Spacing.s16) {
+                        ForEach(0..<3, id: \.self) { _ in
+                            HStack(spacing: Spacing.s12) {
+                                EtmaenSkeletonCircle(size: 32)
+                                VStack(alignment: .leading, spacing: Spacing.s4) {
+                                    EtmaenSkeletonRect(width: 60, height: 12, radius: Radius.r8)
+                                    EtmaenSkeletonRect(width: 120, height: 14, radius: Radius.r8)
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
+
+                // Care Provider Card Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s16) {
+                    EtmaenSkeletonRect(width: 110, height: 14, radius: Radius.r8)
+
+                    HStack(spacing: Spacing.s12) {
+                        EtmaenSkeletonCircle(size: 56)
+
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonRect(width: 140, height: 16, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 180, height: 12, radius: Radius.r8)
+                        }
+
+                        Spacer()
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
+            }
+            .padding(Spacing.s16)
+            .padding(.bottom, Spacing.s32)
         }
     }
  

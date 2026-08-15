@@ -102,11 +102,17 @@ final class OffersSearchingViewModel: ObservableObject {
         }
     }
         
+    @Published var showCancelSearchConfirmation: Bool = false
+
     func cancelSearch() {
         manageOffersConnectionUseCase.disconnect()
     }
     
     func cancelServiceRequest() {
+        showCancelSearchConfirmation = true
+    }
+
+    func confirmCancelServiceRequest() {
         Task {
             do {
                 try await cancelServiceRequestUseCase.execute(serviceRequestId: requestId)

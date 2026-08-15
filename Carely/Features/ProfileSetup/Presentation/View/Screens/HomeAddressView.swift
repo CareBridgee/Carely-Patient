@@ -61,13 +61,13 @@ struct HomeAddressView: View {
                                 .resizable()
                                 .frame(width: 36, height: 36)
                                 .foregroundColor(.brandPrimary)
-                                .background(Circle().fill(Color.white).frame(width: 24, height: 24))
+                                .background(Circle().fill(Color.surface).frame(width: 24, height: 24))
                         }
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
                 .padding(Spacing.s16)
-                .background(.background)
+                .background(Color.surface)
                 .cornerRadius(20)
 
                 if let errorMessage = viewModel.locationErrorMessage {
@@ -90,13 +90,12 @@ struct HomeAddressView: View {
         .background(Color.backGround)
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
-                isContinueDisabled: false,
+                isContinueDisabled: viewModel.isLoading,
                 showBackButton: viewModel.showBackButton,
                 continueTitle: viewModel.isLoading ? viewModel.loadingButtonTitle : viewModel.continueButtonTitle, 
                 onBackTapped: viewModel.backTapped,
                 onContinueTapped: viewModel.finishSetupTapped
             )
-            .opacity(viewModel.isLoading ? 0.5 : 1)
             .disabled(viewModel.isLoading)
         }
                 .alert("Error", isPresented: $viewModel.showError) {

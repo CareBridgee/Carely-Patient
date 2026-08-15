@@ -25,7 +25,7 @@ struct FloatingTabBar: View {
         .frame(height: 68)
         .background(
             Capsule()
-                .fill(Color.white)
+                .fill(Color.surface)
                 .shadow(color: Color.black.opacity(0.12), radius: Radius.r16, x: 0, y: 8)
         )
         .padding(.horizontal, 20)
@@ -53,7 +53,7 @@ struct FloatingTabBar: View {
                         .transition(.opacity.combined(with: .move(edge: .leading)))
                 }
             }
-            .foregroundColor(isSelected ? .white : .secondaryFont)
+            .foregroundColor(isSelected ? .onPrimary : .secondaryFont)
             .padding(.horizontal, isSelected ? Spacing.s16 : Spacing.s12)
             .frame(maxWidth: isSelected ? .infinity : nil)
             .frame(height: 48)

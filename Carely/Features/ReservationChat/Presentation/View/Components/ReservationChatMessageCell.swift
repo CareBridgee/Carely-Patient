@@ -19,18 +19,18 @@ struct ReservationChatMessageCell: View {
                 if !isCurrentUser {
                     Text(message.senderName)
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondaryFont)
                 }
                 
                 Text(message.content)
                     .padding(12)
-                    .background(isCurrentUser ? Color.blue : Color.gray.opacity(0.2))
-                    .foregroundColor(isCurrentUser ? .white : .primary)
+                    .background(isCurrentUser ? Color.brandPrimary : Color.surfaceVariant)
+                    .foregroundColor(isCurrentUser ? Color.onPrimary : Color.primaryFont)
                     .cornerRadius(16)
                 
                 Text(formatDate(message.createdAt))
                     .font(.caption2)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondaryFont)
             }
             
             if !isCurrentUser {

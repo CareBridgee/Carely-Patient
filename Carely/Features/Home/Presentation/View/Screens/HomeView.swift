@@ -20,28 +20,34 @@ struct HomeView: View {
             Color.backGround.ignoresSafeArea()
 
             VStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: Spacing.s20) {
-                        HomeTopBar(
-                            greetingName: viewModel.greetingName,
-                            profileImageUrl: viewModel.profileImageUrl
-                        ) {}
+                if viewModel.isLoading && viewModel.previewCategories.isEmpty {
+                    homeSkeletonView
+                } else {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: Spacing.s20) {
+                            HomeTopBar(
+                                greetingName: viewModel.greetingName,
+                                profileImageUrl: viewModel.profileImageUrl
+                            ) {}
 
-                        SearchField(
-                            placeholder: "Search services, symptoms...",
-                            text: $searchText
-                        )
+                            SearchField(
+                                placeholder: "Search services, symptoms...",
+                                text: $searchText
+                            )
 
-                        AIAssessmentBannerView {}
+                            AIAssessmentBannerView {}
 
-                        servicesSection
+                            servicesSection
 
-                        if !viewModel.upcomingBookings.isEmpty {
-                            bookingsSection
+                            if !viewModel.upcomingBookings.isEmpty {
+                                bookingsSection
+                            }
                         }
+                      //  .padding(Spacing.s16)
+                     //   .padding(.bottom, Spacing.s64)
                     }
                     .padding(Spacing.s16)
-                    .padding(.bottom, viewModel.hasActiveVisit ? 110 : Spacing.s64)
+                    .padding(.bottom, viewModel.hasActiveVisit ? 50 : 0)
                 }
             }
 
@@ -55,10 +61,6 @@ struct HomeView: View {
                     .padding(.bottom, 22)
                 }
             }
-
-            if viewModel.isLoading && viewModel.previewCategories.isEmpty {
-                ProgressView()
-            }
         }
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
@@ -66,6 +68,32 @@ struct HomeView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
+        }
+    }
+
+    private var homeSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: Spacing.s20) {
+                HStack {
+                    VStack(alignment: .leading, spacing: Spacing.s8) {
+                        EtmaenSkeletonRect(width: 120, height: 14, radius: Radius.r8)
+                        EtmaenSkeletonRect(width: 180, height: 22, radius: Radius.r8)
+                    }
+                    Spacer()
+                    EtmaenSkeletonCircle(size: 44)
+                }
+
+                EtmaenSkeletonRect(height: 48, radius: Radius.r16)
+
+                EtmaenSkeletonRect(height: 110, radius: Radius.r20)
+
+                VStack(alignment: .leading, spacing: Spacing.s12) {
+                    EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
+                    EtmaenServiceGridSkeleton()
+                }
+            }
+            .padding(Spacing.s16)
+            .padding(.bottom, Spacing.s64)
         }
     }
 
@@ -82,6 +110,7 @@ struct HomeView: View {
                     ServiceCategoryTile(
                         title: category.title,
                         iconName: category.iconName,
+                        imageUrl: category.imageUrl,
                         action: { viewModel.categoryTapped(category) }
                     )
                 }

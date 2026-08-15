@@ -28,13 +28,13 @@ struct MeasurementInputCardView: View {
             if let error = errorMessage, !error.isEmpty {
                 Text(error)
                     .carelyText(style: .bodySmall, weight: .medium)
-                    .foregroundColor(.red)
+                    .foregroundColor(.error)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(Spacing.s16)
         .frame(maxWidth: .infinity, alignment: .top)
-        .background(Color.white)
+        .background(Color.surface)
         .cornerRadius(Radius.r16)
         .carelyShadow(.sm)
     }

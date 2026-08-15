@@ -19,9 +19,7 @@ struct SettingsView: View {
             Color.backGround.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: Spacing.s24) {
-                    topBar
-
+                VStack(alignment: .leading, spacing: Spacing.s20) {
                     header
 
                     section(title: "App Preferences") {
@@ -33,23 +31,9 @@ struct SettingsView: View {
                         )
                         Divider().overlay(Color.divider)
                         SettingsRow(
-                            iconName: "moon.fill",
-                            title: "Dark Mode",
-                            trailing: .toggle($viewModel.isDarkModeOn)
-                        )
-                    }
-
-                    section(title: "Notifications") {
-                        SettingsRow(
-                            iconName: "envelope.fill",
-                            title: "Email Updates",
-                            trailing: .toggle($viewModel.isEmailUpdatesOn)
-                        )
-                        Divider().overlay(Color.divider)
-                        SettingsRow(
-                            iconName: "message.fill",
-                            title: "SMS Alerts",
-                            trailing: .toggle($viewModel.isSMSAlertsOn)
+                            iconName: "circle.righthalf.filled",
+                            title: "Appearance",
+                            trailing: .appearancePicker($viewModel.appearance)
                         )
                     }
 
@@ -66,29 +50,13 @@ struct SettingsView: View {
                 .padding(.bottom, Spacing.s32)
             }
         }
-    }
-
-    private var topBar: some View {
-        HStack {
-//            Button(action: viewModel.backTapped) {
-//                Image(systemName: "arrow.left")
-//                    .carelyText(style: .bodyLarge, weight: .semiBold)
-//                    .foregroundColor(.brandPrimary)
-//                    .frame(width: 40, height: 40)
-//                    .background(Color.surface)
-//                    .clipShape(Circle())
-//            }
-//
-            Spacer()
-
-            Text("Settings")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-
-            Spacer()
-
-//            Color.clear.frame(width: 40, height: 40)
-        }
+        .careConnectNavigationBar(
+            title: "Settings",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
     }
 
     private var header: some View {

@@ -20,7 +20,7 @@ enum ProfileError: LocalizedError {
     }
 }
 
-protocol ProfileRepositoryProtocol {
+protocol ProfileRepositoryProtocol: Sendable {
     func fetchPatientProfile() async throws -> PatientProfile
     func fetchFamilyMembers() async throws -> [FamilyMember]
     func updateProfile(id: String, params: ProfileUpdateRequestParams, image: UIImage?) async throws

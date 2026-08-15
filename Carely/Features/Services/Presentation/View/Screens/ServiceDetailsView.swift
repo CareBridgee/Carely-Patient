@@ -19,37 +19,39 @@ struct ServiceDetailsView: View {
             Color.backGround.ignoresSafeArea()
 
             if let detail = viewModel.detail {
-                VStack(spacing: 0) {
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading, spacing: Spacing.s20) {
-                            heroSection(detail)
-                            infoHeader(detail)
-                            priceDurationSection(detail)
-                            aboutSection(detail)
-                            includedSection(detail)
-                            noteSection(detail)
-                        }
-                        .padding(.horizontal, Spacing.s16)
-                        .padding(.top, 64)
-                        .padding(.bottom, 156)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: Spacing.s20) {
+                        heroSection(detail)
+                        infoHeader(detail)
+                        priceDurationSection(detail)
+                        aboutSection(detail)
+                        includedSection(detail)
+                        noteSection(detail)
                     }
+                    .padding(.horizontal, Spacing.s16)
+                    .padding(.top, Spacing.s16)
+                    .padding(.bottom, Spacing.s24)
                 }
-
-                VStack {
-                    Spacer()
+                .safeAreaInset(edge: .bottom) {
                     bookButton
-                        .padding(Spacing.s16)
-                        .background(Color.backGround.opacity(0.95))
-                        .padding(.bottom , Spacing.s8)
+                        .padding(.horizontal, Spacing.s16)
+                        .padding(.vertical, Spacing.s12)
+                        .background(Color.backGround)
                 }
             } else if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                serviceDetailsSkeletonView
             }
-
-            topBar
         }
-        .navigationBarHidden(true)
+        .background(Color.backGround.ignoresSafeArea())
+        .careConnectNavigationBar(
+            title: "Service Details",
+            showBackButton: true,
+            trailingIcon: "square.and.arrow.up",
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
+        .blur(radius: (viewModel.isLoading && viewModel.detail != nil) ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadDetail() }
@@ -65,39 +67,6 @@ struct ServiceDetailsView: View {
     }
 
     // MARK: - Sections
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-
-            Spacer()
-
-            Text("Service Details")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-
-            Spacer()
-
-            Button(action: {}) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.primaryFont)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-        }
-        .padding(.horizontal, Spacing.s16)
-        .padding(.vertical, Spacing.s8)
-        .background(Color.backGround.opacity(0.9))
-    }
 
     private func heroSection(_ detail: ServiceDetail) -> some View {
             ZStack(alignment: .bottomLeading) {
@@ -137,7 +106,7 @@ struct ServiceDetailsView: View {
                     Text(detail.badgeText.isEmpty ? "Clinical Grade" : detail.badgeText)
                         .carelyText(style: .caption, weight: .semiBold)
                 }
-                .foregroundColor(.white)
+                .foregroundColor(Color.onPrimary)
                 .padding(.horizontal, Spacing.s12)
                 .padding(.vertical, Spacing.s8)
                 .background(Color.brandPrimary)
@@ -167,10 +136,10 @@ struct ServiceDetailsView: View {
     private func infoHeader(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s4) {
             Text(detail.title)
-                .carelyText(style: .heading1, weight: .bold)
+                .carelyText(style: .heading2, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
             Text(detail.subtitle)
-                .carelyText(style: .bodyRegular)
+                .carelyText(style: .bodySmall, weight: .regular)
                 .foregroundColor(.secondaryFont)
         }
     }
@@ -193,10 +162,10 @@ struct ServiceDetailsView: View {
     private func aboutSection(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s12) {
             Text("About this service")
-                .carelyText(style: .heading3, weight: .bold)
+                .carelyText(style: .bodyLarge, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
             Text(detail.aboutDescription)
-                .carelyText(style: .bodyRegular)
+                .carelyText(style: .bodySmall, weight: .regular)
                 .foregroundColor(.secondaryFont)
                 .lineSpacing(4)
         }
@@ -210,7 +179,7 @@ struct ServiceDetailsView: View {
     private func includedSection(_ detail: ServiceDetail) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s16) {
             Text("What's included")
-                .carelyText(style: .heading3, weight: .bold)
+                .carelyText(style: .bodyLarge, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
 
             VStack(alignment: .leading, spacing: Spacing.s12) {
@@ -252,6 +221,69 @@ struct ServiceDetailsView: View {
             isLoading: viewModel.isBooking,
             action: viewModel.bookServiceTapped
         )
+    }
+
+    private var serviceDetailsSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: Spacing.s20) {
+                // Hero Section Skeleton (200pt height, Radius.r24)
+                EtmaenSkeletonRect(height: 200, radius: Radius.r24)
+                
+                // Info Header Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s8) {
+                    EtmaenSkeletonRect(width: 200, height: 26, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 140, height: 16, radius: Radius.r8)
+                }
+
+                // Price & Duration Cards Skeleton (2 columns, Radius.r20)
+                HStack(spacing: Spacing.s12) {
+                    ForEach(0..<2, id: \.self) { _ in
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonCircle(size: 32)
+                            EtmaenSkeletonRect(width: 60, height: 12, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 90, height: 16, radius: Radius.r8)
+                        }
+                        .padding(Spacing.s16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.surface)
+                        .clipShape(RoundedRectangle.carely(Radius.r20))
+                        .carelyShadow(.sm)
+                    }
+                }
+
+                // About Service Card Skeleton (Radius.r20)
+                VStack(alignment: .leading, spacing: Spacing.s12) {
+                    EtmaenSkeletonRect(width: 150, height: 18, radius: Radius.r8)
+                    EtmaenSkeletonRect(height: 14, radius: Radius.r8)
+                    EtmaenSkeletonRect(height: 14, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 220, height: 14, radius: Radius.r8)
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r20))
+                .carelyShadow(.sm)
+
+                // What's Included Card Skeleton (Radius.r20)
+                VStack(alignment: .leading, spacing: Spacing.s16) {
+                    EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
+                    ForEach(0..<3, id: \.self) { _ in
+                        HStack(spacing: Spacing.s12) {
+                            EtmaenSkeletonCircle(size: 20)
+                            EtmaenSkeletonRect(width: 180, height: 14, radius: Radius.r8)
+                        }
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r20))
+                .carelyShadow(.sm)
+            }
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s16)
+            .padding(.bottom, Spacing.s24)
+        }
     }
 }
 

@@ -27,15 +27,12 @@ struct CurrentMedicationView: View {
 
                     noCurrentMedicationsToggle
 
-                    if viewModel.isLoading {
+                    if viewModel.isLoading && viewModel.medications.isEmpty {
                         VStack(spacing: Spacing.s12) {
-                            ProgressView()
-                            Text("Loading medications...")
-                                .carelyText(style: .bodyRegular, weight: .medium)
-                                .foregroundColor(.secondaryFont)
+                            EtmaenSkeletonRect(height: 52, radius: Radius.r12)
+                            EtmaenSkeletonRect(height: 52, radius: Radius.r12)
+                            EtmaenSkeletonRect(height: 140, radius: Radius.r16)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, Spacing.s32)
                     } else {
                         VStack(spacing: Spacing.s12) {
                             ForEach(Array(viewModel.medications.enumerated()), id: \.offset) { index, medication in
@@ -197,8 +194,8 @@ private struct PrescriptionPhotoUploadPickerView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: IconSize.s24, height: IconSize.s24)
-                            .foregroundColor(.white)
-                            .background(Circle().fill(Color.black.opacity(0.4)))
+                            .foregroundColor(Color.onPrimary)
+                            .background(Circle().fill(Color.primaryFont.opacity(0.6)))
                     }
                     .padding(Spacing.s8)
                 } else {
