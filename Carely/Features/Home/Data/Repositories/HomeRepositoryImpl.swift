@@ -140,4 +140,38 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
             .trimmingCharacters(in: .whitespaces)
         return name.isEmpty ? "Care Provider" : name
     }
+
+    // MARK: - Active Visit
+
+    func fetchActiveVisit() async throws -> ConfirmedOffer? {
+        do {
+            let detail = try await historyService.getCurrentRequest()
+            let status = detail.status?.uppercased() ?? ""
+            guard status == "ACCEPTED" || status == "IN_PROGRESS" || status == "SEARCHING" || status == "BOOKING" else {
+                return nil
+            }
+            let nurseName = [detail.nurse?.firstName, detail.nurse?.lastName].compactMap { $0 }.joined(separator: " ")
+            let nurseDetails = ConfirmedOffer.NurseDetails(
+                id: detail.nurse?.id ?? "",
+                fullName: nurseName.isEmpty ? "Assigned Nurse" : nurseName,
+                title: "Nurse",
+                specialty: detail.serviceType?.name ?? "General Nursing",
+                profileImageUrl: detail.nurse?.profileImageUrl ?? "",
+                rating: detail.nurse?.ratingAvg ?? 5.0,
+                reviewsCount: detail.nurse?.totalReviews ?? 0
+            )
+            return ConfirmedOffer(
+                id: detail.serviceRequestId,
+                status: status,
+                estimatedArrival: "15 mins",
+                distanceKm: detail.distanceKm ?? 2.0,
+                qrCodeData: detail.serviceRequestId,
+                cancellationDeadline: "5 mins",
+                nurse: nurseDetails,
+                contact: ConfirmedOffer.ContactDetails(phoneNumber: "", chatChannelId: detail.serviceRequestId)
+            )
+        } catch {
+            return nil
+        }
+    }
 }
