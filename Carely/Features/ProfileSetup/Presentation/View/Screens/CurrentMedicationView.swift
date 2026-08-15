@@ -28,7 +28,11 @@ struct CurrentMedicationView: View {
                     noCurrentMedicationsToggle
 
                     if viewModel.isLoading && viewModel.medications.isEmpty {
-                        EtmaenListSkeleton(count: 2)
+                        VStack(spacing: Spacing.s12) {
+                            EtmaenSkeletonRect(height: 52, radius: Radius.r12)
+                            EtmaenSkeletonRect(height: 52, radius: Radius.r12)
+                            EtmaenSkeletonRect(height: 140, radius: Radius.r16)
+                        }
                     } else {
                         VStack(spacing: Spacing.s12) {
                             ForEach(Array(viewModel.medications.enumerated()), id: \.offset) { index, medication in

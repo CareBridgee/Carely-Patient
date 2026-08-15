@@ -7,26 +7,6 @@
 
 import SwiftUI
 
-// MARK: - Minimum Shimmer Duration Helper
-
-public extension Task where Success == Never, Failure == Never {
-    /// Executes an async block ensuring that at least `minimumSeconds` (default 0.6s) have elapsed.
-    /// This prevents skeleton shimmer flicker when data returns instantly or from cache.
-    static func withMinimumDuration<T>(
-        _ minimumSeconds: Double = 0.6,
-        operation: () async throws -> T
-    ) async rethrows -> T {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        let result = try await operation()
-        let elapsedTime = CFAbsoluteTimeGetCurrent() - startTime
-        let remaining = minimumSeconds - elapsedTime
-        if remaining > 0 {
-            try? await Task.sleep(nanoseconds: UInt64(remaining * 1_000_000_000))
-        }
-        return result
-    }
-}
-
 // MARK: - Shimmer Effect Modifier
 
 private struct ShimmerAnimatableModifier: AnimatableModifier {
@@ -181,18 +161,24 @@ public struct EtmaenServiceGridSkeleton: View {
     
     public var body: some View {
         LazyVGrid(
-            columns: [GridItem(.flexible(), spacing: Spacing.s16), GridItem(.flexible(), spacing: Spacing.s16)],
-            spacing: Spacing.s16
+            columns: [GridItem(.flexible(), spacing: Spacing.s12), GridItem(.flexible(), spacing: Spacing.s12)],
+            spacing: Spacing.s12
         ) {
             ForEach(0..<6, id: \.self) { _ in
-                VStack(spacing: Spacing.s12) {
-                    EtmaenSkeletonCircle(size: 52)
-                    EtmaenSkeletonRect(width: 80, height: 14, radius: Radius.r8)
+                VStack(alignment: .leading, spacing: Spacing.s12) {
+                    EtmaenSkeletonCircle(size: 44)
+                    
+                    VStack(alignment: .leading, spacing: Spacing.s4) {
+                        EtmaenSkeletonRect(width: 100, height: 16, radius: Radius.r8)
+                        EtmaenSkeletonRect(width: 70, height: 12, radius: Radius.r8)
+                    }
+                    
+                    Spacer(minLength: 0)
                 }
-                .padding(.vertical, Spacing.s20)
-                .frame(maxWidth: .infinity)
+                .padding()
+                .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
                 .background(Color.surface)
-                .clipShape(RoundedRectangle.carely(Radius.r16))
+                .cornerRadius(Radius.r20)
                 .carelyShadow(.sm)
             }
         }

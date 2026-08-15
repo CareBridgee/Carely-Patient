@@ -63,8 +63,20 @@ struct ChoosePatientView: View {
                 
                 // Patient List
                 VStack(spacing: Spacing.s16) {
-                    if viewModel.isLoading {
-                        EtmaenListSkeleton(count: 2)
+                    if viewModel.isLoading && viewModel.patients.isEmpty {
+                        ForEach(0..<2, id: \.self) { _ in
+                            HStack(spacing: Spacing.s16) {
+                                EtmaenSkeletonCircle(size: 56)
+                                VStack(alignment: .leading, spacing: Spacing.s8) {
+                                    EtmaenSkeletonRect(width: 130, height: 16, radius: Radius.r8)
+                                    EtmaenSkeletonRect(width: 60, height: 20, radius: 10)
+                                }
+                                Spacer()
+                            }
+                            .padding(Spacing.s16)
+                            .background(Color.surface)
+                            .cornerRadius(Spacing.s20)
+                        }
                     } else {
                         ForEach(viewModel.patients) { patient in
                             PatientSelectionCard(

@@ -21,7 +21,18 @@ struct ExistingConditionsView: View {
                 if viewModel.isLoading && viewModel.availableConditions.isEmpty {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: Spacing.s20), GridItem(.flexible())], spacing: Spacing.s16) {
                         ForEach(0..<6, id: \.self) { _ in
-                            EtmaenCardSkeleton(height: 70)
+                            VStack(alignment: .leading, spacing: Spacing.s8) {
+                                EtmaenSkeletonCircle(size: 24)
+                                EtmaenSkeletonRect(width: 80, height: 14, radius: Radius.r8)
+                            }
+                            .padding(Spacing.s16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.surface)
+                            .cornerRadius(Radius.r12)
+                            .overlay(
+                                RoundedRectangle.carely(Radius.r12)
+                                    .stroke(Color.brandPrimary.opacity(0.15), lineWidth: 0.5)
+                            )
                         }
                     }
                 } else if viewModel.availableConditions.isEmpty {

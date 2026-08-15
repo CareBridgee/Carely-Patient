@@ -23,7 +23,28 @@ struct FamilyMembersView: View {
                     header
 
                     if viewModel.isLoading && viewModel.members.isEmpty {
-                        EtmaenListSkeleton(count: 3)
+                        VStack(spacing: Spacing.s16) {
+                            ForEach(0..<3, id: \.self) { _ in
+                                VStack(alignment: .leading, spacing: Spacing.s16) {
+                                    HStack(spacing: Spacing.s12) {
+                                        EtmaenSkeletonCircle(size: 52)
+                                        VStack(alignment: .leading, spacing: Spacing.s4) {
+                                            EtmaenSkeletonRect(width: 130, height: 16, radius: Radius.r8)
+                                            EtmaenSkeletonRect(width: 70, height: 18, radius: Radius.r12)
+                                        }
+                                        Spacer()
+                                    }
+                                    HStack(spacing: Spacing.s8) {
+                                        EtmaenSkeletonRect(height: 36, radius: Radius.r12)
+                                        EtmaenSkeletonRect(height: 36, radius: Radius.r12)
+                                    }
+                                }
+                                .padding(Spacing.s16)
+                                .background(Color.surface)
+                                .clipShape(RoundedRectangle.carely(Radius.r24))
+                                .carelyShadow(.sm)
+                            }
+                        }
                     } else {
                         VStack(spacing: Spacing.s16) {
                             ForEach(viewModel.members) { member in

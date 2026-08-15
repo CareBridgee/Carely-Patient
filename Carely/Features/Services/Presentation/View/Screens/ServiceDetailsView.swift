@@ -51,7 +51,7 @@ struct ServiceDetailsView: View {
                 viewModel.backTapped()
             }
         )
-        .blur(radius: viewModel.isLoading ? 3 : 0)
+        .blur(radius: (viewModel.isLoading && viewModel.detail != nil) ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadDetail() }
@@ -226,19 +226,59 @@ struct ServiceDetailsView: View {
     private var serviceDetailsSkeletonView: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: Spacing.s20) {
+                // Hero Section Skeleton (200pt height, Radius.r24)
                 EtmaenSkeletonRect(height: 200, radius: Radius.r24)
                 
+                // Info Header Skeleton
                 VStack(alignment: .leading, spacing: Spacing.s8) {
-                    EtmaenSkeletonRect(width: 220, height: 22, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 200, height: 26, radius: Radius.r8)
                     EtmaenSkeletonRect(width: 140, height: 16, radius: Radius.r8)
                 }
 
+                // Price & Duration Cards Skeleton (2 columns, Radius.r20)
                 HStack(spacing: Spacing.s12) {
-                    EtmaenCardSkeleton(height: 70)
-                    EtmaenCardSkeleton(height: 70)
+                    ForEach(0..<2, id: \.self) { _ in
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonCircle(size: 32)
+                            EtmaenSkeletonRect(width: 60, height: 12, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 90, height: 16, radius: Radius.r8)
+                        }
+                        .padding(Spacing.s16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.surface)
+                        .clipShape(RoundedRectangle.carely(Radius.r20))
+                        .carelyShadow(.sm)
+                    }
                 }
 
-                EtmaenCardSkeleton(height: 120)
+                // About Service Card Skeleton (Radius.r20)
+                VStack(alignment: .leading, spacing: Spacing.s12) {
+                    EtmaenSkeletonRect(width: 150, height: 18, radius: Radius.r8)
+                    EtmaenSkeletonRect(height: 14, radius: Radius.r8)
+                    EtmaenSkeletonRect(height: 14, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 220, height: 14, radius: Radius.r8)
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r20))
+                .carelyShadow(.sm)
+
+                // What's Included Card Skeleton (Radius.r20)
+                VStack(alignment: .leading, spacing: Spacing.s16) {
+                    EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
+                    ForEach(0..<3, id: \.self) { _ in
+                        HStack(spacing: Spacing.s12) {
+                            EtmaenSkeletonCircle(size: 20)
+                            EtmaenSkeletonRect(width: 180, height: 14, radius: Radius.r8)
+                        }
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r20))
+                .carelyShadow(.sm)
             }
             .padding(.horizontal, Spacing.s16)
             .padding(.top, Spacing.s16)

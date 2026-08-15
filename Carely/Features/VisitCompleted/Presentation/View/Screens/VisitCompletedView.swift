@@ -34,9 +34,7 @@ struct VisitCompletedView: View {
                         .padding(.bottom, Spacing.s24)
                     }
                 } else if viewModel.isLoading {
-                    Spacer()
-                    EtmaenLoadingView(message: "Loading visit summary...")
-                    Spacer()
+                    visitCompletedSkeletonView
                 }
             }
         }
@@ -88,6 +86,72 @@ struct VisitCompletedView: View {
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
             }
+        }
+    }
+
+    private var visitCompletedSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: Spacing.s24) {
+                // Status Header Skeleton
+                VStack(spacing: Spacing.s16) {
+                    EtmaenSkeletonCircle(size: 96)
+                    EtmaenSkeletonRect(width: 180, height: 24, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 260, height: 16, radius: Radius.r8)
+                }
+                .padding(.top, Spacing.s24)
+
+                // Summary Detail Card Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s16) {
+                    HStack {
+                        EtmaenSkeletonRect(width: 130, height: 14, radius: Radius.r8)
+                        Spacer()
+                        EtmaenSkeletonRect(width: 90, height: 22, radius: Radius.r12)
+                    }
+
+                    Divider()
+
+                    HStack(alignment: .top, spacing: Spacing.s16) {
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonRect(width: 90, height: 12, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 110, height: 16, radius: Radius.r8)
+                        }
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonRect(width: 80, height: 12, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 100, height: 16, radius: Radius.r8)
+                        }
+                    }
+
+                    HStack(alignment: .top, spacing: Spacing.s16) {
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonRect(width: 80, height: 12, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 90, height: 16, radius: Radius.r8)
+                        }
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonRect(width: 90, height: 12, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 90, height: 16, radius: Radius.r8)
+                        }
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
+
+                // Total Amount Due Card Skeleton
+                HStack {
+                    EtmaenSkeletonRect(width: 140, height: 14, radius: Radius.r8)
+                    Spacer()
+                    EtmaenSkeletonRect(width: 80, height: 18, radius: Radius.r8)
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
+            }
+            .padding(Spacing.s16)
+            .padding(.bottom, Spacing.s24)
         }
     }
 }

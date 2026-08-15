@@ -64,16 +64,58 @@ struct VisitDetailView: View {
     private var visitDetailSkeletonView: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: Spacing.s24) {
+                // Status Header Skeleton
                 VStack(spacing: Spacing.s16) {
                     EtmaenSkeletonCircle(size: 96)
                     EtmaenSkeletonRect(width: 180, height: 22, radius: Radius.r8)
-                    EtmaenSkeletonRect(width: 120, height: 16, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 100, height: 24, radius: Radius.r12)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, Spacing.s16)
 
-                EtmaenCardSkeleton(height: 120)
-                EtmaenCardSkeleton(height: 100)
+                // Visit Details Card Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s20) {
+                    EtmaenSkeletonRect(width: 110, height: 14, radius: Radius.r8)
+                    
+                    VStack(spacing: Spacing.s16) {
+                        ForEach(0..<3, id: \.self) { _ in
+                            HStack(spacing: Spacing.s12) {
+                                EtmaenSkeletonCircle(size: 32)
+                                VStack(alignment: .leading, spacing: Spacing.s4) {
+                                    EtmaenSkeletonRect(width: 60, height: 12, radius: Radius.r8)
+                                    EtmaenSkeletonRect(width: 120, height: 14, radius: Radius.r8)
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
+
+                // Care Provider Card Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s16) {
+                    EtmaenSkeletonRect(width: 110, height: 14, radius: Radius.r8)
+
+                    HStack(spacing: Spacing.s12) {
+                        EtmaenSkeletonCircle(size: 56)
+
+                        VStack(alignment: .leading, spacing: Spacing.s8) {
+                            EtmaenSkeletonRect(width: 140, height: 16, radius: Radius.r8)
+                            EtmaenSkeletonRect(width: 180, height: 12, radius: Radius.r8)
+                        }
+
+                        Spacer()
+                    }
+                }
+                .padding(Spacing.s20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
             }
             .padding(Spacing.s16)
             .padding(.bottom, Spacing.s32)

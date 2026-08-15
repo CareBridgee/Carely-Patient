@@ -54,16 +54,66 @@ struct NurseProfileView: View {
     private var nurseProfileSkeletonView: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: Spacing.s24) {
-                VStack(spacing: Spacing.s12) {
-                    EtmaenSkeletonCircle(size: 80)
-                    EtmaenSkeletonRect(width: 160, height: 20, radius: Radius.r8)
-                    EtmaenSkeletonRect(width: 100, height: 14, radius: Radius.r8)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.top, Spacing.s16)
+                // Header & Avatar
+                VStack(spacing: Spacing.s16) {
+                    EtmaenSkeletonRect(width: 120, height: 120, radius: Spacing.s24)
+                        .padding(.top, Spacing.s16)
 
-                EtmaenCardSkeleton(height: 100)
-                EtmaenCardSkeleton(height: 120)
+                    VStack(spacing: Spacing.s4) {
+                        EtmaenSkeletonRect(width: 180, height: 20, radius: Radius.r8)
+                        EtmaenSkeletonRect(width: 240, height: 16, radius: Radius.r8)
+                    }
+
+                    // Stats Pill
+                    HStack(spacing: Spacing.s16) {
+                        HStack(spacing: Spacing.s8) {
+                            EtmaenSkeletonCircle(size: 20)
+                            EtmaenSkeletonRect(width: 50, height: 14, radius: Radius.r8)
+                        }
+                        .frame(maxWidth: .infinity)
+
+                        Divider().frame(height: 30)
+
+                        HStack(spacing: Spacing.s8) {
+                            EtmaenSkeletonCircle(size: 20)
+                            EtmaenSkeletonRect(width: 50, height: 14, radius: Radius.r8)
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.vertical, Spacing.s12)
+                    .padding(.horizontal, Spacing.s16)
+                    .background(Color.surface)
+                    .clipShape(Capsule())
+                    .carelyShadow(.sm)
+                }
+
+                // Provided Services Section Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s12) {
+                    EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
+
+                    HStack(spacing: Spacing.s8) {
+                        EtmaenSkeletonRect(width: 90, height: 32, radius: 16)
+                        EtmaenSkeletonRect(width: 120, height: 32, radius: 16)
+                        EtmaenSkeletonRect(width: 100, height: 32, radius: 16)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                // Approach Section Skeleton
+                VStack(alignment: .leading, spacing: Spacing.s12) {
+                    EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
+
+                    VStack(alignment: .leading, spacing: Spacing.s8) {
+                        EtmaenSkeletonRect(height: 14, radius: Radius.r8)
+                        EtmaenSkeletonRect(height: 14, radius: Radius.r8)
+                        EtmaenSkeletonRect(width: 200, height: 14, radius: Radius.r8)
+                    }
+                    .padding(Spacing.s20)
+                    .background(Color.surface)
+                    .clipShape(RoundedRectangle.carely(Radius.r16))
+                    .carelyShadow(.sm)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.horizontal, Spacing.s20)
             .padding(.bottom, Spacing.s32)

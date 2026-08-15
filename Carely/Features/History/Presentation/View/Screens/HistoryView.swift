@@ -43,8 +43,34 @@ struct HistoryView: View {
     private var content: some View {
         if viewModel.isLoading && viewModel.items.isEmpty {
             ScrollView(showsIndicators: false) {
-                EtmaenListSkeleton(count: 3)
-                    .padding(Spacing.s16)
+                VStack(spacing: Spacing.s16) {
+                    ForEach(0..<4, id: \.self) { _ in
+                        HStack(alignment: .top, spacing: Spacing.s16) {
+                            EtmaenSkeletonRect(width: 48, height: 48, radius: Radius.r16)
+
+                            VStack(alignment: .leading, spacing: Spacing.s4) {
+                                HStack {
+                                    EtmaenSkeletonRect(width: 120, height: 16, radius: Radius.r8)
+                                    Spacer()
+                                    EtmaenSkeletonRect(width: 70, height: 20, radius: Radius.r12)
+                                }
+
+                                EtmaenSkeletonRect(width: 140, height: 14, radius: Radius.r8)
+
+                                HStack(spacing: Spacing.s4) {
+                                    EtmaenSkeletonCircle(size: 12)
+                                    EtmaenSkeletonRect(width: 100, height: 12, radius: Radius.r8)
+                                }
+                            }
+                        }
+                        .padding(Spacing.s16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.surface)
+                        .clipShape(RoundedRectangle.carely(Radius.r24))
+                        .carelyShadow(.sm)
+                    }
+                }
+                .padding(Spacing.s16)
             }
         } else if viewModel.items.isEmpty {
             Spacer()
