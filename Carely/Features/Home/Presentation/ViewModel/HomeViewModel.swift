@@ -26,6 +26,7 @@ final class HomeViewModel: ObservableObject {
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     private let sessionManager: SessionManager
+    private let serviceTypesStore: ServiceTypesStore
     private var cancellables = Set<AnyCancellable>()
     
     private var onServiceTabbed: (String) -> Void
@@ -34,16 +35,24 @@ final class HomeViewModel: ObservableObject {
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
         sessionManager: SessionManager,
+        serviceTypesStore: ServiceTypesStore,
         onServiceTabbed: @escaping (String) -> Void,
         onSeeAllHistory: @escaping () -> Void = {}
     )  {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
         self.sessionManager = sessionManager
+        self.serviceTypesStore = serviceTypesStore
         self.onServiceTabbed = onServiceTabbed
         self.onSeeAllHistory = onSeeAllHistory
         
+        // Populate immediately from shared in-memory store if available
+        if serviceTypesStore.hasCategories {
+            self.previewCategories = Array(serviceTypesStore.serviceCategories.prefix(homePreviewCategoryCount))
+        }
+        
         setupUserObservation()
+        setupStoreObservation()
     }
     
     private func setupUserObservation() {
@@ -55,28 +64,46 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+
+    private func setupStoreObservation() {
+        serviceTypesStore.$serviceCategories
+            .receive(on: RunLoop.main)
+            .sink { [weak self] categories in
+                guard let self, !categories.isEmpty else { return }
+                self.previewCategories = Array(categories.prefix(homePreviewCategoryCount))
+            }
+            .store(in: &cancellables)
+    }
  
     func onAppear() {
-        guard previewCategories.isEmpty, greetingName.isEmpty else { return }
+        guard previewCategories.isEmpty || upcomingBookings.isEmpty else { return }
         loadDashboard()
     }
  
     func loadDashboard() {
-        isLoading = true
+        // Only trigger loading indicator if we don't have categories in memory yet
+        if previewCategories.isEmpty {
+            isLoading = true
+        }
         errorMessage = nil
  
         Task {
             do {
-                try await Task.withMinimumDuration {
-                    async let categories = self.getServiceCategoriesUseCase.execute()
-                    async let bookings = self.getUpcomingBookingsUseCase.execute()
- 
-                    let (fetchedCategories, fetchedBookings) = try await (categories, bookings)
-  
+                if serviceTypesStore.hasCategories {
+                    // Service categories already exist in memory -> only fetch bookings
+                    let bookings = try await self.getUpcomingBookingsUseCase.execute()
+                    self.upcomingBookings = bookings
+                } else {
+                    // Fetch categories and bookings in parallel
+                    async let categoriesTask = self.getServiceCategoriesUseCase.execute()
+                    async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
+
+                    let (fetchedCategories, fetchedBookings) = try await (categoriesTask, bookingsTask)
+
+                    self.serviceTypesStore.setCategories(fetchedCategories)
                     self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
                     self.upcomingBookings = fetchedBookings
                 }
-                
                 self.isLoading = false
             } catch {
                 self.isLoading = false

@@ -17,10 +17,6 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
     private let serviceTypeService: ServiceTypeServiceProtocol
     private let historyService: HistoryServiceProtocol
 
-    /// In-memory cache so Home + AllServices + ServiceDetails don't each
-    /// trigger their own round trip to /api/v1/service-types.
-    private var cachedServiceTypes: [ServiceTypeDTO]?
-
     init(serviceTypeService: ServiceTypeServiceProtocol, historyService: HistoryServiceProtocol) {
         self.serviceTypeService = serviceTypeService
         self.historyService = historyService
@@ -97,14 +93,9 @@ final class HomeRepositoryImpl: HomeRepositoryProtocol {
 
     // MARK: - Networking
 
-    private func loadServiceTypes(forceRefresh: Bool = false) async throws -> [ServiceTypeDTO] {
-        if !forceRefresh, let cached = cachedServiceTypes {
-            return cached
-        }
+    private func loadServiceTypes() async throws -> [ServiceTypeDTO] {
         do {
-            let serviceTypes = try await serviceTypeService.getServiceTypes()
-            cachedServiceTypes = serviceTypes
-            return serviceTypes
+            return try await serviceTypeService.getServiceTypes()
         } catch is NetworkError {
             throw HomeError.network
         } catch {

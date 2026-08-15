@@ -16,6 +16,7 @@ final class DIContainer {
     
     let appState: AppState
     let patientProfilesStore = PatientProfilesStore()
+    let serviceTypesStore = ServiceTypesStore()
     
     private let tokenStore: TokenStoring
     private let sessionManager: SessionManager
@@ -547,6 +548,7 @@ final class DIContainer {
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
             sessionManager: sessionManager,
+            serviceTypesStore: serviceTypesStore,
             onServiceTabbed: onServiceTabbed,
             onSeeAllHistory: onSeeAllHistory
         )
@@ -557,6 +559,7 @@ final class DIContainer {
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             searchServiceCategoriesUseCase: makeSearchServiceCategoriesUseCase(),
             sessionManager: sessionManager,
+            serviceTypesStore: serviceTypesStore,
             coordinator: coordinator
         )
     }
@@ -954,6 +957,7 @@ final class DIContainer {
             homeAddressViewModel: homeVM,
             getPatientProfileUseCase: makeGetPatientProfileUseCase(),
             getFamilyMembersUseCase: makeGetFamilyMembersUseCase(),
+            patientProfilesStore: patientProfilesStore,
             coordinator: coordinator
         )
     }
