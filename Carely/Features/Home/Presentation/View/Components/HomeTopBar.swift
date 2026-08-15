@@ -47,7 +47,7 @@ struct HomeTopBar: View {
                     Circle().stroke(Color.primaryContainer, lineWidth: 2)
                 )
 
-            Text("Hi, \(greetingName)")
+            Text("\(greetingText), \(greetingName)")
                 .carelyText(style: .heading3, weight: .semiBold)
                 .foregroundColor(.brandPrimary)
 
@@ -62,6 +62,18 @@ struct HomeTopBar: View {
                     .background(Color.surface)
                     .clipShape(Circle())
             }
+        }
+    }
+
+    private var greetingText: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 5..<12:
+            return "Good morning"
+        case 12..<17:
+            return "Good afternoon"
+        default:
+            return "Good evening"
         }
     }
 }

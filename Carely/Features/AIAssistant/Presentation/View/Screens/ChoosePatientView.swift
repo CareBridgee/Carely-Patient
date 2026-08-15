@@ -13,41 +13,11 @@ struct ChoosePatientView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: Spacing.s24) {
-                // Header Profile
-                HStack(spacing: Spacing.s12) {
-                    Circle()
-                        .fill(Color.brandPrimary.opacity(0.2))
-                        .frame(width: 40, height: 40)
-                        .overlay(
-                            Group {
-                                if let urlString = viewModel.profileImageUrl, let url = URL(string: urlString) {
-                                    AsyncImage(url: url) { phase in
-                                        switch phase {
-                                        case .empty:
-                                            ProgressView()
-                                        case .success(let image):
-                                            image.resizable().scaledToFill()
-                                        case .failure:
-                                            Image(systemName: "person.fill").foregroundColor(.brandPrimary)
-                                        @unknown default:
-                                            EmptyView()
-                                        }
-                                    }
-                                } else {
-                                    Image(systemName: "person.fill")
-                                        .foregroundColor(.brandPrimary)
-                                }
-                            }
-                            .clipShape(Circle())
-                        )
-                    
-                    Text("Good morning\(viewModel.greetingName.isEmpty ? "" : ", \(viewModel.greetingName)")")
-                        .carelyText(style: .bodyRegular, weight: .medium)
-                        .foregroundColor(.brandPrimary)
-                    
-                    Spacer()
-                }
-                .padding(.top, Spacing.s16)
+                // Header Feature Title
+                Text("AI Assistant")
+                    .carelyText(style: .heading3, weight: .semiBold)
+                    .foregroundColor(.brandPrimary)
+                    .padding(.top, Spacing.s16)
                 
                 // Titles
                 VStack(alignment: .leading, spacing: Spacing.s8) {

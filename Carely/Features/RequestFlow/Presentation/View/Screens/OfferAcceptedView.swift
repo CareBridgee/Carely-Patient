@@ -99,20 +99,16 @@ struct OfferAcceptedView: View {
         } message: {
             Text("This request was canceled by the nurse.")
         }
-        .carelyAlert(
-            isPresented: $viewModel.showCancelConfirmation,
-            title: "Cancel Request",
-            message: "Are you sure you want to cancel this request?",
-            primaryButtonTitle: "Keep Request",
-            primaryAction: {
+        .alert("Cancel Request?", isPresented: $viewModel.showCancelConfirmation) {
+            Button("Keep Request", role: .cancel) {
                 viewModel.showCancelConfirmation = false
-            },
-            secondaryButtonTitle: "Cancel Request",
-            secondaryAction: {
+            }
+            Button("Cancel Request", role: .destructive) {
                 viewModel.confirmCancelRequest()
-            },
-            isDestructive: true
-        )
+            }
+        } message: {
+            Text("Are you sure you want to cancel this request?")
+        }
         .onAppear {
             viewModel.onAppear()
         }

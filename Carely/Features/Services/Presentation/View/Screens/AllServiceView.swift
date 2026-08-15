@@ -18,12 +18,13 @@ struct AllServiceView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: Spacing.s16) {
-                HomeTopBar(
-                        greetingName: viewModel.greetingName,
-                        profileImageUrl: viewModel.profileImageUrl
-                    ) {}
+            VStack(alignment: .leading, spacing: Spacing.s16) {
+                Text("Services")
+                    .carelyText(style: .heading3, weight: .semiBold)
+                    .foregroundColor(.brandPrimary)
                     .padding(.horizontal)
+                    .padding(.top, Spacing.s16)
+                
                 SearchField(
                     placeholder: "Search for services...",
                     text: $viewModel.searchQuery

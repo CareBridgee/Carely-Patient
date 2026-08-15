@@ -7,31 +7,7 @@ import SwiftUI
 
 struct ChatView: View {
     @StateObject var viewModel: ChatViewModel
-<<<<<<< HEAD
     @Environment(\.presentationMode) var presentationMode
-=======
-    
-    var body: some View {
-        VStack {
-            if viewModel.isLoading && viewModel.messages.isEmpty {
-                chatSkeletonView
-            } else {
-                ScrollViewReader { proxy in
-                    ScrollView {
-                        LazyVStack {
-                            ForEach(viewModel.messages) { message in
-                                ReservationChatMessageCell(
-                                    message: message,
-                                    isCurrentUser: message.senderUserId == viewModel.currentUserId
-                                )
-                                .id(message.id)
-                            }
-                        }
-                        .padding(.top)
-                    }
-                    .onChange(of: viewModel.messages.count) {
-                        guard let last = viewModel.messages.last else { return }
->>>>>>> 10abfeb (feat(loading): implement Etmaen loading system, skeleton shimmers, and confirmation alerts)
 
     var body: some View {
         VStack(spacing: Spacing.s0) {
