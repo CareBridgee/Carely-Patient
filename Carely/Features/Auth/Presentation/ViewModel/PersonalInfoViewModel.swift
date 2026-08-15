@@ -88,9 +88,7 @@ final class PersonalInfoViewModel: ObservableObject {
 
         Task {
             do {
-                try await Task.withMinimumDuration(2.5) {
-                    try await self.savePersonalInfoUseCase.execute(basicInfo: basicInfo)
-                }
+                try await self.savePersonalInfoUseCase.execute(basicInfo: basicInfo)
                 isLoading = false
                 onOersonalDataSaved()
             } catch {

@@ -22,9 +22,7 @@ final class ProfileSetupCoordinator: ObservableObject {
         isLoadingData = true
         defer { isLoadingData = false }
         do {
-            let allProfiles = try await Task.withMinimumDuration(2.5) {
-                try await networkService.fetchAllProfiles()
-            }
+            let allProfiles = try await networkService.fetchAllProfiles()
             guard let match = allProfiles.first(where: { $0.id == pid }) else { return }
             
             var bloodTypeStr = match.bloodType ?? ""

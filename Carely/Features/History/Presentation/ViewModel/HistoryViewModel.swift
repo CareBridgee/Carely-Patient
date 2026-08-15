@@ -34,9 +34,7 @@ final class HistoryViewModel: ObservableObject {
  
         Task {
             do {
-                let fetched = try await Task.withMinimumDuration {
-                    try await self.getHistoryUseCase.execute()
-                }
+                let fetched = try await self.getHistoryUseCase.execute()
                 self.items = fetched
                 self.isLoading = false
             } catch {

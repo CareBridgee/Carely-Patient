@@ -35,9 +35,7 @@ final class VisitDetailViewModel: ObservableObject {
  
         Task {
             do {
-                let fetched = try await Task.withMinimumDuration {
-                    try await self.getVisitDetailUseCase.execute(id: self.visitId)
-                }
+                let fetched = try await self.getVisitDetailUseCase.execute(id: self.visitId)
                 self.detail = fetched
                 self.isLoading = false
             } catch {

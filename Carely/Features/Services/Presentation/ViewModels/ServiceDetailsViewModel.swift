@@ -53,9 +53,7 @@ final class ServiceDetailsViewModel: ObservableObject {
  
         Task {
             do {
-                let fetched = try await Task.withMinimumDuration {
-                    try await self.getServiceDetailUseCase.execute(id: self.serviceId)
-                }
+                let fetched = try await self.getServiceDetailUseCase.execute(id: self.serviceId)
                 self.detail = fetched
                 self.isLoading = false
             } catch {

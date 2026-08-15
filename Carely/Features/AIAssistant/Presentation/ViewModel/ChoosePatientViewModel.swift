@@ -93,16 +93,17 @@ class ChoosePatientViewModel: ObservableObject {
 
     func onAppear() async {
         guard let profileRepository else { return }
-        isLoading = true
-        await Task.withMinimumDuration {
-            async let fetchProfile: () = {
-                _ = try? await profileRepository.fetchPatientProfile()
-            }()
-            async let fetchFamily: () = {
-                _ = try? await profileRepository.fetchFamilyMembers()
-            }()
-            _ = await (fetchProfile, fetchFamily)
+        // If data is already populated from store, do not show loading spinner/skeleton
+        if patients.isEmpty {
+            isLoading = true
         }
+        async let fetchProfile: () = {
+            _ = try? await profileRepository.fetchPatientProfile()
+        }()
+        async let fetchFamily: () = {
+            _ = try? await profileRepository.fetchFamilyMembers()
+        }()
+        _ = await (fetchProfile, fetchFamily)
         isLoading = false
     }
 
