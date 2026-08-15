@@ -11,6 +11,7 @@ final class ProfileSetupCoordinator: ObservableObject {
     @Published private(set) var data: ProfileSetupData
     @Published private(set) var profileId: String?
     @Published private(set) var isLoadingData: Bool = false
+    let steps: [ProfileSetupStep]
 
     func setProfileId(_ id: String) {
         self.profileId = id
@@ -59,24 +60,32 @@ final class ProfileSetupCoordinator: ObservableObject {
     
     // MARK: - Init
 
-    init(data: ProfileSetupData, startingStep: ProfileSetupStep = .basicHealthInfo) {
+    init(
+        data: ProfileSetupData,
+        steps: [ProfileSetupStep] = ProfileSetupStep.allCases,
+        startingStep: ProfileSetupStep? = nil
+    ) {
         self.data = data
-        self.currentStep = startingStep
+        self.steps = steps
+        self.currentStep = startingStep ?? steps.first ?? .basicHealthInfo
     }
 
     // MARK: - Navigation
 
     func next() {
-        guard let nextStep = currentStep.next else { return }
-        currentStep = nextStep
+        guard let currentIndex = steps.firstIndex(of: currentStep),
+              currentIndex + 1 < steps.count else { return }
+        currentStep = steps[currentIndex + 1]
     }
 
     func previous() {
-        guard let previousStep = currentStep.previous else { return }
-        currentStep = previousStep
+        guard let currentIndex = steps.firstIndex(of: currentStep),
+              currentIndex > 0 else { return }
+        currentStep = steps[currentIndex - 1]
     }
 
     func go(to step: ProfileSetupStep) {
+        guard steps.contains(step) else { return }
         currentStep = step
     }
     
@@ -117,21 +126,23 @@ final class ProfileSetupCoordinator: ObservableObject {
     // MARK: - Derived State
 
     var isFirstStep: Bool {
-        currentStep.isFirst
+        currentStep == steps.first
     }
 
     var isLastStep: Bool {
-        currentStep.isLast
+        currentStep == steps.last
     }
 
     var currentStepIndex: Int {
-        let allSteps = ProfileSetupStep.allCases
-        return (allSteps.firstIndex(of: currentStep) ?? 0) + 1
+        (steps.firstIndex(of: currentStep) ?? 0) + 1
+    }
+
+    var totalSteps: Int {
+        steps.count
     }
 
     var progress: Double {
-        let allSteps = ProfileSetupStep.allCases
-        guard let currentIndex = allSteps.firstIndex(of: currentStep) else { return 0 }
-        return Double(currentIndex + 1) / Double(allSteps.count)
+        guard let currentIndex = steps.firstIndex(of: currentStep), !steps.isEmpty else { return 0 }
+        return Double(currentIndex + 1) / Double(steps.count)
     }
 }

@@ -7,6 +7,7 @@
 
 
 import Foundation
+import CoreLocation
 
 struct ProfileSetupUseCases {
     let getProfileId: GetDefaultProfileIdUseCase
@@ -28,6 +29,7 @@ struct ProfileSetupUseCases {
     let saveAddress: SaveHomeAddressUseCase
     let updateAddress: UpdateHomeAddressUseCase
     let fetchAddress: FetchHomeAddressUseCase
+    let geocodeAddress: GeocodeAddressUseCase
 }
 
 protocol ProfileIdProviding {
@@ -324,6 +326,16 @@ final class UpdateHomeAddressUseCase {
         try await repo.updateAddress(profileId: profileId, address: address)
     }
 }
+
+final class GeocodeAddressUseCase {
+    private let repo: ProfileSetupRepositoryProtocol
+    init(repository: ProfileSetupRepositoryProtocol) { self.repo = repository }
+    init(repo: ProfileSetupRepositoryProtocol) { self.repo = repo }
+    func execute(address: String) async throws -> CLLocationCoordinate2D? {
+        try await repo.geocodeAddress(address)
+    }
+}
+
 extension GetDefaultProfileIdUseCase: ProfileIdProviding {}
 
 final class FixedProfileIdProvider: ProfileIdProviding {

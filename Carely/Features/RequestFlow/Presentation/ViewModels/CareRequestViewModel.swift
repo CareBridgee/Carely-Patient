@@ -51,6 +51,7 @@ final class CareRequestViewModel: ObservableObject {
     @Published var showSubmissionError = false
 
     private let fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol
+    private let fetchProfileAddressUseCase: FetchProfileAddressUseCaseProtocol?
     private let submitCareRequestUseCase: SubmitCareRequestUseCaseProtocol
     private let makeAddressSheetViewModel: (
         _ profileId: String,
@@ -70,6 +71,7 @@ final class CareRequestViewModel: ObservableObject {
         aiDraft: ReservationDraft? = nil,
         aiProfileId: String? = nil,
         fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol,
+        fetchProfileAddressUseCase: FetchProfileAddressUseCaseProtocol? = nil,
         submitCareRequestUseCase: SubmitCareRequestUseCaseProtocol,
         patientProfilesStore: PatientProfilesStore,
         makeAddressSheetViewModel: @escaping (
@@ -85,6 +87,7 @@ final class CareRequestViewModel: ObservableObject {
         self.aiDraft = aiDraft
         self.aiProfileId = aiProfileId
         self.fetchAvailableServicesUseCase = fetchAvailableServicesUseCase
+        self.fetchProfileAddressUseCase = fetchProfileAddressUseCase
         self.submitCareRequestUseCase = submitCareRequestUseCase
         self.patientProfilesStore = patientProfilesStore
         self.makeAddressSheetViewModel = makeAddressSheetViewModel
@@ -244,8 +247,22 @@ final class CareRequestViewModel: ObservableObject {
                 latitude: homeAddress.latitude ?? 0,
                 longitude: homeAddress.longitude ?? 0
             )
-        } else {
-            address = nil
+            return
+        }
+
+        address = nil
+
+        guard let fetchProfileAddressUseCase = fetchProfileAddressUseCase else { return }
+        Task {
+            do {
+                if let fetched = try await fetchProfileAddressUseCase.execute(profileId: profileId) {
+                    guard self.selectedPatient?.id == profileId else { return }
+                    self.address = fetched
+                    self.patientProfilesStore.updateAddress(profileId: profileId, address: fetched.asHomeAddress)
+                }
+            } catch {
+                // Address not found or failed to load
+            }
         }
     }
 
@@ -267,8 +284,6 @@ final class CareRequestViewModel: ObservableObject {
 
     private func addressSheetSaved() async {
         addressSheetViewModel = nil
-        // The store handles updates implicitly if the repository mutates it,
-        // but if the viewmodel doesn't wait for the store update, it will eventually re-trigger.
         if let pid = selectedPatient?.id {
             loadAddressFromStore(for: pid)
         }

@@ -69,21 +69,33 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
         let country = placemark.country ?? ""
         let city = placemark.locality ?? ""
         let area = placemark.subLocality ?? placemark.administrativeArea ?? ""
-        let street = [placemark.thoroughfare, placemark.subThoroughfare]
+        var street = [placemark.thoroughfare, placemark.subThoroughfare]
             .compactMap { $0 }
             .joined(separator: " ")
+
+        if street.isEmpty, let name = placemark.name, name != city && name != country {
+            street = name
+        }
+
+        let building = placemark.subThoroughfare ?? ""
 
         return AddressSelection(
             country: country,
             city: city,
             area: area,
             street: street,
+            building: building,
             coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         )
     }
 
     func geocodeCountry(_ country: String) async throws -> CLLocationCoordinate2D? {
         let placemarks = try await geocodingService.geocodeAddressString(country)
+        return placemarks.first?.location?.coordinate
+    }
+
+    func geocodeAddress(_ addressString: String) async throws -> CLLocationCoordinate2D? {
+        let placemarks = try await geocodingService.geocodeAddressString(addressString)
         return placemarks.first?.location?.coordinate
     }
 
@@ -231,14 +243,25 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
         try await service.updateEmergencyContact(contactId: contactId, request: request)
     }
 
-        func saveAddress(profileId: String, address: HomeAddress) async throws {
-            let request = AddressRequestDTO(
-                country: address.country, city: address.city, area: address.area,
-                street: address.streetName, buildingNumber: address.building, apartmentNumber: address.apartment,
-                latitude: address.latitude ?? 0.0, longitude: address.longitude ?? 0.0
-            )
-            try await service.saveAddress(profileId: profileId, request: request)
+    func saveAddress(profileId: String, address: HomeAddress) async throws {
+        guard let lat = address.latitude,
+              let lng = address.longitude,
+              (-90.0...90.0).contains(lat),
+              (-180.0...180.0).contains(lng) else {
+            throw HomeAddressRepositoryError.invalidCoordinates
         }
+
+        let request = AddressRequestDTO(
+            country: address.country, city: address.city, area: address.area,
+            street: address.streetName, buildingNumber: address.building, apartmentNumber: address.apartment,
+            latitude: lat, longitude: lng
+        )
+        try await service.saveAddress(profileId: profileId, request: request)
+        await MainActor.run {
+            patientProfilesStore.updateAddress(profileId: profileId, address: address)
+        }
+    }
+
     func createFamilyMemberProfile(_ info: FamilyMemberBasicInfo) async throws -> String {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFullDate]
@@ -251,20 +274,31 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
         )
         return try await service.createProfile(request: request, image: info.profileImage)
     }
+
     func updateAddress(profileId: String, address: HomeAddress) async throws {
+        guard let lat = address.latitude,
+              let lng = address.longitude,
+              (-90.0...90.0).contains(lat),
+              (-180.0...180.0).contains(lng) else {
+            throw HomeAddressRepositoryError.invalidCoordinates
+        }
+
         let request = AddressRequestDTO(
             country: address.country, city: address.city, area: address.area,
             street: address.streetName, buildingNumber: address.building, apartmentNumber: address.apartment,
-            latitude: address.latitude ?? 0.0, longitude: address.longitude ?? 0.0
+            latitude: lat, longitude: lng
         )
         try await service.updateAddress(profileId: profileId, request: request)
+        await MainActor.run {
+            patientProfilesStore.updateAddress(profileId: profileId, address: address)
+        }
     }
 
     func fetchAddress(profileId: String) async throws -> HomeAddress? {
         guard let dto = try await service.fetchAddress(profileId: profileId) else {
             return nil
         }
-        return HomeAddress(
+        let address = HomeAddress(
             country: dto.country,
             city: dto.city,
             area: dto.area,
@@ -274,6 +308,10 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
             latitude: dto.latitude,
             longitude: dto.longitude
         )
+        await MainActor.run {
+            patientProfilesStore.updateAddress(profileId: profileId, address: address)
+        }
+        return address
     }
 }
 
@@ -282,6 +320,7 @@ final class ProfileSetupRepositoryImpl: ProfileSetupRepositoryProtocol {
 enum HomeAddressRepositoryError: LocalizedError {
     case reverseGeocodeFailed
     case locationUnavailable
+    case invalidCoordinates
 
     var errorDescription: String? {
         switch self {
@@ -289,6 +328,8 @@ enum HomeAddressRepositoryError: LocalizedError {
             return "Couldn't determine an address for this location."
         case .locationUnavailable:
             return "Unable to retrieve your current location. Please check your location settings."
+        case .invalidCoordinates:
+            return "A valid location with coordinates is required."
         }
     }
 }
