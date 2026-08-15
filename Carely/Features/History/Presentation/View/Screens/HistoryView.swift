@@ -42,9 +42,10 @@ struct HistoryView: View {
     @ViewBuilder
     private var content: some View {
         if viewModel.isLoading && viewModel.items.isEmpty {
-            Spacer()
-            ProgressView()
-            Spacer()
+            ScrollView(showsIndicators: false) {
+                EtmaenListSkeleton(count: 3)
+                    .padding(Spacing.s16)
+            }
         } else if viewModel.items.isEmpty {
             Spacer()
             EmptyHistoryView(onExploreServices: viewModel.exploreServicesTapped)

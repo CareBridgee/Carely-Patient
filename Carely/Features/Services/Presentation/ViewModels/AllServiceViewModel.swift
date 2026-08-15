@@ -64,7 +64,9 @@ final class AllServiceViewModel: ObservableObject {
  
         Task {
             do {
-                let fetched = try await getServiceCategoriesUseCase.execute()
+                let fetched = try await Task.withMinimumDuration {
+                    try await self.getServiceCategoriesUseCase.execute()
+                }
                 self.categories = fetched
                 self.isLoading = false
             } catch {

@@ -72,7 +72,8 @@ final class DIContainer {
     private func makeRestoreSessionUseCase() -> RestoreSessionUseCaseProtocol {
         RestoreSessionUseCase(
             repository: authRepository,
-            sessionManager: sessionManager
+            sessionManager: sessionManager,
+            profileRepository: profileRepository
         )
     }
     
@@ -781,6 +782,7 @@ final class DIContainer {
         ChoosePatientViewModel(
             patientProfilesStore: patientProfilesStore,
             sessionManager: sessionManager,
+            profileRepository: profileRepository,
             onShowPatientDetails: onShowPatientDetails,
             onContinueWithAssessment: onContinueWithAssessment,
             onAddFamilyMember: onAddFamilyMember

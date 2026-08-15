@@ -55,11 +55,28 @@ struct VisitDetailView: View {
                 .padding(.bottom, Spacing.s32)
             }
         } else if viewModel.isLoading {
-            Spacer()
-            ProgressView()
-            Spacer()
+            visitDetailSkeletonView
         } else {
             Spacer()
+        }
+    }
+
+    private var visitDetailSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: Spacing.s24) {
+                VStack(spacing: Spacing.s16) {
+                    EtmaenSkeletonCircle(size: 96)
+                    EtmaenSkeletonRect(width: 180, height: 22, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 120, height: 16, radius: Radius.r8)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, Spacing.s16)
+
+                EtmaenCardSkeleton(height: 120)
+                EtmaenCardSkeleton(height: 100)
+            }
+            .padding(Spacing.s16)
+            .padding(.bottom, Spacing.s32)
         }
     }
  

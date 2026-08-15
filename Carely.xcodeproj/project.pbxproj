@@ -346,6 +346,8 @@
 		C6C3BE19300A631500C5FC25 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE17300A631500C5FC25 /* AppHeader.swift */; };
 		C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE16300A631500C5FC25 /* AlertBanner.swift */; };
 		C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */; };
+		C6C3BE51300A631500C5FC25 /* EtmaenLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE50300A631500C5FC25 /* EtmaenLoadingView.swift */; };
+		C6C3BE53300A631500C5FC25 /* EtmaenShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE52300A631500C5FC25 /* EtmaenShimmer.swift */; };
 		C6C3BE1D300A634200C5FC25 /* AuthRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */; };
 		C6C3BE1F300A637400C5FC25 /* AuthRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */; };
 		C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C3BE22300A63A800C5FC25 /* OTPVerificationEntity.swift */; };
@@ -764,6 +766,8 @@
 		C6C3BE16300A631500C5FC25 /* AlertBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBanner.swift; sourceTree = "<group>"; };
 		C6C3BE17300A631500C5FC25 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
 		C6C3BE18300A631500C5FC25 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		C6C3BE50300A631500C5FC25 /* EtmaenLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtmaenLoadingView.swift; sourceTree = "<group>"; };
+		C6C3BE52300A631500C5FC25 /* EtmaenShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtmaenShimmer.swift; sourceTree = "<group>"; };
 		C6C3BE1C300A634200C5FC25 /* AuthRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryProtocol.swift; sourceTree = "<group>"; };
 		C6C3BE1E300A637400C5FC25 /* AuthRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepositoryImpl.swift; sourceTree = "<group>"; };
 		C6C3BE20300A63A800C5FC25 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
@@ -1282,6 +1286,8 @@
 				39008F63300BDD5E0092118E /* SecondaryChip.swift */,
 				B3A111FF302696EC00292B50 /* NotificationBannerModifier.swift */,
 				B3A11200302696EC00292B50 /* NotificationData.swift */,
+				C6C3BE50300A631500C5FC25 /* EtmaenLoadingView.swift */,
+				C6C3BE52300A631500C5FC25 /* EtmaenShimmer.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -2946,6 +2952,8 @@
 				C6C3BE1A300A631500C5FC25 /* AlertBanner.swift in Sources */,
 				0C1F612E30191DDF002086EC /* OnboardingView.swift in Sources */,
 				C6C3BE1B300A631500C5FC25 /* PrimaryButton.swift in Sources */,
+				C6C3BE51300A631500C5FC25 /* EtmaenLoadingView.swift in Sources */,
+				C6C3BE53300A631500C5FC25 /* EtmaenShimmer.swift in Sources */,
 				C6E761F13008E30300481DB9 /* AuthCoordinator.swift in Sources */,
 				0C3D885A3008461300883999 /* Motion.swift in Sources */,
 				C6C3BE0B300A534B00C5FC25 /* EncryptionNoticeBanner.swift in Sources */,

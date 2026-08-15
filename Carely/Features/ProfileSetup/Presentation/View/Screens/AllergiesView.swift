@@ -25,15 +25,8 @@ struct AllergiesView: View {
 
                     noKnownAllergiesToggle
 
-                    if viewModel.isLoading {
-                        VStack(spacing: Spacing.s12) {
-                            ProgressView()
-                            Text("Loading allergies...")
-                                .carelyText(style: .bodyRegular, weight: .medium)
-                                .foregroundColor(.secondaryFont)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, Spacing.s32)
+                    if viewModel.isLoading && viewModel.availableAllergies.isEmpty {
+                        EtmaenListSkeleton(count: 2)
                     } else {
                         ForEach(AllergyType.allCases, id: \.self) { type in
                             let options = viewModel.allergies(for: type)

@@ -50,7 +50,13 @@ final class PersonalInfoViewModel: ObservableObject {
         self.onLogout = onLogout
     }
 
+    @Published var showLogoutConfirmation: Bool = false
+
     func logoutTapped() {
+        showLogoutConfirmation = true
+    }
+
+    func confirmLogout() {
         Task {
             do {
                 try await logoutUseCase?.execute()
@@ -82,7 +88,9 @@ final class PersonalInfoViewModel: ObservableObject {
 
         Task {
             do {
-                try await savePersonalInfoUseCase.execute(basicInfo: basicInfo)
+                try await Task.withMinimumDuration(2.5) {
+                    try await self.savePersonalInfoUseCase.execute(basicInfo: basicInfo)
+                }
                 isLoading = false
                 onOersonalDataSaved()
             } catch {

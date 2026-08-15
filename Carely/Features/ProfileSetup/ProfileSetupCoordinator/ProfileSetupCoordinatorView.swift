@@ -52,15 +52,9 @@ struct ProfileSetupCoordinatorView: View {
             .padding(.top, Spacing.s12)
             .padding(.horizontal, Spacing.s16)
             if coordinator.isLoadingData {
-                VStack(spacing: Spacing.s16) {
-                    Spacer()
-                    ProgressView()
-                    Text("Loading Profile Data...")
-                        .carelyText(style: .bodyRegular, weight: .medium)
-                        .foregroundColor(.secondaryFont)
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                Spacer()
+                EtmaenLoadingView(message: "Loading Profile Data...")
+                Spacer()
             } else {
                 Group {
                     switch coordinator.currentStep {

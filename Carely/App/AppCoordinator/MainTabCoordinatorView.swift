@@ -52,23 +52,17 @@ struct MainTabCoordinatorView: View {
     // MARK: - Tab Content
 
     private var tabContent: some View {
-        ZStack {
-            HomeCoordinatorView(container: container, coordinator: coordinator.homeCoordinator)
-                .opacity(coordinator.selectedTab == .home ? 1 : 0)
-                .allowsHitTesting(coordinator.selectedTab == .home)
-
-            ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
-                .opacity(coordinator.selectedTab == .services ? 1 : 0)
-                .allowsHitTesting(coordinator.selectedTab == .services)
-            
-            AIAssistantCoordinatorView(container: container, coordinator: coordinator.aiAssistantCoordinator)
-                .opacity(coordinator.selectedTab == .ai ? 1 : 0)
-                .allowsHitTesting(coordinator.selectedTab == .ai)
-
-            ProfileCoordinatorView(container: container, coordinator: coordinator.profileCoordinator)
-                .opacity(coordinator.selectedTab == .profile ? 1 : 0)
-                .allowsHitTesting(coordinator.selectedTab == .profile)
+        Group {
+            switch coordinator.selectedTab {
+            case .home:
+                HomeCoordinatorView(container: container, coordinator: coordinator.homeCoordinator)
+            case .services:
+                ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
+            case .ai:
+                AIAssistantCoordinatorView(container: container, coordinator: coordinator.aiAssistantCoordinator)
+            case .profile:
+                ProfileCoordinatorView(container: container, coordinator: coordinator.profileCoordinator)
+            }
         }
-        .animation(.easeInOut(duration: 0.15), value: coordinator.selectedTab)
     }
 }

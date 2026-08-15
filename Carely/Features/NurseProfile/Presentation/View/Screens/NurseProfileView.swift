@@ -20,8 +20,7 @@ struct NurseProfileView: View {
             Color.backGround.ignoresSafeArea()
 
             if viewModel.isLoading {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color.brandPrimary))
+                nurseProfileSkeletonView
             } else if let profile = viewModel.profile {
                 ScrollView {
                     VStack(spacing: Spacing.s24) {
@@ -40,7 +39,7 @@ struct NurseProfileView: View {
             }
         }
         .careConnectNavigationBar(
-            title: "CareConnect",
+            title: "Etmaen",
             onBackTapped: { presentationMode.wrappedValue.dismiss() }
         )
         .onAppear { viewModel.fetchProfile() }
@@ -49,6 +48,25 @@ struct NurseProfileView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
+        }
+    }
+
+    private var nurseProfileSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: Spacing.s24) {
+                VStack(spacing: Spacing.s12) {
+                    EtmaenSkeletonCircle(size: 80)
+                    EtmaenSkeletonRect(width: 160, height: 20, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 100, height: 14, radius: Radius.r8)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, Spacing.s16)
+
+                EtmaenCardSkeleton(height: 100)
+                EtmaenCardSkeleton(height: 120)
+            }
+            .padding(.horizontal, Spacing.s20)
+            .padding(.bottom, Spacing.s32)
         }
     }
 }

@@ -53,7 +53,6 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func onAppear() {
-        guard profile == nil else { return }
         loadProfile()
     }
 
@@ -76,8 +75,11 @@ final class ProfileViewModel: ObservableObject {
 
         Task {
             do {
-                _ = try await getPatientProfileUseCase.execute()
-                _ = try await getFamilyMembersUseCase.execute()
+                try await Task.withMinimumDuration(2.5) {
+                    async let profile = self.getPatientProfileUseCase.execute()
+                    async let family = self.getFamilyMembersUseCase.execute()
+                    _ = try await (profile, family)
+                }
                 self.isLoading = false
             } catch {
                 self.isLoading = false
@@ -120,7 +122,13 @@ final class ProfileViewModel: ObservableObject {
         }
     }
 
+    @Published var showLogoutConfirmation: Bool = false
+
     func logoutTapped() {
+        showLogoutConfirmation = true
+    }
+
+    func confirmLogout() {
         Task {
             isLoading = true
             do {

@@ -29,7 +29,9 @@ final class NurseProfileViewModel: ObservableObject {
 
         Task {
             do {
-                let fetched = try await getNurseProfileUseCase.execute(nurseId: nurseId)
+                let fetched = try await Task.withMinimumDuration {
+                    try await self.getNurseProfileUseCase.execute(nurseId: self.nurseId)
+                }
                 self.profile = fetched
                 self.isLoading = false
             } catch {

@@ -22,25 +22,25 @@ struct FamilyMembersView: View {
                 VStack(alignment: .leading, spacing: Spacing.s20) {
                     header
 
-                    VStack(spacing: Spacing.s16) {
-                        ForEach(viewModel.members) { member in
-                            FamilyMemberCard(
-                                member: member,
-                                onRemove: { viewModel.removeMemberTapped(member) },
-                                onEditPersonalInfo: { viewModel.editPersonalInfoTapped(for: member) },
-                                onEditHealthProfile: { viewModel.editHealthProfileTapped(for: member) }
-                            )
-                        }
+                    if viewModel.isLoading && viewModel.members.isEmpty {
+                        EtmaenListSkeleton(count: 3)
+                    } else {
+                        VStack(spacing: Spacing.s16) {
+                            ForEach(viewModel.members) { member in
+                                FamilyMemberCard(
+                                    member: member,
+                                    onRemove: { viewModel.removeMemberTapped(member) },
+                                    onEditPersonalInfo: { viewModel.editPersonalInfoTapped(for: member) },
+                                    onEditHealthProfile: { viewModel.editHealthProfileTapped(for: member) }
+                                )
+                            }
 
-                        AddFamilyMemberCard(action: viewModel.addFamilyMemberTapped)
+                            AddFamilyMemberCard(action: viewModel.addFamilyMemberTapped)
+                        }
                     }
                 }
                 .padding(Spacing.s16)
                 .padding(.bottom, Spacing.s32)
-            }
-
-            if viewModel.isLoading && viewModel.members.isEmpty {
-                ProgressView()
             }
         }
         .careConnectNavigationBar(
@@ -50,8 +50,15 @@ struct FamilyMembersView: View {
                 viewModel.backTapped()
             }
         )
-        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
+        .alert("Remove Family Member", isPresented: $viewModel.showDeleteConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Remove", role: .destructive) {
+                viewModel.confirmRemoveMember()
+            }
+        } message: {
+            Text("Are you sure you want to remove \(viewModel.memberToDelete?.name ?? "this family member")? This action cannot be undone.")
+        }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadMembers() }
             Button("Cancel", role: .cancel) {}

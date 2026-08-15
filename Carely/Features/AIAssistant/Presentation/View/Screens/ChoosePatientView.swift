@@ -63,19 +63,23 @@ struct ChoosePatientView: View {
                 
                 // Patient List
                 VStack(spacing: Spacing.s16) {
-                    ForEach(viewModel.patients) { patient in
-                        PatientSelectionCard(
-                            patient: patient,
-                            isSelected: viewModel.selectedPatientId == patient.id,
-                            action: {
-                                viewModel.selectPatient(patient)
-                            }
-                        )
+                    if viewModel.isLoading {
+                        EtmaenListSkeleton(count: 2)
+                    } else {
+                        ForEach(viewModel.patients) { patient in
+                            PatientSelectionCard(
+                                patient: patient,
+                                isSelected: viewModel.selectedPatientId == patient.id,
+                                action: {
+                                    viewModel.selectPatient(patient)
+                                }
+                            )
+                        }
+                        
+                        AddFamilyMemberCard(action: {
+                            viewModel.onAddFamilyMember?()
+                        })
                     }
-                    
-                    AddFamilyMemberCard(action: {
-                        viewModel.onAddFamilyMember?()
-                    })
                 }
                 
                 // Info Box

@@ -35,7 +35,7 @@ struct VisitCompletedView: View {
                     }
                 } else if viewModel.isLoading {
                     Spacer()
-                    ProgressView()
+                    EtmaenLoadingView(message: "Loading visit summary...")
                     Spacer()
                 }
             }

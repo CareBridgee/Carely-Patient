@@ -62,27 +62,29 @@ final class HomeViewModel: ObservableObject {
     }
  
     func loadDashboard() {
-            isLoading = true
-            errorMessage = nil
-     
-            Task {
-                do {
-                    async let categories = getServiceCategoriesUseCase.execute()
-                    async let bookings = getUpcomingBookingsUseCase.execute()
-     
+        isLoading = true
+        errorMessage = nil
+ 
+        Task {
+            do {
+                try await Task.withMinimumDuration {
+                    async let categories = self.getServiceCategoriesUseCase.execute()
+                    async let bookings = self.getUpcomingBookingsUseCase.execute()
+ 
                     let (fetchedCategories, fetchedBookings) = try await (categories, bookings)
-      
+  
                     self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
                     self.upcomingBookings = fetchedBookings
-                    
-                    self.isLoading = false
-                } catch {
-                    self.isLoading = false
-                    self.errorMessage = error.localizedDescription
-                    self.showError = true
                 }
+                
+                self.isLoading = false
+            } catch {
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
+                self.showError = true
             }
         }
+    }
  
     // MARK: - Navigation
  

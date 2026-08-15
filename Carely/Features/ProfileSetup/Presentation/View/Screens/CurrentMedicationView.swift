@@ -27,15 +27,8 @@ struct CurrentMedicationView: View {
 
                     noCurrentMedicationsToggle
 
-                    if viewModel.isLoading {
-                        VStack(spacing: Spacing.s12) {
-                            ProgressView()
-                            Text("Loading medications...")
-                                .carelyText(style: .bodyRegular, weight: .medium)
-                                .foregroundColor(.secondaryFont)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, Spacing.s32)
+                    if viewModel.isLoading && viewModel.medications.isEmpty {
+                        EtmaenListSkeleton(count: 2)
                     } else {
                         VStack(spacing: Spacing.s12) {
                             ForEach(Array(viewModel.medications.enumerated()), id: \.offset) { index, medication in

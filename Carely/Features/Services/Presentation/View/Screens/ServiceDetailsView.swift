@@ -39,8 +39,7 @@ struct ServiceDetailsView: View {
                         .background(Color.backGround)
                 }
             } else if viewModel.isLoading {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                serviceDetailsSkeletonView
             }
         }
         .background(Color.backGround.ignoresSafeArea())
@@ -222,6 +221,29 @@ struct ServiceDetailsView: View {
             isLoading: viewModel.isBooking,
             action: viewModel.bookServiceTapped
         )
+    }
+
+    private var serviceDetailsSkeletonView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: Spacing.s20) {
+                EtmaenSkeletonRect(height: 200, radius: Radius.r24)
+                
+                VStack(alignment: .leading, spacing: Spacing.s8) {
+                    EtmaenSkeletonRect(width: 220, height: 22, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 140, height: 16, radius: Radius.r8)
+                }
+
+                HStack(spacing: Spacing.s12) {
+                    EtmaenCardSkeleton(height: 70)
+                    EtmaenCardSkeleton(height: 70)
+                }
+
+                EtmaenCardSkeleton(height: 120)
+            }
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s16)
+            .padding(.bottom, Spacing.s24)
+        }
     }
 }
 

@@ -58,7 +58,9 @@ final class FamilyMembersViewModel: ObservableObject {
 
         Task {
             do {
-                _ = try await getFamilyMembersUseCase.execute()
+                try await Task.withMinimumDuration {
+                    _ = try await self.getFamilyMembersUseCase.execute()
+                }
                 self.isLoading = false
             } catch {
                 self.isLoading = false
@@ -92,7 +94,18 @@ final class FamilyMembersViewModel: ObservableObject {
 
     // MARK: - Remove Member
 
+    @Published var memberToDelete: FamilyMember? = nil
+    @Published var showDeleteConfirmation: Bool = false
+
     func removeMemberTapped(_ member: FamilyMember) {
+        memberToDelete = member
+        showDeleteConfirmation = true
+    }
+
+    func confirmRemoveMember() {
+        guard let member = memberToDelete else { return }
+        memberToDelete = nil
+
         // Optimistic: remove from list immediately
         members.removeAll { $0.id == member.id }
 

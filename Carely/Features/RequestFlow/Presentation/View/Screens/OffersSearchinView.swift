@@ -51,6 +51,14 @@ struct OffersSearchingView: View {
         }
         .background(Color.backGround.ignoresSafeArea())
         .careConnectNavigationBar(title: "Request Status", trailingIcon: "ellipsis")
+        .alert("Cancel Search?", isPresented: $viewModel.showCancelSearchConfirmation) {
+            Button("Keep Searching", role: .cancel) {}
+            Button("Cancel Search", role: .destructive) {
+                viewModel.confirmCancelServiceRequest()
+            }
+        } message: {
+            Text("Are you sure you want to cancel searching for available nurses?")
+        }
         .onAppear {
             viewModel.startSearching()
         }

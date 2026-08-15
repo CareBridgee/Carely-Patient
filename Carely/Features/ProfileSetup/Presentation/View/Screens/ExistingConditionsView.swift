@@ -18,14 +18,12 @@ struct ExistingConditionsView: View {
                     subtitle: "Select all that apply to help us provide more personalized care for your needs."
                 )
 
-                if viewModel.isLoading {
-                    VStack(spacing: Spacing.s12) {
-                        ProgressView()
-                        Text("Loading conditions...")
-                            .carelyText(style: .bodyRegular, weight: .medium)
-                            .foregroundColor(.secondaryFont)
+                if viewModel.isLoading && viewModel.availableConditions.isEmpty {
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: Spacing.s20), GridItem(.flexible())], spacing: Spacing.s16) {
+                        ForEach(0..<6, id: \.self) { _ in
+                            EtmaenCardSkeleton(height: 70)
+                        }
                     }
-                    .padding(.top, Spacing.s32)
                 } else if viewModel.availableConditions.isEmpty {
                     Text("No medical conditions found.")
                         .carelyText(style: .bodyRegular, weight: .medium)

@@ -30,9 +30,9 @@ struct AllServiceView: View {
                 )
                 .padding(.horizontal)
                 
-                if viewModel.isLoading {
-                    ProgressView()
-                        .padding(.top, Spacing.s40)
+                if viewModel.isLoading && viewModel.categories.isEmpty {
+                    EtmaenServiceGridSkeleton()
+                        .padding(.horizontal)
                 } else if viewModel.categories.isEmpty {
                     ContentUnavailableView(
                         "No Services Found",
