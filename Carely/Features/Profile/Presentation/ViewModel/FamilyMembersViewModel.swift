@@ -58,9 +58,7 @@ final class FamilyMembersViewModel: ObservableObject {
 
         Task {
             do {
-                try await Task.withMinimumDuration {
-                    _ = try await self.getFamilyMembersUseCase.execute()
-                }
+                _ = try await self.getFamilyMembersUseCase.execute()
                 self.isLoading = false
             } catch {
                 self.isLoading = false

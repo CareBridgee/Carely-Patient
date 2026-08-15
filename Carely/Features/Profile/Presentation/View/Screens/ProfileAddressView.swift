@@ -20,6 +20,7 @@ final class ProfileAddressViewModel: ObservableObject {
     let homeAddressViewModel: HomeAddressViewModel
     private let getPatientProfileUseCase: GetPatientProfileUseCaseProtocol
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
+    private let patientProfilesStore: PatientProfilesStore
     private let coordinator: ProfileCoordinator
 
     init(
@@ -27,17 +28,37 @@ final class ProfileAddressViewModel: ObservableObject {
         homeAddressViewModel: HomeAddressViewModel,
         getPatientProfileUseCase: GetPatientProfileUseCaseProtocol,
         getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol,
+        patientProfilesStore: PatientProfilesStore,
         coordinator: ProfileCoordinator
     ) {
         self.selectedProfileId = initialProfileId
         self.homeAddressViewModel = homeAddressViewModel
         self.getPatientProfileUseCase = getPatientProfileUseCase
         self.getFamilyMembersUseCase = getFamilyMembersUseCase
+        self.patientProfilesStore = patientProfilesStore
         self.coordinator = coordinator
+        populateFromStore()
     }
 
     func onAppear() {
-        loadProfiles()
+        if profiles.isEmpty {
+            loadProfiles()
+        } else {
+            homeAddressViewModel.loadAddress(profileId: selectedProfileId)
+        }
+    }
+
+    private func populateFromStore() {
+        var options: [ProfileAddressProfileOption] = []
+        if let primary = patientProfilesStore.primaryProfile {
+            options.append(ProfileAddressProfileOption(id: primary.id, name: primary.displayName, relation: "Primary"))
+        }
+        for m in patientProfilesStore.familyMembers {
+            options.append(ProfileAddressProfileOption(id: m.id, name: m.name, relation: m.relation))
+        }
+        if !options.isEmpty {
+            self.profiles = options
+        }
     }
 
     func selectProfile(_ profileId: String) {

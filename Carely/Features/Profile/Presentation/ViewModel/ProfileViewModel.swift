@@ -53,7 +53,9 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func onAppear() {
-        loadProfile()
+        if profile == nil {
+            loadProfile()
+        }
     }
 
     private func bindToStore() {
@@ -75,11 +77,9 @@ final class ProfileViewModel: ObservableObject {
 
         Task {
             do {
-                try await Task.withMinimumDuration(2.5) {
-                    async let profile = self.getPatientProfileUseCase.execute()
-                    async let family = self.getFamilyMembersUseCase.execute()
-                    _ = try await (profile, family)
-                }
+                async let profile = self.getPatientProfileUseCase.execute()
+                async let family = self.getFamilyMembersUseCase.execute()
+                _ = try await (profile, family)
                 self.isLoading = false
             } catch {
                 self.isLoading = false

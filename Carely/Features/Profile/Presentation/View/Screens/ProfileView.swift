@@ -21,7 +21,7 @@ struct ProfileView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: Spacing.s24) {
 
-                    if viewModel.isLoading {
+                    if viewModel.isLoading && viewModel.profile == nil {
                         profileSkeletonView
                     } else if let profile = viewModel.profile {
                         profileHeader(profile)
