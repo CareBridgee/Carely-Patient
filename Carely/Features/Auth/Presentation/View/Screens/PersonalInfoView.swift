@@ -16,14 +16,23 @@ struct PersonalInfoView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: Spacing.s20) {
-                PersonalInfoFormCard(viewModel: viewModel)
-                    .padding(.top, Spacing.s24)
-                Spacer()
+            Color.backGround.ignoresSafeArea()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: Spacing.s20) {
+                    PersonalInfoFormCard(viewModel: viewModel)
+                        .padding(.top, Spacing.s16)
+                }
+                .padding(.horizontal, Spacing.s16)
+                .padding(.bottom, Spacing.s32)
             }
-            .padding(.horizontal, Spacing.s16)
-            .background(Color.backGround.ignoresSafeArea())
-            .careConnectNavigationBar(title: "Enaya", showBackButton: false)
+            .careConnectNavigationBar(
+                title: "Etmaen",
+                showBackButton: true,
+                onBackTapped: {
+                    viewModel.logoutTapped()
+                }
+            )
             .blur(radius: viewModel.isLoading ? 3 : 0)
             
             if viewModel.isLoading {

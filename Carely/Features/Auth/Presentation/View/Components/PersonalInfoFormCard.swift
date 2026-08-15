@@ -11,10 +11,10 @@ struct PersonalInfoFormCard: View {
     @ObservedObject var viewModel: PersonalInfoViewModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.s24) {
-            Text("Personal Information")
-                .carelyText(style: .heading3, weight: .regular)
-                .padding(.bottom, Spacing.s2)
+        VStack(alignment: .leading, spacing: Spacing.s20) {
+            Text("Personal Info")
+                .carelyText(style: .heading2, weight: .bold)
+                .foregroundColor(.primaryFont)
 
             photoPicker
 
@@ -57,8 +57,8 @@ struct PersonalInfoFormCard: View {
         }
         .padding(Spacing.s20)
         .background(Color.surface)
-        .cornerRadius(24)
-        .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
+        .clipShape(RoundedRectangle.carely(Radius.r24))
+        .carelyShadow(.sm)
     }
 
     private var photoPicker: some View {
@@ -86,7 +86,7 @@ struct PersonalInfoFormCard: View {
                     Circle()
                         .fill(Color.brandPrimary)
                         .frame(width: 28, height: 28)
-                        .overlay(Image(systemName: "pencil").font(.system(size: 14, weight: .bold)).foregroundColor(.white))
+                        .overlay(Image(systemName: "pencil").font(.system(size: 14, weight: .bold)).foregroundColor(Color.onPrimary))
                         .offset(x: -4, y: -4)
                 }
             }

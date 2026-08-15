@@ -18,8 +18,8 @@ struct loginButton: View {
     init(
         title: String,
         image: Image? = nil,
-        backgroundColor: Color = .blue,
-        foregroundColor: Color = .white,
+        backgroundColor: Color = .brandPrimary,
+        foregroundColor: Color = .onPrimary,
         horizontalPadding: CGFloat = 24,
         strokeColor: Color,
         action: @escaping () -> Void
@@ -66,17 +66,17 @@ struct loginButton: View {
         loginButton(
             title: "Continue with Google",
             image: Image(systemName: "globe"),
-            backgroundColor: .white,
-            foregroundColor: .black,
-            strokeColor: .gray
+            backgroundColor: .surface,
+            foregroundColor: .primaryFont,
+            strokeColor: .divider
         ) {}
         
         loginButton(
             title: "Continue with Phone",
             image: Image(systemName: "phone"),
-            backgroundColor: .blue,
-            foregroundColor: .white,
-            strokeColor: .blue
+            backgroundColor: .brandPrimary,
+            foregroundColor: .onPrimary,
+            strokeColor: .brandPrimary
         ) {}
     }
     .padding()

@@ -108,12 +108,15 @@ final class DIContainer {
     
     func makePersonalInfoViewModel(
         router: AuthRouter,
-        onOersonalDataSaved: @escaping () -> Void
+        onOersonalDataSaved: @escaping () -> Void,
+        onLogout: (() -> Void)? = nil
     ) -> PersonalInfoViewModel {
         PersonalInfoViewModel(
             savePersonalInfoUseCase: makeSavePersonalInfoUseCase(),
+            logoutUseCase: makeLogoutUseCase(),
             router: router,
-            onOersonalDataSaved: onOersonalDataSaved
+            onOersonalDataSaved: onOersonalDataSaved,
+            onLogout: onLogout
         )
     }
     
@@ -880,7 +883,8 @@ final class DIContainer {
         let name = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
         return SettingsViewModel(
             patientName: name.isEmpty ? "My Profile" : name,
-            coordinator: coordinator
+            coordinator: coordinator,
+            appState: appState
         )
     }
 

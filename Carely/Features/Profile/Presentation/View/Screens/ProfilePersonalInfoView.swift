@@ -18,15 +18,15 @@ struct ProfilePersonalInfoView: View {
             Color.backGround.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: Spacing.s24) {
-                    topBar
-                    header
-
-                    // Photo picker
-                    photoPicker
-
+                VStack(alignment: .leading, spacing: Spacing.s20) {
                     // Form card
                     VStack(alignment: .leading, spacing: Spacing.s20) {
+                        Text("Personal Info")
+                            .carelyText(style: .heading2, weight: .bold)
+                            .foregroundColor(.primaryFont)
+
+                        photoPicker
+
                         CarelyTextField(
                             label: "First Name",
                             isRequired: true,
@@ -73,7 +73,14 @@ struct ProfilePersonalInfoView: View {
                 .padding(.bottom, Spacing.s32)
             }
         }
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(
+            title: "Personal Info",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -86,40 +93,6 @@ struct ProfilePersonalInfoView: View {
         }
         .onAppear {
             viewModel.onAppear()
-        }
-    }
-
-    // MARK: - Top Bar
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-            Spacer()
-            Text("Personal Info")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-            Spacer()
-            Color.clear.frame(width: 40, height: 40)
-        }
-    }
-
-    // MARK: - Header
-
-    private var header: some View {
-        VStack(alignment: .leading, spacing: Spacing.s4) {
-            Text("Personal Info")
-                .carelyText(style: .heading2, weight: .bold)
-                .foregroundColor(.primaryFont)
-            Text("Update your name, date of birth, and gender.")
-                .carelyText(style: .bodySmall)
-                .foregroundColor(.secondaryFont)
         }
     }
 
@@ -190,7 +163,7 @@ private struct ProfilePhotoPickerView: View {
                         .overlay(
                             Image(systemName: "pencil")
                                 .font(.system(size: 14, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.onPrimary)
                         )
                         .offset(x: -4, y: -4)
                 }

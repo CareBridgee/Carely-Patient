@@ -15,7 +15,7 @@ struct HomeCoordinatorView: View {
     @ObservedObject var coordinator: HomeCoordinator
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $coordinator.path) {
             HomeView(viewModel: container.makeHomeViewModel(
                 onServiceTabbed: coordinator.serviceTapped,
                 onSeeAllHistory: coordinator.seeAllHistoryTapped

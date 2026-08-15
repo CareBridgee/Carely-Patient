@@ -22,6 +22,7 @@ struct BasicHealthInfoView: View {
                 BloodTypeSelectionCardView(selectedType: $viewModel.bloodType)
             }
             .padding(.horizontal, Spacing.s20)
+            .padding(.top, Spacing.s16)
             .padding(.bottom, Spacing.s24)
         }
         .background(Color.backGround.ignoresSafeArea())

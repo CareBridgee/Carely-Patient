@@ -56,7 +56,7 @@ struct PatientSelectionCard: View {
                             .overlay(
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 10, weight: .bold))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.onPrimary)
                             )
                             .offset(x: 2, y: 2)
                     }
@@ -74,7 +74,7 @@ struct PatientSelectionCard: View {
                         .background(
                             Capsule().fill(isSelected ? Color.brandPrimary : Color.brandPrimary.opacity(0.15))
                         )
-                        .foregroundColor(isSelected ? .white : .brandPrimary)
+                        .foregroundColor(isSelected ? .onPrimary : .brandPrimary)
                 }
                 
                 Spacer()
@@ -83,7 +83,7 @@ struct PatientSelectionCard: View {
                     .foregroundColor(.secondaryFont)
             }
             .padding(Spacing.s16)
-            .background(isSelected ? Color.white : Color.white.opacity(0.5))
+            .background(isSelected ? Color.surface : Color.surface.opacity(0.5))
             .cornerRadius(Spacing.s20)
             .shadow(color: isSelected ? Color.black.opacity(0.05) : Color.clear, radius: 8, x: 0, y: 2)
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)

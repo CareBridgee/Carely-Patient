@@ -54,21 +54,23 @@ final class WelcomeViewModel: ObservableObject {
         GIDSignIn.sharedInstance.configuration = config
 
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingWindow) { [weak self] result, error in
-            guard let self = self else { return }
+            Task { @MainActor in
+                guard let self = self else { return }
 
-            if let error = error {
-                self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                return
+                if let error = error {
+                    self.isLoading = false
+                    self.errorMessage = error.localizedDescription
+                    return
+                }
+
+                guard let user = result?.user, let idToken = user.idToken?.tokenString else {
+                    self.isLoading = false
+                    self.errorMessage = "Failed to obtain ID token from Google."
+                    return
+                }
+
+                await self.authenticateWithBackend(idToken: idToken)
             }
-
-            guard let user = result?.user, let idToken = user.idToken?.tokenString else {
-                self.isLoading = false
-                self.errorMessage = "Failed to obtain ID token from Google."
-                return
-            }
-
-            Task { await self.authenticateWithBackend(idToken: idToken) }
         }
     }
 

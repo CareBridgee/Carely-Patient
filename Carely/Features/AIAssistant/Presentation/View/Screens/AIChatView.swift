@@ -116,18 +116,18 @@ struct AIChatView: View {
     private func errorBanner(message: String) -> some View {
         HStack(spacing: Spacing.s8) {
             Image(systemName: "exclamationmark.circle.fill")
-                .foregroundColor(.white)
+                .foregroundColor(Color.onError)
                 .font(.system(size: 16))
 
             Text(message)
                 .carelyText(style: .caption, weight: .medium)
-                .foregroundColor(.white)
+                .foregroundColor(Color.onError)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.horizontal, Spacing.s16)
         .padding(.vertical, Spacing.s8)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.red.opacity(0.85))
+        .background(Color.error.opacity(0.85))
     }
 
     // MARK: - Helpers

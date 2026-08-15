@@ -32,10 +32,10 @@ struct ReservationDraftCard: View {
                     HStack(spacing: 4) {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 14))
-                            .foregroundColor(.green)
+                            .foregroundColor(Color.success)
                         Text("Ready")
                             .carelyText(style: .caption, weight: .semiBold)
-                            .foregroundColor(.green)
+                            .foregroundColor(Color.success)
                     }
                 }
             }
@@ -59,7 +59,7 @@ struct ReservationDraftCard: View {
                         Text("Proceed to Booking")
                             .carelyText(style: .bodyRegular, weight: .bold)
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(Color.onPrimary)
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(Color.brandPrimary)

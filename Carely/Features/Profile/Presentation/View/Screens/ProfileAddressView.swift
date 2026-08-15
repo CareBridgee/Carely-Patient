@@ -89,8 +89,6 @@ struct ProfileAddressView: View {
             Color.backGround.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                topBar
-
                 if viewModel.profiles.count > 1 {
                     profileSelector
                         .padding(.vertical, Spacing.s12)
@@ -100,37 +98,16 @@ struct ProfileAddressView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(
+            title: "Addresses",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
         .onAppear {
             viewModel.onAppear()
         }
-    }
-
-    // MARK: - Top Bar
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-
-            Spacer()
-
-            Text("Addresses")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-
-            Spacer()
-
-            Color.clear.frame(width: 40, height: 40)
-        }
-        .padding(.horizontal, Spacing.s16)
-        .padding(.top, Spacing.s8)
     }
 
     // MARK: - Profile Selector Tabs

@@ -161,7 +161,7 @@ private struct FamilyMemberPhotoPickerView: View {
                             .overlay(
                                 Image(systemName: "camera.fill")
                                     .font(.system(size: 12, weight: .bold))
-                                    .foregroundColor(.white)
+                                    .foregroundColor(Color.onPrimary)
                             )
                             .offset(x: -4, y: -4)
                     }

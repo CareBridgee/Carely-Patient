@@ -197,8 +197,8 @@ private struct PrescriptionPhotoUploadPickerView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: IconSize.s24, height: IconSize.s24)
-                            .foregroundColor(.white)
-                            .background(Circle().fill(Color.black.opacity(0.4)))
+                            .foregroundColor(Color.onPrimary)
+                            .background(Circle().fill(Color.primaryFont.opacity(0.6)))
                     }
                     .padding(Spacing.s8)
                 } else {

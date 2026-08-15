@@ -48,7 +48,8 @@ struct OTPVerificationView: View {
             }
         }
         .background(Color.backGround.ignoresSafeArea())
-        .careConnectNavigationBar(title: "Enaya")
+        .careConnectNavigationBar(title: "Etmaen")
+        .blur(radius: viewModel.isLoading ? 3 : 0)
     }
 }
 

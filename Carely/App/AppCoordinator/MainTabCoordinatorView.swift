@@ -23,16 +23,24 @@ struct MainTabCoordinatorView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            Color.backGround
+                .ignoresSafeArea()
+
             tabContent
-                .padding(.bottom, Spacing.s56)
+                .padding(.bottom, coordinator.isTabBarVisible ? Spacing.s56 : Spacing.s0)
             
-            FloatingTabBar(
-                selectedTab: Binding(
-                    get: { coordinator.selectedTab },
-                    set: { coordinator.select($0) }
+            if coordinator.isTabBarVisible {
+                FloatingTabBar(
+                    selectedTab: Binding(
+                        get: { coordinator.selectedTab },
+                        set: { coordinator.select($0) }
+                    )
                 )
-            )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .animation(.easeInOut(duration: 0.2), value: coordinator.isTabBarVisible)
+        .background(Color.backGround.ignoresSafeArea())
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .notificationBanner(data: $coordinator.currentNotification) {
                 coordinator.handleNotificationTap()

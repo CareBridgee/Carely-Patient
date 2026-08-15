@@ -28,11 +28,11 @@ struct ServiceCategoryCard: View {
                 VStack(alignment: .leading, spacing: Spacing.s4) {
                     Text(category.title)
                         .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(.primary)
+                        .foregroundColor(.primaryFont)
                     
                     Text(category.subtitle)
                         .carelyText(style: CarelyTextStyle.bodySmall)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.secondaryFont)
                         .multilineTextAlignment(.leading)
                 }
                 
@@ -40,7 +40,7 @@ struct ServiceCategoryCard: View {
             }
             .padding()
             .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
-            .background(Color.white)
+            .background(Color.surface)
             .cornerRadius(Radius.r20)
             .carelyShadow(.sm)
         }

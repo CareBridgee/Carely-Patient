@@ -23,7 +23,7 @@ struct NotificationBannerView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: iconName(for: data.type))
-                .foregroundColor(.white)
+                .foregroundColor(.onPrimary)
                 .font(.system(size: 20))
                 .padding(10)
                 .background(Circle().fill(color(for: data.type)))
@@ -31,10 +31,10 @@ struct NotificationBannerView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(data.title)
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.primaryFont)
                 Text(data.message)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.secondaryFont)
                     .lineLimit(2)
             }
             Spacer()
@@ -42,7 +42,7 @@ struct NotificationBannerView: View {
         .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(UIColor.systemBackground))
+                .fill(Color.surface)
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
         )
         .padding(.horizontal, 16)
@@ -67,10 +67,10 @@ struct NotificationBannerView: View {
 
     private func color(for type: String) -> Color {
         switch type {
-        case "BOOKING": return .blue
-        case "MESSAGE": return .green
-        case "PAYMENT": return .orange
-        default: return .gray
+        case "BOOKING": return .brandPrimary
+        case "MESSAGE": return .success
+        case "PAYMENT": return .amber
+        default: return .hint
         }
     }
 }

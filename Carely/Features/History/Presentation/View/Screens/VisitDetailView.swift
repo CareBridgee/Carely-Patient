@@ -21,42 +21,21 @@ struct VisitDetailView: View {
             Color.backGround.ignoresSafeArea()
  
             VStack(spacing: Spacing.s20) {
-                topBar
-                    .padding(.horizontal, Spacing.s16)
-                    .padding(.top, Spacing.s8)
- 
                 content
             }
         }
+        .careConnectNavigationBar(
+            title: "Visit Details",
+            showBackButton: true,
+            onBackTapped: onBackTapped
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadDetail() }
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
-        }
-    }
- 
-    private var topBar: some View {
-        HStack {
-            Button(action: onBackTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
- 
-            Spacer()
- 
-            Text("Visit Details")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
- 
-            Spacer()
- 
-            Color.clear.frame(width: 40, height: 40)
         }
     }
  

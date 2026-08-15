@@ -11,6 +11,7 @@ enum SettingsRowTrailing {
     case toggle(Binding<Bool>)
     case value(String)
     case chevron
+    case appearancePicker(Binding<AppAppearance>)
 }
 
 struct SettingsRow: View {
@@ -21,7 +22,7 @@ struct SettingsRow: View {
 
     var body: some View {
         Group {
-            if isTogglingRow {
+            if isInteractiveTrailing {
                 content
             } else {
                 Button(action: action) {
@@ -50,9 +51,13 @@ struct SettingsRow: View {
         .padding(.vertical, Spacing.s4)
     }
 
-    private var isTogglingRow: Bool {
-        if case .toggle = trailing { return true }
-        return false
+    private var isInteractiveTrailing: Bool {
+        switch trailing {
+        case .toggle, .appearancePicker:
+            return true
+        default:
+            return false
+        }
     }
 
     @ViewBuilder
@@ -62,6 +67,31 @@ struct SettingsRow: View {
             Toggle("", isOn: binding)
                 .labelsHidden()
                 .tint(.brandPrimary)
+
+        case .appearancePicker(let binding):
+            Menu {
+                ForEach(AppAppearance.allCases) { option in
+                    Button(action: {
+                        binding.wrappedValue = option
+                    }) {
+                        HStack {
+                            Text(option.rawValue)
+                            if binding.wrappedValue == option {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            } label: {
+                HStack(spacing: Spacing.s4) {
+                    Text(binding.wrappedValue.rawValue)
+                        .carelyText(style: .bodySmall)
+                        .foregroundColor(.secondaryFont)
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundColor(.hint)
+                }
+            }
 
         case .value(let text):
             HStack(spacing: Spacing.s4) {

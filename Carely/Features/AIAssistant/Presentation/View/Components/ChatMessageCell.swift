@@ -71,7 +71,7 @@ struct ChatMessageCell: View {
     private func textBubble(_ text: String) -> some View {
         Text(text)
             .carelyText(style: .bodyRegular, weight: .regular)
-            .foregroundColor(isUser ? .white : Color.primaryFont)
+            .foregroundColor(isUser ? Color.onPrimary : Color.primaryFont)
             .padding(.horizontal, Spacing.s16)
             .padding(.vertical, Spacing.s12)
             .background(isUser ? Color.brandPrimary : Color.surface)

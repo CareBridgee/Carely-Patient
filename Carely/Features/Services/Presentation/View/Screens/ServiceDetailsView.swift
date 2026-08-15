@@ -19,37 +19,40 @@ struct ServiceDetailsView: View {
             Color.backGround.ignoresSafeArea()
 
             if let detail = viewModel.detail {
-                VStack(spacing: 0) {
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading, spacing: Spacing.s20) {
-                            heroSection(detail)
-                            infoHeader(detail)
-                            priceDurationSection(detail)
-                            aboutSection(detail)
-                            includedSection(detail)
-                            noteSection(detail)
-                        }
-                        .padding(.horizontal, Spacing.s16)
-                        .padding(.top, 64)
-                        .padding(.bottom, 156)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: Spacing.s20) {
+                        heroSection(detail)
+                        infoHeader(detail)
+                        priceDurationSection(detail)
+                        aboutSection(detail)
+                        includedSection(detail)
+                        noteSection(detail)
                     }
+                    .padding(.horizontal, Spacing.s16)
+                    .padding(.top, Spacing.s16)
+                    .padding(.bottom, Spacing.s24)
                 }
-
-                VStack {
-                    Spacer()
+                .safeAreaInset(edge: .bottom) {
                     bookButton
-                        .padding(Spacing.s16)
-                        .background(Color.backGround.opacity(0.95))
-                        .padding(.bottom , Spacing.s8)
+                        .padding(.horizontal, Spacing.s16)
+                        .padding(.vertical, Spacing.s12)
+                        .background(Color.backGround)
                 }
             } else if viewModel.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-
-            topBar
         }
-        .navigationBarHidden(true)
+        .background(Color.backGround.ignoresSafeArea())
+        .careConnectNavigationBar(
+            title: "Service Details",
+            showBackButton: true,
+            trailingIcon: "square.and.arrow.up",
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadDetail() }
@@ -65,39 +68,6 @@ struct ServiceDetailsView: View {
     }
 
     // MARK: - Sections
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-
-            Spacer()
-
-            Text("Service Details")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-
-            Spacer()
-
-            Button(action: {}) {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.primaryFont)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-        }
-        .padding(.horizontal, Spacing.s16)
-        .padding(.vertical, Spacing.s8)
-        .background(Color.backGround.opacity(0.9))
-    }
 
     private func heroSection(_ detail: ServiceDetail) -> some View {
             ZStack(alignment: .bottomLeading) {
@@ -137,7 +107,7 @@ struct ServiceDetailsView: View {
                     Text(detail.badgeText.isEmpty ? "Clinical Grade" : detail.badgeText)
                         .carelyText(style: .caption, weight: .semiBold)
                 }
-                .foregroundColor(.white)
+                .foregroundColor(Color.onPrimary)
                 .padding(.horizontal, Spacing.s12)
                 .padding(.vertical, Spacing.s8)
                 .background(Color.brandPrimary)

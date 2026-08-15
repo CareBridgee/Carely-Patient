@@ -29,6 +29,6 @@ struct HealthProfileBottomActionsView: View {
         }
         .padding(.horizontal, Spacing.s20)
         .padding(.vertical, Spacing.s16)
-        .background(Color.surface)
+        .background(Color.backGround)
     }
 }

@@ -19,10 +19,7 @@ struct FamilyMembersView: View {
             Color.backGround.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: Spacing.s24) {
-
-                    topBar
-
+                VStack(alignment: .leading, spacing: Spacing.s20) {
                     header
 
                     VStack(spacing: Spacing.s16) {
@@ -46,36 +43,20 @@ struct FamilyMembersView: View {
                 ProgressView()
             }
         }
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(
+            title: "Family Members",
+            showBackButton: true,
+            onBackTapped: {
+                viewModel.backTapped()
+            }
+        )
+        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
             Button("Retry") { viewModel.loadMembers() }
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(viewModel.errorMessage ?? "Please try again.")
-        }
-    }
-
-    private var topBar: some View {
-        HStack {
-            Button(action: viewModel.backTapped) {
-                Image(systemName: "arrow.left")
-                    .carelyText(style: .bodyLarge, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(Color.surface)
-                    .clipShape(Circle())
-            }
-
-            Spacer()
-
-            Text("Family Members")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.brandPrimary)
-
-            Spacer()
-
-            Color.clear.frame(width: 40, height: 40)
         }
     }
 

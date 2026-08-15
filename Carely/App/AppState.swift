@@ -22,6 +22,7 @@ enum AppFlow: Equatable {
 @MainActor
 final class AppState: ObservableObject {
     @Published private(set) var flow: AppFlow = .splash
+    @Published private(set) var appearance: AppAppearance
     
     private var cancellables = Set<AnyCancellable>()
     private let sessionManager: SessionManager
@@ -29,8 +30,14 @@ final class AppState: ObservableObject {
     init(sessionManager: SessionManager, appSettings: AppSettingsProtocol = AppSettings.shared) {
         self.sessionManager = sessionManager
         self.appSettings = appSettings
+        self.appearance = appSettings.appearance
         self.flow = .splash // We always start at splash. splashDidFinish decides the next flow.
         // setupSessionObserver()
+    }
+
+    func setAppearance(_ newAppearance: AppAppearance) {
+        appSettings.appearance = newAppearance
+        appearance = newAppearance
     }
     private func setupSessionObserver() {
         sessionManager.$state

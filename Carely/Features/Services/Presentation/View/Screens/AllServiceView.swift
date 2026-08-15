@@ -58,7 +58,7 @@ struct AllServiceView: View {
             }
             .padding(.vertical)
         }
-        .background(Color.backGround)
+        .background(Color.backGround.ignoresSafeArea())
         .task {
             viewModel.loadCategories()
         }
