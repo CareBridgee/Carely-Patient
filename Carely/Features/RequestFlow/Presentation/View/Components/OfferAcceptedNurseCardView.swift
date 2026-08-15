@@ -10,17 +10,38 @@ struct OfferAcceptedNurseCardView: View {
     var body: some View {
         VStack(spacing: Spacing.s16) {
             HStack(alignment: .top, spacing: Spacing.s12) {
-                // Profile Image Placeholder
-                RoundedRectangle(cornerRadius: Radius.r12)
-                    .fill(Color.primaryVariant.opacity(0.15))
-                    .frame(width: 60, height: 60)
-                    .overlay(
-                        Image(systemName: "person.crop.circle")
-                            .foregroundColor(Color.primaryVariant)
-                    )
-                    .onTapGesture {
-                        onProfileTapped?()
+                // Profile Image
+                AsyncImage(url: URL(string: nurse.profileImageUrl)) { phase in
+                    switch phase {
+                    case .empty:
+                        RoundedRectangle(cornerRadius: Radius.r12)
+                            .fill(Color.primaryVariant.opacity(0.15))
+                            .overlay(ProgressView())
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    case .failure:
+                        RoundedRectangle(cornerRadius: Radius.r12)
+                            .fill(Color.primaryVariant.opacity(0.15))
+                            .overlay(
+                                Image(systemName: "person.crop.circle")
+                                    .foregroundColor(Color.primaryVariant)
+                            )
+                    @unknown default:
+                        RoundedRectangle(cornerRadius: Radius.r12)
+                            .fill(Color.primaryVariant.opacity(0.15))
+                            .overlay(
+                                Image(systemName: "person.crop.circle")
+                                    .foregroundColor(Color.primaryVariant)
+                            )
                     }
+                }
+                .frame(width: 60, height: 60)
+                .clipShape(RoundedRectangle(cornerRadius: Radius.r12))
+                .onTapGesture {
+                    onProfileTapped?()
+                }
                 
                 VStack(alignment: .leading, spacing: Spacing.s4) {
                     Text(nurse.fullName)

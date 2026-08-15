@@ -164,6 +164,12 @@ final class MainTabCoordinator: ObservableObject {
         notificationsHubService.onNotificationReceived = { [weak self] response in
             guard let self = self else { return }
             
+            // Suppress banner notifications if user is currently inside the chat screen
+            if self.servicesCoordinator.isInsideChat {
+                print("[MainTabCoordinator] User is currently inside Chat screen. Suppressing top banner notification.")
+                return
+            }
+            
             let data = NotificationData(
                 title: response.title,
                 message: response.message,

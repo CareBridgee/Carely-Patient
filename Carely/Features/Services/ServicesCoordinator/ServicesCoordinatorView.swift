@@ -33,10 +33,10 @@ struct ServicesCoordinatorView: View {
                 viewModel: container.makeServiceDetailsViewModel(serviceId: id, source: source, coordinator: coordinator)
             )
 
-        case .requestService(let entryPoint, let aiDraft, let aiProfileId):
+        case .requestService(let entryPoint, let preselectedServiceId, let aiDraft, let aiProfileId):
             CareRequestView(
                 viewModel: container.makeCareRequestViewModel(
-                    preselectedService: CareService.init(id: "String", title: "Injection", icon: "syringe"),
+                    preselectedService: CareService.init(id: preselectedServiceId ?? "", title: "Loading...", icon: "syringe"),
                     entryPoint: entryPoint,
                     aiDraft: aiDraft,
                     aiProfileId: aiProfileId,
@@ -90,7 +90,11 @@ struct ServicesCoordinatorView: View {
                     coordinator.push(to: .nurseProfile(nurseId: nurseId))
                 },
                 onMessageNurse: { reservationId in
-                    coordinator.push(to: .chat(reservationId: reservationId))
+                    coordinator.push(to: .chat(
+                        reservationId: reservationId,
+                        nurseName: request.nurse.fullName,
+                        nurseImageUrl: request.nurse.profileImageUrl
+                    ))
                 }
             )
             OfferAcceptedView(viewModel: viewModel)
@@ -126,8 +130,18 @@ struct ServicesCoordinatorView: View {
 //                onFinishVisit: { coordinator.openFinishVisitQR(for: visit) }
 //            )
 //
-        case .chat(let reservationId):
-            ChatView(viewModel: container.makeChatViewModel(reservationId: reservationId))
+        case .chat(let reservationId, let nurseName, let nurseImageUrl):
+            ChatView(viewModel: container.makeChatViewModel(
+                reservationId: reservationId,
+                nurseName: nurseName,
+                nurseImageUrl: nurseImageUrl
+            ))
+            .onAppear {
+                coordinator.isInsideChat = true
+            }
+            .onDisappear {
+                coordinator.isInsideChat = false
+            }
 //
 //        case .startVisitQR(let visit):
 //            StartVisitQRView(visit: visit)

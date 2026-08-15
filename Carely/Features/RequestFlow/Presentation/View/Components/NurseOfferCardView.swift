@@ -109,6 +109,7 @@ struct NurseOfferCardView: View {
 #Preview {
     NurseOfferCardView(offer: NurseOffer(
         id: "1",
+        nurseId: "nurse_1",
         name: "Sarah Mitchell",
         title: "RN",
         price: 85.00,
