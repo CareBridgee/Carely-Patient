@@ -15,6 +15,8 @@ private let homePreviewCategoryCount = 5
 @MainActor
 final class HomeViewModel: ObservableObject {
  
+    @Published var hasActiveVisit: Bool = false
+    @Published var activeVisitRequest: ConfirmedOffer? = nil
     @Published var greetingName: String = ""
     @Published var previewCategories: [ServiceCategory] = []
     @Published var upcomingBookings: [UpcomingBooking] = []
@@ -25,23 +27,33 @@ final class HomeViewModel: ObservableObject {
  
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
+    private let getActiveVisitUseCase: GetActiveVisitUseCaseProtocol?
+    private let activeVisitStore: ActiveVisitStore?
     private let sessionManager: SessionManager
     private var cancellables = Set<AnyCancellable>()
     
     private var onServiceTabbed: (String) -> Void
     private var onSeeAllHistory: () -> Void
+    private var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
+
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
+        getActiveVisitUseCase: GetActiveVisitUseCaseProtocol? = nil,
+        activeVisitStore: ActiveVisitStore? = nil,
         sessionManager: SessionManager,
         onServiceTabbed: @escaping (String) -> Void,
-        onSeeAllHistory: @escaping () -> Void = {}
+        onSeeAllHistory: @escaping () -> Void = {},
+        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil
     )  {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
+        self.getActiveVisitUseCase = getActiveVisitUseCase
+        self.activeVisitStore = activeVisitStore
         self.sessionManager = sessionManager
         self.onServiceTabbed = onServiceTabbed
         self.onSeeAllHistory = onSeeAllHistory
+        self.onOpenActiveVisit = onOpenActiveVisit
         
         setupUserObservation()
     }
@@ -54,13 +66,44 @@ final class HomeViewModel: ObservableObject {
                 self?.profileImageUrl = user?.profileImageUrl
             }
             .store(in: &cancellables)
+
+        activeVisitStore?.$activeVisit
+            .receive(on: RunLoop.main)
+            .sink { [weak self] offer in
+                self?.activeVisitRequest = offer
+                self?.hasActiveVisit = (offer != nil)
+            }
+            .store(in: &cancellables)
     }
  
     func onAppear() {
-        guard previewCategories.isEmpty, greetingName.isEmpty else { return }
-        loadDashboard()
+        checkActiveVisit()
+        if previewCategories.isEmpty {
+            loadDashboard()
+        }
+    }
+
+    func checkActiveVisit() {
+        guard let useCase = getActiveVisitUseCase else { return }
+        Task {
+            do {
+                if let offer = try await useCase.execute() {
+                    self.activeVisitStore?.setActiveVisit(offer)
+                } else {
+                    self.activeVisitStore?.clearActiveVisit()
+                }
+            } catch {
+                self.activeVisitStore?.clearActiveVisit()
+            }
+        }
     }
  
+    func activeVisitBannerTapped() {
+        if let offer = activeVisitRequest {
+            onOpenActiveVisit?(offer)
+        }
+    }
+
     func loadDashboard() {
             isLoading = true
             errorMessage = nil

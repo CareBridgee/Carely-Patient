@@ -20,12 +20,12 @@ struct HomeView: View {
             Color.backGround.ignoresSafeArea()
 
             VStack {
-                ScrollView{
+                ScrollView {
                     VStack(alignment: .leading, spacing: Spacing.s20) {
                         HomeTopBar(
-                                greetingName: viewModel.greetingName,
-                                profileImageUrl: viewModel.profileImageUrl
-                            ) {}
+                            greetingName: viewModel.greetingName,
+                            profileImageUrl: viewModel.profileImageUrl
+                        ) {}
 
                         SearchField(
                             placeholder: "Search services, symptoms...",
@@ -41,7 +41,18 @@ struct HomeView: View {
                         }
                     }
                     .padding(Spacing.s16)
-                    .padding(.bottom, Spacing.s64)
+                    .padding(.bottom, viewModel.hasActiveVisit ? 110 : Spacing.s64)
+                }
+            }
+
+            if viewModel.hasActiveVisit {
+                VStack {
+                    Spacer()
+                    ActiveVisitFloatingBannerView {
+                        viewModel.activeVisitBannerTapped()
+                    }
+                    .padding(.horizontal, Spacing.s16)
+                    .padding(.bottom, 22)
                 }
             }
 
