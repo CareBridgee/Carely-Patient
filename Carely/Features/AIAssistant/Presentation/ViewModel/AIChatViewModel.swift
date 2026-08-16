@@ -16,6 +16,10 @@ final class AIChatViewModel: ObservableObject {
     @Published var inputText: String = ""
     @Published var isLoading: Bool = false
     @Published var isResetting: Bool = false
+
+    /// Drives the in-chat `.errorToast`. On a failed send, the message text
+    /// is restored into `inputText` so the person can resend without
+    /// retyping it.
     @Published var errorMessage: String? = nil
     @Published var latestDraft: ReservationDraft? = nil
 
@@ -76,7 +80,9 @@ final class AIChatViewModel: ObservableObject {
                 )
                 handleChatTurnResponse(response)
             } catch {
-                errorMessage = error.localizedDescription
+                // Restore the text so the person can resend it without retyping.
+                inputText = message
+                errorMessage = error.carelyDescription
             }
         }
     }
@@ -93,7 +99,7 @@ final class AIChatViewModel: ObservableObject {
                 messages.removeAll()
                 latestDraft = nil
             } catch {
-                errorMessage = error.localizedDescription
+                errorMessage = error.carelyDescription
             }
         }
     }

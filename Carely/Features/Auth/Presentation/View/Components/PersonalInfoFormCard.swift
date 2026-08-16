@@ -39,10 +39,8 @@ struct PersonalInfoFormCard: View {
             GenderSelectionView(selectedGender: $viewModel.gender)
 
             if let apiError = viewModel.apiErrorMessage {
-                Text(apiError)
-                    .carelyText(style: .caption)
-                    .foregroundColor(Color.error)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                AlertBanner(style: .error, message: apiError)
+                    .animation(CarelyMotion.springDefault, value: viewModel.apiErrorMessage)
             }
 
             PrimaryButton(

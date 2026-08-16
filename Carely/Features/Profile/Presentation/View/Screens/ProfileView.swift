@@ -57,12 +57,8 @@ struct ProfileView: View {
         } message: {
             Text("Are you sure you want to log out of your account?")
         }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadProfile() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+
+        .errorToast($viewModel.errorMessage)
     }
 
     private var profileSkeletonView: some View {

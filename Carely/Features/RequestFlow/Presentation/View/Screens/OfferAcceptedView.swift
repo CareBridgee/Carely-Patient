@@ -90,6 +90,21 @@ struct OfferAcceptedView: View {
                 .padding(.bottom, Spacing.s16)
                 .background(Color.backGround.ignoresSafeArea(edges: .bottom))
             }
+            
+            // Bottom Buttons
+            VStack(spacing: Spacing.s16) {
+                SecondaryButton(title: "Show QR Code", icon: "qrcode") {
+                    viewModel.showQRCode()
+                }
+                
+                PrimaryButton(title: viewModel.isCancelling ? "Cancelling..." : "Cancel", isLoading: viewModel.isCancelling) {
+                    viewModel.cancelRequest()
+                }
+            }
+            .padding(.horizontal, Spacing.s20)
+            .padding(.top, Spacing.s20)
+            .padding(.bottom, Spacing.s24)
+            .background(Color.backGround.ignoresSafeArea(edges: .bottom))
         }
         .navigationBarHidden(true)
         .alert("Request Canceled", isPresented: $viewModel.showNurseCanceledAlert) {
@@ -112,56 +127,57 @@ struct OfferAcceptedView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .errorToast($viewModel.errorMessage)
     }
 }
 
-#Preview {
-    struct MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
-        func observeOffers() -> AsyncStream<OffersEvent> { AsyncStream { _ in } }
-        func connect() {}
-        func disconnect() {}
-        func acceptOffer(offerId: String) {}
-        func declineOffer(offerId: String) {}
-        func cancelServiceRequest(serviceRequestId: String) async throws {}
-    }
-    
-    struct MockCancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol {
-        func execute(serviceRequestId: String) async throws {}
-    }
-    
-    let mockRepo = MockOfferSearchingRepository()
-    let observeUseCase = ObserveOffersUseCase(repository: mockRepo)
-    let manageConnectionUseCase = ManageOffersConnectionUseCase(repository: mockRepo)
-    let mockCancelUseCase = MockCancelServiceRequestUseCase()
-    
-    let mockOffer = ConfirmedOffer(
-        id: "req_123",
-        status: "CONFIRMED",
-        estimatedArrival: "10:15 AM",
-        distanceKm: 2.4,
-        qrCodeData: "mock-qr-code",
-        cancellationDeadline: "10:30 AM",
-        nurse: ConfirmedOffer.NurseDetails(
-            id: "nurse_1",
-            fullName: "Sarah Mitchell",
-            title: "RN",
-            specialty: "Pediatrics",
-            profileImageUrl: "",
-            rating: 4.9,
-            reviewsCount: 124
-        ),
-        contact: ConfirmedOffer.ContactDetails(
-            phoneNumber: "+1234567890",
-            chatChannelId: "chat_123"
-        )
-    )
-    
-    let viewModel = OfferAcceptedViewModel(
-        request: mockOffer,
-        cancelServiceRequestUseCase: mockCancelUseCase,
-        observeOffersUseCase: observeUseCase,
-        manageOffersConnectionUseCase: manageConnectionUseCase
-    )
-    
-    return OfferAcceptedView(viewModel: viewModel)
-}
+//#Preview {
+//    struct MockOfferSearchingRepository: OfferSearchingRepositoryProtocol {
+//        func observeOffers() -> AsyncStream<OffersEvent> { AsyncStream { _ in } }
+//        func connect() {}
+//        func disconnect() {}
+//        func acceptOffer(offerId: String) {}
+//        func declineOffer(offerId: String) {}
+//        func cancelServiceRequest(serviceRequestId: String) async throws {}
+//    }
+//    
+//    struct MockCancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol {
+//        func execute(serviceRequestId: String) async throws {}
+//    }
+//    
+//    let mockRepo = MockOfferSearchingRepository()
+//    let observeUseCase = ObserveOffersUseCase(repository: mockRepo)
+//    let manageConnectionUseCase = ManageOffersConnectionUseCase(repository: mockRepo)
+//    let mockCancelUseCase = MockCancelServiceRequestUseCase()
+//    
+//    let mockOffer = ConfirmedOffer(
+//        id: "req_123",
+//        status: "CONFIRMED",
+//        estimatedArrival: "10:15 AM",
+//        distanceKm: 2.4,
+//        qrCodeData: "mock-qr-code",
+//        cancellationDeadline: "10:30 AM",
+//        nurse: ConfirmedOffer.NurseDetails(
+//            id: "nurse_1",
+//            fullName: "Sarah Mitchell",
+//            title: "RN",
+//            specialty: "Pediatrics",
+//            profileImageUrl: "",
+//            rating: 4.9,
+//            reviewsCount: 124
+//        ),
+//        contact: ConfirmedOffer.ContactDetails(
+//            phoneNumber: "+1234567890",
+//            chatChannelId: "chat_123"
+//        )
+//    )
+//    
+//    let viewModel = OfferAcceptedViewModel(
+//        request: mockOffer,
+//        cancelServiceRequestUseCase: mockCancelUseCase,
+//        observeOffersUseCase: observeUseCase,
+//        manageOffersConnectionUseCase: manageConnectionUseCase
+//    )
+//    
+//    return OfferAcceptedView(viewModel: viewModel)
+//}

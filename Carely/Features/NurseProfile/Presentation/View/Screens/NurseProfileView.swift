@@ -36,6 +36,10 @@ struct NurseProfileView: View {
                     .padding(.horizontal, Spacing.s20)
                     .padding(.bottom, Spacing.s32)
                 }
+            } else if let loadError = viewModel.loadError {
+                ErrorStateView(error: loadError) {
+                    viewModel.fetchProfile()
+                }
             }
         }
         .careConnectNavigationBar(
@@ -43,12 +47,6 @@ struct NurseProfileView: View {
             onBackTapped: { presentationMode.wrappedValue.dismiss() }
         )
         .onAppear { viewModel.fetchProfile() }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.fetchProfile() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
     }
 
     private var nurseProfileSkeletonView: some View {

@@ -14,15 +14,21 @@ private let homePreviewCategoryCount = 5
  
 @MainActor
 final class HomeViewModel: ObservableObject {
- 
+    
     @Published var greetingName: String = ""
     @Published var previewCategories: [ServiceCategory] = []
     @Published var upcomingBookings: [UpcomingBooking] = []
     @Published var profileImageUrl: String? = nil
     @Published var isLoading: Bool = false
+    
+    /// Drives the full-page `ErrorStateView` when the *initial* dashboard
+    /// load fails (i.e. we don't have any data on screen yet).
+    @Published var loadError: Error? = nil
+    
+    /// Drives the floating `.errorToast` for background refresh / retry
+    /// failures that happen while we already have data on screen.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
- 
+    
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     private let sessionManager: SessionManager
@@ -31,6 +37,7 @@ final class HomeViewModel: ObservableObject {
     
     private var onServiceTabbed: (String) -> Void
     private var onSeeAllHistory: () -> Void
+
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
@@ -38,7 +45,7 @@ final class HomeViewModel: ObservableObject {
         serviceTypesStore: ServiceTypesStore,
         onServiceTabbed: @escaping (String) -> Void,
         onSeeAllHistory: @escaping () -> Void = {}
-    )  {
+    ) {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
         self.sessionManager = sessionManager
@@ -64,7 +71,7 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-
+    
     private func setupStoreObservation() {
         serviceTypesStore.$serviceCategories
             .receive(on: RunLoop.main)
@@ -74,19 +81,26 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
- 
+    
     func onAppear() {
         guard previewCategories.isEmpty || upcomingBookings.isEmpty else { return }
         loadDashboard()
     }
- 
+    
+    /// Retries the initial load from the full-page `ErrorStateView`.
+    func retryInitialLoad() {
+        loadDashboard()
+    }
+    
     func loadDashboard() {
-        // Only trigger loading indicator if we don't have categories in memory yet
-        if previewCategories.isEmpty {
+        let isInitialLoad = previewCategories.isEmpty
+
+        if isInitialLoad {
             isLoading = true
         }
+        loadError = nil
         errorMessage = nil
- 
+        
         Task {
             do {
                 if serviceTypesStore.hasCategories {
@@ -97,9 +111,9 @@ final class HomeViewModel: ObservableObject {
                     // Fetch categories and bookings in parallel
                     async let categoriesTask = self.getServiceCategoriesUseCase.execute()
                     async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
-
+                    
                     let (fetchedCategories, fetchedBookings) = try await (categoriesTask, bookingsTask)
-
+                    
                     self.serviceTypesStore.setCategories(fetchedCategories)
                     self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
                     self.upcomingBookings = fetchedBookings
@@ -107,22 +121,28 @@ final class HomeViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                
+                // No data on screen yet -> full-page error state with retry.
+                // Already have data (e.g. pull-to-refresh) -> just toast it.
+                if isInitialLoad {
+                    self.loadError = error
+                } else {
+                    self.errorMessage = error.localizedDescription
+                }
             }
         }
     }
- 
+    
     // MARK: - Navigation
- 
+    
     func categoryTapped(_ category: ServiceCategory) {
         onServiceTabbed(category.id)
     }
- 
+    
     func viewAllServicesTapped() {
-        //
+        // navigate to all services
     }
-
+    
     func seeAllHistoryTapped() {
         onSeeAllHistory()
     }

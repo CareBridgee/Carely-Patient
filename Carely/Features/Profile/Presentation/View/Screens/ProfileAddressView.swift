@@ -17,6 +17,10 @@ final class ProfileAddressViewModel: ObservableObject {
     @Published var selectedProfileId: String
     @Published var isLoadingProfiles = false
 
+    /// Drives the `.errorToast` when loading the profile/family member list
+    /// for the address-picker tabs fails. Holds the exact server message.
+    @Published var errorMessage: String? = nil
+
     let homeAddressViewModel: HomeAddressViewModel
     private let getPatientProfileUseCase: GetPatientProfileUseCaseProtocol
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
@@ -101,6 +105,7 @@ final class ProfileAddressViewModel: ObservableObject {
                 self.homeAddressViewModel.loadAddress(profileId: self.selectedProfileId)
             } catch {
                 self.isLoadingProfiles = false
+                self.errorMessage = error.carelyDescription
                 self.homeAddressViewModel.loadAddress(profileId: self.selectedProfileId)
             }
         }
@@ -138,6 +143,7 @@ struct ProfileAddressView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .errorToast($viewModel.errorMessage)
     }
 
     // MARK: - Profile Selector Tabs

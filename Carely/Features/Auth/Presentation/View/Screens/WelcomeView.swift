@@ -67,15 +67,6 @@ struct WelcomeView : View {
                     .padding(.top, Spacing.s8)
             }
             
-            if let error = viewModel.errorMessage {
-                Text(error)
-                    .carelyText(style: .caption)
-                    .foregroundColor(.error)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, Spacing.s24)
-                    .padding(.top, Spacing.s4)
-            }
-            
             Spacer()
             
             termsAndPrivacyText
@@ -84,6 +75,7 @@ struct WelcomeView : View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.backGround)
+        .errorToast($viewModel.errorMessage)
     }
     
     private var termsAndPrivacyText: some View {

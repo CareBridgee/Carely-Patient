@@ -50,14 +50,7 @@ struct CareRequestView: View {
         .background(Color.backGround.ignoresSafeArea())
         .careConnectNavigationBar(title: "Care Request")
         .task { await viewModel.onAppear() }
-        .alert(
-            viewModel.submissionErrorMessage?.contains("active care request") == true ? "Active Request Exists" : "Something went wrong",
-            isPresented: $viewModel.showSubmissionError
-        ) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(viewModel.submissionErrorMessage ?? "Please try again.")
-        }
+        .errorToast($viewModel.submissionErrorMessage)
         .sheet(isPresented: Binding(
             get: { viewModel.addressSheetViewModel != nil },
             set: { isPresented in if !isPresented { viewModel.dismissAddressSheet() } }

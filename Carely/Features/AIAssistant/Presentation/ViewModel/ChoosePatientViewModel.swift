@@ -16,9 +16,21 @@ class ChoosePatientViewModel: ObservableObject {
     @Published var greetingName: String = ""
     @Published var profileImageUrl: String? = nil
 
+    /// True while the patient list is being fetched from the server.
+    @Published var isLoadingPatients = false
+
+    /// Drives the full-page `ErrorStateView` when the initial patient list
+    /// fetch fails and there's nothing cached to show yet.
+    @Published var loadError: Error?
+
+    /// Drives the `.errorToast` when a background refresh of the patient
+    /// list fails but a previously loaded list is already on screen.
+    @Published var errorMessage: String? = nil
+
     private let patientProfilesStore: PatientProfilesStore
     private let sessionManager: SessionManager
     private let profileRepository: ProfileRepositoryProtocol?
+    private let getAIPatientsUseCase: GetAIPatientsUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
     let onShowPatientDetails: ((String) -> Void)?
     let onContinueWithAssessmentClosure: (String) -> Void
@@ -28,6 +40,7 @@ class ChoosePatientViewModel: ObservableObject {
         patientProfilesStore: PatientProfilesStore,
         sessionManager: SessionManager,
         profileRepository: ProfileRepositoryProtocol? = nil,
+        getAIPatientsUseCase: GetAIPatientsUseCaseProtocol,
         onShowPatientDetails: ((String) -> Void)?,
         onContinueWithAssessment: @escaping (String) -> Void,
         onAddFamilyMember: (() -> Void)? = nil
@@ -35,6 +48,7 @@ class ChoosePatientViewModel: ObservableObject {
         self.patientProfilesStore = patientProfilesStore
         self.sessionManager = sessionManager
         self.profileRepository = profileRepository
+        self.getAIPatientsUseCase = getAIPatientsUseCase
         self.onShowPatientDetails = onShowPatientDetails
         self.onContinueWithAssessmentClosure = onContinueWithAssessment
         self.onAddFamilyMember = onAddFamilyMember
@@ -105,6 +119,44 @@ class ChoosePatientViewModel: ObservableObject {
         }()
         _ = await (fetchProfile, fetchFamily)
         isLoading = false
+        // The store-driven binding above shows any already-cached profiles
+        // immediately; this actively (re)fetches the patient list from the
+        // server so a stale or empty store doesn't leave the screen blank,
+        // and so a failed fetch is surfaced instead of silently ignored.
+        await fetchPatients()
+    }
+
+    private func fetchPatients() async {
+        isLoadingPatients = true
+        loadError = nil
+
+        do {
+            let fetched = try await getAIPatientsUseCase.execute()
+            self.patients = fetched
+            self.isLoadingPatients = false
+
+            if selectedPatientId == nil || !fetched.contains(where: { $0.id == selectedPatientId }) {
+                if let primary = fetched.first(where: { $0.isSelf }) {
+                    self.selectedPatientId = primary.id
+                } else {
+                    self.selectedPatientId = fetched.first?.id
+                }
+            }
+        } catch {
+            self.isLoadingPatients = false
+            if self.patients.isEmpty {
+                // Nothing to show at all — full-page error state with retry.
+                self.loadError = error
+            } else {
+                // We already have a list on screen (e.g. from the store);
+                // don't replace it with an empty state, just notify.
+                self.errorMessage = error.carelyDescription
+            }
+        }
+    }
+
+    func retryLoadPatients() {
+        Task { await fetchPatients() }
     }
 
     func selectPatient(_ patient: AIPatient) {
@@ -116,4 +168,3 @@ class ChoosePatientViewModel: ObservableObject {
         onContinueWithAssessmentClosure(selectedId)
     }
 }
-

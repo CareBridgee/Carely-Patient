@@ -12,12 +12,6 @@ struct ChatView: View {
     var body: some View {
         VStack(spacing: Spacing.s0) {
             chatHeader
-            
-            if let error = viewModel.errorMessage {
-                AlertBanner(style: .error, message: error)
-                    .transition(.move(edge: .top).combined(with: .opacity))
-                    .zIndex(1)
-            }
 
             if viewModel.isLoading {
                 Spacer()
@@ -35,6 +29,7 @@ struct ChatView: View {
         .navigationBarHidden(true)
         .onAppear { viewModel.onAppear() }
         .onDisappear { viewModel.onDisappear() }
+        .errorToast($viewModel.errorMessage)
     }
     
     // MARK: - Header

@@ -40,6 +40,12 @@ struct ServiceDetailsView: View {
                 }
             } else if viewModel.isLoading {
                 serviceDetailsSkeletonView
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else if let loadError = viewModel.loadError {
+                ErrorStateView(error: loadError) {
+                    viewModel.loadDetail()
+                }
             }
         }
         .background(Color.backGround.ignoresSafeArea())
@@ -53,12 +59,7 @@ struct ServiceDetailsView: View {
         )
         .blur(radius: (viewModel.isLoading && viewModel.detail != nil) ? 3 : 0)
         .onAppear { viewModel.onAppear() }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadDetail() }
-            Button("Back", role: .cancel) { viewModel.backTapped() }
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+        .errorToast($viewModel.errorMessage)
         .alert("Booking Confirmed", isPresented: $viewModel.bookingConfirmed) {
             Button("OK") {}
         } message: {

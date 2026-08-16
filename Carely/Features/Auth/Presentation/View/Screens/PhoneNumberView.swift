@@ -54,11 +54,12 @@ struct PhoneNumberView : View {
                 ) {
                     viewModel.nextButtonPressed()
                 }
-                .disabled(!viewModel.isPhoneNumberValid)
+                .disabled(!viewModel.isPhoneNumberValid || viewModel.isLoading)
             }
             .careConnectNavigationBar(title: "Join us via phone number")
             .padding(12)
             .background(Color.backGround)
+            .errorToast($viewModel.errorMessage)
         }
 }
 

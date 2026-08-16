@@ -80,12 +80,8 @@ struct FamilyMembersView: View {
         } message: {
             Text("Are you sure you want to remove \(viewModel.memberToDelete?.name ?? "this family member")? This action cannot be undone.")
         }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadMembers() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+
+        .errorToast($viewModel.errorMessage)
     }
 
     private var header: some View {

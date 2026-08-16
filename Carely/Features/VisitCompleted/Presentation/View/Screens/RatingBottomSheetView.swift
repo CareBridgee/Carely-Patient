@@ -12,6 +12,13 @@ struct RatingBottomSheetView: View {
     let isSubmitting: Bool
     var onStarTapped: (Int) -> Void = { _ in }
     var onSubmit: () -> Void = {}
+
+    /// Drives the `.errorToast` for rating-submission failures. Bound to the
+    /// same `VisitCompletedViewModel.errorMessage` the parent screen uses, so
+    /// the exact server message surfaces here too — sheets present in their
+    /// own hierarchy, so the parent's toast wouldn't otherwise be visible
+    /// while this sheet is on screen.
+    @Binding var errorMessage: String?
  
     var body: some View {
         VStack(spacing: Spacing.s20) {
@@ -43,6 +50,7 @@ struct RatingBottomSheetView: View {
         .padding(.top, Spacing.s32)
         .padding(.bottom, Spacing.s24)
         .animation(CarelyMotion.springDefault, value: selectedStars)
+        .errorToast($errorMessage)
     }
  
     private var illustration: some View {
@@ -83,7 +91,7 @@ struct RatingBottomSheetView: View {
 }
  
 //#Preview {
-//    RatingBottomSheetView(selectedStars: .constant(3), isSubmitting: false)
+//    RatingBottomSheetView(selectedStars: .constant(3), isSubmitting: false, errorMessage: .constant(nil))
 //        .background(Color.surface)
 //}
-// 
+//

@@ -20,8 +20,14 @@ final class ServiceDetailsViewModel: ObservableObject {
  
     @Published var detail: ServiceDetail? = nil
     @Published var isLoading: Bool = false
+
+    /// Drives the full-page `ErrorStateView` when the details fetch fails
+    /// (i.e. we have nothing to show yet).
+    @Published var loadError: Error? = nil
+
+    /// Drives the floating `.errorToast` for booking failures once details
+    /// are already on screen.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
  
     @Published var isBooking: Bool = false
     @Published var bookingConfirmed: Bool = false
@@ -49,7 +55,7 @@ final class ServiceDetailsViewModel: ObservableObject {
  
     func loadDetail() {
         isLoading = true
-        errorMessage = nil
+        loadError = nil
  
         Task {
             do {
@@ -58,18 +64,26 @@ final class ServiceDetailsViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.loadError = error
             }
         }
     }
 
     func bookServiceTapped() {
         isBooking = true
+        errorMessage = nil
         Task {
-            try? await Task.sleep(nanoseconds: 800_000_000)
-            self.isBooking = false
-            coordinator.push(to: .requestService(entryPoint: .manual, preselectedServiceId: serviceId))
+            do {
+                // TODO: replace with the real booking use case once available;
+                // any thrown NetworkError.server(_, message:) will surface its
+                // exact server string via the toast below.
+                try await Task.sleep(nanoseconds: 800_000_000)
+                self.isBooking = false
+                coordinator.push(to: .requestService(entryPoint: .manual, preselectedServiceId: serviceId))
+            } catch {
+                self.isBooking = false
+                self.errorMessage = error.carelyDescription
+            }
         }
     }
  
@@ -83,4 +97,3 @@ final class ServiceDetailsViewModel: ObservableObject {
         }
     }
 }
- 

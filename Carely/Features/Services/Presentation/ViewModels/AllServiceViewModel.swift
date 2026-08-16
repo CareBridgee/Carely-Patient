@@ -18,8 +18,15 @@ final class AllServiceViewModel: ObservableObject {
     @Published private(set) var greetingName: String = ""
  
     @Published var isLoading: Bool = false
+
+    /// Drives the full-page `ErrorStateView` when the initial category
+    /// fetch fails (i.e. we don't have any categories on screen yet).
+    @Published var loadError: Error? = nil
+
+    /// Drives the floating `.errorToast` for search failures that happen
+    /// while categories are already showing.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
+
     @Published var profileImageUrl: String? = nil
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let searchServiceCategoriesUseCase: SearchServiceCategoriesUseCaseProtocol
@@ -86,6 +93,7 @@ final class AllServiceViewModel: ObservableObject {
         }
 
         isLoading = true
+        loadError = nil
         errorMessage = nil
  
         Task {
@@ -96,8 +104,7 @@ final class AllServiceViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.loadError = error
             }
         }
     }
@@ -116,8 +123,7 @@ final class AllServiceViewModel: ObservableObject {
                 self.categories = results
             } catch {
                 guard !Task.isCancelled else { return }
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }

@@ -14,8 +14,11 @@ final class FamilyMembersViewModel: ObservableObject {
     private var storeCancellables = Set<AnyCancellable>()
 
     @Published var isLoading: Bool = false
+
+    /// Drives the `.errorToast` for load and delete failures. Always the
+    /// exact server message (via `error.carelyDescription`) rather than a
+    /// hardcoded fallback string.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
 
     @Published var deletingMemberId: String? = nil   // shows per-row spinner
     private let getFamilyMembersUseCase: GetFamilyMembersUseCaseProtocol
@@ -62,8 +65,7 @@ final class FamilyMembersViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }
@@ -114,8 +116,7 @@ final class FamilyMembersViewModel: ObservableObject {
                 // Restore member on failure
                 members.append(member)
                 members.sort { $0.name < $1.name }
-                errorMessage = "Couldn't remove member. Please try again."
-                showError = true
+                errorMessage = error.carelyDescription
             }
         }
     }

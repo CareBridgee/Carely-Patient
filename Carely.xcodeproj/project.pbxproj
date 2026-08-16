@@ -140,6 +140,8 @@
 		395341623027818800BD21BE /* NurseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395341613027818700BD21BE /* NurseRepositoryImpl.swift */; };
 		39534166302781AD00BD21BE /* NurseProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39534165302781AC00BD21BE /* NurseProfileViewModel.swift */; };
 		3953416A302781CE00BD21BE /* NurseProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39534169302781CD00BD21BE /* NurseProfileView.swift */; };
+		3954DE23303111C9001684DF /* ErrorToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3954DE22303111C7001684DF /* ErrorToastModifier.swift */; };
+		3954DE25303111DE001684DF /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3954DE24303111DE001684DF /* ErrorStateView.swift */; };
 		39649595301076EC00AC4137 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39649594301076EB00AC4137 /* ServiceCategory.swift */; };
 		396495973010770300AC4137 /* UpcomingBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495963010770200AC4137 /* UpcomingBooking.swift */; };
 		396495993010771C00AC4137 /* ServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495983010771B00AC4137 /* ServiceDetail.swift */; };
@@ -564,6 +566,8 @@
 		395341613027818700BD21BE /* NurseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseRepositoryImpl.swift; sourceTree = "<group>"; };
 		39534165302781AC00BD21BE /* NurseProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseProfileViewModel.swift; sourceTree = "<group>"; };
 		39534169302781CD00BD21BE /* NurseProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NurseProfileView.swift; sourceTree = "<group>"; };
+		3954DE22303111C7001684DF /* ErrorToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorToastModifier.swift; sourceTree = "<group>"; };
+		3954DE24303111DE001684DF /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		39649594301076EB00AC4137 /* ServiceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
 		396495963010770200AC4137 /* UpcomingBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBooking.swift; sourceTree = "<group>"; };
 		396495983010771B00AC4137 /* ServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetail.swift; sourceTree = "<group>"; };
@@ -1273,6 +1277,8 @@
 		0C3D88943008501500883999 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				3954DE24303111DE001684DF /* ErrorStateView.swift */,
+				3954DE22303111C7001684DF /* ErrorToastModifier.swift */,
 				0C6BAE2B3012703800759ED0 /* CareConnectNavigationBarModifier.swift */,
 				0CC59F46300D55BA00A5E40D /* CarelyDropdownField.swift */,
 				C6B11891300BA01A00DB27BF /* SecondaryButton.swift */,
@@ -3019,6 +3025,7 @@
 				396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */,
 				C6C3BE3B300A644A00C5FC25 /* GenderSelectionView.swift in Sources */,
 				396495A73010780700AC4137 /* HomeRepositoryImpl.swift in Sources */,
+				3954DE25303111DE001684DF /* ErrorStateView.swift in Sources */,
 				3953416A302781CE00BD21BE /* NurseProfileView.swift in Sources */,
 				C6C3BE3C300A644A00C5FC25 /* loginButton.swift in Sources */,
 				3921F29830112EB000CE77CF /* HomeView.swift in Sources */,
@@ -3248,6 +3255,7 @@
 				396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */,
 				0C6BAE213012266000759ED0 /* ArrivalQRCodeView.swift in Sources */,
 				C6C3BE23300A63A800C5FC25 /* OTPVerificationEntity.swift in Sources */,
+				3954DE23303111C9001684DF /* ErrorToastModifier.swift in Sources */,
 				396495973010770300AC4137 /* UpcomingBooking.swift in Sources */,
 				C6C3BE24300A63A800C5FC25 /* BasicUserInfo.swift in Sources */,
 				0C1F612C30191DDF002086EC /* OnboardingPageIndicator.swift in Sources */,
