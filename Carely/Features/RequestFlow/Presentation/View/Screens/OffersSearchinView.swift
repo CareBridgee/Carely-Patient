@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OffersSearchingView: View {
     @StateObject private var viewModel: OffersSearchingViewModel
-    
+    @Environment(\.scenePhase) var scenePhase
     init(viewModel: OffersSearchingViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -53,12 +53,25 @@ struct OffersSearchingView: View {
         }
         .careConnectNavigationBar(title: "Request Status", trailingIcon: "ellipsis")
         .onAppear {
+            viewModel.isNavigatingForward = false
             viewModel.startSearching()
         }
         .onDisappear {
+            viewModel.abandonSearchIfNeeded()
             viewModel.cancelSearch()
+        }.onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                viewModel.abandonSearchIfNeeded()
+            }
         }
         .errorToast($viewModel.errorMessage)
+        .alert("Wallet Partially Applied", isPresented: $viewModel.showSplitPaymentAlert) {
+            Button("OK", role: .cancel) {
+                viewModel.acknowledgeSplitPayment()
+            }
+        } message: {
+            Text("Your wallet balance was applied. You will need to pay the remaining \(String(format: "%.2f", viewModel.splitPaymentCashAmount)) EGP in cash to the nurse.")
+        }
     }
 }
 

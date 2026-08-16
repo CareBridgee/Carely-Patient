@@ -35,7 +35,7 @@ final class CareRequestViewModel: ObservableObject {
 
     @Published var description: String = ""
     @Published private(set) var descriptionError: String?
-
+    @Published var selectedPaymentMethod: PaymentMethod = .cash
     var displayedDescriptionError: String? {
    
         description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? descriptionError : nil
@@ -62,8 +62,7 @@ final class CareRequestViewModel: ObservableObject {
         _ onSaved: @escaping () -> Void,
         _ onDismiss: @escaping () -> Void
     ) -> HomeAddressViewModel
-    private let onSubmitted: (String) -> Void
-
+    private let onSubmitted: (String, String) -> Void
     // MARK: - AI Draft (optional, only set when entry point is .aiChat)
     private let aiDraft: ReservationDraft?
     private let aiProfileId: String?
@@ -83,7 +82,7 @@ final class CareRequestViewModel: ObservableObject {
             _ onSaved: @escaping () -> Void,
             _ onDismiss: @escaping () -> Void
         ) -> HomeAddressViewModel,
-        onSubmitted: @escaping (String) -> Void
+        onSubmitted: @escaping (String, String) -> Void
     ) {
         self.selectedService = preselectedService
         self.entryPoint = entryPoint
@@ -324,14 +323,15 @@ final class CareRequestViewModel: ObservableObject {
             patient: patient,
             service: selectedService,
             description: description,
-            address: address
+            address: address,
+            paymentMethod: selectedPaymentMethod.backendValue
         )
 
         Task {
             do {
                 let result = try await submitCareRequestUseCase.execute(request)
                 isSubmitting = false
-                onSubmitted(result.serviceRequestId)
+                onSubmitted(result.serviceRequestId, selectedPaymentMethod.backendValue)
             } catch let error as NetworkError {
                 isSubmitting = false
                 if case .server(400, let message) = error {

@@ -30,30 +30,30 @@ struct PatientAddress: Equatable {
 }
 
 enum PaymentMethod: String, CaseIterable, Identifiable {
-    case cashOnDelivery
+    case cash
     case wallet
 
     var id: Self { self }
 
     var title: String {
         switch self {
-        case .cashOnDelivery: return "Cash on delivery"
+        case .cash: return "Cash" 
         case .wallet: return "Wallet"
         }
     }
 
-    var subtitle: String {
+    var backendValue: String {
         switch self {
-        case .cashOnDelivery: return "Est. arrival: 2-3 business days"
-        case .wallet: return "Est. arrival: Within 24 hours"
+        case .cash: return "CASH"
+        case .wallet: return "CREDIT"
         }
     }
 
     var icon: String {
-        switch self {
-        case .cashOnDelivery: return "banknote.fill"
-        case .wallet: return "wallet.pass.fill"
-        }
+            switch self {
+            case .cash: return "banknote"
+            case .wallet: return "wallet.bifold"
+            }
     }
 }
 
@@ -62,4 +62,5 @@ struct CareRequest {
     var service: CareService
     var description: String
     var address: ServiceRequestAddress?
+    var paymentMethod: String
 }

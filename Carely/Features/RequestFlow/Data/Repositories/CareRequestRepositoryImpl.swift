@@ -57,7 +57,8 @@ final class CareRequestRepositoryImpl: CareRequestRepositoryProtocol {
             serviceTypeId: request.service.id,
             latitude: address.latitude,
             longitude: address.longitude,
-            serviceDescription: request.description
+            serviceDescription: request.description,
+            paymentType: request.paymentMethod
         )
         let response = try await serviceRequestService.submitServiceRequest(body)
         return ServiceRequestResult(
