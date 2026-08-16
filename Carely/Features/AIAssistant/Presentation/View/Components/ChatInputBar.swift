@@ -31,20 +31,15 @@ struct ChatInputBar: View {
                 .padding(.bottom, 1)
             }
             .padding(.horizontal, Spacing.s16)
-            .padding(.vertical, Spacing.s16)
-            .background(Color.surface)
-            .cornerRadius(26)
-            .overlay(
-                RoundedRectangle(cornerRadius: 26)
-                    .stroke(Color.divider, lineWidth: 1)
-            )
+            .padding(.vertical, Spacing.s12)
+            .frame(minHeight: 48)
 
             // MARK: - Send button (fixed size, bottom-aligned)
             Button(action: onSend) {
                 ZStack {
                     Circle()
                         .fill(Color.brandPrimary)
-                        .frame(width: 52, height: 52)
+                        .frame(width: 48, height: 48)
 
                     if isLoading {
                         ProgressView()
@@ -62,8 +57,14 @@ struct ChatInputBar: View {
             .buttonStyle(PlainButtonStyle())
             .disabled(isLoading || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
         }
-        .padding(.horizontal, Spacing.s20)
-        .padding(.vertical, Spacing.s12)
-        .background(Color.backGround)
+        .padding(.horizontal, Spacing.s12)
+        .padding(.vertical, Spacing.s8)
+        .background(
+            Capsule()
+                .fill(Color.surface)
+                .shadow(color: Color.black.opacity(0.12), radius: Radius.r16, x: 0, y: 8)
+        )
+        .padding(.horizontal, 20)
+        .padding(.bottom, Spacing.s8)
     }
 }
