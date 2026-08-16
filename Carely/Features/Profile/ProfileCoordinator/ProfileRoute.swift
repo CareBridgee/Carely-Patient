@@ -15,4 +15,6 @@ enum ProfileRoute: Hashable {
     case editMemberPersonalInfo(profileId: String)
     case editMemberHealthProfile(profileId: String)
     case address(profileId: String)
+    case wallet
+    case topUp(userId: String)
 }
