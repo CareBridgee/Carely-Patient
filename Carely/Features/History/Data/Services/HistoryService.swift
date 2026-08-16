@@ -10,6 +10,7 @@ import Foundation
 protocol HistoryServiceProtocol {
     func getConfirmedRequests() async throws -> [ServiceRequestHistoryDTO]
     func getRequestDetail(id: String) async throws -> ServiceRequestDetailDTO
+    func getCurrentRequest() async throws -> ServiceRequestDetailDTO
 }
  
 final class HistoryServiceImpl: HistoryServiceProtocol {
@@ -28,6 +29,11 @@ final class HistoryServiceImpl: HistoryServiceProtocol {
     func getRequestDetail(id: String) async throws -> ServiceRequestDetailDTO {
         if useLogs { print("HistoryService: getRequestDetail \(id)") }
         return try await networkClient.request(HistoryEndpoint.getRequestDetail(id: id))
+    }
+
+    func getCurrentRequest() async throws -> ServiceRequestDetailDTO {
+        if useLogs { print("HistoryService: getCurrentRequest") }
+        return try await networkClient.request(HistoryEndpoint.getCurrentServiceRequest)
     }
 }
  

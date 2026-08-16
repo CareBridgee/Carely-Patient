@@ -13,4 +13,5 @@ enum OffersEvent {
     case offerAccepted(NurseOffer)
     case requestCanceled
     case searchCompleted
+    case visitCompleted
 }

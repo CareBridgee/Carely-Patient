@@ -44,7 +44,7 @@ struct ProfileView: View {
                     }
                 }
                 .padding(Spacing.s16)
-                .padding(.bottom, Spacing.s32)
+                .padding(.bottom, 0)
             }
         }
         .navigationBarHidden(true)

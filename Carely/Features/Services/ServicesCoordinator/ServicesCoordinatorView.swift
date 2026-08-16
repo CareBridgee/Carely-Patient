@@ -73,8 +73,9 @@ struct ServicesCoordinatorView: View {
         case .waitingForOffers(let requestId):
             OffersSearchingView(viewModel: container.makeOffersSearchingViewModel(
                 requestId: requestId,
-                onOfferAccepted: { ConfirmedOffer in
-                    coordinator.push(to: .OfferAccepted(request: ConfirmedOffer))
+                onOfferAccepted: { confirmedOffer in
+                    container.activeVisitStore.setActiveVisit(confirmedOffer)
+                    coordinator.push(to: .OfferAccepted(request: confirmedOffer))
                 },
                 onShowNurseProfile: { nurseId in
                     coordinator.push(to: .nurseProfile(nurseId: nurseId))
@@ -102,16 +103,20 @@ struct ServicesCoordinatorView: View {
                         nurseName: request.nurse.fullName,
                         nurseImageUrl: request.nurse.profileImageUrl
                     ))
+                },
+                onVisitCompleted: {
+                    coordinator.push(to: .visitCompleted(visitId: request.id))
                 }
             )
             OfferAcceptedView(viewModel: viewModel)
             
         case .showQRCode(let request):
             let viewModel = container.makeArrivalQRCodeViewModel(
+                serviceRequestId: request.id,
                 qrCodeData: request.qrCodeData,
                 referenceNumber: "#\(request.id.uppercased())",
                 onClose: {
-                    coordinator.push(to: .visitCompleted(visitId: request.id))
+                    coordinator.pop()
                 }
             )
             ArrivalQRCodeView(viewModel: viewModel)

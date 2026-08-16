@@ -97,6 +97,11 @@ final class ServicesCoordinator: AppRouterProtocol {
         push(to: .requestService(entryPoint: .aiChat, aiDraft: draft, aiProfileId: profileId))
     }
     
+    func openActiveVisit(offer: ConfirmedOffer) {
+        popToRoot()
+        push(to: .OfferAccepted(request: offer))
+    }
+
     func popToRequestForm() {
         if path.count >= 2 {
             path.removeLast(2)

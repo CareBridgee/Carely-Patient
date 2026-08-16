@@ -18,7 +18,7 @@ struct VisitCompletedView: View {
         ZStack {
             Color.backGround.ignoresSafeArea()
  
-            VStack{
+            VStack(spacing: 0) {
                 VisitSummaryTopBar()
                     .padding(.horizontal, Spacing.s16)
                     .padding(.top, Spacing.s8)
@@ -31,13 +31,28 @@ struct VisitCompletedView: View {
                             TotalAmountDueCard(amountText: summary.totalAmountText)
                         }
                         .padding(Spacing.s16)
-                        .padding(.bottom, Spacing.s24)
+                        .padding(.bottom, Spacing.s16)
                     }
+
+                    // Return Home Button
+                    PrimaryButton(
+                        title: "Return Home",
+                        size: .medium,
+                        radius: Radius.r16
+                    ) {
+                        viewModel.returnHome()
+                    }
+                    .padding(.horizontal, Spacing.s20)
+                    .padding(.top, Spacing.s8)
+                    .padding(.bottom, Spacing.s24)
+                    .background(Color.backGround.ignoresSafeArea(edges: .bottom))
                 } else if viewModel.isLoading {
                     visitCompletedSkeletonView
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
         .onAppear { viewModel.onAppear() }
         .onDisappear { viewModel.onDisappear() }
         .alert("Something went wrong", isPresented: $viewModel.showError) {
@@ -49,11 +64,14 @@ struct VisitCompletedView: View {
         .sheet(isPresented: $viewModel.showRatingSheet) {
             RatingBottomSheetView(
                 selectedStars: $viewModel.selectedStars,
+                reviewText: $viewModel.reviewText,
+                isAnonymous: $viewModel.isAnonymous,
                 isSubmitting: viewModel.isSubmittingRating,
                 onStarTapped: viewModel.starTapped,
-                onSubmit: viewModel.submitRatingTapped
+                onSubmit: viewModel.submitRatingTapped,
+                onSkip: viewModel.dismissRatingSheet
             )
-            .presentationDetents([.height(360)])
+            .presentationDetents([.height(490)])
             .presentationDragIndicator(.visible)
             .presentationCornerRadius(Radius.r24)
         }
@@ -80,7 +98,7 @@ struct VisitCompletedView: View {
                     .carelyText(style: .heading2, weight: .bold)
                     .foregroundColor(.primaryFont)
  
-                Text("Your medical professional has finalized the session report. Thank you for choosing CareMatch.")
+                Text("Your medical professional has finalized the session report. Thank you for choosing Carely.")
                     .carelyText(style: .bodyRegular)
                     .foregroundColor(.secondaryFont)
                     .multilineTextAlignment(.center)

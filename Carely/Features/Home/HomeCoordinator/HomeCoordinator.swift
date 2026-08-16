@@ -16,7 +16,7 @@ final class HomeCoordinator: ObservableObject {
  
     var onViewAllServices: (() -> Void)?
     var onOpenService: ((String) -> Void)?
-    var onOpenActiveVisit: (() -> Void)?
+    var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
     var onOpenAIAssistant: (() -> Void)?
     var onOpenHistory: (() -> Void)?
  
@@ -34,8 +34,8 @@ final class HomeCoordinator: ObservableObject {
         onOpenService?(serviceId)
     }
  
-    func activeVisitTapped() { // will inject visit here
-        onOpenActiveVisit?()
+    func activeVisitTapped(offer: ConfirmedOffer) {
+        onOpenActiveVisit?(offer)
     }
  
     func aiBannerTapped() {

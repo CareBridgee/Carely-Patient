@@ -14,7 +14,9 @@ private let homePreviewCategoryCount = 5
  
 @MainActor
 final class HomeViewModel: ObservableObject {
- 
+    
+    @Published var hasActiveVisit: Bool = false
+    @Published var activeVisitRequest: ConfirmedOffer? = nil
     @Published var greetingName: String = ""
     @Published var previewCategories: [ServiceCategory] = []
     @Published var upcomingBookings: [UpcomingBooking] = []
@@ -22,29 +24,39 @@ final class HomeViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
- 
+    
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
+    private let getActiveVisitUseCase: GetActiveVisitUseCaseProtocol?
+    private let activeVisitStore: ActiveVisitStore?
     private let sessionManager: SessionManager
     private let serviceTypesStore: ServiceTypesStore
     private var cancellables = Set<AnyCancellable>()
     
     private var onServiceTabbed: (String) -> Void
     private var onSeeAllHistory: () -> Void
+    private var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
+    
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
+        getActiveVisitUseCase: GetActiveVisitUseCaseProtocol? = nil,
+        activeVisitStore: ActiveVisitStore? = nil,
         sessionManager: SessionManager,
         serviceTypesStore: ServiceTypesStore,
         onServiceTabbed: @escaping (String) -> Void,
-        onSeeAllHistory: @escaping () -> Void = {}
+        onSeeAllHistory: @escaping () -> Void = {},
+        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil
     )  {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
+        self.getActiveVisitUseCase = getActiveVisitUseCase
+        self.activeVisitStore = activeVisitStore
         self.sessionManager = sessionManager
         self.serviceTypesStore = serviceTypesStore
         self.onServiceTabbed = onServiceTabbed
         self.onSeeAllHistory = onSeeAllHistory
+        self.onOpenActiveVisit = onOpenActiveVisit
         
         // Populate immediately from shared in-memory store if available
         if serviceTypesStore.hasCategories {
@@ -63,8 +75,16 @@ final class HomeViewModel: ObservableObject {
                 self?.profileImageUrl = user?.profileImageUrl
             }
             .store(in: &cancellables)
+        
+        activeVisitStore?.$activeVisit
+            .receive(on: RunLoop.main)
+            .sink { [weak self] offer in
+                self?.activeVisitRequest = offer
+                self?.hasActiveVisit = (offer != nil)
+            }
+            .store(in: &cancellables)
     }
-
+    
     private func setupStoreObservation() {
         serviceTypesStore.$serviceCategories
             .receive(on: RunLoop.main)
@@ -74,56 +94,78 @@ final class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
- 
+    
     func onAppear() {
+        checkActiveVisit()
         guard previewCategories.isEmpty || upcomingBookings.isEmpty else { return }
         loadDashboard()
     }
- 
-    func loadDashboard() {
-        // Only trigger loading indicator if we don't have categories in memory yet
-        if previewCategories.isEmpty {
-            isLoading = true
-        }
-        errorMessage = nil
- 
+    func checkActiveVisit() {
+        guard let useCase = getActiveVisitUseCase else { return }
         Task {
             do {
-                if serviceTypesStore.hasCategories {
-                    // Service categories already exist in memory -> only fetch bookings
-                    let bookings = try await self.getUpcomingBookingsUseCase.execute()
-                    self.upcomingBookings = bookings
+                if let offer = try await useCase.execute() {
+                    self.activeVisitStore?.setActiveVisit(offer)
                 } else {
-                    // Fetch categories and bookings in parallel
-                    async let categoriesTask = self.getServiceCategoriesUseCase.execute()
-                    async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
-
-                    let (fetchedCategories, fetchedBookings) = try await (categoriesTask, bookingsTask)
-
-                    self.serviceTypesStore.setCategories(fetchedCategories)
-                    self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
-                    self.upcomingBookings = fetchedBookings
+                    self.activeVisitStore?.clearActiveVisit()
                 }
-                self.isLoading = false
             } catch {
-                self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.activeVisitStore?.clearActiveVisit()
             }
         }
     }
- 
-    // MARK: - Navigation
- 
-    func categoryTapped(_ category: ServiceCategory) {
-        onServiceTabbed(category.id)
-    }
- 
-    func viewAllServicesTapped() {
-        //
+        
+        func activeVisitBannerTapped() {
+            if let offer = activeVisitRequest {
+                onOpenActiveVisit?(offer)
+            }
+        }
+        
+        func loadDashboard() {
+            // Only trigger loading indicator if we don't have categories in memory yet
+            if previewCategories.isEmpty {
+                isLoading = true
+            }
+            errorMessage = nil
+            
+            Task {
+                do {
+                    if serviceTypesStore.hasCategories {
+                        // Service categories already exist in memory -> only fetch bookings
+                        let bookings = try await self.getUpcomingBookingsUseCase.execute()
+                        self.upcomingBookings = bookings
+                    } else {
+                        // Fetch categories and bookings in parallel
+                        async let categoriesTask = self.getServiceCategoriesUseCase.execute()
+                        async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
+                        
+                        let (fetchedCategories, fetchedBookings) = try await (categoriesTask, bookingsTask)
+                        
+                        self.serviceTypesStore.setCategories(fetchedCategories)
+                        self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
+                        self.upcomingBookings = fetchedBookings
+                    }
+                    self.isLoading = false
+                } catch {
+                    self.isLoading = false
+                    self.errorMessage = error.localizedDescription
+                    self.showError = true
+                }
+            }
+        }
+        
+        // MARK: - Navigation
+        
+        func categoryTapped(_ category: ServiceCategory) {
+            onServiceTabbed(category.id)
+        }
+        
+        func viewAllServicesTapped() {
+            //
+        }
+        
+        func seeAllHistoryTapped() {
+            onSeeAllHistory()
+        }
     }
 
-    func seeAllHistoryTapped() {
-        onSeeAllHistory()
-    }
-}

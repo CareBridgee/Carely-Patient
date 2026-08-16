@@ -73,7 +73,7 @@ struct AllServiceView: View {
                 HelpBannerView()
                     .padding(.horizontal)
                     .padding(.top, Spacing.s8)
-                    .padding(.bottom, Spacing.s64)
+                    .padding(.bottom, 0)
             }
             .padding(.vertical)
         }

@@ -43,9 +43,22 @@ struct HomeView: View {
                                 bookingsSection
                             }
                         }
-                        .padding(Spacing.s16)
-                        .padding(.bottom, Spacing.s64)
+                      //  .padding(Spacing.s16)
+                     //   .padding(.bottom, Spacing.s64)
                     }
+                    .padding(Spacing.s16)
+                    .padding(.bottom, viewModel.hasActiveVisit ? 50 : 0)
+                }
+            }
+
+            if viewModel.hasActiveVisit {
+                VStack {
+                    Spacer()
+                    ActiveVisitFloatingBannerView {
+                        viewModel.activeVisitBannerTapped()
+                    }
+                    .padding(.horizontal, Spacing.s16)
+                    .padding(.bottom, 22)
                 }
             }
         }
