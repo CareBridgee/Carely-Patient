@@ -37,8 +37,19 @@ final class NotificationsSocketDataSource: NotificationsHubServiceProtocol {
 
             socketClient.onMessageReceivedListeners[key] = { [weak self] receivedDestination, body in
                 guard let self = self else { return }
+                
                 if receivedDestination.contains("/queue/notifications") {
+                    // 1. Handle the normal UI notification (show banner, badge, etc.)
                     self.handleMessage(body: body)
+                    
+                    // 👇 2. THE NEW GLOBAL TRIGGER: Check if this notification is a cancellation
+                    if body.contains("REQUEST_CANCELLED") || body.contains("CANCELLED") || body.contains("REJECTED") {
+                        Task {
+                            // This will instantly check the backend and refund the wallet if needed!
+                            await RefundRecoveryService.shared?.processPendingRefunds()
+                        }
+                    }
+                    
                 } else if receivedDestination.contains("/queue/errors") {
                     print("[Socket Error Payload] Received error from backend: \(body)")
                 }

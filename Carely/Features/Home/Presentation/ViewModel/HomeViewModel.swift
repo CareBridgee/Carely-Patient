@@ -8,8 +8,6 @@
 import Foundation
 import Combine
  
-/// Number of category tiles shown in the Home preview grid before the
-/// "More Services" tile that pushes to the full Service Categories screen.
 private let homePreviewCategoryCount = 5
  
 @MainActor
@@ -22,19 +20,14 @@ final class HomeViewModel: ObservableObject {
     @Published var upcomingBookings: [UpcomingBooking] = []
     @Published var profileImageUrl: String? = nil
     @Published var isLoading: Bool = false
-    
-    /// Drives the full-page `ErrorStateView` when the *initial* dashboard
-    /// load fails (i.e. we don't have any data on screen yet).
     @Published var loadError: Error? = nil
-    
-    /// Drives the floating `.errorToast` for background refresh / retry
-    /// failures that happen while we already have data on screen.
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
     
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
     private let getActiveVisitUseCase: GetActiveVisitUseCaseProtocol?
+    private let walletService: WalletServiceProtocol
     private let activeVisitStore: ActiveVisitStore?
     private let sessionManager: SessionManager
     private let serviceTypesStore: ServiceTypesStore
@@ -48,6 +41,7 @@ final class HomeViewModel: ObservableObject {
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
         getActiveVisitUseCase: GetActiveVisitUseCaseProtocol? = nil,
+        walletService: WalletServiceProtocol,
         activeVisitStore: ActiveVisitStore? = nil,
         sessionManager: SessionManager,
         serviceTypesStore: ServiceTypesStore,
@@ -58,6 +52,7 @@ final class HomeViewModel: ObservableObject {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
         self.getActiveVisitUseCase = getActiveVisitUseCase
+        self.walletService = walletService
         self.activeVisitStore = activeVisitStore
         self.sessionManager = sessionManager
         self.serviceTypesStore = serviceTypesStore
@@ -65,7 +60,6 @@ final class HomeViewModel: ObservableObject {
         self.onSeeAllHistory = onSeeAllHistory
         self.onOpenActiveVisit = onOpenActiveVisit
         
-        // Populate immediately from shared in-memory store if available
         if serviceTypesStore.hasCategories {
             self.previewCategories = Array(serviceTypesStore.serviceCategories.prefix(homePreviewCategoryCount))
         }
@@ -107,7 +101,8 @@ final class HomeViewModel: ObservableObject {
         guard previewCategories.isEmpty || upcomingBookings.isEmpty else { return }
         loadDashboard()
     }
-func retryInitialLoad() {
+    
+    func retryInitialLoad() {
         loadDashboard()
     }
     
@@ -118,12 +113,32 @@ func retryInitialLoad() {
             do {
                 if let offer = try await useCase.execute() {
                     self.activeVisitStore?.setActiveVisit(offer)
+                    if offer.status.uppercased() == "CANCELLED" || offer.status.uppercased() == "REJECTED" {
+                        await processRecoveryRefunds()
+                    }
                 } else {
                     self.activeVisitStore?.clearActiveVisit()
+                    await processRecoveryRefunds()
                 }
             } catch {
                 self.activeVisitStore?.clearActiveVisit()
+                await processRecoveryRefunds()
             }
+        }
+    }
+    
+    private func processRecoveryRefunds() async {
+        let pendingRefunds = PendingRefundManager.shared.getAllPendingRefunds()
+        guard !pendingRefunds.isEmpty else { return }
+        
+        do {
+            let userId = try await walletService.getCurrentUserId()
+            for refund in pendingRefunds {
+                _ = try await walletService.updateCredit(userId: userId, amount: refund.amount, operation: "ADD")
+                PendingRefundManager.shared.removeRefund(requestId: refund.requestId)
+            }
+        } catch {
+            
         }
     }
     
@@ -145,11 +160,9 @@ func retryInitialLoad() {
         Task {
             do {
                 if serviceTypesStore.hasCategories {
-                    // Service categories already exist in memory -> only fetch bookings
                     let bookings = try await self.getUpcomingBookingsUseCase.execute()
                     self.upcomingBookings = bookings
                 } else {
-                    // Fetch categories and bookings in parallel
                     async let categoriesTask = self.getServiceCategoriesUseCase.execute()
                     async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
                     
@@ -162,9 +175,6 @@ func retryInitialLoad() {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                
-                // No data on screen yet -> full-page error state with retry.
-                // Already have data (e.g. pull-to-refresh) -> just toast it.
                 if isInitialLoad {
                     self.loadError = error
                 } else {
@@ -175,14 +185,11 @@ func retryInitialLoad() {
         }
     }
     
-    // MARK: - Navigation
-    
     func categoryTapped(_ category: ServiceCategory) {
         onServiceTabbed(category.id)
     }
     
     func viewAllServicesTapped() {
-        // navigate to all services
     }
     
     func seeAllHistoryTapped() {

@@ -45,9 +45,15 @@ struct MainTabCoordinatorView: View {
         .notificationBanner(data: $coordinator.currentNotification) {
                 coordinator.handleNotificationTap()
             }
+        
         .fullScreenCover(isPresented: $coordinator.isHistoryPresented) {
             HistoryCoordinatorView(container: container, coordinator: coordinator.historyCoordinator)
         }
+        .onChange(of: coordinator.selectedTab) { _ in
+                   Task {
+                       await RefundRecoveryService.shared?.processPendingRefunds()
+                   }
+               }
     }
     // MARK: - Tab Content
 
