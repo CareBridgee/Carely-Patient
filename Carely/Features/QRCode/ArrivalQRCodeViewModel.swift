@@ -17,7 +17,6 @@ final class ArrivalQRCodeViewModel: ObservableObject {
     /// string. This screen currently receives its data already fetched by
     /// the caller, so nothing assigns into this today — it's wired up so a
     /// future fetch/validate call only needs to catch into it.
-    @Published var errorMessage: String? = nil
     
     init(
         serviceRequestId: String,

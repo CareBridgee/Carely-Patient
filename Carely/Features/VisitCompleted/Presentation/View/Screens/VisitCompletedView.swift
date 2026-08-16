@@ -64,7 +64,7 @@ struct VisitCompletedView: View {
                 isSubmitting: viewModel.isSubmittingRating,
                 onStarTapped: viewModel.starTapped,
                 onSubmit: viewModel.submitRatingTapped,
-                errorMessage: $viewModel.errorMessage
+                errorMessage: $viewModel.errorMessage,
                 onSkip: viewModel.dismissRatingSheet
             )
             .presentationDetents([.height(490)])
