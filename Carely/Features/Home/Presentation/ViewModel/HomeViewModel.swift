@@ -22,6 +22,13 @@ final class HomeViewModel: ObservableObject {
     @Published var upcomingBookings: [UpcomingBooking] = []
     @Published var profileImageUrl: String? = nil
     @Published var isLoading: Bool = false
+    
+    /// Drives the full-page `ErrorStateView` when the *initial* dashboard
+    /// load fails (i.e. we don't have any data on screen yet).
+    @Published var loadError: Error? = nil
+    
+    /// Drives the floating `.errorToast` for background refresh / retry
+    /// failures that happen while we already have data on screen.
     @Published var errorMessage: String? = nil
     @Published var showError: Bool = false
     
@@ -100,8 +107,13 @@ final class HomeViewModel: ObservableObject {
         guard previewCategories.isEmpty || upcomingBookings.isEmpty else { return }
         loadDashboard()
     }
+func retryInitialLoad() {
+        loadDashboard()
+    }
+    
     func checkActiveVisit() {
         guard let useCase = getActiveVisitUseCase else { return }
+        
         Task {
             do {
                 if let offer = try await useCase.execute() {
@@ -114,58 +126,66 @@ final class HomeViewModel: ObservableObject {
             }
         }
     }
-        
-        func activeVisitBannerTapped() {
-            if let offer = activeVisitRequest {
-                onOpenActiveVisit?(offer)
-            }
+    
+    func activeVisitBannerTapped() {
+        if let offer = activeVisitRequest {
+            onOpenActiveVisit?(offer)
         }
+    }
+    
+    func loadDashboard() {
+        let isInitialLoad = previewCategories.isEmpty
+
+        if isInitialLoad {
+            isLoading = true
+        }
+        loadError = nil
+        errorMessage = nil
         
-        func loadDashboard() {
-            // Only trigger loading indicator if we don't have categories in memory yet
-            if previewCategories.isEmpty {
-                isLoading = true
-            }
-            errorMessage = nil
-            
-            Task {
-                do {
-                    if serviceTypesStore.hasCategories {
-                        // Service categories already exist in memory -> only fetch bookings
-                        let bookings = try await self.getUpcomingBookingsUseCase.execute()
-                        self.upcomingBookings = bookings
-                    } else {
-                        // Fetch categories and bookings in parallel
-                        async let categoriesTask = self.getServiceCategoriesUseCase.execute()
-                        async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
-                        
-                        let (fetchedCategories, fetchedBookings) = try await (categoriesTask, bookingsTask)
-                        
-                        self.serviceTypesStore.setCategories(fetchedCategories)
-                        self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
-                        self.upcomingBookings = fetchedBookings
-                    }
-                    self.isLoading = false
-                } catch {
-                    self.isLoading = false
+        Task {
+            do {
+                if serviceTypesStore.hasCategories {
+                    // Service categories already exist in memory -> only fetch bookings
+                    let bookings = try await self.getUpcomingBookingsUseCase.execute()
+                    self.upcomingBookings = bookings
+                } else {
+                    // Fetch categories and bookings in parallel
+                    async let categoriesTask = self.getServiceCategoriesUseCase.execute()
+                    async let bookingsTask = self.getUpcomingBookingsUseCase.execute()
+                    
+                    let (fetchedCategories, fetchedBookings) = try await (categoriesTask, bookingsTask)
+                    
+                    self.serviceTypesStore.setCategories(fetchedCategories)
+                    self.previewCategories = Array(fetchedCategories.prefix(homePreviewCategoryCount))
+                    self.upcomingBookings = fetchedBookings
+                }
+                self.isLoading = false
+            } catch {
+                self.isLoading = false
+                
+                // No data on screen yet -> full-page error state with retry.
+                // Already have data (e.g. pull-to-refresh) -> just toast it.
+                if isInitialLoad {
+                    self.loadError = error
+                } else {
                     self.errorMessage = error.localizedDescription
                     self.showError = true
                 }
             }
         }
-        
-        // MARK: - Navigation
-        
-        func categoryTapped(_ category: ServiceCategory) {
-            onServiceTabbed(category.id)
-        }
-        
-        func viewAllServicesTapped() {
-            //
-        }
-        
-        func seeAllHistoryTapped() {
-            onSeeAllHistory()
-        }
     }
-
+    
+    // MARK: - Navigation
+    
+    func categoryTapped(_ category: ServiceCategory) {
+        onServiceTabbed(category.id)
+    }
+    
+    func viewAllServicesTapped() {
+        // navigate to all services
+    }
+    
+    func seeAllHistoryTapped() {
+        onSeeAllHistory()
+    }
+}

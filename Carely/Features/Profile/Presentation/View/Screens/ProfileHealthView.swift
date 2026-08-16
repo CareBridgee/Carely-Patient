@@ -33,16 +33,14 @@ struct ProfileHealthView: View {
             }
         )
         .blur(radius: viewModel.isLoading ? 3 : 0)
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+
+        .navigationBarHidden(true)
         .onChange(of: viewModel.isSaved) {
             if viewModel.isSaved {
                 viewModel.backTapped()
             }
         }
+        .errorToast($viewModel.errorMessage)
     }
 
     // MARK: - Header
@@ -135,13 +133,6 @@ struct ProfileHealthView: View {
                 text: $viewModel.previousHospitalizations,
                 errorMessage: nil
             )
-
-            if let err = viewModel.errorMessage {
-                Text(err)
-                    .carelyText(style: .caption)
-                    .foregroundColor(.error)
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
 
             PrimaryButton(
                 title: "Save Changes",

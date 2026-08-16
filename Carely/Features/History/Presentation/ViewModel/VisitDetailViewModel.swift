@@ -14,8 +14,11 @@ final class VisitDetailViewModel: ObservableObject {
  
     @Published private(set) var detail: VisitDetail?
     @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
+
+    /// Drives the full-page `ErrorStateView` when fetching visit details
+    /// fails (there's no cancel action on this screen currently — only a
+    /// fetch — so all failures route to the full-page state with retry).
+    @Published var loadError: Error? = nil
  
     private let getVisitDetailUseCase: GetVisitDetailUseCaseProtocol
  
@@ -31,7 +34,7 @@ final class VisitDetailViewModel: ObservableObject {
  
     func loadDetail() {
         isLoading = true
-        errorMessage = nil
+        loadError = nil
  
         Task {
             do {
@@ -40,10 +43,8 @@ final class VisitDetailViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.loadError = error
             }
         }
     }
 }
- 

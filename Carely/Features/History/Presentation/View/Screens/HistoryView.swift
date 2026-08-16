@@ -31,12 +31,6 @@ struct HistoryView: View {
         )
         .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadHistory() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
     }
  
     @ViewBuilder
@@ -47,16 +41,16 @@ struct HistoryView: View {
                     ForEach(0..<4, id: \.self) { _ in
                         HStack(alignment: .top, spacing: Spacing.s16) {
                             EtmaenSkeletonRect(width: 48, height: 48, radius: Radius.r16)
-
+                            
                             VStack(alignment: .leading, spacing: Spacing.s4) {
                                 HStack {
                                     EtmaenSkeletonRect(width: 120, height: 16, radius: Radius.r8)
                                     Spacer()
                                     EtmaenSkeletonRect(width: 70, height: 20, radius: Radius.r12)
                                 }
-
+                                
                                 EtmaenSkeletonRect(width: 140, height: 14, radius: Radius.r8)
-
+                                
                                 HStack(spacing: Spacing.s4) {
                                     EtmaenSkeletonCircle(size: 12)
                                     EtmaenSkeletonRect(width: 100, height: 12, radius: Radius.r8)
@@ -71,6 +65,13 @@ struct HistoryView: View {
                     }
                 }
                 .padding(Spacing.s16)
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+        } else if let loadError = viewModel.loadError, viewModel.items.isEmpty {
+            ErrorStateView(error: loadError) {
+                viewModel.loadHistory()
             }
         } else if viewModel.items.isEmpty {
             Spacer()

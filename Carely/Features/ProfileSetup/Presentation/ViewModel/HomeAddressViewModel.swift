@@ -25,8 +25,11 @@ final class HomeAddressViewModel: ObservableObject {
     
     // NEW: Network State
     @Published var isLoading: Bool = false
+
+    /// Drives the `.errorToast` on `HomeAddressView` (and, when embedded via
+    /// `ProfileAddressView`, the Profile Address screen). Always the exact
+    /// server message via `error.carelyDescription` for load/save failures.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
 
     let mapPickerViewModel: AddressMapPickerViewModel
 
@@ -135,8 +138,7 @@ final class HomeAddressViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }
@@ -186,7 +188,7 @@ final class HomeAddressViewModel: ObservableObject {
                 selectedLatitude = selection.coordinate.latitude
                 selectedLongitude = selection.coordinate.longitude
             } catch {
-                locationErrorMessage = error.localizedDescription
+                locationErrorMessage = error.carelyDescription
             }
         }
     }
@@ -218,13 +220,11 @@ final class HomeAddressViewModel: ObservableObject {
         // MARK: - VALIDATION LOGIC
         guard isValid else {
             self.errorMessage = "Please fill in all required fields (Country, City, Street)."
-            self.showError = true
             return
         }
 
         guard NetworkMonitor.shared.isConnected else {
             self.errorMessage = "No internet connection. Please check your network."
-            self.showError = true
             return
         }
 
@@ -257,7 +257,6 @@ final class HomeAddressViewModel: ObservableObject {
                       (-180.0...180.0).contains(lng) else {
                     self.isLoading = false
                     self.errorMessage = "Unable to determine location coordinates for this address. Please verify your address or select it on the map."
-                    self.showError = true
                     return
                 }
 
@@ -281,7 +280,7 @@ final class HomeAddressViewModel: ObservableObject {
 
                 if isEditingExistingAddress {
                     do {
-                        try await updateAddressUseCase.execute(profileId: profileId, address: finalAddress) 
+                        try await updateAddressUseCase.execute(profileId: profileId, address: finalAddress)
                     } catch let error as NetworkError {
                         if case .server(404, _) = error {
                             try await saveAddressUseCase.execute(profileId: profileId, address: finalAddress)
@@ -299,8 +298,7 @@ final class HomeAddressViewModel: ObservableObject {
                 self.onFinishSetup(finalAddress)
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }

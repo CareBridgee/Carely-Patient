@@ -54,18 +54,18 @@ final class BasicHealthInfoViewModel: ObservableObject {
 
     var heightError: String? {
         guard !heightText.isEmpty else { return nil }
-        guard let height = Double(heightText) else { return "Invalid height format" }
+        guard let height = Double(heightText) else { return "Invalid height" }
         guard height >= minHeight && height <= maxHeight else {
-            return "Please enter a valid height (\(Int(minHeight))-\(Int(maxHeight)) cm)"
+            return "Height: \(Int(minHeight))-\(Int(maxHeight)) cm"
         }
         return nil
     }
 
     var weightError: String? {
         guard !weightText.isEmpty else { return nil }
-        guard let weight = Double(weightText) else { return "Invalid weight format" }
+        guard let weight = Double(weightText) else { return "Invalid weight" }
         guard weight >= minWeight && weight <= maxWeight else {
-            return "Please enter a valid weight (\(Int(minWeight))-\(Int(maxWeight)) kg)"
+            return "Weight: \(Int(minWeight))-\(Int(maxWeight)) kg"
         }
         return nil
     }

@@ -11,8 +11,12 @@ import Foundation
 final class NurseProfileViewModel: ObservableObject {
     @Published private(set) var profile: NurseDetails?
     @Published var isLoading = false
-    @Published var errorMessage: String?
-    @Published var showError = false
+
+    /// Drives the full-page `ErrorStateView` when the nurse details fetch
+    /// fails. There's no partial state for this screen — either the profile
+    /// loads or it doesn't — so a full-page state with retry fits both the
+    /// initial load and any subsequent retry.
+    @Published var loadError: Error?
 
     private let nurseId: String
     private let getNurseProfileUseCase: GetNurseProfileUseCaseProtocol
@@ -25,7 +29,7 @@ final class NurseProfileViewModel: ObservableObject {
     func fetchProfile() {
         guard profile == nil else { return }
         isLoading = true
-        errorMessage = nil
+        loadError = nil
 
         Task {
             do {
@@ -34,8 +38,7 @@ final class NurseProfileViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.loadError = error
             }
         }
     }

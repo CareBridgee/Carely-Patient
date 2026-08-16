@@ -65,11 +65,7 @@ struct AllergiesView: View {
         .onAppear {
             viewModel.onAppear()
         }
-        .alert("Error", isPresented: $viewModel.showError) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "An error occurred.")
-        }
+        .errorToast($viewModel.errorMessage)
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
                 onBackTapped: viewModel.backTapped,

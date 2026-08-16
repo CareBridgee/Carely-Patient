@@ -57,6 +57,31 @@ struct SettingsView: View {
                 viewModel.backTapped()
             }
         )
+
+        .errorToast($viewModel.errorMessage)
+    }
+
+    private var topBar: some View {
+        HStack {
+//            Button(action: viewModel.backTapped) {
+//                Image(systemName: "arrow.left")
+//                    .carelyText(style: .bodyLarge, weight: .semiBold)
+//                    .foregroundColor(.brandPrimary)
+//                    .frame(width: 40, height: 40)
+//                    .background(Color.surface)
+//                    .clipShape(Circle())
+//            }
+//
+            Spacer()
+
+            Text("Settings")
+                .carelyText(style: .heading3, weight: .semiBold)
+                .foregroundColor(.brandPrimary)
+
+            Spacer()
+
+//            Color.clear.frame(width: 40, height: 40)
+        }
     }
 
     private var header: some View {

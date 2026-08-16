@@ -4,6 +4,10 @@ import Foundation
 final class OfferAcceptedViewModel: ObservableObject {
     @Published var request: ConfirmedOffer
     @Published var showNurseCanceledAlert = false
+
+    /// Drives the `.errorToast` when cancelling the confirmed request fails.
+    @Published var errorMessage: String? = nil
+    @Published var isCancelling: Bool = false
     
     private var isCanceledByMe = false
     
@@ -115,15 +119,19 @@ final class OfferAcceptedViewModel: ObservableObject {
 
     func confirmCancelRequest() {
         isCanceledByMe = true
+        isCancelling = true
+        errorMessage = nil
         activeVisitStore?.clearActiveVisit()
         Task {
             do {
                 try await cancelServiceRequestUseCase.execute(serviceRequestId: request.id)
+                isCancelling = false
+                onCancelRequest()
             } catch {
-                print("Failed to cancel request: \(error)")
+                isCancelling = false
                 isCanceledByMe = false
+                errorMessage = error.carelyDescription
             }
-            onCancelRequest()
         }
     }
 }

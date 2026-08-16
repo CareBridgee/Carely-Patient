@@ -26,8 +26,10 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
     // MARK: - State
     @Published var isLoading = false
     @Published var isSaved  = false
+
+    /// Drives the `.errorToast` for save failures (exact server validation
+    /// message) and for local photo-load failures.
     @Published var errorMessage: String? = nil
-    @Published var showError = false
 
     // MARK: - Validation
     var firstNameError: String? { firstName.trimmingCharacters(in: .whitespaces).isEmpty ? "Required" : nil }
@@ -216,8 +218,7 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
                 isSaved   = true
             } catch {
                 isLoading = false
-                errorMessage = error.localizedDescription
-                showError = true
+                errorMessage = error.carelyDescription
             }
         }
     }
@@ -235,8 +236,7 @@ final class ProfilePersonalInfoViewModel: ObservableObject {
                 guard let data = try await item.loadTransferable(type: Data.self) else { return }
                 selectedImage = UIImage(data: data)
             } catch {
-                errorMessage = "Couldn't load that photo."
-                showError = true
+                errorMessage = "We couldn't load that photo. Please try a different one."
             }
         }
     }

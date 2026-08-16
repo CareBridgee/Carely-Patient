@@ -12,8 +12,9 @@ struct CareConnectNavigationBarModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
                     if showBackButton {
                         Button(action: {
                             if let onBackTapped = onBackTapped {
@@ -28,6 +29,7 @@ struct CareConnectNavigationBarModifier: ViewModifier {
                         }
                     }
                 }
+                
                 ToolbarItem(placement: .principal) {
                     Text(title)
                         .carelyText(style: .heading3, weight: .medium)
@@ -35,7 +37,8 @@ struct CareConnectNavigationBarModifier: ViewModifier {
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                
+                ToolbarItem(placement: .topBarTrailing) {
                     if let icon = trailingIcon {
                         Button(action: {
                             onTrailingIconTapped?()

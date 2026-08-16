@@ -795,20 +795,19 @@ final class DIContainer {
     }
 
     func makeChoosePatientViewModel(
-        onShowPatientDetails: ((String) -> Void)? = nil,
-        onContinueWithAssessment: @escaping (String) -> Void,
-        onAddFamilyMember: (() -> Void)? = nil
-    ) -> ChoosePatientViewModel {
-        ChoosePatientViewModel(
-            patientProfilesStore: patientProfilesStore,
-            sessionManager: sessionManager,
-            profileRepository: profileRepository,
-            onShowPatientDetails: onShowPatientDetails,
-            onContinueWithAssessment: onContinueWithAssessment,
-            onAddFamilyMember: onAddFamilyMember
-        )
-    }
-
+            onShowPatientDetails: ((String) -> Void)? = nil,
+            onContinueWithAssessment: @escaping (String) -> Void,
+            onAddFamilyMember: (() -> Void)? = nil
+        ) -> ChoosePatientViewModel {
+            ChoosePatientViewModel(
+                patientProfilesStore: patientProfilesStore,
+                sessionManager: sessionManager,
+                getAIPatientsUseCase: makeGetAIPatientsUseCase(),
+                onShowPatientDetails: onShowPatientDetails,
+                onContinueWithAssessment: onContinueWithAssessment,
+                onAddFamilyMember: onAddFamilyMember
+            )
+        }
     // MARK: - AIAssistant — Chat
 
     private lazy var aiChatService: AIChatServiceProtocol = AIChatServiceImpl(

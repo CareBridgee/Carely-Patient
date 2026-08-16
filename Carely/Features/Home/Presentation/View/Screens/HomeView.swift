@@ -10,38 +10,40 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel: HomeViewModel
     @State private var searchText: String = ""
-
+    
     init(viewModel: HomeViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-
+    
     var body: some View {
         ZStack {
             Color.backGround.ignoresSafeArea()
-
-            VStack {
-                if viewModel.isLoading && viewModel.previewCategories.isEmpty {
-                    homeSkeletonView
-                } else {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: Spacing.s20) {
-                            HomeTopBar(
-                                greetingName: viewModel.greetingName,
-                                profileImageUrl: viewModel.profileImageUrl
-                            ) {}
-
-                            SearchField(
-                                placeholder: "Search services, symptoms...",
-                                text: $searchText
-                            )
-
-                            AIAssessmentBannerView {}
-
-                            servicesSection
-
-                            if !viewModel.upcomingBookings.isEmpty {
-                                bookingsSection
-                            }
+            
+            if let loadError = viewModel.loadError, viewModel.previewCategories.isEmpty {
+                ErrorStateView(error: loadError) {
+                    viewModel.retryInitialLoad()
+                }
+            } else if viewModel.isLoading && viewModel.previewCategories.isEmpty {
+                homeSkeletonView
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: Spacing.s20) {
+                        HomeTopBar(
+                            greetingName: viewModel.greetingName,
+                            profileImageUrl: viewModel.profileImageUrl
+                        ) {}
+                        
+                        SearchField(
+                            placeholder: "Search services, symptoms...",
+                            text: $searchText
+                        )
+                        
+                        AIAssessmentBannerView {}
+                        
+                        servicesSection
+                        
+                        if !viewModel.upcomingBookings.isEmpty {
+                            bookingsSection
                         }
                       //  .padding(Spacing.s16)
                      //   .padding(.bottom, Spacing.s64)
@@ -63,14 +65,9 @@ struct HomeView: View {
             }
         }
         .onAppear { viewModel.onAppear() }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadDashboard() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+        .errorToast($viewModel.errorMessage)
     }
-
+    
     private var homeSkeletonView: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: Spacing.s20) {
@@ -82,11 +79,11 @@ struct HomeView: View {
                     Spacer()
                     EtmaenSkeletonCircle(size: 44)
                 }
-
+                
                 EtmaenSkeletonRect(height: 48, radius: Radius.r16)
-
+                
                 EtmaenSkeletonRect(height: 110, radius: Radius.r20)
-
+                
                 VStack(alignment: .leading, spacing: Spacing.s12) {
                     EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
                     EtmaenServiceGridSkeleton()
@@ -96,7 +93,7 @@ struct HomeView: View {
             .padding(.bottom, Spacing.s64)
         }
     }
-
+    
     private var servicesSection: some View {
         VStack(alignment: .leading, spacing: Spacing.s16) {
             HStack {
@@ -104,7 +101,7 @@ struct HomeView: View {
                     .carelyText(style: .heading3, weight: .semiBold)
                     .foregroundColor(.primaryFont)
             }
-
+            
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.s12) {
                 ForEach(viewModel.previewCategories) { category in
                     ServiceCategoryTile(
@@ -123,21 +120,21 @@ struct HomeView: View {
             }
         }
     }
-
+    
     private var bookingsSection: some View {
         VStack(alignment: .leading, spacing: Spacing.s16) {
             HStack {
                 Text("History")
                     .carelyText(style: .heading3, weight: .semiBold)
                     .foregroundColor(.primaryFont)
-
+                
                 Spacer()
-
+                
                 Button("See All") { viewModel.seeAllHistoryTapped() }
                     .carelyText(style: .bodySmall, weight: .semiBold)
                     .foregroundColor(.brandPrimary)
             }
-
+            
             ForEach(viewModel.upcomingBookings) { booking in
                 UpcomingBookingCard(booking: booking)
             }

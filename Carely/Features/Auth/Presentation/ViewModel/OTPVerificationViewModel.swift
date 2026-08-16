@@ -91,10 +91,8 @@ final class OTPVerificationViewModel: ObservableObject {
             state = .success("Phone verified successfully!")
             try await Task.sleep(nanoseconds: 800_000_000)
             navigate(after: result)
-        } catch let error as AuthError {
-            state = .error(error.errorDescription ?? AuthError.unknown.errorDescription!)
         } catch {
-            state = .error(AuthError.unknown.errorDescription!)
+            state = .error(error.carelyDescription)
         }
     }
 
@@ -109,7 +107,7 @@ final class OTPVerificationViewModel: ObservableObject {
                 self.otpCode = response.otp // Autofill new dev OTP
                 state = .success("OTP Resent successfully!")
             } catch {
-                state = .error("Failed to resend OTP.")
+                state = .error(error.carelyDescription)
             }
         }
     }
@@ -125,4 +123,3 @@ final class OTPVerificationViewModel: ObservableObject {
             }
         }
     }
-

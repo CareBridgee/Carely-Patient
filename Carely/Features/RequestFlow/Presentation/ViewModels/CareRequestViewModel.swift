@@ -34,7 +34,7 @@ final class CareRequestViewModel: ObservableObject {
     @Published var availableServices: [CareService] = []
 
     @Published var description: String = ""
-    @Published private(set) var descriptionError: String?   
+    @Published private(set) var descriptionError: String?
 
     var displayedDescriptionError: String? {
    
@@ -47,8 +47,11 @@ final class CareRequestViewModel: ObservableObject {
 
     @Published private(set) var isLoading = false
     @Published private(set) var isSubmitting = false
+
+    /// Drives the `.errorToast` shown for submission/validation/availability
+    /// failures. Carries the exact server message where available (e.g. the
+    /// "active service request" conflict message is passed through as-is).
     @Published var submissionErrorMessage: String?
-    @Published var showSubmissionError = false
 
     private let fetchAvailableServicesUseCase: FetchAvailableServicesUseCaseProtocol
     private let fetchProfileAddressUseCase: FetchProfileAddressUseCaseProtocol?
@@ -102,9 +105,24 @@ final class CareRequestViewModel: ObservableObject {
         if let services = try? await servicesTask {
             availableServices = services
             if let match = services.first(where: { $0.id == selectedService.id }) {
+                // The pre-selected/placeholder service matched a real fetched
+                // service — swap in the full record (title, icon) but keep
+                // trusting the id the caller gave us.
                 selectedService = match
-            } else if let first = services.first {
+            } else if selectedService.id.isEmpty, let first = services.first {
+                // Only fall back to "first available service" when nothing
+                // was pre-selected at all (e.g. entering this screen from a
+                // context with no specific service in mind). Never silently
+                // substitute a different service when the caller (Service
+                // Details, AI draft) *did* pass a specific id — surfacing an
+                // error is safer than submitting the wrong service.
                 selectedService = first
+            } else if !selectedService.id.isEmpty {
+                // A specific service was requested but isn't in the current
+                // available-services list (e.g. temporarily unavailable).
+                // Keep it selected rather than swapping to an unrelated
+                // service, and let the person know via the toast.
+                submissionErrorMessage = "The service you selected isn't currently available. Please choose another service."
             }
         }
         
@@ -236,7 +254,7 @@ final class CareRequestViewModel: ObservableObject {
     private func loadAddressFromStore(for profileId: String) {
         if let homeAddress = patientProfilesStore.addressesByProfileId[profileId] {
             address = ServiceRequestAddress(
-                id: "", 
+                id: "",
                 profileId: profileId,
                 country: homeAddress.country,
                 city: homeAddress.city,
@@ -295,7 +313,6 @@ final class CareRequestViewModel: ObservableObject {
         guard validate() else { return }
         guard NetworkMonitor.shared.isConnected else {
             submissionErrorMessage = "No internet connection. Please check your network."
-            showSubmissionError = true
             return
         }
         guard let patient = selectedPatient else { return }
@@ -324,13 +341,11 @@ final class CareRequestViewModel: ObservableObject {
                         submissionErrorMessage = message ?? "No nurses are currently available near your location. Please try again shortly."
                     }
                 } else {
-                    submissionErrorMessage = error.localizedDescription
+                    submissionErrorMessage = error.carelyDescription
                 }
-                showSubmissionError = true
             } catch {
                 isSubmitting = false
-                submissionErrorMessage = error.localizedDescription
-                showSubmissionError = true
+                submissionErrorMessage = error.carelyDescription
             }
         }
     }
@@ -345,6 +360,13 @@ final class CareRequestViewModel: ObservableObject {
         }
         if address == nil {
             addressError = "Please add an address for this request."
+            isValid = false
+        }
+        if selectedService.id.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            // Guards against submitting a malformed request with a missing
+            // serviceTypeId — e.g. if the available-services fetch failed
+            // and no service was ever successfully resolved.
+            submissionErrorMessage = "Please select a service before submitting."
             isValid = false
         }
         if selectedPatient == nil {

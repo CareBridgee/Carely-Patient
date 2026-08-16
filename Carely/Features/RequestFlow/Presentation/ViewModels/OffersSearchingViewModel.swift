@@ -10,6 +10,10 @@ import Foundation
 @MainActor
 final class OffersSearchingViewModel: ObservableObject {
     @Published var offers: [NurseOffer] = []
+
+    /// Drives the `.errorToast` when cancelling the service request fails.
+    @Published var errorMessage: String? = nil
+    @Published var isCancelling: Bool = false
     
     private let observeOffersUseCase: ObserveOffersUseCase
     private let manageOffersConnectionUseCase: ManageOffersConnectionUseCase
@@ -113,13 +117,17 @@ final class OffersSearchingViewModel: ObservableObject {
     }
 
     func confirmCancelServiceRequest() {
+        isCancelling = true
+        errorMessage = nil
         Task {
             do {
                 try await cancelServiceRequestUseCase.execute(serviceRequestId: requestId)
+                isCancelling = false
                 cancelSearch()
                 onSearchCanceled()
             } catch {
-                print("Failed to cancel service request: \(error)")
+                isCancelling = false
+                errorMessage = error.carelyDescription
             }
         }
     }

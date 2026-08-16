@@ -55,12 +55,7 @@ struct VisitCompletedView: View {
         .navigationBarHidden(true)
         .onAppear { viewModel.onAppear() }
         .onDisappear { viewModel.onDisappear() }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadSummary() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+        .errorToast($viewModel.errorMessage)
         .sheet(isPresented: $viewModel.showRatingSheet) {
             RatingBottomSheetView(
                 selectedStars: $viewModel.selectedStars,
@@ -69,6 +64,7 @@ struct VisitCompletedView: View {
                 isSubmitting: viewModel.isSubmittingRating,
                 onStarTapped: viewModel.starTapped,
                 onSubmit: viewModel.submitRatingTapped,
+                errorMessage: $viewModel.errorMessage,
                 onSkip: viewModel.dismissRatingSheet
             )
             .presentationDetents([.height(490)])

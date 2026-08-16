@@ -109,7 +109,7 @@ final class WelcomeViewModel: ObservableObject {
             }
         } catch {
             isLoading = false
-            self.errorMessage = (error as? AuthError)?.errorDescription ?? error.localizedDescription
+            self.errorMessage = error.carelyDescription
         }
     }
 }

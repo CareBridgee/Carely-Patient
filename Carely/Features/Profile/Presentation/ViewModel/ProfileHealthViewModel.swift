@@ -20,8 +20,9 @@ final class ProfileHealthViewModel: ObservableObject {
     // MARK: - State
     @Published var isLoading = false
     @Published var isSaved  = false
+
+    /// Drives the `.errorToast` when saving fails.
     @Published var errorMessage: String? = nil
-    @Published var showError = false
 
     // MARK: - Validation helpers
     var heightError: String? {
@@ -105,8 +106,7 @@ final class ProfileHealthViewModel: ObservableObject {
                 isSaved   = true
             } catch {
                 isLoading = false
-                errorMessage = error.localizedDescription
-                showError = true
+                errorMessage = error.carelyDescription
             }
         }
     }

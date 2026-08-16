@@ -93,7 +93,7 @@ final class PersonalInfoViewModel: ObservableObject {
                 onOersonalDataSaved()
             } catch {
                 isLoading = false
-                apiErrorMessage = error.localizedDescription
+                apiErrorMessage = error.carelyDescription
                 showError = true
             }
         }

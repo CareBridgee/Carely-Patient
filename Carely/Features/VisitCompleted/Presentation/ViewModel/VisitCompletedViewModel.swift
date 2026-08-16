@@ -17,8 +17,11 @@ final class VisitCompletedViewModel: ObservableObject {
  
     @Published private(set) var summary: VisitSummary?
     @Published var isLoading: Bool = false
+
+    /// Drives the `.errorToast` for summary-load and rating-submission
+    /// failures. Always the exact server message (via `error.carelyDescription`)
+    /// rather than a hardcoded fallback string.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
  
     @Published var showRatingSheet: Bool = false
     @Published var selectedStars: Int = 0
@@ -64,8 +67,7 @@ final class VisitCompletedViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }
@@ -111,8 +113,7 @@ final class VisitCompletedViewModel: ObservableObject {
                 self.onFinished()
             } catch {
                 self.isSubmittingRating = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }

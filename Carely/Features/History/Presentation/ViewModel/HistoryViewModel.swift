@@ -12,8 +12,10 @@ final class HistoryViewModel: ObservableObject {
  
     @Published private(set) var items: [VisitHistoryItem] = []
     @Published var isLoading: Bool = false
-    @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
+
+    /// Drives the full-page `ErrorStateView` with a Retry button when the
+    /// visit history fails to load.
+    @Published var loadError: Error? = nil
  
     private let getHistoryUseCase: GetHistoryUseCaseProtocol
     private let coordinator: HistoryCoordinator
@@ -30,7 +32,7 @@ final class HistoryViewModel: ObservableObject {
  
     func loadHistory() {
         isLoading = true
-        errorMessage = nil
+        loadError = nil
  
         Task {
             do {
@@ -39,8 +41,7 @@ final class HistoryViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.loadError = error
             }
         }
     }

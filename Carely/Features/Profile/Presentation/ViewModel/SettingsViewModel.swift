@@ -12,6 +12,13 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
+    /// Drives the `.errorToast` for any settings-sync failure. Always the
+    /// exact server message (via `error.carelyDescription`) rather than a
+    /// hardcoded fallback string. No setting currently performs a server
+    /// sync, so this stays `nil` today — it's wired up so any future sync
+    /// call only needs to assign into it on failure.
+    @Published var errorMessage: String? = nil
+
     private let coordinator: ProfileCoordinator
     private let appState: AppState
 

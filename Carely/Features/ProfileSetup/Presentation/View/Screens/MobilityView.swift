@@ -29,6 +29,7 @@ struct MobilityView: View {
         }
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
+        .errorToast($viewModel.errorMessage)
     }
 }
 
@@ -67,14 +68,14 @@ private extension MobilityView {
         }
     }
 }
-#Preview("Medical History – In Coordinator") {
-    ProfileSetupCoordinatorView(
-    
-        coordinator: ProfileSetupCoordinator(
-            data: ProfileSetupData(),
-            startingStep: .medicalHistory
-        ),
-        container: DIContainer(),
-        onFinish: {}
-    )
-}
+//#Preview("Medical History – In Coordinator") {
+//    ProfileSetupCoordinatorView(
+//    
+//        coordinator: ProfileSetupCoordinator(
+//            data: ProfileSetupData(),
+//            startingStep: .medicalHistory
+//        ),
+//        container: DIContainer(),
+//        onFinish: {}
+//    )
+//}

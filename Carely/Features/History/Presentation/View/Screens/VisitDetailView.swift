@@ -31,12 +31,6 @@ struct VisitDetailView: View {
         )
         .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("Retry") { viewModel.loadDetail() }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
     }
  
     @ViewBuilder
@@ -56,6 +50,13 @@ struct VisitDetailView: View {
             }
         } else if viewModel.isLoading {
             visitDetailSkeletonView
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else if let loadError = viewModel.loadError {
+            ErrorStateView(error: loadError) {
+                viewModel.loadDetail()
+            }
         } else {
             Spacer()
         }
@@ -231,4 +232,3 @@ struct VisitDetailView: View {
         .clipShape(Circle())
     }
 }
- 

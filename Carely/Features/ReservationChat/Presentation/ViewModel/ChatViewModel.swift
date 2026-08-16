@@ -11,6 +11,9 @@ final class ChatViewModel: ObservableObject {
     @Published var messages: [ChatMessageResponse] = []
     @Published var newMessageText: String = ""
     @Published var isLoading: Bool = false
+
+    /// Drives the `.errorToast`. Carries the exact server/socket message
+    /// with no hardcoded "Failed to ..." prefix.
     @Published var errorMessage: String?
     
     @Published var nurseName: String?
@@ -63,7 +66,7 @@ final class ChatViewModel: ObservableObject {
                 let history = try await repository.fetchHistoricalMessages(reservationId: reservationId)
                 self.messages = history
             } catch {
-                self.errorMessage = "Failed to load history: \(error.localizedDescription)"
+                self.errorMessage = error.carelyDescription
             }
             self.isLoading = false
         }
@@ -89,7 +92,7 @@ final class ChatViewModel: ObservableObject {
             do {
                 try await repository.sendMessage(reservationId: reservationId, content: content, isSocketConnected: isSocketConnected)
             } catch {
-                self.errorMessage = "Failed to send message: \(error.localizedDescription)"
+                self.errorMessage = error.carelyDescription
             }
         }
     }

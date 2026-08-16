@@ -35,11 +35,7 @@ struct BasicHealthInfoView: View {
                 onContinueTapped: viewModel.continueTapped
             )
         }
-        .alert("Error", isPresented: $viewModel.showError) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Something went wrong.")
-        }
+        .errorToast($viewModel.errorMessage)
     }
     
     private var measurementsSection: some View {

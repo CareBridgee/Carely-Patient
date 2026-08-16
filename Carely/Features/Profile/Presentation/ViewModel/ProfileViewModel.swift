@@ -16,8 +16,10 @@ final class ProfileViewModel: ObservableObject {
     private var storeCancellables = Set<AnyCancellable>()
 
     @Published var isLoading: Bool = false
+
+    /// Drives the `.errorToast` for both profile-fetch and logout failures,
+    /// per the doc's instructions for this screen.
     @Published var errorMessage: String? = nil
-    @Published var showError: Bool = false
 
     /// Profile image URL — sessionManager cache is the most up-to-date source
     /// (updated immediately on save), API response is the fallback.
@@ -83,8 +85,7 @@ final class ProfileViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.isLoading = false
-                self.errorMessage = error.localizedDescription
-                self.showError = true
+                self.errorMessage = error.carelyDescription
             }
         }
     }
@@ -131,13 +132,13 @@ final class ProfileViewModel: ObservableObject {
     func confirmLogout() {
         Task {
             isLoading = true
+            errorMessage = nil
             do {
                 try await logoutUseCase.execute()
                 coordinator.logoutTapped()
             } catch {
                 isLoading = false
-                errorMessage = "Failed to logout: \(error.localizedDescription)"
-                showError = true
+                errorMessage = error.carelyDescription
             }
         }
     }

@@ -28,10 +28,6 @@ struct AIChatView: View {
 
             messageList
 
-            if let errorMessage = viewModel.errorMessage {
-                errorBanner(message: errorMessage)
-            }
-
             ChatInputBar(
                 text: $viewModel.inputText,
                 isLoading: viewModel.isLoading || viewModel.isResetting,
@@ -40,6 +36,7 @@ struct AIChatView: View {
         }
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
+        .errorToast($viewModel.errorMessage)
     }
 
     // MARK: - Message List
@@ -171,5 +168,3 @@ private struct TypingIndicator: View {
         .onAppear { animate = true }
     }
 }
-
-

@@ -92,17 +92,13 @@ struct HomeAddressView: View {
             HealthProfileBottomActionsView(
                 isContinueDisabled: viewModel.isLoading,
                 showBackButton: viewModel.showBackButton,
-                continueTitle: viewModel.isLoading ? viewModel.loadingButtonTitle : viewModel.continueButtonTitle, 
+                continueTitle: viewModel.isLoading ? viewModel.loadingButtonTitle : viewModel.continueButtonTitle,
                 onBackTapped: viewModel.backTapped,
                 onContinueTapped: viewModel.finishSetupTapped
             )
             .disabled(viewModel.isLoading)
         }
-                .alert("Error", isPresented: $viewModel.showError) {
-                    Button("OK", role: .cancel) {}
-                } message: {
-                    Text(viewModel.errorMessage ?? "Something went wrong.")
-                }
+                .errorToast($viewModel.errorMessage)
         .sheet(isPresented: $viewModel.isMapPickerPresented) {
             AddressMapPickerBottomSheet(viewModel: viewModel.mapPickerViewModel)
                 .presentationDetents([.fraction(0.85), .large])
@@ -150,13 +146,13 @@ struct HomeAddressView: View {
     }
 }
 
-#Preview("Home Address - In Coordinator") {
-    ProfileSetupCoordinatorView(
-        coordinator: ProfileSetupCoordinator(
-            data: ProfileSetupData(),
-            startingStep: .emergencyContact
-        ),
-        container: DIContainer(),
-        onFinish: {}
-    )
-}
+//#Preview("Home Address - In Coordinator") {
+//    ProfileSetupCoordinatorView(
+//        coordinator: ProfileSetupCoordinator(
+//            data: ProfileSetupData(),
+//            startingStep: .emergencyContact
+//        ),
+//        container: DIContainer(),
+//        onFinish: {}
+//    )
+//}

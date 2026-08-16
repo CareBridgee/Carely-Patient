@@ -48,13 +48,6 @@ struct ProfilePersonalInfoView: View {
                         )
                         GenderSelectionView(selectedGender: $viewModel.gender)
 
-                        if let err = viewModel.errorMessage {
-                            Text(err)
-                                .carelyText(style: .caption)
-                                .foregroundColor(.error)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
-
                         PrimaryButton(
                             title: "Save Changes",
                             icon: "checkmark",
@@ -81,11 +74,8 @@ struct ProfilePersonalInfoView: View {
             }
         )
         .blur(radius: viewModel.isLoading ? 3 : 0)
-        .alert("Something went wrong", isPresented: $viewModel.showError) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(viewModel.errorMessage ?? "Please try again.")
-        }
+
+        .navigationBarHidden(true)
         .onChange(of: viewModel.isSaved) {
             if viewModel.isSaved {
                 viewModel.backTapped()
@@ -94,6 +84,7 @@ struct ProfilePersonalInfoView: View {
         .onAppear {
             viewModel.onAppear()
         }
+        .errorToast($viewModel.errorMessage)
     }
 
     // MARK: - Photo Picker

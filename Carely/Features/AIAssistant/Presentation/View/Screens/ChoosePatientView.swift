@@ -11,6 +11,42 @@ struct ChoosePatientView: View {
     @StateObject var viewModel: ChoosePatientViewModel
     
     var body: some View {
+        ZStack {
+            Color.backGround.ignoresSafeArea()
+
+            if viewModel.isLoadingPatients && viewModel.patients.isEmpty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color.brandPrimary))
+            } else if let loadError = viewModel.loadError, viewModel.patients.isEmpty {
+                ErrorStateView(error: loadError) {
+                    viewModel.retryLoadPatients()
+                }
+            } else {
+                patientContent
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            PrimaryButton(
+                title: "Continue with Assessment",
+                customIconSize: 18,
+                icon: "arrow.right",
+                iconPosition: .trailing,
+                isLoading: viewModel.isLoading,
+                action: viewModel.continueWithAssessment
+            )
+            .disabled(viewModel.selectedPatientId == nil)
+            .padding(.horizontal, Spacing.s24)
+            .padding(.vertical, Spacing.s16)
+            .background(Color.backGround)
+        }
+        .task {
+            await viewModel.onAppear()
+        }
+        .navigationBarHidden(true)
+        .errorToast($viewModel.errorMessage)
+    }
+
+    private var patientContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: Spacing.s24) {
                 // Header Feature Title
@@ -82,24 +118,5 @@ struct ChoosePatientView: View {
             }
             .padding(.horizontal, Spacing.s24)
         }
-        .background(Color.backGround.ignoresSafeArea())
-        .safeAreaInset(edge: .bottom) {
-            PrimaryButton(
-                title: "Continue with Assessment",
-                customIconSize: 18,
-                icon: "arrow.right",
-                iconPosition: .trailing,
-                isLoading: viewModel.isLoading,
-                action: viewModel.continueWithAssessment
-            )
-            .disabled(viewModel.selectedPatientId == nil)
-            .padding(.horizontal, Spacing.s24)
-            .padding(.vertical, Spacing.s16)
-            .background(Color.backGround)
-        }
-        .task {
-            await viewModel.onAppear()
-        }
-        .navigationBarHidden(true)
     }
 }
