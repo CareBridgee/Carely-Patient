@@ -76,35 +76,23 @@ struct OfferAcceptedView: View {
                 }
                 
                 // Bottom Buttons
-                VStack(spacing: Spacing.s16) {
+                VStack(spacing: Spacing.s12) {
                     SecondaryButton(title: "Show QR Code", icon: "qrcode") {
                         viewModel.showQRCode()
                     }
                     
-                    PrimaryButton(title: "Cancel") {
+                    PrimaryButton(
+                        title: "Cancel",
+                        isLoading: viewModel.isCancelling
+                    ) {
                         viewModel.cancelRequest()
                     }
                 }
                 .padding(.horizontal, Spacing.s20)
                 .padding(.top, Spacing.s16)
-                .padding(.bottom, Spacing.s16)
+                .padding(.bottom, Spacing.s24)
                 .background(Color.backGround.ignoresSafeArea(edges: .bottom))
             }
-            
-            // Bottom Buttons
-            VStack(spacing: Spacing.s16) {
-                SecondaryButton(title: "Show QR Code", icon: "qrcode") {
-                    viewModel.showQRCode()
-                }
-                
-                PrimaryButton(title: viewModel.isCancelling ? "Cancelling..." : "Cancel", isLoading: viewModel.isCancelling) {
-                    viewModel.cancelRequest()
-                }
-            }
-            .padding(.horizontal, Spacing.s20)
-            .padding(.top, Spacing.s20)
-            .padding(.bottom, Spacing.s24)
-            .background(Color.backGround.ignoresSafeArea(edges: .bottom))
         }
         .navigationBarHidden(true)
         .alert("Request Canceled", isPresented: $viewModel.showNurseCanceledAlert) {
