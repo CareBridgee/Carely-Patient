@@ -28,11 +28,16 @@ struct ArrivalQRCodeView: View {
                     
                     // QR Code Card
                     VStack(spacing: Spacing.s20) {
-                        Image(uiImage: generateQRCode(from: viewModel.qrCodeData))
-                            .interpolation(.none)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 200)
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .frame(width: 200, height: 200)
+                        } else {
+                            Image(uiImage: generateQRCode(from: viewModel.qrCodeData))
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                        }
                         
                         VStack(spacing: Spacing.s4) {
                             Text("VISIT REFERENCE")
@@ -93,6 +98,9 @@ struct ArrivalQRCodeView: View {
         .background(Color.backGround.ignoresSafeArea())
         .navigationBarHidden(true)
         .errorToast($viewModel.errorMessage)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
     
     private func generateQRCode(from string: String) -> UIImage {
@@ -115,6 +123,6 @@ struct ArrivalQRCodeView: View {
 }
 
 #Preview {
-    let viewModel = ArrivalQRCodeViewModel(qrCodeData: "carely-bkg-1", referenceNumber: "#HOSP-7729-BK", onClose: {})
+    let viewModel = ArrivalQRCodeViewModel(serviceRequestId: "req-123", fallbackQrCodeData: "carely-bkg-1", referenceNumber: "#HOSP-7729-BK", onClose: {})
     return ArrivalQRCodeView(viewModel: viewModel)
 }

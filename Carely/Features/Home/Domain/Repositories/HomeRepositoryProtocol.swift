@@ -30,5 +30,6 @@ protocol HomeRepositoryProtocol {
     func fetchUpcomingBookings() async throws -> [UpcomingBooking]
     func fetchServiceDetail(id: String) async throws -> ServiceDetail
     func searchServiceCategories(query: String) async throws -> [ServiceCategory]
+    func fetchActiveVisit() async throws -> ConfirmedOffer?
 }
  

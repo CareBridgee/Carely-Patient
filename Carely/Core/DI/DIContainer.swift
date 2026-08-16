@@ -17,6 +17,7 @@ final class DIContainer {
     let appState: AppState
     let patientProfilesStore = PatientProfilesStore()
     let serviceTypesStore = ServiceTypesStore()
+    let activeVisitStore = ActiveVisitStore()
     
     private let tokenStore: TokenStoring
     private let sessionManager: SessionManager
@@ -75,6 +76,7 @@ final class DIContainer {
             repository: authRepository,
             sessionManager: sessionManager,
             profileRepository: profileRepository
+            
         )
     }
     
@@ -537,20 +539,28 @@ final class DIContainer {
     private func makeSearchServiceCategoriesUseCase() -> SearchServiceCategoriesUseCaseProtocol {
         SearchServiceCategoriesUseCase(repository: homeRepository)
     }
+
+    private func makeGetActiveVisitUseCase() -> GetActiveVisitUseCaseProtocol {
+        GetActiveVisitUseCase(repository: homeRepository)
+    }
     
     // MARK: - Home ViewModels
     
     func makeHomeViewModel(
         onServiceTabbed: @escaping (String) -> Void,
-        onSeeAllHistory: @escaping () -> Void = {}
+        onSeeAllHistory: @escaping () -> Void = {},
+        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil
     ) -> HomeViewModel {
         HomeViewModel(
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
+            getActiveVisitUseCase: makeGetActiveVisitUseCase(),
+            activeVisitStore: activeVisitStore,
             sessionManager: sessionManager,
             serviceTypesStore: serviceTypesStore,
             onServiceTabbed: onServiceTabbed,
-            onSeeAllHistory: onSeeAllHistory
+            onSeeAllHistory: onSeeAllHistory,
+            onOpenActiveVisit: onOpenActiveVisit
         )
     }
     
@@ -626,7 +636,7 @@ final class DIContainer {
     // MARK: - Visit Summary Repository
     
     private lazy var visitSummaryRepository: VisitSummaryRepositoryProtocol = {
-        VisitSummaryRepositoryImpl()
+        VisitSummaryRepositoryImpl(historyService: historyService, networkClient: networkClient)
     }()
     
     // MARK: - Visit Summary UseCases
@@ -731,7 +741,8 @@ final class DIContainer {
         onShowQRCode: @escaping (ConfirmedOffer) -> Void,
         onCancelRequest: @escaping () -> Void,
         onShowNurseProfile: @escaping (String) -> Void,
-        onMessageNurse: @escaping (String) -> Void
+        onMessageNurse: @escaping (String) -> Void,
+        onVisitCompleted: @escaping () -> Void = {}
     ) -> OfferAcceptedViewModel {
         let repo = makeOfferSearchingRepository(serviceRequestId: request.id)
         
@@ -740,23 +751,29 @@ final class DIContainer {
             cancelServiceRequestUseCase: makeCancelServiceRequestUseCase(repository: repo),
             observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
             manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
+            activeVisitStore: activeVisitStore,
+            historyService: historyService,
             onShowQRCode: onShowQRCode,
             onCancelRequest: onCancelRequest,
             onShowNurseProfile: onShowNurseProfile,
-            onMessageNurse: onMessageNurse
+            onMessageNurse: onMessageNurse,
+            onVisitCompleted: onVisitCompleted
         )
     }
     
     // MARK: - QR Code ViewModels
     
     func makeArrivalQRCodeViewModel(
-        qrCodeData: String,
-        referenceNumber: String,
+        serviceRequestId: String,
+        qrCodeData: String = "",
+        referenceNumber: String = "",
         onClose: @escaping () -> Void
     ) -> ArrivalQRCodeViewModel {
         ArrivalQRCodeViewModel(
-            qrCodeData: qrCodeData,
+            serviceRequestId: serviceRequestId,
+            fallbackQrCodeData: qrCodeData,
             referenceNumber: referenceNumber,
+            serviceRequestService: serviceRequestService,
             onClose: onClose
         )
     }

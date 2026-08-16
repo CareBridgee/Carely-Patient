@@ -15,6 +15,8 @@ private let homePreviewCategoryCount = 5
 @MainActor
 final class HomeViewModel: ObservableObject {
     
+    @Published var hasActiveVisit: Bool = false
+    @Published var activeVisitRequest: ConfirmedOffer? = nil
     @Published var greetingName: String = ""
     @Published var previewCategories: [ServiceCategory] = []
     @Published var upcomingBookings: [UpcomingBooking] = []
@@ -28,30 +30,40 @@ final class HomeViewModel: ObservableObject {
     /// Drives the floating `.errorToast` for background refresh / retry
     /// failures that happen while we already have data on screen.
     @Published var errorMessage: String? = nil
+    @Published var showError: Bool = false
     
     private let getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol
     private let getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol
+    private let getActiveVisitUseCase: GetActiveVisitUseCaseProtocol?
+    private let activeVisitStore: ActiveVisitStore?
     private let sessionManager: SessionManager
     private let serviceTypesStore: ServiceTypesStore
     private var cancellables = Set<AnyCancellable>()
     
     private var onServiceTabbed: (String) -> Void
     private var onSeeAllHistory: () -> Void
-
+    private var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
+    
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
         getUpcomingBookingsUseCase: GetUpcomingBookingsUseCaseProtocol,
+        getActiveVisitUseCase: GetActiveVisitUseCaseProtocol? = nil,
+        activeVisitStore: ActiveVisitStore? = nil,
         sessionManager: SessionManager,
         serviceTypesStore: ServiceTypesStore,
         onServiceTabbed: @escaping (String) -> Void,
-        onSeeAllHistory: @escaping () -> Void = {}
-    ) {
+        onSeeAllHistory: @escaping () -> Void = {},
+        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil
+    )  {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
+        self.getActiveVisitUseCase = getActiveVisitUseCase
+        self.activeVisitStore = activeVisitStore
         self.sessionManager = sessionManager
         self.serviceTypesStore = serviceTypesStore
         self.onServiceTabbed = onServiceTabbed
         self.onSeeAllHistory = onSeeAllHistory
+        self.onOpenActiveVisit = onOpenActiveVisit
         
         // Populate immediately from shared in-memory store if available
         if serviceTypesStore.hasCategories {
@@ -70,6 +82,14 @@ final class HomeViewModel: ObservableObject {
                 self?.profileImageUrl = user?.profileImageUrl
             }
             .store(in: &cancellables)
+        
+        activeVisitStore?.$activeVisit
+            .receive(on: RunLoop.main)
+            .sink { [weak self] offer in
+                self?.activeVisitRequest = offer
+                self?.hasActiveVisit = (offer != nil)
+            }
+            .store(in: &cancellables)
     }
     
     private func setupStoreObservation() {
@@ -83,13 +103,34 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onAppear() {
+        checkActiveVisit()
         guard previewCategories.isEmpty || upcomingBookings.isEmpty else { return }
         loadDashboard()
     }
-    
-    /// Retries the initial load from the full-page `ErrorStateView`.
-    func retryInitialLoad() {
+func retryInitialLoad() {
         loadDashboard()
+    }
+    
+    func checkActiveVisit() {
+        guard let useCase = getActiveVisitUseCase else { return }
+        
+        Task {
+            do {
+                if let offer = try await useCase.execute() {
+                    self.activeVisitStore?.setActiveVisit(offer)
+                } else {
+                    self.activeVisitStore?.clearActiveVisit()
+                }
+            } catch {
+                self.activeVisitStore?.clearActiveVisit()
+            }
+        }
+    }
+    
+    func activeVisitBannerTapped() {
+        if let offer = activeVisitRequest {
+            onOpenActiveVisit?(offer)
+        }
     }
     
     func loadDashboard() {
@@ -128,6 +169,7 @@ final class HomeViewModel: ObservableObject {
                     self.loadError = error
                 } else {
                     self.errorMessage = error.localizedDescription
+                    self.showError = true
                 }
             }
         }

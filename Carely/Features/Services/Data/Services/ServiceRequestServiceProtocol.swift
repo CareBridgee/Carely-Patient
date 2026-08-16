@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct VisitCodeResponseDTO: Decodable {
+    let serviceRequestId: String
+    let code: String
+    let expiresAt: String?
+}
+
 protocol ServiceRequestServiceProtocol {
     func getProfiles() async throws -> [ProfileResponseDTO]
     func getAddress(profileId: String) async throws -> AddressResponseDTO
@@ -15,6 +21,7 @@ protocol ServiceRequestServiceProtocol {
     func acceptOffer(offerId: String) async throws
     func declineOffer(offerId: String) async throws
     func cancelServiceRequest(serviceRequestId: String) async throws
+    func fetchVisitCode(serviceRequestId: String) async throws -> VisitCodeResponseDTO
 }
 
 final class ServiceRequestServiceImpl: ServiceRequestServiceProtocol {
@@ -58,5 +65,11 @@ struct EmptyResponse: Decodable {}
         if useLogs { print("ServiceRequestService: cancelServiceRequest \(serviceRequestId)") }
         let endpoint = ServiceRequestEndpoint.cancelServiceRequest(serviceRequestId: serviceRequestId)
         _ = try await networkClient.request(endpoint) as EmptyResponse
+    }
+
+    func fetchVisitCode(serviceRequestId: String) async throws -> VisitCodeResponseDTO {
+        if useLogs { print("ServiceRequestService: fetchVisitCode \(serviceRequestId)") }
+        let endpoint = ServiceRequestEndpoint.fetchVisitCode(serviceRequestId: serviceRequestId)
+        return try await networkClient.request(endpoint)
     }
 }

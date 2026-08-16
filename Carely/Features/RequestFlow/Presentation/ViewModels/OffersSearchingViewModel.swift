@@ -101,7 +101,7 @@ final class OffersSearchingViewModel: ObservableObject {
             cancelSearch()
             onSearchCanceled()
             
-        case .searchCompleted:
+        case .searchCompleted, .visitCompleted:
             break
         }
     }

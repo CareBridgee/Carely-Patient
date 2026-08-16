@@ -27,7 +27,7 @@ struct MainTabCoordinatorView: View {
                 .ignoresSafeArea()
 
             tabContent
-                .padding(.bottom, coordinator.isTabBarVisible ? Spacing.s56 : Spacing.s0)
+                .padding(.bottom, coordinator.isTabBarVisible ? 50 : Spacing.s0)
             
             if coordinator.isTabBarVisible {
                 FloatingTabBar(

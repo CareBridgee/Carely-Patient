@@ -25,8 +25,12 @@ struct HomeCoordinatorView: View {
     }
 
     var body: some View {
-        NavigationStack(path: $coordinator.path) {
-            HomeView(viewModel: homeViewModel)
+        NavigationStack {
+            HomeView(viewModel: container.makeHomeViewModel(
+                onServiceTabbed: coordinator.serviceTapped,
+                onSeeAllHistory: coordinator.seeAllHistoryTapped,
+                onOpenActiveVisit: coordinator.activeVisitTapped
+            ))
         }
     }
 }

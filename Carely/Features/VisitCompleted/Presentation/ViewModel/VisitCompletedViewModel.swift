@@ -7,7 +7,7 @@
 
 import Foundation
 
-private let ratingSheetAutoPresentDelayNanoseconds: UInt64 = 5_000_000_000
+private let ratingSheetAutoPresentDelayNanoseconds: UInt64 = 1_000_000_000
 private let closeAfterRatingDelayNanoseconds: UInt64 = 1_200_000_000
 
 @MainActor
@@ -85,6 +85,9 @@ final class VisitCompletedViewModel: ObservableObject {
  
     // MARK: - Rating
  
+    @Published var reviewText: String = ""
+    @Published var isAnonymous: Bool = false
+
     func starTapped(_ star: Int) {
         selectedStars = star
     }
@@ -95,7 +98,13 @@ final class VisitCompletedViewModel: ObservableObject {
  
         Task {
             do {
-                try await submitVisitRatingUseCase.execute(VisitRating(visitId: visitId, stars: selectedStars))
+                let rating = VisitRating(
+                    visitId: visitId,
+                    stars: selectedStars,
+                    reviewText: reviewText,
+                    isAnonymous: isAnonymous
+                )
+                try await submitVisitRatingUseCase.execute(rating)
                 self.isSubmittingRating = false
                 self.ratingSubmitted = true
                 self.showRatingSheet = false
@@ -111,5 +120,10 @@ final class VisitCompletedViewModel: ObservableObject {
  
     func dismissRatingSheet() {
         showRatingSheet = false
+    }
+
+    func returnHome() {
+        autoPresentTask?.cancel()
+        onFinished()
     }
 }

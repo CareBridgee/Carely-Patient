@@ -12,6 +12,7 @@ protocol OffersSearchingHubServicesProtocol {
     var onOfferCanceled: ((String) -> Void)? { get set }
     var onOfferConfirmed: ((NurseOffer) -> Void)? { get set }
     var onRequestCanceled: (() -> Void)? { get set }
+    var onVisitCompleted: (() -> Void)? { get set }
     
     func connect()
     func disconnect()
@@ -25,6 +26,7 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
     var onOfferCanceled: ((String) -> Void)?
     var onOfferConfirmed: ((NurseOffer) -> Void)?
     var onRequestCanceled: (() -> Void)?
+    var onVisitCompleted: (() -> Void)?
     
     private let socketClient: SocketClientProtocol
     private let serviceRequestId: String
@@ -176,6 +178,12 @@ final class OffersSearchingSocketDataSource: OffersSearchingHubServicesProtocol 
             case "REQUEST_CANCELLED":
                 DispatchQueue.main.async {
                     self.onRequestCanceled?()
+                }
+                
+            case "COMPLETED":
+                print("[Socket Data Source] Visit completed event received!")
+                DispatchQueue.main.async {
+                    self.onVisitCompleted?()
                 }
                 
             default:
