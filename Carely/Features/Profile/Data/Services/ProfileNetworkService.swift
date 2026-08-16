@@ -80,7 +80,7 @@ struct ProfileUpdateRequestParams {
 
 // MARK: - Protocol
 
-protocol ProfileNetworkServiceProtocol {
+protocol ProfileNetworkServiceProtocol: Sendable {
     /// GET /api/v1/profiles — all profiles for the logged-in user.
     func fetchAllProfiles() async throws -> [FullProfileResponseDTO]
     /// GET /api/v1/profiles/default
