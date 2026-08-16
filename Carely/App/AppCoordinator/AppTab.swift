@@ -28,12 +28,12 @@ extension AppTab {
         }
     }
  
-    var iconName: String {
+    func iconName(isSelected: Bool) -> String {
         switch self {
-        case .home: return "house.fill"
-        case .services: return "stethoscope"
-        case .ai: return "sparkles"
-        case .profile: return "person.fill"
+        case .home: return isSelected ? "house.fill" : "house"
+        case .services: return isSelected ? "stethoscope" : "stethoscope"
+        case .ai: return isSelected ? "sparkles" : "sparkles"
+        case .profile: return isSelected ? "person.fill" : "person"
         }
     }
 }
