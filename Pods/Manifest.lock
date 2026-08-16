@@ -1,0 +1,16 @@
+PODS:
+  - Paymob (1.5.3)
+
+DEPENDENCIES:
+  - Paymob
+
+SPEC REPOS:
+  trunk:
+    - Paymob
+
+SPEC CHECKSUMS:
+  Paymob: b12c8e92b884ff2d9cfbc832947465caab469f56
+
+PODFILE CHECKSUM: b0d5d0b20c44a9469376b6187ac55a1403db740d
+
+COCOAPODS: 1.16.2
