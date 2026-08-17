@@ -112,15 +112,13 @@ final class DIContainer {
     
     func makePersonalInfoViewModel(
         router: AuthRouter,
-        onOersonalDataSaved: @escaping () -> Void,
-        onLogout: (() -> Void)? = nil
+        onPersonalDataSaved: @escaping () -> Void
     ) -> PersonalInfoViewModel {
         PersonalInfoViewModel(
             savePersonalInfoUseCase: makeSavePersonalInfoUseCase(),
             logoutUseCase: makeLogoutUseCase(),
             router: router,
-            onOersonalDataSaved: onOersonalDataSaved,
-            onLogout: onLogout
+            onPersonalDataSaved: onPersonalDataSaved
         )
     }
     

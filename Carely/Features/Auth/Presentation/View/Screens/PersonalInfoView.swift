@@ -43,5 +43,6 @@ struct PersonalInfoView: View {
         } message: {
             Text("Are you sure you want to log out and exit the setup?")
         }
+        .errorToast($viewModel.apiErrorMessage)
     }
 }
