@@ -85,11 +85,6 @@ struct AllServiceView: View {
                     }
                     .padding(.vertical)
                 }
-                
-                HelpBannerView()
-                    .padding(.horizontal)
-                    .padding(.top, Spacing.s8)
-                    .padding(.bottom, 0)
             }
         }
         .background(Color.backGround.ignoresSafeArea())

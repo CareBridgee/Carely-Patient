@@ -38,7 +38,7 @@ struct ErrorToastModifier: ViewModifier {
                     )
                     .onTapGesture { dismiss() }
                     .onAppear { scheduleAutoDismiss() }
-                    .onChange(of: message) { _ in scheduleAutoDismiss() }
+                    .onChange(of: message) { scheduleAutoDismiss() }
             }
         }
         .animation(CarelyMotion.springDefault, value: message)

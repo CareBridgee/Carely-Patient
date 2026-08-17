@@ -42,7 +42,7 @@ struct FloatingTabBar: View {
             select(tab)
         } label: {
             HStack(spacing: Spacing.s8) {
-                Image(systemName: tab.iconName)
+                Image(systemName: tab.iconName(isSelected: isSelected))
                     .font(.system(size: 20, weight: .semibold))
                     .scaleEffect(isSelected ? 1.1 : 1.0)
  

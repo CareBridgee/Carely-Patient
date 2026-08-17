@@ -73,11 +73,8 @@ struct AuthCoordinator: View {
             PersonalInfoView(
                 viewModel: container.makePersonalInfoViewModel(
                     router: router,
-                    onOersonalDataSaved: {
+                    onPersonalDataSaved: {
                         appState.goToProfileSetupDecision()
-                    },
-                    onLogout: {
-                        appState.startAuthFlow()
                     }
                 )
             )

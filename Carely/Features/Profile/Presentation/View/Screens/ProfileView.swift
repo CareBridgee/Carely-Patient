@@ -140,19 +140,20 @@ struct ProfileView: View {
 
     private var logoutButton: some View {
         Button(action: viewModel.logoutTapped) {
-            HStack(spacing: Spacing.s12) {
+            HStack {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
-                    .font(.system(size: 16))
                 Text("Logout")
-                    .carelyText(style: .bodyRegular, weight: .semiBold)
             }
+            .font(.headline)
             .foregroundColor(.error)
             .frame(maxWidth: .infinity)
-            .padding(Spacing.s16)
-            .background(Color.errorContainer.opacity(0.5))
-            .clipShape(RoundedRectangle.carely(Radius.r20))
+            .padding(.vertical, Spacing.s16)
+            .background(
+                RoundedRectangle(cornerRadius: Radius.r12)
+                    .stroke(Color.error.opacity(0.3), lineWidth: 1)
+                    .background(Color.surface.cornerRadius(Radius.r12))
+            )
         }
-        .buttonStyle(.plain)
     }
 }
 

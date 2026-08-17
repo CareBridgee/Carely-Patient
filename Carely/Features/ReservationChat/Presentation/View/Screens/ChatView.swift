@@ -120,7 +120,7 @@ struct ChatView: View {
                 .padding(.horizontal, Spacing.s16)
                 .padding(.bottom, Spacing.s24)
             }
-            .onChange(of: viewModel.messages.count) { _ in
+            .onChange(of: viewModel.messages.count) {
                 if let lastId = viewModel.messages.last?.id {
                     withAnimation { proxy.scrollTo(lastId, anchor: .bottom) }
                 }
@@ -172,8 +172,6 @@ struct ChatView: View {
                 .carelyText(style: .bodyRegular, weight: .regular)
                 .padding(.horizontal, Spacing.s16)
                 .padding(.vertical, Spacing.s12)
-                .background(Color.surfaceVariant)
-                .clipShape(Capsule())
                 .lineLimit(1...4)
             
             Button(action: {
@@ -191,9 +189,15 @@ struct ChatView: View {
             .disabled(viewModel.newMessageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .opacity(viewModel.newMessageText.isEmpty ? 0.6 : 1.0)
         }
-        .padding(.horizontal, Spacing.s16)
-        .padding(.vertical, Spacing.s12)
-        .background(Color.surface)
+        .padding(.horizontal, Spacing.s12)
+        .padding(.vertical, Spacing.s8)
+        .background(
+            Capsule()
+                .fill(Color.surface)
+                .shadow(color: Color.black.opacity(0.12), radius: Radius.r16, x: 0, y: 8)
+        )
+        .padding(.horizontal, 20)
+        .padding(.bottom, Spacing.s8)
     }
     
     // MARK: - Empty State

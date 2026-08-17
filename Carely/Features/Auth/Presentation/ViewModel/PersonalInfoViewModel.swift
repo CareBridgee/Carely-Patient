@@ -31,23 +31,20 @@ final class PersonalInfoViewModel: ObservableObject {
     @Published var showError: Bool = false
 
     private let savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol
-    private let logoutUseCase: LogoutUseCaseProtocol?
+    private let logoutUseCase: LogoutUseCaseProtocol
     private let router: AuthRouter
-    private var onOersonalDataSaved: () -> Void
-    private var onLogout: (() -> Void)?
+    private var onPersonalDataSaved: () -> Void
 
     init(
         savePersonalInfoUseCase: SavePersonalInfoUseCaseProtocol,
-        logoutUseCase: LogoutUseCaseProtocol? = nil,
+        logoutUseCase: LogoutUseCaseProtocol,
         router: AuthRouter,
-        onOersonalDataSaved: @escaping () -> Void,
-        onLogout: (() -> Void)? = nil
+        onPersonalDataSaved: @escaping () -> Void
     ) {
         self.savePersonalInfoUseCase = savePersonalInfoUseCase
         self.logoutUseCase = logoutUseCase
         self.router = router
-        self.onOersonalDataSaved = onOersonalDataSaved
-        self.onLogout = onLogout
+        self.onPersonalDataSaved = onPersonalDataSaved
     }
 
     @Published var showLogoutConfirmation: Bool = false
@@ -58,12 +55,16 @@ final class PersonalInfoViewModel: ObservableObject {
 
     func confirmLogout() {
         Task {
+            isLoading = true
+            apiErrorMessage = nil
             do {
-                try await logoutUseCase?.execute()
+                try await logoutUseCase.execute()
+                router.popToRoot()
             } catch {
-                print("Failed to logout: \(error.localizedDescription)")
+                print(error.carelyDescription)
+                print(error)
             }
-            onLogout?()
+            isLoading = false
         }
     }
 
@@ -90,7 +91,7 @@ final class PersonalInfoViewModel: ObservableObject {
             do {
                 try await self.savePersonalInfoUseCase.execute(basicInfo: basicInfo)
                 isLoading = false
-                onOersonalDataSaved()
+                onPersonalDataSaved()
             } catch {
                 isLoading = false
                 apiErrorMessage = error.carelyDescription
