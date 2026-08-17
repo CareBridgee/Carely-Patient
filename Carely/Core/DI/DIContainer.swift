@@ -28,7 +28,7 @@ final class DIContainer {
     
     private lazy var session: Session = Session(interceptor: authInterceptor)
     
-    private lazy var networkClient: NetworkClientProtocol = NetworkClient(session: session)
+     lazy var networkClient: NetworkClientProtocol = NetworkClient(session: session)
     
     // MARK: - Init
     
@@ -139,6 +139,34 @@ final class DIContainer {
                 onAuthFinished: onAuthFinished
             )
         }
+
+    private func makeWalletRepository() -> WalletRepositoryProtocol {
+        WalletRepositoryImpl(
+            apiService: WalletAPIService(networkClient: networkClient),
+            paymobDirectService: PaymobDirectAPIService()
+        )
+    }
+
+    func makeWalletViewModel(coordinator: ProfileCoordinator) -> WalletViewModel {
+        let repository = makeWalletRepository()
+        return WalletViewModel(
+            getWalletSummaryUseCase: GetWalletSummaryUseCase(repository: repository),
+            coordinator: coordinator
+        )
+    }
+
+    func makeTopUpViewModel(userId: String, coordinator: ProfileCoordinator) -> TopUpViewModel {
+        let repository = makeWalletRepository()
+        let viewModel = TopUpViewModel(
+            userId: userId,
+            getCheckoutURLUseCase: GetPaymobCheckoutURLUseCase(repository: repository),
+            addWalletCreditUseCase: AddWalletCreditUseCase(repository: repository)
+        )
+        viewModel.onTopUpSuccess = { [weak coordinator] (_: Double) in
+            coordinator?.pop()
+        }
+        return viewModel
+    }
 
     func makeOTPVerificationViewModel(
             phoneNumber: String,
@@ -553,6 +581,7 @@ final class DIContainer {
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
             getUpcomingBookingsUseCase: makeGetUpcomingBookingsUseCase(),
             getActiveVisitUseCase: makeGetActiveVisitUseCase(),
+            walletService: WalletServiceImpl(networkClient: networkClient),
             activeVisitStore: activeVisitStore,
             sessionManager: sessionManager,
             serviceTypesStore: serviceTypesStore,
@@ -609,7 +638,7 @@ final class DIContainer {
         entryPoint: CareRequestEntryPoint,
         aiDraft: ReservationDraft? = nil,
         aiProfileId: String? = nil,
-        onSubmitted: @escaping (String) -> Void
+        onSubmitted: @escaping (String, String) -> Void
     ) -> CareRequestViewModel {
         CareRequestViewModel(
             preselectedService: preselectedService,
@@ -712,20 +741,22 @@ final class DIContainer {
     // MARK: - Search Offer ViewModels
     
     func makeOffersSearchingViewModel(
-        requestId: String,
+        requestId: String,  paymentMethod: String,
         onOfferAccepted: @escaping (ConfirmedOffer)->Void,
         onShowNurseProfile: @escaping (String)->Void,
         onSearchCanceled: @escaping () -> Void
     ) -> OffersSearchingViewModel {
         let repo = makeOfferSearchingRepository(serviceRequestId: requestId)
-        
+      
         return OffersSearchingViewModel(
             requestId: requestId,
+            isWalletPayment: paymentMethod == "CREDIT",
             observeOffersUseCase: makeObserveOffersUseCase(repository: repo),
             manageOffersConnectionUseCase: makeManageOffersConnectionUseCase(repository: repo),
             acceptOfferUseCase: makeAcceptOfferUseCase(repository: repo),
             declineOfferUseCase: makeDeclineOfferUseCase(repository: repo),
             cancelServiceRequestUseCase: makeCancelServiceRequestUseCase(repository: repo),
+            walletService: WalletServiceImpl(networkClient: networkClient),
             onOfferAccepted: onOfferAccepted,
             onShowNurseProfile: onShowNurseProfile,
             onSearchCanceled: onSearchCanceled

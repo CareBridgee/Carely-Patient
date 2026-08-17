@@ -12,6 +12,12 @@ struct CarelyApp: App {
     
     let diContainer: DIContainer
     @StateObject private var appState: AppState
+    
+    // 1. Add the ScenePhase environment variable to track app state
+    @Environment(\.scenePhase) var scenePhase
+    
+    // 2. Declare the recovery service
+    let refundRecoveryService: RefundRecoveryService
 
     @MainActor
     init() {
@@ -19,6 +25,13 @@ struct CarelyApp: App {
 
         self.diContainer = container
         _appState = StateObject(wrappedValue: container.appState)
+
+        // Initialize the recovery service
+        // (Note: Adjust 'container.networkClient' to however you usually access your network client in the DI container)
+        self.refundRecoveryService = RefundRecoveryService(
+                 walletService: WalletServiceImpl(networkClient: container.networkClient),
+                 historyService: HistoryServiceImpl(networkClient: container.networkClient) 
+             )
 
         let token = KeychainTokenStore().getAccessToken()
         print("🔑 [Access Key]: \(token ?? "No Access Key Saved")")
@@ -68,6 +81,15 @@ struct CarelyApp: App {
             }
             .background(Color.backGround.ignoresSafeArea())
             .preferredColorScheme(appState.appearance.colorScheme)
+            // 3. Attach the lifecycle listener to the main Group
+            .onChange(of: scenePhase) { newPhase in
+                // This triggers the exact millisecond the app comes to the foreground
+                if newPhase == .active {
+                    Task {
+                        await refundRecoveryService.processPendingRefunds()
+                    }
+                }
+            }
         }
     }
 }

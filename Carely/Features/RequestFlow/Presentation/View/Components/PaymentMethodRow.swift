@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct PaymentMethodRow: View {
     let method: PaymentMethod
     let isSelected: Bool
@@ -15,25 +17,28 @@ struct PaymentMethodRow: View {
 
     var body: some View {
         Button(action: onSelect) {
-            HStack(spacing: Spacing.s12) {
-                Image(systemName: method.icon)
-                    .foregroundColor(.primaryFont)
-                    .frame(width: Spacing.s24)
+            HStack(spacing: Spacing.s16) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.mintSurface)
+                        .frame(width: 48, height: 48)
+                    
+                    Image(systemName: method.icon)
+                        .font(.system(size: 24, weight: .regular))
+                        .foregroundColor(.brandPrimary)
+                }
 
                 VStack(alignment: .leading, spacing: Spacing.s2) {
                     Text(method.title)
                         .carelyText(style: .bodyRegular, weight: .semiBold)
                         .foregroundColor(.primaryFont)
-                    Text(method.subtitle)
-                        .carelyText(style: .caption, weight: .regular)
-                        .foregroundColor(.secondaryFont)
                 }
 
                 Spacer(minLength: .zero)
 
                 Circle()
                     .strokeBorder(isSelected ? Color.brandPrimary : Color.divider, lineWidth: isSelected ? 6 : 1)
-                    .frame(width: Spacing.s20, height: Spacing.s20)
+                    .frame(width: Spacing.s24, height: Spacing.s24)
             }
             .padding(Spacing.s16)
             .background(Color.surface)

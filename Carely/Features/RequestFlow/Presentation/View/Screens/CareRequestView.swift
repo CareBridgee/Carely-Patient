@@ -32,6 +32,8 @@ struct CareRequestView: View {
                     onEditOrAddTapped: { viewModel.addOrEditAddressTapped() },
                     errorMessage: viewModel.addressError
                 )
+                paymentMethodSection
+                
             }
             .padding(.horizontal, Spacing.s16)
             .padding(.top, Spacing.s16)
@@ -73,6 +75,24 @@ struct CareRequestView: View {
                 .overlay(Capsule().stroke(Color.brandPrimary, lineWidth: 1))
         }
     }
+    private var paymentMethodSection: some View {
+            VStack(alignment: .leading, spacing: Spacing.s8) {
+                Text("Select Payment Method")
+                    .carelyText(style: .heading3, weight: .bold)
+                    .foregroundColor(.primaryFont)
+                    .padding(.top, Spacing.s8)
+
+                VStack(spacing: Spacing.s12) {
+                    ForEach(PaymentMethod.allCases) { method in
+                        PaymentMethodRow(
+                            method: method,
+                            isSelected: viewModel.selectedPaymentMethod == method,
+                            onSelect: { viewModel.selectedPaymentMethod = method }
+                        )
+                    }
+                }
+            }
+        }
     
     private var patientSection: some View {
         VStack(alignment: .leading, spacing: Spacing.s8) {

@@ -50,7 +50,7 @@ enum ProfileMenuItem: String, Identifiable {
     case healthProfile
     case familyMembers
     case addresses
-    case payment
+    case wallet
     case settings
 
     var id: String { rawValue }
@@ -61,7 +61,7 @@ enum ProfileMenuItem: String, Identifiable {
         case .healthProfile: return "Health Profile"
         case .familyMembers: return "Family Members"
         case .addresses: return "Addresses"
-        case .payment: return "Payment"
+        case .wallet: return "Wallet"
         case .settings: return "Settings"
         }
     }
@@ -72,7 +72,7 @@ enum ProfileMenuItem: String, Identifiable {
         case .healthProfile: return "shield.fill"
         case .familyMembers: return "person.3.fill"
         case .addresses: return "mappin.circle.fill"
-        case .payment: return "creditcard.fill"
+        case .wallet: return "creditcard.fill"
         case .settings: return "gearshape.fill"
         }
     }

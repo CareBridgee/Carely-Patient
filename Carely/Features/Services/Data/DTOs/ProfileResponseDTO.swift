@@ -38,6 +38,7 @@ struct ServiceRequestBodyDTO: Encodable {
     let latitude: Double
     let longitude: Double
     let serviceDescription: String
+    let paymentType: String
 }
 
 struct NearbyNurseDTO: Decodable {

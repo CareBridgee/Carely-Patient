@@ -47,8 +47,8 @@ struct ServicesCoordinatorView: View {
                     entryPoint: entryPoint,
                     aiDraft: aiDraft,
                     aiProfileId: aiProfileId,
-                    onSubmitted: { requestId in
-                        coordinator.push(to: .waitingForOffers(requestId: requestId))
+                    onSubmitted: { requestId, paymentMethod in
+                                            coordinator.push(to: .waitingForOffers(requestId: requestId, paymentMethod: paymentMethod))
                     }),
                 onEditProfileTapped: {
                     //
@@ -70,20 +70,21 @@ struct ServicesCoordinatorView: View {
                     coordinator.onAddFamilyMemberFromProfileFinished = nil
                 }
             )
-        case .waitingForOffers(let requestId):
-            OffersSearchingView(viewModel: container.makeOffersSearchingViewModel(
-                requestId: requestId,
-                onOfferAccepted: { confirmedOffer in
-                    container.activeVisitStore.setActiveVisit(confirmedOffer)
-                    coordinator.push(to: .OfferAccepted(request: confirmedOffer))
-                },
-                onShowNurseProfile: { nurseId in
-                    coordinator.push(to: .nurseProfile(nurseId: nurseId))
-                },
-                onSearchCanceled: {
-                    coordinator.popToRoot()
-                }
-            ))
+        case .waitingForOffers(let requestId, let paymentMethod):
+                OffersSearchingView(viewModel: container.makeOffersSearchingViewModel(
+                    requestId: requestId,
+                    paymentMethod: paymentMethod,
+                    onOfferAccepted: { confirmedOffer in
+                        container.activeVisitStore.setActiveVisit(confirmedOffer)
+                        coordinator.push(to: .OfferAccepted(request: confirmedOffer))
+                    },
+                    onShowNurseProfile: { nurseId in
+                        coordinator.push(to: .nurseProfile(nurseId: nurseId))
+                    },
+                    onSearchCanceled: {
+                        coordinator.popToRoot()
+                    }
+                ))
             
         case .OfferAccepted(let request):
             let viewModel = container.makeOfferAcceptedViewModel(

@@ -96,7 +96,7 @@ final class ProfileViewModel: ObservableObject {
             ProfileMenuRowData(item: .healthProfile, subtitle: "Medical history & documents"),
             ProfileMenuRowData(item: .familyMembers, subtitle: "Manage dependents (\(activeFamilyMembersCount) active)"),
             ProfileMenuRowData(item: .addresses, subtitle: "Home and care locations"),
-            ProfileMenuRowData(item: .payment, subtitle: "Visa ending in ••42"),
+            ProfileMenuRowData(item: .wallet, subtitle: "Manage your balance"),
             ProfileMenuRowData(item: .settings, subtitle: "Security & App preferences")
         ]
     }
@@ -118,8 +118,8 @@ final class ProfileViewModel: ObservableObject {
             coordinator.push(.address(profileId: id))
         case .settings:
             coordinator.push(.settings)
-        case .payment:
-            break
+        case .wallet:
+            coordinator.push(.wallet)
         }
     }
 

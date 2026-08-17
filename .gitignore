@@ -80,3 +80,4 @@ Config/Secrets.xcconfig
 .idea/
 *.swp
 *~.nib
+Pods/
