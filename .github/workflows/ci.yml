@@ -31,7 +31,7 @@ permissions:
 # -----------------------------------------------------------------------------
 env:
   XCODE_VERSION: "15.4"
-  XCODE_PROJECT: "Carely.xcodeproj"
+  XCODE_WORKSPACE: "Carely.xcworkspace"
   XCODE_SCHEME: "Carely"
   DESTINATION: "platform=iOS Simulator,name=iPhone 15"
 
@@ -71,7 +71,28 @@ jobs:
         run: brew install xcbeautify
 
       # -----------------------------------------------------------------------
-      # 4. CACHE SWIFT PACKAGE MANAGER DEPENDENCIES
+      # 4. CACHE COCOAPODS
+      # -----------------------------------------------------------------------
+      # Caches the Pods directory to speed up future workflow runs.
+      # -----------------------------------------------------------------------
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      # -----------------------------------------------------------------------
+      # 5. INSTALL COCOAPODS
+      # -----------------------------------------------------------------------
+      # Downloads the actual frameworks like PaymobSDK before building.
+      # -----------------------------------------------------------------------
+      - name: Install CocoaPods Dependencies
+        run: pod install --repo-update
+
+      # -----------------------------------------------------------------------
+      # 6. CACHE SWIFT PACKAGE MANAGER DEPENDENCIES
       # -----------------------------------------------------------------------
       # Caches resolved SPM packages so future runs skip re-downloading them.
       # -----------------------------------------------------------------------
@@ -86,29 +107,30 @@ jobs:
             ${{ runner.os }}-spm-
 
       # -----------------------------------------------------------------------
-      # 5. RESOLVE SWIFT PACKAGE MANAGER DEPENDENCIES
+      # 7. RESOLVE SWIFT PACKAGE MANAGER DEPENDENCIES
       # -----------------------------------------------------------------------
       # Resolve dependencies separately so package issues are isolated from
-      # build failures.
+      # build failures. Now targets the workspace.
       # -----------------------------------------------------------------------
       - name: Resolve Swift Package Manager dependencies
         run: |
           xcodebuild -resolvePackageDependencies \
-            -project "$XCODE_PROJECT" \
+            -workspace "$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME"
 
       # -----------------------------------------------------------------------
-      # 6. BUILD THE APPLICATION
+      # 8. BUILD THE APPLICATION
       # -----------------------------------------------------------------------
       # Compiles without running tests, so build errors fail fast.
       # Code signing is fully disabled — Simulator builds/tests never need a
       # certificate or development team, so we don't fight signing in CI at all.
+      # Now targets the workspace instead of the project.
       # -----------------------------------------------------------------------
       - name: Build application
         run: |
           set -o pipefail
           xcodebuild build \
-            -project "$XCODE_PROJECT" \
+            -workspace "$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME" \
             -destination "$DESTINATION" \
             -configuration Debug \
@@ -119,7 +141,7 @@ jobs:
             | xcbeautify
 
       # -----------------------------------------------------------------------
-      # 7. RUN UNIT TESTS
+      # 9. RUN UNIT TESTS
       # -----------------------------------------------------------------------
       # Runs the unit test suite and stores an .xcresult bundle.
       # Same signing-disabled approach as the build step above.
@@ -128,7 +150,7 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild test \
-            -project "$XCODE_PROJECT" \
+            -workspace "$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME" \
             -destination "$DESTINATION" \
             -configuration Debug \
@@ -142,7 +164,7 @@ jobs:
             | xcbeautify
 
       # -----------------------------------------------------------------------
-      # 8. UPLOAD TEST RESULTS ALWAYS
+      # 10. UPLOAD TEST RESULTS ALWAYS
       # -----------------------------------------------------------------------
       # Upload on both success and failure so the bundle is always inspectable,
       # not just when something breaks.
@@ -154,13 +176,3 @@ jobs:
           name: test-results
           path: TestResults.xcresult
           retention-days: 5
-
-      # -----------------------------------------------------------------------
-      # FUTURE EXTENSION POINTS
-      # -----------------------------------------------------------------------
-      # - Fastlane
-      # - Code Coverage
-      # - Firebase App Distribution / TestFlight
-      # - UI Tests
-      # - Xcode Version Matrix
-      # -----------------------------------------------------------------------
