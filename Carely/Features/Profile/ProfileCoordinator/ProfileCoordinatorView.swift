@@ -64,6 +64,17 @@ struct ProfileCoordinatorView: View {
             TopUpWalletView(
                 viewModel: container.makeTopUpViewModel(userId: userId, coordinator: coordinator)
             )
+
+        case .addFamilyMember:
+            AddFamilyMemberCoordinatorView(
+                container: container,
+                onFinish: {
+                    coordinator.pop()
+                },
+                onCancel: {
+                    coordinator.pop()
+                }
+            )
         }
     }
 }

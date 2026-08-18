@@ -123,18 +123,6 @@ final class MainTabCoordinator: ObservableObject {
         profileCoordinator.onLoggedOut = { [weak self] in
             self?.appState.startAuthFlow()
         }
- 
-        profileCoordinator.onAddFamilyMember = { [weak self] in
-            guard let self = self else { return }
-            self.previousTab = self.selectedTab
-            self.selectedTab = .services
-            self.servicesCoordinator.push(to: .addFamilyMember)
-            // When the flow finishes, switch back to Profile. The list updates reactively.
-            self.servicesCoordinator.onAddFamilyMemberFromProfileFinished = { [weak self] in
-                guard let self = self else { return }
-                self.selectedTab = self.previousTab
-            }
-        }
     }
  
     // MARK: - Cross-Tab Navigation

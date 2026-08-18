@@ -74,8 +74,6 @@ struct ProfilePersonalInfoView: View {
             }
         )
         .blur(radius: viewModel.isLoading ? 3 : 0)
-
-        .navigationBarHidden(true)
         .onChange(of: viewModel.isSaved) {
             if viewModel.isSaved {
                 viewModel.backTapped()

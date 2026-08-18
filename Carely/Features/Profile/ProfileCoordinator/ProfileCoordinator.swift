@@ -14,7 +14,6 @@ final class ProfileCoordinator: ObservableObject {
     @Published var path = NavigationPath()
 
     var onLoggedOut: (() -> Void)?
-    var onAddFamilyMember: (() -> Void)?
 
     func push(_ route: ProfileRoute) {
         path.append(route)
@@ -34,6 +33,6 @@ final class ProfileCoordinator: ObservableObject {
     }
 
     func addFamilyMemberTapped() {
-        onAddFamilyMember?()
+        push(.addFamilyMember)
     }
 }

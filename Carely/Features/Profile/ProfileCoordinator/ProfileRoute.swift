@@ -17,4 +17,5 @@ enum ProfileRoute: Hashable {
     case address(profileId: String)
     case wallet
     case topUp(userId: String)
+    case addFamilyMember
 }

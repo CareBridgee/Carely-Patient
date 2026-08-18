@@ -70,7 +70,11 @@ struct AddFamilyMemberInfoView: View {
                 .padding(.top, Spacing.s24)
             }
             .background(Color.backGround.ignoresSafeArea())
-            .navigationBarHidden(true)
+            .careConnectNavigationBar(
+                title: "Add Family Member",
+                showBackButton: true,
+                onBackTapped: { viewModel.backTapped() }
+            )
             .safeAreaInset(edge: .bottom) {
                 HealthProfileBottomActionsView(
                     showBackButton: true,

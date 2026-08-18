@@ -85,7 +85,6 @@ final class ServicesCoordinator: AppRouterProtocol {
     @Published var path = NavigationPath()
     @Published var isInsideChat: Bool = false
     var onBackClicked: (() -> Void)?
-    var onAddFamilyMemberFromProfileFinished: (() -> Void)?
     var onOpenAIAssistant: (() -> Void)?
     
     func openServiceFromHome(id: String) {
