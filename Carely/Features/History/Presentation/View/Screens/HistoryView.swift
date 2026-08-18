@@ -24,7 +24,7 @@ struct HistoryView: View {
         }
         .careConnectNavigationBar(
             title: "History",
-            showBackButton: true,
+            showBackButton: false,
             onBackTapped: {
                 viewModel.backTapped()
             }
