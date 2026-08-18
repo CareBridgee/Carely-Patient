@@ -26,32 +26,37 @@ struct HomeView: View {
             } else if viewModel.isLoading && viewModel.previewCategories.isEmpty {
                 homeSkeletonView
             } else {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: Spacing.s20) {
-                        HomeTopBar(
-                            greetingName: viewModel.greetingName,
-                            profileImageUrl: viewModel.profileImageUrl
-                        ) {}
-                        
-                        SearchField(
-                            placeholder: "Search services, symptoms...",
-                            text: $searchText
-                        )
-                        
-                        AIAssessmentBannerView {
-                            viewModel.aiBannerTapped()
+                VStack(spacing: 0) {
+                    HomeTopBar(
+                        greetingName: viewModel.greetingName,
+                        profileImageUrl: viewModel.profileImageUrl,
+                        onProfileTapped: viewModel.profileTapped
+                    )
+                    .padding(.horizontal, Spacing.s16)
+                    .padding(.top, Spacing.s8)
+                    .padding(.bottom, Spacing.s12)
+                    
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: Spacing.s20) {
+                            SearchField(
+                                placeholder: "Search services, symptoms...",
+                                text: $searchText
+                            )
+                            
+                            AIAssessmentBannerView {
+                                viewModel.aiBannerTapped()
+                            }
+                            
+                            servicesSection
+                            
+                            if !viewModel.upcomingBookings.isEmpty {
+                                bookingsSection
+                            }
                         }
-                        
-                        servicesSection
-                        
-                        if !viewModel.upcomingBookings.isEmpty {
-                            bookingsSection
-                        }
-                      //  .padding(Spacing.s16)
-                     //   .padding(.bottom, Spacing.s64)
+                        .padding(.horizontal, Spacing.s16)
+                        .padding(.top, Spacing.s8)
+                        .padding(.bottom, viewModel.hasActiveVisit ? 80 : Spacing.s24)
                     }
-                    .padding(Spacing.s16)
-                    .padding(.bottom, viewModel.hasActiveVisit ? 50 : 0)
                 }
             }
 
@@ -71,28 +76,34 @@ struct HomeView: View {
     }
     
     private var homeSkeletonView: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: Spacing.s20) {
-                HStack {
-                    VStack(alignment: .leading, spacing: Spacing.s8) {
-                        EtmaenSkeletonRect(width: 120, height: 14, radius: Radius.r8)
-                        EtmaenSkeletonRect(width: 180, height: 22, radius: Radius.r8)
-                    }
-                    Spacer()
-                    EtmaenSkeletonCircle(size: 44)
+        VStack(spacing: 0) {
+            HStack {
+                VStack(alignment: .leading, spacing: Spacing.s8) {
+                    EtmaenSkeletonRect(width: 120, height: 14, radius: Radius.r8)
+                    EtmaenSkeletonRect(width: 180, height: 22, radius: Radius.r8)
                 }
-                
-                EtmaenSkeletonRect(height: 48, radius: Radius.r16)
-                
-                EtmaenSkeletonRect(height: 110, radius: Radius.r20)
-                
-                VStack(alignment: .leading, spacing: Spacing.s12) {
-                    EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
-                    EtmaenServiceGridSkeleton()
-                }
+                Spacer()
+                EtmaenSkeletonCircle(size: 44)
             }
-            .padding(Spacing.s16)
-            .padding(.bottom, Spacing.s64)
+            .padding(.horizontal, Spacing.s16)
+            .padding(.top, Spacing.s8)
+            .padding(.bottom, Spacing.s12)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: Spacing.s20) {
+                    EtmaenSkeletonRect(height: 48, radius: Radius.r16)
+                    
+                    EtmaenSkeletonRect(height: 110, radius: Radius.r20)
+                    
+                    VStack(alignment: .leading, spacing: Spacing.s12) {
+                        EtmaenSkeletonRect(width: 140, height: 18, radius: Radius.r8)
+                        EtmaenServiceGridSkeleton()
+                    }
+                }
+                .padding(.horizontal, Spacing.s16)
+                .padding(.top, Spacing.s8)
+                .padding(.bottom, Spacing.s64)
+            }
         }
     }
     
@@ -104,7 +115,10 @@ struct HomeView: View {
                     .foregroundColor(.primaryFont)
             }
             
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: Spacing.s12) {
+            LazyVGrid(
+                columns: [GridItem(.flexible(), spacing: Spacing.s12), GridItem(.flexible(), spacing: Spacing.s12)],
+                spacing: Spacing.s12
+            ) {
                 ForEach(viewModel.previewCategories) { category in
                     ServiceCategoryTile(
                         title: category.title,
@@ -117,6 +131,7 @@ struct HomeView: View {
                 ServiceCategoryTile(
                     title: "More Services",
                     iconName: "ellipsis",
+                    isHighlighted: true,
                     action: viewModel.viewAllServicesTapped
                 )
             }

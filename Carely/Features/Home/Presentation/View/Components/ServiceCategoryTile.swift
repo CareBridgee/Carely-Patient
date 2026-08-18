@@ -12,6 +12,7 @@ struct ServiceCategoryTile: View {
     let title: String
     let iconName: String
     var imageUrl: String? = nil
+    var isHighlighted: Bool = false
     var action: () -> Void = {}
 
     var body: some View {
@@ -23,11 +24,13 @@ struct ServiceCategoryTile: View {
                             switch phase {
                             case .empty:
                                 ProgressView()
-                                    .tint(Color.brandPrimary)
+                                    .tint(isHighlighted ? Color.onPrimary : Color.brandPrimary)
                             case .success(let image):
                                 image
                                     .resizable()
                                     .scaledToFill()
+                                    .frame(width: 48, height: 48)
+                                    .clipShape(RoundedRectangle.carely(Radius.r16))
                             case .failure:
                                 fallbackIcon
                             @unknown default:
@@ -39,12 +42,27 @@ struct ServiceCategoryTile: View {
                     }
                 }
                 .frame(width: 48, height: 48)
-                .background(Color.primaryContainer)
+                .background(
+                    Group {
+                        if isHighlighted {
+                            LinearGradient(
+                                colors: [Color.tint, Color.tint],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        } else {
+                            Color.primaryContainer
+                        }
+                    }
+                )
                 .clipShape(RoundedRectangle.carely(Radius.r16))
 
                 Text(title)
-                    .carelyText(style: .bodySmall)
+                    .carelyText(style: .bodySmall, weight: .medium)
                     .foregroundColor(.primaryFont)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .multilineTextAlignment(.leading)
             }
             .padding(Spacing.s16)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -57,8 +75,8 @@ struct ServiceCategoryTile: View {
 
     private var fallbackIcon: some View {
         Image(systemName: iconName)
-            .font(.system(size: 22))
-            .foregroundColor(.brandPrimary)
+            .font(.system(size: 22, weight: isHighlighted ? .bold : .regular))
+            .foregroundColor(isHighlighted ? Color.onPrimary : Color.brandPrimary)
     }
 }
 
