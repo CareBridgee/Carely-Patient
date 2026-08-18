@@ -69,11 +69,15 @@ struct CarelyApp: App {
                         )
                     )
                 case .profileSetup:
-                    ProfileSetupCoordinatorView(
-                        coordinator: diContainer.makeProfileSetupCoordinator(),
-                        container: diContainer,
-                        onFinish: { appState.startHomeFlow() }
-                    )
+                    NavigationStack {
+                        ProfileSetupCoordinatorView(
+                            coordinator: diContainer.makeProfileSetupCoordinator(),
+                            container: diContainer,
+                            mode: .onboarding,
+                            onFinish: { appState.startHomeFlow() },
+                            onBack: { appState.goToProfileSetupDecision() }
+                        )
+                    }
                     
                 case .home:
                     MainTabCoordinatorView(container: diContainer, appState: appState)
@@ -82,9 +86,9 @@ struct CarelyApp: App {
             .background(Color.backGround.ignoresSafeArea())
             .preferredColorScheme(appState.appearance.colorScheme)
             // 3. Attach the lifecycle listener to the main Group
-            .onChange(of: scenePhase) { newPhase in
+            .onChange(of: scenePhase) {
                 // This triggers the exact millisecond the app comes to the foreground
-                if newPhase == .active {
+                if scenePhase == .active {
                     Task {
                         await refundRecoveryService.processPendingRefunds()
                     }

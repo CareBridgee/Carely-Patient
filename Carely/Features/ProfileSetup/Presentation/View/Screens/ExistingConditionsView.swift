@@ -57,7 +57,6 @@ struct ExistingConditionsView: View {
             .padding(.bottom, Spacing.s32)
         }
         .background(Color.backGround.ignoresSafeArea())
-        .navigationBarHidden(true)
         .onAppear {
             viewModel.onAppear()
         }

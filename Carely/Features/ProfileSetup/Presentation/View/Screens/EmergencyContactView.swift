@@ -65,7 +65,6 @@ struct EmergencyContactView: View {
             .padding(.bottom, Spacing.s16)
         }
         .background(Color.backGround)
-        .navigationBarHidden(true)
         .onAppear {
             viewModel.onAppear()
         }

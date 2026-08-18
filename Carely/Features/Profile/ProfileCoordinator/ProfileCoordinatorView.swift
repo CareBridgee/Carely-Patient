@@ -47,7 +47,9 @@ struct ProfileCoordinatorView: View {
             ProfileSetupCoordinatorView(
                 coordinator: container.makeProfileHealthSetupCoordinator(profileId: profileId),
                 container: container,
-                onFinish: { coordinator.pop() }
+                mode: .editing(profileId: profileId),
+                onFinish: { coordinator.pop() },
+                onBack: { coordinator.pop() }
             )
  
         case .address(let profileId):

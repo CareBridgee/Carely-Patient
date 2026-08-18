@@ -1,5 +1,21 @@
 import Foundation
 
+// MARK: - ProfileSetupMode
+
+enum ProfileSetupMode: Equatable {
+    case onboarding
+    case editing(profileId: String)
+
+    var navigationTitle: String {
+        switch self {
+        case .onboarding:
+            return "Profile Setup"
+        case .editing:
+            return "Health Profile"
+        }
+    }
+}
+
 // MARK: - ProfileSetupCoordinator
 
 @MainActor

@@ -26,7 +26,6 @@ struct BasicHealthInfoView: View {
             .padding(.bottom, Spacing.s24)
         }
         .background(Color.backGround.ignoresSafeArea())
-        .navigationBarHidden(true)
         .safeAreaInset(edge: .bottom) {
             HealthProfileBottomActionsView(
                 isContinueDisabled: !viewModel.isFormValid,

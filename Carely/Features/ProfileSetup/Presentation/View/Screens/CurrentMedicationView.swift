@@ -55,7 +55,6 @@ struct CurrentMedicationView: View {
             }
         }
         .background(Color.backGround.ignoresSafeArea())
-        .navigationBarHidden(true)
         .onAppear {
             viewModel.onAppear()
         }

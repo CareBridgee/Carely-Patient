@@ -18,7 +18,13 @@ struct AddFamilyMemberCoordinatorView: View {
     var body: some View {
         Group {
             if let coordinator {
-                ProfileSetupCoordinatorView(coordinator: coordinator, container: container, onFinish: onFinish)
+                ProfileSetupCoordinatorView(
+                    coordinator: coordinator,
+                    container: container,
+                    mode: .editing(profileId: coordinator.profileId ?? ""),
+                    onFinish: onFinish,
+                    onBack: onCancel
+                )
             } else {
                 AddFamilyMemberInfoView(
                     viewModel: container.makeAddFamilyMemberInfoViewModel(

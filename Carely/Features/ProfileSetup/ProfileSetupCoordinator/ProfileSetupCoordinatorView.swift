@@ -10,18 +10,26 @@ import SwiftUI
 
 struct ProfileSetupCoordinatorView: View {
     
-
     // MARK: - Coordinator
 
     @StateObject private var coordinator: ProfileSetupCoordinator
-    private let container : DIContainer
+    private let container: DIContainer
+    private let mode: ProfileSetupMode
     private let onFinish: () -> Void
+    private let onBack: (() -> Void)?
 
     // MARK: - Init
 
-
-    init(coordinator: ProfileSetupCoordinator,container: DIContainer, onFinish: @escaping () -> Void) {
+    init(
+        coordinator: ProfileSetupCoordinator,
+        container: DIContainer,
+        mode: ProfileSetupMode = .onboarding,
+        onFinish: @escaping () -> Void,
+        onBack: (() -> Void)? = nil
+    ) {
         self.onFinish = onFinish
+        self.onBack = onBack
+        self.mode = mode
         _coordinator = StateObject(wrappedValue: coordinator)
         self.container = container
     }
@@ -30,20 +38,6 @@ struct ProfileSetupCoordinatorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
-                Button(action: onFinish) {
-                    HStack(spacing: Spacing.s4) {
-                        Image(systemName: "chevron.left")
-                        Text("Profile")
-                    }
-                    .carelyText(style: .bodyRegular, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, Spacing.s16)
-            .padding(.top, Spacing.s8)
-
             StepProgressHeader(
                 currentStep: coordinator.currentStepIndex,
                 totalSteps: coordinator.totalSteps,
@@ -136,8 +130,13 @@ struct ProfileSetupCoordinatorView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color.backGround.ignoresSafeArea())
-        .navigationBarHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
+        .careConnectNavigationBar(
+            title: mode.navigationTitle,
+            showBackButton: true,
+            onBackTapped: {
+                onBack?()
+            }
+        )
         .onAppear {
             Task {
                 await coordinator.loadExistingProfileData(networkService: container.makeProfileNetworkService())
@@ -147,11 +146,6 @@ struct ProfileSetupCoordinatorView: View {
 
     // MARK: - Helpers
 
-    private func handleBack() {
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
-            coordinator.previous()
-        }
-    }
     private func makeBasicHealthInfoViewModel() -> BasicHealthInfoViewModel {
         if let profileId = coordinator.profileId {
             return container.makeBasicInfoHealthViewModel(
@@ -223,6 +217,8 @@ struct ProfileSetupCoordinatorView: View {
     return ProfileSetupCoordinatorView(
         coordinator: container.makeProfileSetupCoordinator(),
         container: container,
-        onFinish: {}
+        mode: .onboarding,
+        onFinish: {},
+        onBack: {}
     )
 }
