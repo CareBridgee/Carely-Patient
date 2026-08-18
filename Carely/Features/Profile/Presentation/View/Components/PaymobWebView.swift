@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-import WebKit
+@preconcurrency import WebKit
 
 struct PaymobWebView: UIViewControllerRepresentable {
     let url: URL

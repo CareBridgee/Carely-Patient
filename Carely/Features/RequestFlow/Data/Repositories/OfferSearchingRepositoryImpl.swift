@@ -85,14 +85,13 @@ final class OfferSearchingRepositoryImpl: OfferSearchingRepositoryProtocol {
     }
     
     func cancelServiceRequest(serviceRequestId: String) async throws {
-        do {
-            try await serviceRequestService?.cancelServiceRequest(serviceRequestId: serviceRequestId)
-            print("[OfferSearchingRepository] REST API cancelServiceRequest succeeded")
-        } catch {
-            print("[OfferSearchingRepository] REST API cancelServiceRequest failed: \(error)")
-            // fallback to STOMP
-            hubService.cancelServiceRequest(serviceRequestId: serviceRequestId)
-            throw error
+            do {
+                try await serviceRequestService?.cancelServiceRequest(serviceRequestId: serviceRequestId)
+                print("[OfferSearchingRepository] REST API cancelServiceRequest succeeded")
+            } catch {
+                print("[OfferSearchingRepository] REST API cancelServiceRequest failed: \(error)")
+                hubService.cancelServiceRequest(serviceRequestId: serviceRequestId)
+                
+            }
         }
-    }
 }

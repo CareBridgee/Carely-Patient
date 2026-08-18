@@ -107,8 +107,8 @@ final class OffersSearchingViewModel: ObservableObject {
                     isSearchResolved = true
                     cancelSearch()
                     Task {
-                        await processLiveRefund() // 👈 Wait for the refund!
-                        onSearchCanceled()        // 👈 Then pop the screen
+                        await processLiveRefund() // Wait for the refund
+                        onSearchCanceled()        // Then pop the screen
                     }
             
         case .searchCompleted, .visitCompleted:
@@ -135,13 +135,10 @@ final class OffersSearchingViewModel: ObservableObject {
             errorMessage = nil
             Task {
                 do {
-                    // 1. Fire the REST API to cancel the request
                     try await cancelServiceRequestUseCase.execute(serviceRequestId: requestId)
                     
-                    // 2. Immediately process the refund, since we know it succeeded!
                     await processLiveRefund()
                     
-                    // 3. Clean up UI state
                     isCancelling = false
                     isSearchResolved = true
                     cancelSearch()
@@ -224,7 +221,6 @@ final class OffersSearchingViewModel: ObservableObject {
                     } catch {
                         isCancelling = false
                         errorMessage = error.localizedDescription
-                        // THIS WILL TELL US EXACTLY WHY IT FAILED
                         print("❌ WALLET FLOW CRASHED WITH ERROR: \(error)")
                     }
                 }
@@ -247,6 +243,7 @@ final class OffersSearchingViewModel: ObservableObject {
                 print("❌ Refund failed to reach backend: \(error)")
             }
         }
+    
     func abandonSearchIfNeeded() {
             guard !isNavigatingForward, !isSearchResolved else { return }
             isSearchResolved = true
@@ -258,8 +255,24 @@ final class OffersSearchingViewModel: ObservableObject {
             
             Task {
                 try? await cancelServiceRequestUseCase.execute(serviceRequestId: requestId)
-                await processLiveRefund() // 👈 Wait for the refund!
-                UIApplication.shared.endBackgroundTask(bgTask) // 👈 Then tell iOS we are done
+                await processLiveRefund()
+                UIApplication.shared.endBackgroundTask(bgTask)
             }
         }
+    
+    func forceCancelOnKill() {
+        guard !isNavigatingForward, !isSearchResolved else { return }
+        isSearchResolved = true
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        Task {
+            try? await cancelServiceRequestUseCase.execute(serviceRequestId: requestId)
+            await processLiveRefund()
+            
+            semaphore.signal()
+        }
+        
+        _ = semaphore.wait(timeout: .now() + 1.5)
+    }
 }
