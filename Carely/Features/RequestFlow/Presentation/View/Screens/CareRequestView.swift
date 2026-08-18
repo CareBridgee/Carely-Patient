@@ -8,7 +8,6 @@ import SwiftUI
 
 struct CareRequestView: View {
     @StateObject var viewModel: CareRequestViewModel
-    let onEditProfileTapped: () -> Void
     let onAddFamilyMemberTapped: () -> Void
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -96,12 +95,6 @@ struct CareRequestView: View {
     
     private var patientSection: some View {
         VStack(alignment: .leading, spacing: Spacing.s8) {
-            Button(action: onEditProfileTapped) {
-                Text("Edit Profile")
-                    .carelyText(style: .bodySmall, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-            }
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 PatientSelectorRow(
                     patients: viewModel.patients,

@@ -22,7 +22,7 @@ final class AIAssistantCoordinator: AppRouterProtocol{
     
     
     func requestNowTapped(draft: ReservationDraft? = nil, profileId: String? = nil) {
-        onRequestNow?(draft, profileId)
+        push(to: .requestService(entryPoint: .aiChat, preselectedServiceId: draft?.serviceTypeId, aiDraft: draft, aiProfileId: profileId))
     }
     
     func addFamilyMemberTapped() {
@@ -36,5 +36,12 @@ final class AIAssistantCoordinator: AppRouterProtocol{
     func viewAllServicesTapped() {
         onViewAllServices?()
     }
-    
+
+    func popToRequestForm() {
+        if path.count >= 2 {
+            path.removeLast(2)
+        } else {
+            popToRoot()
+        }
+    }
 }

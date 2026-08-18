@@ -94,6 +94,8 @@ final class CareRequestViewModel: ObservableObject {
         self.patientProfilesStore = patientProfilesStore
         self.makeAddressSheetViewModel = makeAddressSheetViewModel
         self.onSubmitted = onSubmitted
+        
+        updatePatientsList(primary: patientProfilesStore.primaryProfile, family: patientProfilesStore.familyMembers)
     }
 
     func onAppear() async {
@@ -104,23 +106,10 @@ final class CareRequestViewModel: ObservableObject {
         if let services = try? await servicesTask {
             availableServices = services
             if let match = services.first(where: { $0.id == selectedService.id }) {
-                // The pre-selected/placeholder service matched a real fetched
-                // service — swap in the full record (title, icon) but keep
-                // trusting the id the caller gave us.
                 selectedService = match
             } else if selectedService.id.isEmpty, let first = services.first {
-                // Only fall back to "first available service" when nothing
-                // was pre-selected at all (e.g. entering this screen from a
-                // context with no specific service in mind). Never silently
-                // substitute a different service when the caller (Service
-                // Details, AI draft) *did* pass a specific id — surfacing an
-                // error is safer than submitting the wrong service.
                 selectedService = first
             } else if !selectedService.id.isEmpty {
-                // A specific service was requested but isn't in the current
-                // available-services list (e.g. temporarily unavailable).
-                // Keep it selected rather than swapping to an unrelated
-                // service, and let the person know via the toast.
                 submissionErrorMessage = "The service you selected isn't currently available. Please choose another service."
             }
         }
@@ -191,7 +180,10 @@ final class CareRequestViewModel: ObservableObject {
         
         self.patients = list
         
-        if selectedPatient == nil, let defaultPatient = list.first {
+        if let pid = aiProfileId, let match = list.first(where: { $0.id == pid }) {
+            selectedPatient = match
+            loadAddressFromStore(for: match.id)
+        } else if selectedPatient == nil, let defaultPatient = list.first {
             selectedPatient = defaultPatient
             loadAddressFromStore(for: defaultPatient.id)
         }
@@ -231,7 +223,6 @@ final class CareRequestViewModel: ObservableObject {
     // MARK: - AI Draft Application
 
     private func applyAIDraft(_ draft: ReservationDraft) {
-       
         if let pid = aiProfileId,
            let match = patients.first(where: { $0.id == pid }) {
             selectPatient(match)

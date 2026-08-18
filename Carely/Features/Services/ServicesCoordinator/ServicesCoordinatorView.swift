@@ -48,11 +48,8 @@ struct ServicesCoordinatorView: View {
                     aiDraft: aiDraft,
                     aiProfileId: aiProfileId,
                     onSubmitted: { requestId, paymentMethod in
-                                            coordinator.push(to: .waitingForOffers(requestId: requestId, paymentMethod: paymentMethod))
+                        coordinator.push(to: .waitingForOffers(requestId: requestId, paymentMethod: paymentMethod))
                     }),
-                onEditProfileTapped: {
-                    //
-                },
                 onAddFamilyMemberTapped: {
                     coordinator.push(to: .addFamilyMember)
                 }
@@ -176,8 +173,7 @@ struct ServicesCoordinatorView: View {
                 viewModel: container.makeAIChatViewModel(
                     profileId: patientId,
                     onProceedToBooking: { draft in
-                        coordinator.popToRoot()
-                        coordinator.openRequestFromAIAssistant(draft: draft, profileId: patientId)
+                        coordinator.push(to: .requestService(entryPoint: .aiChat, preselectedServiceId: nil, aiDraft: draft, aiProfileId: patientId))
                     },
                     onDismiss: {
                         coordinator.pop()
