@@ -15,11 +15,11 @@ struct ArrivalQRCodeView: View {
                     
                     // Titles
                     VStack(spacing: Spacing.s12) {
-                        Text("Arrival QR Code")
+                        Text("Visit Completion Code")
                             .carelyText(style: .heading2, weight: .semiBold)
                             .foregroundColor(Color.brandPrimary)
                         
-                        Text("Show this code to your nurse upon\narrival to verify the visit.")
+                        Text("Show this code to your nurse upon\ncompletion to verify the visit.")
                             .carelyText(style: .bodyRegular)
                             .foregroundColor(Color.secondaryFont)
                             .multilineTextAlignment(.center)
@@ -45,9 +45,14 @@ struct ArrivalQRCodeView: View {
                                 .foregroundColor(Color.secondaryFont)
                                 .textCase(.uppercase)
                             
-                            Text(viewModel.referenceNumber)
-                                .carelyText(style: .bodyLarge, weight: .semiBold)
-                                .foregroundColor(Color.primaryFont)
+                            if viewModel.isLoading || viewModel.referenceNumber.isEmpty {
+                                EtmaenSkeletonRect(width: 120, height: 18, radius: Radius.r8)
+                                    .padding(.vertical, Spacing.s2)
+                            } else {
+                                Text(viewModel.referenceNumber)
+                                    .carelyText(style: .bodyLarge, weight: .semiBold)
+                                    .foregroundColor(Color.primaryFont)
+                            }
                         }
                     }
                     .padding(Spacing.s24)

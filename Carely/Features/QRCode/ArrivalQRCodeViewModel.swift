@@ -11,12 +11,6 @@ final class ArrivalQRCodeViewModel: ObservableObject {
     private let serviceRequestService: ServiceRequestServiceProtocol?
     private let onCloseAction: () -> Void
 
-    /// Drives the `.errorToast` for any server failure fetching or
-    /// validating the arrival QR code. Always the exact server message
-    /// (via `error.carelyDescription`) rather than a hardcoded fallback
-    /// string. This screen currently receives its data already fetched by
-    /// the caller, so nothing assigns into this today — it's wired up so a
-    /// future fetch/validate call only needs to catch into it.
     
     init(
         serviceRequestId: String,
@@ -27,9 +21,10 @@ final class ArrivalQRCodeViewModel: ObservableObject {
     ) {
         self.serviceRequestId = serviceRequestId
         self.qrCodeData = fallbackQrCodeData
-        self.referenceNumber = referenceNumber.isEmpty ? "#\(serviceRequestId.prefix(8).uppercased())" : referenceNumber
+        self.referenceNumber = referenceNumber
         self.serviceRequestService = serviceRequestService
         self.onCloseAction = onClose
+        self.isLoading = (serviceRequestService != nil && !serviceRequestId.isEmpty)
     }
     
     func onAppear() {
