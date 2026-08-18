@@ -20,6 +20,8 @@ enum ServicesRoute: Hashable {
     case visitCompleted(visitId: String)
     case addFamilyMember
     case chat(reservationId: String, nurseName: String? = nil, nurseImageUrl: String? = nil)
+    case choosePatient
+    case aiChat(patientId: String)
 //    case activeVisit(ActiveVisit)
 //    case startVisitQR(ActiveVisit)
 //    case finishVisitQR(ActiveVisit)

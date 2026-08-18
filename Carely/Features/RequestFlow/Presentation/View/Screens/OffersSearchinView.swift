@@ -59,8 +59,8 @@ struct OffersSearchingView: View {
         .onDisappear {
             viewModel.abandonSearchIfNeeded()
             viewModel.cancelSearch()
-        }.onChange(of: scenePhase) { newPhase in
-            if newPhase == .background {
+        }.onChange(of: scenePhase) {
+            if scenePhase == .background {
                 viewModel.abandonSearchIfNeeded()
             }
         }

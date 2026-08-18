@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChoosePatientView: View {
     @StateObject var viewModel: ChoosePatientViewModel
+    var onBackTapped: (() -> Void)? = nil
     
     var body: some View {
         ZStack {
@@ -42,19 +43,19 @@ struct ChoosePatientView: View {
         .task {
             await viewModel.onAppear()
         }
-        .navigationBarHidden(true)
+        .careConnectNavigationBar(
+            title: "AI Assistant",
+            showBackButton: true,
+            onBackTapped: {
+                onBackTapped?()
+            }
+        )
         .errorToast($viewModel.errorMessage)
     }
 
     private var patientContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: Spacing.s24) {
-                // Header Feature Title
-                Text("AI Assistant")
-                    .carelyText(style: .heading3, weight: .semiBold)
-                    .foregroundColor(.brandPrimary)
-                    .padding(.top, Spacing.s16)
-                
                 // Titles
                 VStack(alignment: .leading, spacing: Spacing.s8) {
                     Text("Choose Patient")
@@ -66,6 +67,7 @@ struct ChoosePatientView: View {
                         .foregroundColor(.secondaryFont)
                         .fixedSize(horizontal: false, vertical: true)
                 }
+                .padding(.top, Spacing.s16)
                 
                 // Patient List
                 VStack(spacing: Spacing.s16) {

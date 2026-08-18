@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
  
 @MainActor
-final class HomeCoordinator: ObservableObject {
+final class HomeCoordinator: AppRouterProtocol {
+    typealias Route = HomeRoute
     @Published var path = NavigationPath()
  
     // MARK: - Cross-Tab Callbacks
@@ -17,8 +18,9 @@ final class HomeCoordinator: ObservableObject {
     var onViewAllServices: (() -> Void)?
     var onOpenService: ((String) -> Void)?
     var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
-    var onOpenAIAssistant: (() -> Void)?
     var onOpenHistory: (() -> Void)?
+    var onRequestServiceFromAI: ((ReservationDraft?, String?) -> Void)?
+    var onBackClicked: (() -> Void)?
  
     // MARK: - Actions
  
@@ -39,7 +41,11 @@ final class HomeCoordinator: ObservableObject {
     }
  
     func aiBannerTapped() {
-        onOpenAIAssistant?()
+        push(to: .choosePatient)
+    }
+    
+    func requestServiceFromAITapped(draft: ReservationDraft? = nil, profileId: String? = nil) {
+        onRequestServiceFromAI?(draft, profileId)
     }
 }
  

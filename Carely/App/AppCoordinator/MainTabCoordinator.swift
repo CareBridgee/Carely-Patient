@@ -14,10 +14,6 @@ import Combine
 final class MainTabCoordinator: ObservableObject {
     @Published var currentNotification: NotificationData?
     @Published var selectedTab: AppTab = .home
-
-    /// Controls presentation of the History screen, which is opened from Home's
-    /// "See All" action rather than living in the tab bar.
-    @Published var isHistoryPresented = false
  
     private var previousTab: AppTab = .home
     let homeCoordinator: HomeCoordinator
@@ -36,8 +32,8 @@ final class MainTabCoordinator: ObservableObject {
             return homeCoordinator.path.isEmpty
         case .services:
             return servicesCoordinator.path.isEmpty
-        case .ai:
-            return aiAssistantCoordinator.path.isEmpty
+        case .history:
+            return historyCoordinator.path.isEmpty
         case .profile:
             return profileCoordinator.path.isEmpty
         }
@@ -73,7 +69,7 @@ final class MainTabCoordinator: ObservableObject {
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
 
-        aiAssistantCoordinator.objectWillChange
+        historyCoordinator.objectWillChange
             .sink { [weak self] _ in self?.objectWillChange.send() }
             .store(in: &cancellables)
 
@@ -101,63 +97,33 @@ final class MainTabCoordinator: ObservableObject {
             self.servicesCoordinator.openActiveVisit(offer: offer)
         }
  
-        homeCoordinator.onOpenAIAssistant = { [weak self] in
-            self?.selectedTab = .ai
-        }
- 
         homeCoordinator.onOpenHistory = { [weak self] in
             guard let self = self else { return }
-            self.isHistoryPresented = true
-        }
- 
-        historyCoordinator.onExploreServices = { [weak self] in
-            guard let self = self else { return }
-            self.isHistoryPresented = false
-            self.historyCoordinator.popToRoot()
             self.previousTab = self.selectedTab
-            self.selectedTab = .services
+            self.selectedTab = .history
         }
-        
-        historyCoordinator.onBackClicked = { [weak self] in
-            guard let self = self else { return }
-            self.isHistoryPresented = false
-            self.historyCoordinator.popToRoot()
-        }
-        
-        bindCrossTabBack(to: servicesCoordinator)
-        bindCrossTabBack(to: aiAssistantCoordinator)
-        
-//        servicesCoordinator.onBackClicked = { [weak self] in
-//            guard let self = self else { return }
-//            self.selectedTab = self.previousTab
-//            self.servicesCoordinator.popToRoot()
-//        }
-        
-        aiAssistantCoordinator.onRequestNow = { [weak self] draft, profileId in
+
+        homeCoordinator.onRequestServiceFromAI = { [weak self] draft, profileId in
             guard let self = self else { return }
             self.previousTab = self.selectedTab
             self.selectedTab = .services
             self.servicesCoordinator.openRequestFromAIAssistant(draft: draft, profileId: profileId)
         }
+ 
+        historyCoordinator.onExploreServices = { [weak self] in
+            guard let self = self else { return }
+            self.historyCoordinator.popToRoot()
+            self.previousTab = self.selectedTab
+            self.selectedTab = .services
+        }
         
-        aiAssistantCoordinator.onViewAllServices = { [weak self] in
-            guard let self = self else { return }
-            self.previousTab = self.selectedTab
-            self.selectedTab = .services
-        }
- 
-        aiAssistantCoordinator.onAddFamilyMember = { [weak self] in
-            guard let self = self else { return }
-            self.previousTab = self.selectedTab
-            self.selectedTab = .services
-            self.servicesCoordinator.push(to: .addFamilyMember)
-        }
- 
+        bindCrossTabBack(to: servicesCoordinator)
+        bindCrossTabBack(to: historyCoordinator)
+        
         profileCoordinator.onLoggedOut = { [weak self] in
             self?.appState.startAuthFlow()
         }
-
-
+ 
         profileCoordinator.onAddFamilyMember = { [weak self] in
             guard let self = self else { return }
             self.previousTab = self.selectedTab

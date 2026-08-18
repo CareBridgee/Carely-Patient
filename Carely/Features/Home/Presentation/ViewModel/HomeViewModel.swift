@@ -36,6 +36,8 @@ final class HomeViewModel: ObservableObject {
     private var onServiceTabbed: (String) -> Void
     private var onSeeAllHistory: () -> Void
     private var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
+    private var onViewAllServices: () -> Void
+    private var onOpenAIAssistant: () -> Void
     
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
@@ -47,7 +49,9 @@ final class HomeViewModel: ObservableObject {
         serviceTypesStore: ServiceTypesStore,
         onServiceTabbed: @escaping (String) -> Void,
         onSeeAllHistory: @escaping () -> Void = {},
-        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil
+        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil,
+        onViewAllServices: @escaping () -> Void = {},
+        onOpenAIAssistant: @escaping () -> Void = {}
     )  {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
@@ -59,6 +63,8 @@ final class HomeViewModel: ObservableObject {
         self.onServiceTabbed = onServiceTabbed
         self.onSeeAllHistory = onSeeAllHistory
         self.onOpenActiveVisit = onOpenActiveVisit
+        self.onViewAllServices = onViewAllServices
+        self.onOpenAIAssistant = onOpenAIAssistant
         
         if serviceTypesStore.hasCategories {
             self.previewCategories = Array(serviceTypesStore.serviceCategories.prefix(homePreviewCategoryCount))
@@ -190,6 +196,11 @@ final class HomeViewModel: ObservableObject {
     }
     
     func viewAllServicesTapped() {
+        onViewAllServices()
+    }
+    
+    func aiBannerTapped() {
+        onOpenAIAssistant()
     }
     
     func seeAllHistoryTapped() {

@@ -24,6 +24,9 @@ struct AIAssistantCoordinatorView: View {
             },
             onAddFamilyMember: {
                 coordinator.addFamilyMemberTapped()
+            },
+            onDismiss: {
+                coordinator.onBackClicked?()
             }
         ))
     }
@@ -46,6 +49,16 @@ struct AIAssistantCoordinatorView: View {
                     profileId: patientId,
                     coordinator: coordinator
                 )
+            )
+        case .addFamilyMember:
+            AddFamilyMemberCoordinatorView(
+                container: container,
+                onFinish: {
+                    coordinator.pop()
+                },
+                onCancel: {
+                    coordinator.pop()
+                }
             )
         }
     }

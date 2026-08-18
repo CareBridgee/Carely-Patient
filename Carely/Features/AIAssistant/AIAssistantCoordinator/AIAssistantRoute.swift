@@ -8,6 +8,6 @@
 import Foundation
 
 enum AIAssistantRoute: Hashable {
-  //  case choosePatient
     case aiAssistantChat(patientId: String)
+    case addFamilyMember
 }

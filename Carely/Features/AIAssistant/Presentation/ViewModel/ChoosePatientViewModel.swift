@@ -35,6 +35,7 @@ class ChoosePatientViewModel: ObservableObject {
     let onShowPatientDetails: ((String) -> Void)?
     let onContinueWithAssessmentClosure: (String) -> Void
     var onAddFamilyMember: (() -> Void)?
+    var onDismiss: (() -> Void)?
 
     init(
         patientProfilesStore: PatientProfilesStore,
@@ -43,7 +44,8 @@ class ChoosePatientViewModel: ObservableObject {
         getAIPatientsUseCase: GetAIPatientsUseCaseProtocol,
         onShowPatientDetails: ((String) -> Void)?,
         onContinueWithAssessment: @escaping (String) -> Void,
-        onAddFamilyMember: (() -> Void)? = nil
+        onAddFamilyMember: (() -> Void)? = nil,
+        onDismiss: (() -> Void)? = nil
     ) {
         self.patientProfilesStore = patientProfilesStore
         self.sessionManager = sessionManager
@@ -52,6 +54,7 @@ class ChoosePatientViewModel: ObservableObject {
         self.onShowPatientDetails = onShowPatientDetails
         self.onContinueWithAssessmentClosure = onContinueWithAssessment
         self.onAddFamilyMember = onAddFamilyMember
+        self.onDismiss = onDismiss
         bindToStore()
     }
 

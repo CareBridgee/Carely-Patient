@@ -155,12 +155,35 @@ struct ServicesCoordinatorView: View {
             .onDisappear {
                 coordinator.isInsideChat = false
             }
-//
-//        case .startVisitQR(let visit):
-//            StartVisitQRView(visit: visit)
-//
-//        case .finishVisitQR(let visit):
-//            FinishVisitQRView(visit: visit)
+
+        case .choosePatient:
+            ChoosePatientView(
+                viewModel: container.makeChoosePatientViewModel(
+                    onContinueWithAssessment: { patientId in
+                        coordinator.push(to: .aiChat(patientId: patientId))
+                    },
+                    onAddFamilyMember: {
+                        coordinator.push(to: .addFamilyMember)
+                    }
+                ),
+                onBackTapped: {
+                    coordinator.pop()
+                }
+            )
+
+        case .aiChat(let patientId):
+            AIChatView(
+                viewModel: container.makeAIChatViewModel(
+                    profileId: patientId,
+                    onProceedToBooking: { draft in
+                        coordinator.popToRoot()
+                        coordinator.openRequestFromAIAssistant(draft: draft, profileId: patientId)
+                    },
+                    onDismiss: {
+                        coordinator.pop()
+                    }
+                )
+            )
         }
     }
 }

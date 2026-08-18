@@ -298,6 +298,7 @@
 		C65A1E8C300ECC1C0003D6FB /* SearchPlacesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */; };
 		C65A1E8D300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E85300ECC1C0003D6FB /* GetCurrentLocationCoordinateUseCase.swift */; };
 		C65A1E8E300ECC1C0003D6FB /* ResolveLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */; };
+		C65E2CD53034286300E41529 /* HomeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65E2CD43034286300E41529 /* HomeRoute.swift */; };
 		C6B11890300BA00700DB27BF /* CarelyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */; };
 		C6B11893300BA01A00DB27BF /* StepProgressHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */; };
 		C6B11894300BA01A00DB27BF /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B11891300BA01A00DB27BF /* SecondaryButton.swift */; };
@@ -752,6 +753,7 @@
 		C65A1E86300ECC1C0003D6FB /* ResolveLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveLocationUseCase.swift; sourceTree = "<group>"; };
 		C65A1E87300ECC1C0003D6FB /* ReverseGeocodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocodeUseCase.swift; sourceTree = "<group>"; };
 		C65A1E88300ECC1C0003D6FB /* SearchPlacesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesUseCase.swift; sourceTree = "<group>"; };
+		C65E2CD43034286300E41529 /* HomeRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRoute.swift; sourceTree = "<group>"; };
 		C6B1188F300BA00700DB27BF /* CarelyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarelyButtonStyle.swift; sourceTree = "<group>"; };
 		C6B11891300BA01A00DB27BF /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		C6B11892300BA01A00DB27BF /* StepProgressHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressHeader.swift; sourceTree = "<group>"; };
@@ -2415,6 +2417,7 @@
 		C630BADD3010D2DD00255ECA /* HomeCoordinator */ = {
 			isa = PBXGroup;
 			children = (
+				C65E2CD43034286300E41529 /* HomeRoute.swift */,
 				C630BACF3010CC5D00255ECA /* HomeCoordinator.swift */,
 				C630BAD03010CC5D00255ECA /* HomeCoordinatorView.swift */,
 			);
@@ -3028,9 +3031,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Carely/Pods-Carely-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Carely/Pods-Carely-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3400,6 +3407,7 @@
 				0C7F5F35302D4EFB005CFC20 /* CareRequestRepositoryProtocol.swift in Sources */,
 				C6068588302B7878006A9DC3 /* AIPatientRepositoryImpl.swift in Sources */,
 				0C7F5F47302D4EFC005CFC20 /* CareRequestView.swift in Sources */,
+				C65E2CD53034286300E41529 /* HomeRoute.swift in Sources */,
 				0C7F5F48302D4EFC005CFC20 /* OfferAcceptedView.swift in Sources */,
 				C6068589302B7878006A9DC3 /* ChatHeaderView.swift in Sources */,
 				C606858A302B7878006A9DC3 /* PatientSelectionCard.swift in Sources */,

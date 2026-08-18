@@ -134,6 +134,10 @@ final class AllServiceViewModel: ObservableObject {
         coordinator.push(to: .serviceDetails(id: category.id, source: .services))
     }
  
+    func consultNowTapped() {
+        coordinator.openAIAssistant()
+    }
+ 
     func backTapped() {
         //
     }

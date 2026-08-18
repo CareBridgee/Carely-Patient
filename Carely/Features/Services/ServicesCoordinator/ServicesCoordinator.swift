@@ -86,10 +86,14 @@ final class ServicesCoordinator: AppRouterProtocol {
     @Published var isInsideChat: Bool = false
     var onBackClicked: (() -> Void)?
     var onAddFamilyMemberFromProfileFinished: (() -> Void)?
-    
+    var onOpenAIAssistant: (() -> Void)?
     
     func openServiceFromHome(id: String) {
         push(to: .serviceDetails(id: id, source: .home))
+    }
+    
+    func openAIAssistant() {
+        push(to: .choosePatient)
     }
    
 

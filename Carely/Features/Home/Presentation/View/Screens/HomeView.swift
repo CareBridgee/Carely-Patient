@@ -38,7 +38,9 @@ struct HomeView: View {
                             text: $searchText
                         )
                         
-                        AIAssessmentBannerView {}
+                        AIAssessmentBannerView {
+                            viewModel.aiBannerTapped()
+                        }
                         
                         servicesSection
                         

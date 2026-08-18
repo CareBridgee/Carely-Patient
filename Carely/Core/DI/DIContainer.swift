@@ -575,7 +575,9 @@ final class DIContainer {
     func makeHomeViewModel(
         onServiceTabbed: @escaping (String) -> Void,
         onSeeAllHistory: @escaping () -> Void = {},
-        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil
+        onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil,
+        onViewAllServices: @escaping () -> Void = {},
+        onOpenAIAssistant: @escaping () -> Void = {}
     ) -> HomeViewModel {
         HomeViewModel(
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
@@ -587,7 +589,9 @@ final class DIContainer {
             serviceTypesStore: serviceTypesStore,
             onServiceTabbed: onServiceTabbed,
             onSeeAllHistory: onSeeAllHistory,
-            onOpenActiveVisit: onOpenActiveVisit
+            onOpenActiveVisit: onOpenActiveVisit,
+            onViewAllServices: onViewAllServices,
+            onOpenAIAssistant: onOpenAIAssistant
         )
     }
     
@@ -826,7 +830,8 @@ final class DIContainer {
     func makeChoosePatientViewModel(
             onShowPatientDetails: ((String) -> Void)? = nil,
             onContinueWithAssessment: @escaping (String) -> Void,
-            onAddFamilyMember: (() -> Void)? = nil
+            onAddFamilyMember: (() -> Void)? = nil,
+            onDismiss: (() -> Void)? = nil
         ) -> ChoosePatientViewModel {
             ChoosePatientViewModel(
                 patientProfilesStore: patientProfilesStore,
@@ -834,7 +839,8 @@ final class DIContainer {
                 getAIPatientsUseCase: makeGetAIPatientsUseCase(),
                 onShowPatientDetails: onShowPatientDetails,
                 onContinueWithAssessment: onContinueWithAssessment,
-                onAddFamilyMember: onAddFamilyMember
+                onAddFamilyMember: onAddFamilyMember,
+                onDismiss: onDismiss
             )
         }
     // MARK: - AIAssistant — Chat
@@ -857,16 +863,18 @@ final class DIContainer {
 
     func makeAIChatViewModel(
         profileId: String,
-        coordinator: AIAssistantCoordinator? = nil
+        coordinator: AIAssistantCoordinator? = nil,
+        onProceedToBooking: ((ReservationDraft) -> Void)? = nil,
+        onDismiss: (() -> Void)? = nil
     ) -> AIChatViewModel {
         AIChatViewModel(
             profileId: profileId,
             sendAIChatMessageUseCase: makeSendAIChatMessageUseCase(),
             resetAIChatUseCase: makeResetAIChatUseCase(),
-            onDismiss: { [weak coordinator] in
+            onDismiss: onDismiss ?? { [weak coordinator] in
                 coordinator?.pop()
             },
-            onProceedToBooking: { [weak coordinator] draft in
+            onProceedToBooking: onProceedToBooking ?? { [weak coordinator] draft in
                 coordinator?.requestNowTapped(draft: draft, profileId: profileId)
             }
         )

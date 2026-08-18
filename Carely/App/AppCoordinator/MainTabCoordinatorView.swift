@@ -43,13 +43,9 @@ struct MainTabCoordinatorView: View {
         .background(Color.backGround.ignoresSafeArea())
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .notificationBanner(data: $coordinator.currentNotification) {
-                coordinator.handleNotificationTap()
-            }
-        
-        .fullScreenCover(isPresented: $coordinator.isHistoryPresented) {
-            HistoryCoordinatorView(container: container, coordinator: coordinator.historyCoordinator)
+            coordinator.handleNotificationTap()
         }
-        .onChange(of: coordinator.selectedTab) { _ in
+        .onChange(of: coordinator.selectedTab) {
                    Task {
                        await RefundRecoveryService.shared?.processPendingRefunds()
                    }
@@ -64,8 +60,8 @@ struct MainTabCoordinatorView: View {
                 HomeCoordinatorView(container: container, coordinator: coordinator.homeCoordinator)
             case .services:
                 ServicesCoordinatorView(container: container, coordinator: coordinator.servicesCoordinator)
-            case .ai:
-                AIAssistantCoordinatorView(container: container, coordinator: coordinator.aiAssistantCoordinator)
+            case .history:
+                HistoryCoordinatorView(container: container, coordinator: coordinator.historyCoordinator)
             case .profile:
                 ProfileCoordinatorView(container: container, coordinator: coordinator.profileCoordinator)
             }

@@ -26,7 +26,7 @@ final class AIAssistantCoordinator: AppRouterProtocol{
     }
     
     func addFamilyMemberTapped() {
-        onAddFamilyMember?()
+        push(to: .addFamilyMember)
     }
     
     func viewProfiledetailsTapped(profileId: String) {

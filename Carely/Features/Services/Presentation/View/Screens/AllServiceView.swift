@@ -78,7 +78,9 @@ struct AllServiceView: View {
                             .padding(.horizontal)
                         }
                         
-                        HelpBannerView()
+                        HelpBannerView(onConsultTapped: {
+                            viewModel.consultNowTapped()
+                        })
                             .padding(.horizontal)
                             .padding(.top, Spacing.s8)
                             .padding(.bottom, Spacing.s64)
