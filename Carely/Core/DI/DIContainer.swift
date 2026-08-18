@@ -577,7 +577,8 @@ final class DIContainer {
         onSeeAllHistory: @escaping () -> Void = {},
         onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil,
         onViewAllServices: @escaping () -> Void = {},
-        onOpenAIAssistant: @escaping () -> Void = {}
+        onOpenAIAssistant: @escaping () -> Void = {},
+        onOpenProfile: @escaping () -> Void = {}
     ) -> HomeViewModel {
         HomeViewModel(
             getServiceCategoriesUseCase: makeGetServiceCategoriesUseCase(),
@@ -591,7 +592,8 @@ final class DIContainer {
             onSeeAllHistory: onSeeAllHistory,
             onOpenActiveVisit: onOpenActiveVisit,
             onViewAllServices: onViewAllServices,
-            onOpenAIAssistant: onOpenAIAssistant
+            onOpenAIAssistant: onOpenAIAssistant,
+            onOpenProfile: onOpenProfile
         )
     }
     

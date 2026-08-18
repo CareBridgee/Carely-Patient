@@ -14,38 +14,41 @@ import SwiftUI
 struct HomeTopBar: View {
     let greetingName: String
     let profileImageUrl: String? 
-    var onNotificationsTapped: (() -> Void)
+    var onProfileTapped: (() -> Void) = {}
     
     var body: some View {
         HStack(spacing: Spacing.s12) {
-            Circle()
-                .fill(Color.primaryContainer.opacity(0.15))
-                .frame(width: 40, height: 40)
-                .overlay(
-                    Group {
-                        if let urlString = profileImageUrl, let url = URL(string: urlString) {
-                            AsyncImage(url: url) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                case .success(let image):
-                                    image.resizable().scaledToFill()
-                                case .failure:
-                                    Image(systemName: "person.fill").foregroundColor(.brandPrimary)
-                                @unknown default:
-                                    EmptyView()
+            Button(action: onProfileTapped) {
+                Circle()
+                    .fill(Color.primaryContainer.opacity(0.15))
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        Group {
+                            if let urlString = profileImageUrl, let url = URL(string: urlString) {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image.resizable().scaledToFill()
+                                    case .failure:
+                                        Image(systemName: "person.fill").foregroundColor(.brandPrimary)
+                                    @unknown default:
+                                        EmptyView()
+                                    }
                                 }
+                            } else {
+                                Image(systemName: "person.fill")
+                                    .foregroundColor(.brandPrimary)
                             }
-                        } else {
-                            Image(systemName: "person.fill")
-                                .foregroundColor(.brandPrimary)
                         }
-                    }
-                    .clipShape(Circle())
-                )
-                .overlay(
-                    Circle().stroke(Color.primaryContainer, lineWidth: 2)
-                )
+                        .clipShape(Circle())
+                    )
+                    .overlay(
+                        Circle().stroke(Color.primaryContainer, lineWidth: 2)
+                    )
+            }
+            .buttonStyle(.plain)
 
             Text("\(greetingText), \(greetingName)")
                 .carelyText(style: .heading3, weight: .semiBold)
@@ -54,14 +57,15 @@ struct HomeTopBar: View {
             Spacer()
 
             Button {
-                onNotificationsTapped()
+                onProfileTapped()
             } label: {
-                Image(systemName: "bell")
-                    .foregroundColor(.secondaryFont)
+                Image(systemName: "person.fill")
+                    .foregroundColor(.brandPrimary)
                     .frame(width: 40, height: 40)
-                    .background(Color.surface)
+                    .background(Color.primaryContainer.opacity(0.15))
                     .clipShape(Circle())
             }
+            .buttonStyle(.plain)
         }
     }
 

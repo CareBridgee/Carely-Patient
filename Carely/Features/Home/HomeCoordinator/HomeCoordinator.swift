@@ -19,6 +19,7 @@ final class HomeCoordinator: AppRouterProtocol {
     var onOpenService: ((String) -> Void)?
     var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
     var onOpenHistory: (() -> Void)?
+    var onOpenProfile: (() -> Void)?
     var onRequestServiceFromAI: ((ReservationDraft?, String?) -> Void)?
     var onBackClicked: (() -> Void)?
  
@@ -46,6 +47,10 @@ final class HomeCoordinator: AppRouterProtocol {
     
     func requestServiceFromAITapped(draft: ReservationDraft? = nil, profileId: String? = nil) {
         onRequestServiceFromAI?(draft, profileId)
+    }
+
+    func profileTapped() {
+        onOpenProfile?()
     }
 }
  

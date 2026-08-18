@@ -38,6 +38,7 @@ final class HomeViewModel: ObservableObject {
     private var onOpenActiveVisit: ((ConfirmedOffer) -> Void)?
     private var onViewAllServices: () -> Void
     private var onOpenAIAssistant: () -> Void
+    private var onOpenProfile: () -> Void
     
     init(
         getServiceCategoriesUseCase: GetServiceCategoriesUseCaseProtocol,
@@ -51,7 +52,8 @@ final class HomeViewModel: ObservableObject {
         onSeeAllHistory: @escaping () -> Void = {},
         onOpenActiveVisit: ((ConfirmedOffer) -> Void)? = nil,
         onViewAllServices: @escaping () -> Void = {},
-        onOpenAIAssistant: @escaping () -> Void = {}
+        onOpenAIAssistant: @escaping () -> Void = {},
+        onOpenProfile: @escaping () -> Void = {}
     )  {
         self.getServiceCategoriesUseCase = getServiceCategoriesUseCase
         self.getUpcomingBookingsUseCase = getUpcomingBookingsUseCase
@@ -65,6 +67,7 @@ final class HomeViewModel: ObservableObject {
         self.onOpenActiveVisit = onOpenActiveVisit
         self.onViewAllServices = onViewAllServices
         self.onOpenAIAssistant = onOpenAIAssistant
+        self.onOpenProfile = onOpenProfile
         
         if serviceTypesStore.hasCategories {
             self.previewCategories = Array(serviceTypesStore.serviceCategories.prefix(homePreviewCategoryCount))
@@ -205,5 +208,9 @@ final class HomeViewModel: ObservableObject {
     
     func seeAllHistoryTapped() {
         onSeeAllHistory()
+    }
+
+    func profileTapped() {
+        onOpenProfile()
     }
 }

@@ -103,6 +103,12 @@ final class MainTabCoordinator: ObservableObject {
             self.selectedTab = .history
         }
 
+        homeCoordinator.onOpenProfile = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .profile
+        }
+
         homeCoordinator.onRequestServiceFromAI = { [weak self] draft, profileId in
             guard let self = self else { return }
             self.previousTab = self.selectedTab

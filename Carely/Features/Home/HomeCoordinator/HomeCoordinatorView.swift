@@ -23,7 +23,8 @@ struct HomeCoordinatorView: View {
             onSeeAllHistory: coordinator.seeAllHistoryTapped,
             onOpenActiveVisit: coordinator.activeVisitTapped,
             onViewAllServices: coordinator.viewAllServicesTapped,
-            onOpenAIAssistant: coordinator.aiBannerTapped
+            onOpenAIAssistant: coordinator.aiBannerTapped,
+            onOpenProfile: coordinator.profileTapped
         ))
     }
 
