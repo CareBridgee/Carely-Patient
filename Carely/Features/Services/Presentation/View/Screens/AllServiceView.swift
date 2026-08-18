@@ -11,19 +11,10 @@ struct AllServiceView: View {
     @StateObject var viewModel: AllServiceViewModel
     var coordinator: ServicesCoordinator?
     
-    private var leftColumnCategories: [ServiceCategory] {
-        viewModel.categories.enumerated().compactMap { index, category in
-            index % 2 == 0 ? category : nil
-        }
-    }
-    
-    private var rightColumnCategories: [ServiceCategory] {
-        viewModel.categories.enumerated().compactMap { index, category in
-            index % 2 == 1 ? category : nil
-        }
-    }
-    
-    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    private let columns = [
+        GridItem(.flexible(), spacing: Spacing.s12),
+        GridItem(.flexible(), spacing: Spacing.s12)
+    ]
     
     var body: some View {
         Group {
@@ -57,21 +48,10 @@ struct AllServiceView: View {
                             )
                             .padding(.top, Spacing.s40)
                         } else {
-                            HStack(alignment: .top, spacing: Spacing.s12) {
-                                LazyVStack(spacing: Spacing.s12) {
-                                    ForEach(Array(leftColumnCategories.enumerated()), id: \.element.id) { index, category in
-                                        let isBigger = (index % 2 == 0)
-                                        ServiceCategoryCard(category: category, isBigger: isBigger) {
-                                            viewModel.categoryTapped(category)
-                                        }
-                                    }
-                                }
-                                LazyVStack(spacing: Spacing.s12) {
-                                    ForEach(Array(rightColumnCategories.enumerated()), id: \.element.id) { index, category in
-                                        let isBigger = (index % 2 == 1)
-                                        ServiceCategoryCard(category: category, isBigger: isBigger) {
-                                            viewModel.categoryTapped(category)
-                                        }
+                            LazyVGrid(columns: columns, spacing: Spacing.s12) {
+                                ForEach(viewModel.categories) { category in
+                                    ServiceCategoryCard(category: category) {
+                                        viewModel.categoryTapped(category)
                                     }
                                 }
                             }

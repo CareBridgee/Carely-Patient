@@ -9,17 +9,11 @@ import SwiftUI
 
 struct ServiceCategoryCard: View {
     let category: ServiceCategory
-    var isBigger: Bool = false
     let onTap: () -> Void
     
-    private var subtitleText: String? {
-        if !category.subtitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return category.subtitle
-        } else if isBigger {
-            return "Professional care"
-        } else {
-            return nil
-        }
+    private var subtitleText: String {
+        let trimmed = category.subtitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? "Professional healthcare services" : trimmed
     }
     
     var body: some View {
@@ -58,18 +52,23 @@ struct ServiceCategoryCard: View {
                     Text(category.title)
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.primaryFont)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                         .multilineTextAlignment(.leading)
                     
-                    if isBigger, let text = subtitleText {
-                        Text(text)
-                            .carelyText(style: CarelyTextStyle.bodySmall)
-                            .foregroundColor(.secondaryFont)
-                            .multilineTextAlignment(.leading)
-                    }
+                    Text(subtitleText)
+                        .carelyText(style: CarelyTextStyle.bodySmall)
+                        .foregroundColor(.secondaryFont)
+                        .lineLimit(2)
+                        .truncationMode(.tail)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                
+                Spacer(minLength: 0)
             }
             .padding(Spacing.s16)
-            .frame(maxWidth: .infinity, minHeight: isBigger ? 200 : 110, alignment: .leading)
+            .frame(maxWidth: .infinity, minHeight: 165, maxHeight: 165, alignment: .topLeading)
             .background(Color.surface)
             .cornerRadius(Radius.r20)
             .overlay(
@@ -89,63 +88,34 @@ struct ServiceCategoryCard: View {
 }
 
 #Preview {
-    HStack(alignment: .top, spacing: Spacing.s12) {
-        VStack(spacing: Spacing.s12) {
-            ServiceCategoryCard(
-                category: ServiceCategory(
-                    id: "1",
-                    title: "injection",
-                    subtitle: "Professional care",
-                    iconName: "photo",
-                    layout: .standard,
-                    accent: .neutral,
-                    imageUrl: nil
-                ),
-                isBigger: true,
-                onTap: {}
-            )
-            ServiceCategoryCard(
-                category: ServiceCategory(
-                    id: "2",
-                    title: "\"Test\"",
-                    subtitle: "",
-                    iconName: "photo",
-                    layout: .standard,
-                    accent: .neutral,
-                    imageUrl: nil
-                ),
-                isBigger: false,
-                onTap: {}
-            )
-        }
-        VStack(spacing: Spacing.s12) {
-            ServiceCategoryCard(
-                category: ServiceCategory(
-                    id: "3",
-                    title: "injection",
-                    subtitle: "",
-                    iconName: "photo",
-                    layout: .standard,
-                    accent: .neutral,
-                    imageUrl: nil
-                ),
-                isBigger: false,
-                onTap: {}
-            )
-            ServiceCategoryCard(
-                category: ServiceCategory(
-                    id: "4",
-                    title: "\"Test2\"",
-                    subtitle: "Professional care",
-                    iconName: "photo",
-                    layout: .standard,
-                    accent: .neutral,
-                    imageUrl: nil
-                ),
-                isBigger: true,
-                onTap: {}
-            )
-        }
+    LazyVGrid(
+        columns: [GridItem(.flexible(), spacing: Spacing.s12), GridItem(.flexible(), spacing: Spacing.s12)],
+        spacing: Spacing.s12
+    ) {
+        ServiceCategoryCard(
+            category: ServiceCategory(
+                id: "1",
+                title: "Nursing Care",
+                subtitle: "Professional home care & post-operative support",
+                iconName: "cross.case.fill",
+                layout: .standard,
+                accent: .neutral,
+                imageUrl: nil
+            ),
+            onTap: {}
+        )
+        ServiceCategoryCard(
+            category: ServiceCategory(
+                id: "2",
+                title: "Physiotherapy & Rehabilitation",
+                subtitle: "Restore mobility and recover from injuries at home",
+                iconName: "figure.walk",
+                layout: .standard,
+                accent: .neutral,
+                imageUrl: nil
+            ),
+            onTap: {}
+        )
     }
     .padding()
     .background(Color.backGround)

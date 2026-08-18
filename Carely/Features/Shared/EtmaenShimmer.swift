@@ -166,19 +166,24 @@ public struct EtmaenServiceGridSkeleton: View {
         ) {
             ForEach(0..<6, id: \.self) { _ in
                 VStack(alignment: .leading, spacing: Spacing.s12) {
-                    EtmaenSkeletonCircle(size: 44)
+                    EtmaenSkeletonRect(width: 44, height: 44, radius: Radius.r12)
                     
-                    VStack(alignment: .leading, spacing: Spacing.s4) {
+                    VStack(alignment: .leading, spacing: Spacing.s8) {
                         EtmaenSkeletonRect(width: 100, height: 16, radius: Radius.r8)
-                        EtmaenSkeletonRect(width: 70, height: 12, radius: Radius.r8)
+                        EtmaenSkeletonRect(height: 12, radius: Radius.r8)
+                        EtmaenSkeletonRect(width: 80, height: 12, radius: Radius.r8)
                     }
                     
                     Spacer(minLength: 0)
                 }
-                .padding()
-                .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
+                .padding(Spacing.s16)
+                .frame(maxWidth: .infinity, minHeight: 165, maxHeight: 165, alignment: .topLeading)
                 .background(Color.surface)
                 .cornerRadius(Radius.r20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: Radius.r20)
+                        .stroke(Color.black.opacity(0.06), lineWidth: 1)
+                )
                 .carelyShadow(.sm)
             }
         }
