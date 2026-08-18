@@ -39,19 +39,12 @@ struct SummaryDetailCard: View {
                     value: summary.serviceType
                 )
             }
- 
-            HStack(alignment: .top, spacing: Spacing.s16) {
-                SummaryFieldItem(
-                    iconName: "timer",
-                    label: "Visit Duration",
-                    value: summary.visitDurationText
-                )
-                SummaryFieldItem(
-                    iconName: "calendar",
-                    label: "Completed Date",
-                    value: summary.completedDateText
-                )
-            }
+
+            SummaryFieldItem(
+                iconName: "calendar",
+                label: "Completed Date",
+                value: summary.completedDateText
+            )
         }
         .padding(Spacing.s20)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -100,19 +93,17 @@ private struct SummaryFieldItem: View {
     }
 }
  
-//#Preview {
-//    SummaryDetailCard(
-//        summary: VisitSummary(
-//            id: "1",
-//            isVerified: true,
-//            medicalProfessionalName: "Sarah Mitchell",
-//            serviceType: "Wound Care",
-//            visitDurationText: "60 mins",
-//            completedDateText: "Oct 24",
-//            totalAmountText: "$85.00"
-//        )
-//    )
-//    .padding()
-//    .background(Color.backGround)
-//}
-// 
+#Preview {
+    SummaryDetailCard(
+        summary: VisitSummary(
+            id: "1",
+            isVerified: true,
+            medicalProfessionalName: "Sarah Mitchell",
+            serviceType: "Wound Care",
+            completedDateText: "Aug 18, 2026",
+            totalAmountText: "$85.00"
+        )
+    )
+    .padding()
+    .background(Color.backGround)
+} 

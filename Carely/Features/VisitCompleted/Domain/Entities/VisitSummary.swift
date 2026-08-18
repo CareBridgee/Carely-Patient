@@ -12,7 +12,6 @@ struct VisitSummary: Identifiable, Equatable {
     let isVerified: Bool
     let medicalProfessionalName: String
     let serviceType: String
-    let visitDurationText: String
     let completedDateText: String
     let totalAmountText: String
 }

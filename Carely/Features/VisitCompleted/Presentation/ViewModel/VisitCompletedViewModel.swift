@@ -108,9 +108,6 @@ final class VisitCompletedViewModel: ObservableObject {
                 self.isSubmittingRating = false
                 self.ratingSubmitted = true
                 self.showRatingSheet = false
-                try? await Task.sleep(nanoseconds: closeAfterRatingDelayNanoseconds)
-                guard !Task.isCancelled else { return }
-                self.onFinished()
             } catch {
                 self.isSubmittingRating = false
                 self.errorMessage = error.carelyDescription

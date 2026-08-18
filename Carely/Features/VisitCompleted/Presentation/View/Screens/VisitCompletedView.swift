@@ -135,15 +135,9 @@ struct VisitCompletedView: View {
                         }
                     }
 
-                    HStack(alignment: .top, spacing: Spacing.s16) {
-                        VStack(alignment: .leading, spacing: Spacing.s8) {
-                            EtmaenSkeletonRect(width: 80, height: 12, radius: Radius.r8)
-                            EtmaenSkeletonRect(width: 90, height: 16, radius: Radius.r8)
-                        }
-                        VStack(alignment: .leading, spacing: Spacing.s8) {
-                            EtmaenSkeletonRect(width: 90, height: 12, radius: Radius.r8)
-                            EtmaenSkeletonRect(width: 90, height: 16, radius: Radius.r8)
-                        }
+                    VStack(alignment: .leading, spacing: Spacing.s8) {
+                        EtmaenSkeletonRect(width: 80, height: 12, radius: Radius.r8)
+                        EtmaenSkeletonRect(width: 100, height: 16, radius: Radius.r8)
                     }
                 }
                 .padding(Spacing.s20)

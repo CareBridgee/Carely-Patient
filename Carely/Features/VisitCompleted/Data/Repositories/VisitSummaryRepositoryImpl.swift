@@ -19,48 +19,37 @@ final class VisitSummaryRepositoryImpl: VisitSummaryRepositoryProtocol {
     }
  
     func fetchVisitSummary(visitId: String) async throws -> VisitSummary {
-        if let service = historyService {
-            do {
-                let detail = try await service.getRequestDetail(id: visitId)
-                let nurseName = [detail.nurse?.firstName, detail.nurse?.lastName]
-                    .compactMap { $0 }
-                    .joined(separator: " ")
-                let formattedNurseName = nurseName.isEmpty ? "Assigned Nurse" : nurseName
-                let serviceTypeName = detail.serviceType?.name ?? "Nursing Visit"
-                let durationText = detail.durationMinutes.map { "\($0) mins" } ?? "60 mins"
-                
-                let completedDateText: String
-                if let dateStr = detail.preferredDate {
-                    completedDateText = dateStr
-                } else {
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "MMM d"
-                    completedDateText = formatter.string(from: Date())
-                }
-                
-                return VisitSummary(
-                    id: visitId,
-                    isVerified: true,
-                    medicalProfessionalName: formattedNurseName,
-                    serviceType: serviceTypeName,
-                    visitDurationText: durationText,
-                    completedDateText: completedDateText,
-                    totalAmountText: "$425.00"
-                )
-            } catch {
-                print("[VisitSummaryRepositoryImpl] Error fetching detail from history API: \(error)")
-            }
+        guard let service = historyService else {
+            throw NetworkError.server(statusCode: 500, message: "Service unavailable")
         }
 
-        try await Task.sleep(nanoseconds: simulatedDelayNanoseconds)
+        let detail = try await service.getRequestDetail(id: visitId)
+        let nurseName = [detail.nurse?.firstName, detail.nurse?.lastName]
+            .compactMap { $0 }
+            .joined(separator: " ")
+        let formattedNurseName = nurseName.isEmpty ? "Assigned Nurse" : nurseName
+        let serviceTypeName = detail.serviceType?.name ?? "Nursing Visit"
+        
+        let completedDateText: String
+        if let dateStr = detail.preferredDate, !dateStr.isEmpty {
+            completedDateText = dateStr
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM d, yyyy"
+            completedDateText = formatter.string(from: Date())
+        }
+        
+        let acceptedOfferPrice = detail.offers?.first(where: { $0.status == "ACCEPTED" })?.proposedPrice
+        let priceValue = acceptedOfferPrice ?? detail.serviceType?.basePrice
+        let priceText = priceValue.map { String(format: "$%.2f", $0) } ?? "Paid"
+        
         return VisitSummary(
             id: visitId,
             isVerified: true,
-            medicalProfessionalName: "Sarah Mitchell",
-            serviceType: "Wound Care",
-            visitDurationText: "60 mins",
-            completedDateText: "Oct 24",
-            totalAmountText: "$85.00"
+            medicalProfessionalName: formattedNurseName,
+            serviceType: serviceTypeName,
+            completedDateText: completedDateText,
+            totalAmountText: priceText
         )
     }
  
