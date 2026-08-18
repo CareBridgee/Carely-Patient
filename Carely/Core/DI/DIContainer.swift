@@ -646,8 +646,18 @@ final class DIContainer {
         aiProfileId: String? = nil,
         onSubmitted: @escaping (String, String) -> Void
     ) -> CareRequestViewModel {
-        CareRequestViewModel(
-            preselectedService: preselectedService,
+        var initialService = preselectedService
+        let targetId = preselectedService.id.isEmpty ? (aiDraft?.serviceTypeId ?? "") : preselectedService.id
+        if let match = serviceTypesStore.serviceCategories.first(where: { $0.id == targetId }) {
+            initialService = CareService(id: match.id, title: match.title, icon: match.iconName)
+        } else if (initialService.title == "Loading..." || initialService.title.isEmpty), let first = serviceTypesStore.serviceCategories.first {
+            initialService = CareService(id: first.id, title: first.title, icon: first.iconName)
+        } else if initialService.title == "Loading..." {
+            initialService = CareService(id: targetId, title: "Select Service", icon: "cross.case.fill")
+        }
+
+        return CareRequestViewModel(
+            preselectedService: initialService,
             entryPoint: entryPoint,
             aiDraft: aiDraft,
             aiProfileId: aiProfileId,

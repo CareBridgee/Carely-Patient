@@ -29,7 +29,6 @@ struct VisitDetailView: View {
             showBackButton: true,
             onBackTapped: onBackTapped
         )
-        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
     }
  
@@ -50,9 +49,6 @@ struct VisitDetailView: View {
             }
         } else if viewModel.isLoading {
             visitDetailSkeletonView
-            Spacer()
-            ProgressView()
-            Spacer()
         } else if let loadError = viewModel.loadError {
             ErrorStateView(error: loadError) {
                 viewModel.loadDetail()

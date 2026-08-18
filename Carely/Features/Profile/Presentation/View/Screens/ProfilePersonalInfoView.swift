@@ -73,7 +73,6 @@ struct ProfilePersonalInfoView: View {
                 viewModel.backTapped()
             }
         )
-        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onChange(of: viewModel.isSaved) {
             if viewModel.isSaved {
                 viewModel.backTapped()

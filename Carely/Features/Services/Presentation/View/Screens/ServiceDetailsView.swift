@@ -40,8 +40,6 @@ struct ServiceDetailsView: View {
                 }
             } else if viewModel.isLoading {
                 serviceDetailsSkeletonView
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if let loadError = viewModel.loadError {
                 ErrorStateView(error: loadError) {
                     viewModel.loadDetail()
@@ -57,7 +55,6 @@ struct ServiceDetailsView: View {
                 viewModel.backTapped()
             }
         )
-        .blur(radius: (viewModel.isLoading && viewModel.detail != nil) ? 3 : 0)
         .onAppear { viewModel.onAppear() }
         .errorToast($viewModel.errorMessage)
         .alert("Booking Confirmed", isPresented: $viewModel.bookingConfirmed) {

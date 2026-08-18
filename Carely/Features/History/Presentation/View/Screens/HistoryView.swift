@@ -29,7 +29,6 @@ struct HistoryView: View {
                 viewModel.backTapped()
             }
         )
-        .blur(radius: viewModel.isLoading ? 3 : 0)
         .onAppear { viewModel.onAppear() }
     }
  
@@ -65,9 +64,6 @@ struct HistoryView: View {
                     }
                 }
                 .padding(Spacing.s16)
-                Spacer()
-                ProgressView()
-                Spacer()
             }
         } else if let loadError = viewModel.loadError, viewModel.items.isEmpty {
             ErrorStateView(error: loadError) {
