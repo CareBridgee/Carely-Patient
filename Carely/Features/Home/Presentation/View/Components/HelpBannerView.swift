@@ -11,25 +11,47 @@ struct HelpBannerView: View {
     var onConsultTapped: () -> Void = {}
  
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.s12) {
+        VStack(alignment: .leading, spacing: Spacing.s8) {
+            HStack(spacing: Spacing.s4) {
+                Image(systemName: "sparkles")
+                Text("AI POWERED")
+                    .carelyText(style: .caption, weight: .semiBold)
+            }
+            .foregroundColor(.onPrimary.opacity(0.85))
+
             Text("Not sure what you need?")
-                .carelyText(style: .heading3, weight: .semiBold)
-                .foregroundColor(.primaryFont)
- 
-            Text("Chat with our care coordinator for a personalized recommendation.")
+                .carelyText(style: .heading2, weight: .bold)
+                .foregroundColor(.onPrimary)
+
+            Text("Chat with our AI care coordinator for personalized recommendations.")
                 .carelyText(style: .bodyRegular)
-                .foregroundColor(.secondaryFont)
- 
+                .foregroundColor(.onPrimary.opacity(0.9))
+                .fixedSize(horizontal: false, vertical: true)
+
             PrimaryButton(
+                colorOfBackground: Color.surface,
+                colorOfForground: Color.brandPrimary,
                 title: "Consult Now",
-                isFullWidth: false,
-                action: onConsultTapped
-            )
+                size: .medium,
+                icon: "message.fill",
+                iconPosition: .trailing,
+                isFullWidth: false
+            ) {
+                onConsultTapped()
+            }
+            .padding(.top, Spacing.s8)
         }
         .padding(Spacing.s24)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.mintSurface)
+        .background(
+            LinearGradient(
+                colors: [Color.tint, Color.tint],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
         .clipShape(RoundedRectangle.carely(Radius.r24))
+        .carelyShadow(.md)
     }
 }
  
