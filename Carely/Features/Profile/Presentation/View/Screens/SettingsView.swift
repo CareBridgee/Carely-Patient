@@ -57,8 +57,39 @@ struct SettingsView: View {
                 viewModel.backTapped()
             }
         )
-
+        .sheet(isPresented: $viewModel.showPrivacyPolicySheet) {
+            privacyPolicySheet
+                .presentationDetents([.fraction(0.48), .large])
+                .presentationDragIndicator(.visible)
+        }
         .errorToast($viewModel.errorMessage)
+    }
+
+    private var privacyPolicySheet: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading, spacing: Spacing.s16) {
+                Text("Privacy Policy")
+                    .carelyText(style: .heading2, weight: .bold)
+                    .foregroundColor(.primaryFont)
+                    .padding(.top, Spacing.s16)
+
+                VStack(alignment: .leading, spacing: Spacing.s16) {
+                    Text("Your privacy and security are important to Etmaen.\n\n• Your personal and medical information is securely stored.\n• Your data is only used to provide healthcare services and improve your experience.\n• Etmaen does not share your personal information with unauthorized third parties.\n• All communication with our services is encrypted whenever possible.")
+                        .carelyText(style: .bodyRegular)
+                        .foregroundColor(.primaryFont)
+                        .lineSpacing(6)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(Spacing.s20)
+                .background(Color.surface)
+                .clipShape(RoundedRectangle.carely(Radius.r24))
+                .carelyShadow(.sm)
+            }
+            .padding(.horizontal, Spacing.s20)
+            .padding(.bottom, Spacing.s24)
+        }
+        .background(Color.backGround.ignoresSafeArea())
     }
 
     private var topBar: some View {

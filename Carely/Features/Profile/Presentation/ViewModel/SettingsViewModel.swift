@@ -18,6 +18,7 @@ final class SettingsViewModel: ObservableObject {
     /// sync, so this stays `nil` today — it's wired up so any future sync
     /// call only needs to assign into it on failure.
     @Published var errorMessage: String? = nil
+    @Published var showPrivacyPolicySheet: Bool = false
 
     private let coordinator: ProfileCoordinator
     private let appState: AppState
@@ -40,6 +41,6 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func privacyPolicyTapped() {
-        //
+        showPrivacyPolicySheet = true
     }
 }
