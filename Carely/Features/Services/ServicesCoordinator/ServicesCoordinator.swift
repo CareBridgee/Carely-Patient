@@ -86,6 +86,7 @@ final class ServicesCoordinator: AppRouterProtocol {
     @Published var isInsideChat: Bool = false
     var onBackClicked: (() -> Void)?
     var onOpenAIAssistant: (() -> Void)?
+    var onGoToHome: (() -> Void)?
     
     func openServiceFromHome(id: String) {
         push(to: .serviceDetails(id: id, source: .home))
@@ -111,5 +112,10 @@ final class ServicesCoordinator: AppRouterProtocol {
         } else {
             popToRoot()
         }
+    }
+
+    func goToHome() {
+        popToRoot()
+        onGoToHome?()
     }
 }

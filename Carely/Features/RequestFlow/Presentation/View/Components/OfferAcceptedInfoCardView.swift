@@ -4,7 +4,7 @@ struct OfferAcceptedInfoCardView: View {
     let iconName: String
     let title: String
     let subtitle: String
-    let isPrimaryStyle: Bool
+    var isPrimaryStyle: Bool = true
     
     var body: some View {
         VStack(spacing: Spacing.s12) {

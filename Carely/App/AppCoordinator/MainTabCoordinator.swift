@@ -122,6 +122,12 @@ final class MainTabCoordinator: ObservableObject {
             self.previousTab = self.selectedTab
             self.selectedTab = .services
         }
+
+        servicesCoordinator.onGoToHome = { [weak self] in
+            guard let self = self else { return }
+            self.previousTab = self.selectedTab
+            self.selectedTab = .home
+        }
         
         bindCrossTabBack(to: servicesCoordinator)
         bindCrossTabBack(to: historyCoordinator)

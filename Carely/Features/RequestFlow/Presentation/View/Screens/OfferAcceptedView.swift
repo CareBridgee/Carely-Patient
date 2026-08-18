@@ -12,6 +12,21 @@ struct OfferAcceptedView: View {
             Color.backGround.ignoresSafeArea()
             
             VStack(spacing: 0) {
+                HStack {
+                    Spacer()
+                    Button(action: viewModel.goToHomeTapped) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.secondaryFont)
+                            .frame(width: 36, height: 36)
+                            .background(Color.surface)
+                            .clipShape(Circle())
+                            .carelyShadow(.sm)
+                    }
+                }
+                .padding(.horizontal, Spacing.s20)
+                .padding(.top, Spacing.s8)
+
                 ScrollView {
                     VStack(spacing: Spacing.s24) {
                         // Header Section
@@ -27,7 +42,7 @@ struct OfferAcceptedView: View {
                                     .font(.system(size: 32, weight: .bold))
                                     .foregroundColor(Color.surface)
                             }
-                            .padding(.top, Spacing.s32)
+                            .padding(.top, Spacing.s16)
                             
                             VStack(spacing: Spacing.s8) {
                                 Text("Your Nurse Is on the Way!")
@@ -66,7 +81,7 @@ struct OfferAcceptedView: View {
                                 iconName: "cross.case",
                                 title: "Specialty",
                                 subtitle: viewModel.request.nurse.specialty,
-                                isPrimaryStyle: false
+                                isPrimaryStyle: true
                             )
                         }
                     }
@@ -79,6 +94,10 @@ struct OfferAcceptedView: View {
                 VStack(spacing: Spacing.s12) {
                     SecondaryButton(title: "Show QR Code", icon: "qrcode") {
                         viewModel.showQRCode()
+                    }
+
+                    SecondaryButton(title: "Back to Home", icon: "house.fill") {
+                        viewModel.goToHomeTapped()
                     }
                     
                     PrimaryButton(

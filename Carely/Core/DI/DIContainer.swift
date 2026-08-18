@@ -787,7 +787,8 @@ final class DIContainer {
         onCancelRequest: @escaping () -> Void,
         onShowNurseProfile: @escaping (String) -> Void,
         onMessageNurse: @escaping (String) -> Void,
-        onVisitCompleted: @escaping () -> Void = {}
+        onVisitCompleted: @escaping () -> Void = {},
+        onGoToHome: @escaping () -> Void = {}
     ) -> OfferAcceptedViewModel {
         let repo = makeOfferSearchingRepository(serviceRequestId: request.id)
         
@@ -802,7 +803,8 @@ final class DIContainer {
             onCancelRequest: onCancelRequest,
             onShowNurseProfile: onShowNurseProfile,
             onMessageNurse: onMessageNurse,
-            onVisitCompleted: onVisitCompleted
+            onVisitCompleted: onVisitCompleted,
+            onGoToHome: onGoToHome
         )
     }
     

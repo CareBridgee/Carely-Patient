@@ -11,34 +11,32 @@ struct OfferAcceptedNurseCardView: View {
         VStack(spacing: Spacing.s16) {
             HStack(alignment: .top, spacing: Spacing.s12) {
                 // Profile Image
-                AsyncImage(url: URL(string: nurse.profileImageUrl)) { phase in
-                    switch phase {
-                    case .empty:
-                        RoundedRectangle(cornerRadius: Radius.r12)
-                            .fill(Color.primaryVariant.opacity(0.15))
-                            .overlay(ProgressView())
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case .failure:
-                        RoundedRectangle(cornerRadius: Radius.r12)
-                            .fill(Color.primaryVariant.opacity(0.15))
-                            .overlay(
-                                Image(systemName: "person.crop.circle")
-                                    .foregroundColor(Color.primaryVariant)
-                            )
-                    @unknown default:
-                        RoundedRectangle(cornerRadius: Radius.r12)
-                            .fill(Color.primaryVariant.opacity(0.15))
-                            .overlay(
-                                Image(systemName: "person.crop.circle")
-                                    .foregroundColor(Color.primaryVariant)
-                            )
+                Group {
+                    if !nurse.profileImageUrl.trimmingCharacters(in: .whitespaces).isEmpty,
+                       let url = URL(string: nurse.profileImageUrl) {
+                        AsyncImage(url: url) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                    .frame(width: 60, height: 60)
+                                    .background(Color.primaryContainer.opacity(0.15))
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 60, height: 60)
+                            case .failure:
+                                fallbackAvatar
+                            @unknown default:
+                                fallbackAvatar
+                            }
+                        }
+                    } else {
+                        fallbackAvatar
                     }
                 }
                 .frame(width: 60, height: 60)
-                .clipShape(RoundedRectangle(cornerRadius: Radius.r12))
+                .clipShape(RoundedRectangle(cornerRadius: Radius.r16))
                 .onTapGesture {
                     onProfileTapped?()
                 }
@@ -114,5 +112,16 @@ struct OfferAcceptedNurseCardView: View {
         .background(Color.surface)
         .cornerRadius(Radius.r24)
         .shadow(color: Color.black.opacity(0.05), radius: 10, x: 0, y: 5)
+    }
+
+    private var fallbackAvatar: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: Radius.r16)
+                .fill(Color.primaryContainer.opacity(0.15))
+            Image(systemName: "person.fill")
+                .font(.system(size: 26))
+                .foregroundColor(Color.brandPrimary)
+        }
+        .frame(width: 60, height: 60)
     }
 }

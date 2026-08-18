@@ -101,6 +101,9 @@ struct ServicesCoordinatorView: View {
                 },
                 onVisitCompleted: {
                     coordinator.push(to: .visitCompleted(visitId: request.id))
+                },
+                onGoToHome: {
+                    coordinator.goToHome()
                 }
             )
             OfferAcceptedView(viewModel: viewModel)

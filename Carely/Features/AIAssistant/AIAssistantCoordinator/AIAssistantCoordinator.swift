@@ -19,7 +19,7 @@ final class AIAssistantCoordinator: AppRouterProtocol{
     var onAddFamilyMember: (() -> Void)?
     var onViewProfiledetails: ((String) -> Void)?
     var onViewAllServices: (() -> Void)?
-    
+    var onGoToHome: (() -> Void)?
     
     func requestNowTapped(draft: ReservationDraft? = nil, profileId: String? = nil) {
         push(to: .requestService(entryPoint: .aiChat, preselectedServiceId: draft?.serviceTypeId, aiDraft: draft, aiProfileId: profileId))
@@ -43,5 +43,10 @@ final class AIAssistantCoordinator: AppRouterProtocol{
         } else {
             popToRoot()
         }
+    }
+
+    func goToHome() {
+        popToRoot()
+        onGoToHome?()
     }
 }

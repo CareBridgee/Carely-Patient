@@ -12,12 +12,31 @@ struct NurseOfferCardView: View {
             HStack(alignment: .top, spacing: Spacing.s12) {
                 // Image with online indicator
                 ZStack(alignment: .bottomTrailing) {
-                    // Profile Image placeholder
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .foregroundColor(Color.brandPrimary.opacity(0.3))
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
+                    Group {
+                        if !offer.imageLink.trimmingCharacters(in: .whitespaces).isEmpty, let url = URL(string: offer.imageLink) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                        .frame(width: 56, height: 56)
+                                        .background(Color.primaryContainer.opacity(0.15))
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 56, height: 56)
+                                case .failure:
+                                    fallbackAvatar
+                                @unknown default:
+                                    fallbackAvatar
+                                }
+                            }
+                        } else {
+                            fallbackAvatar
+                        }
+                    }
+                    .frame(width: 56, height: 56)
+                    .clipShape(Circle())
                     
                     Circle()
                         .fill(Color.success)
@@ -103,6 +122,17 @@ struct NurseOfferCardView: View {
         .background(Color.surface)
         .cornerRadius(Radius.r20)
         .carelyShadow(.sm)
+    }
+
+    private var fallbackAvatar: some View {
+        ZStack {
+            Circle()
+                .fill(Color.primaryContainer.opacity(0.15))
+            Image(systemName: "person.fill")
+                .font(.system(size: 24))
+                .foregroundColor(Color.brandPrimary)
+        }
+        .frame(width: 56, height: 56)
     }
 }
 

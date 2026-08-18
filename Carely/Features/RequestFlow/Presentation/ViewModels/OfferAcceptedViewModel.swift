@@ -16,6 +16,7 @@ final class OfferAcceptedViewModel: ObservableObject {
     private let onShowNurseProfile: (String) -> Void
     private let onMessageNurse: (String) -> Void
     private let onVisitCompleted: () -> Void
+    private let onGoToHome: () -> Void
     private let cancelServiceRequestUseCase: CancelServiceRequestUseCaseProtocol
     private let observeOffersUseCase: ObserveOffersUseCase
     private let manageOffersConnectionUseCase: ManageOffersConnectionUseCase
@@ -33,7 +34,8 @@ final class OfferAcceptedViewModel: ObservableObject {
         onCancelRequest: @escaping () -> Void = {},
         onShowNurseProfile: @escaping (String) -> Void = { _ in },
         onMessageNurse: @escaping (String) -> Void = { _ in },
-        onVisitCompleted: @escaping () -> Void = {}
+        onVisitCompleted: @escaping () -> Void = {},
+        onGoToHome: @escaping () -> Void = {}
     ) {
         self.request = request
         self.cancelServiceRequestUseCase = cancelServiceRequestUseCase
@@ -44,6 +46,7 @@ final class OfferAcceptedViewModel: ObservableObject {
         self.onShowNurseProfile = onShowNurseProfile
         self.onMessageNurse = onMessageNurse
         self.onVisitCompleted = onVisitCompleted
+        self.onGoToHome = onGoToHome
         self.observeOffersUseCase = observeOffersUseCase
         self.manageOffersConnectionUseCase = manageOffersConnectionUseCase
     }
@@ -109,6 +112,10 @@ final class OfferAcceptedViewModel: ObservableObject {
     
     func showQRCode() {
         onShowQRCode(request)
+    }
+
+    func goToHomeTapped() {
+        onGoToHome()
     }
     
     @Published var showCancelConfirmation: Bool = false
