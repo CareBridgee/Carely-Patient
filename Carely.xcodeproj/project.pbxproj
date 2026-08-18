@@ -162,11 +162,11 @@
 		396495C53010795000AC4137 /* PriceDurationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C43010794F00AC4137 /* PriceDurationCard.swift */; };
 		396495C73010796700AC4137 /* IncludedItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C63010796600AC4137 /* IncludedItemRow.swift */; };
 		396495C93010797900AC4137 /* HelpBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396495C83010797800AC4137 /* HelpBannerView.swift */; };
-		39999903301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999901301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift */; };
-		39999904301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999902301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift */; };
-		39999906301429F100AFD6F4 /* Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999905301429F100AFD6F4 /* Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift */; };
-		39999908301429F100AFD6F4 /* Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999907301429F100AFD6F4 /* Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift */; };
-		3999990A301429F200AFD6F4 /* Carely/Core/State/ActiveVisitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999909301429F200AFD6F4 /* Carely/Core/State/ActiveVisitStore.swift */; };
+		39999903301429F100AFD6F4 /* ReviewDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999901301429F100AFD6F4 /* ReviewDTOs.swift */; };
+		39999904301429F100AFD6F4 /* ReviewEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999902301429F100AFD6F4 /* ReviewEndpoint.swift */; };
+		39999906301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999905301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift */; };
+		39999908301429F100AFD6F4 /* GetActiveVisitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999907301429F100AFD6F4 /* GetActiveVisitUseCase.swift */; };
+		3999990A301429F200AFD6F4 /* ActiveVisitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39999909301429F200AFD6F4 /* ActiveVisitStore.swift */; };
 		39A06E7E301806F2008E9E7B /* ServiceTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */; };
 		39A06E813018073F008E9E7B /* ServiceTypeEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */; };
 		39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06E823018075F008E9E7B /* ServiceTypeService.swift */; };
@@ -618,11 +618,11 @@
 		396495C43010794F00AC4137 /* PriceDurationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDurationCard.swift; sourceTree = "<group>"; };
 		396495C63010796600AC4137 /* IncludedItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncludedItemRow.swift; sourceTree = "<group>"; };
 		396495C83010797800AC4137 /* HelpBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBannerView.swift; sourceTree = "<group>"; };
-		39999901301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift; sourceTree = "<group>"; };
-		39999902301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift; sourceTree = "<group>"; };
-		39999905301429F100AFD6F4 /* Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift; sourceTree = "<group>"; };
-		39999907301429F100AFD6F4 /* Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift; sourceTree = "<group>"; };
-		39999909301429F200AFD6F4 /* Carely/Core/State/ActiveVisitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Core/State/ActiveVisitStore.swift; sourceTree = "<group>"; };
+		39999901301429F100AFD6F4 /* ReviewDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift; sourceTree = "<group>"; };
+		39999902301429F100AFD6F4 /* ReviewEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift; sourceTree = "<group>"; };
+		39999905301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift; sourceTree = "<group>"; };
+		39999907301429F100AFD6F4 /* GetActiveVisitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift; sourceTree = "<group>"; };
+		39999909301429F200AFD6F4 /* ActiveVisitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carely/Core/State/ActiveVisitStore.swift; sourceTree = "<group>"; };
 		39A06E7D301806F0008E9E7B /* ServiceTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeDTO.swift; sourceTree = "<group>"; };
 		39A06E803018073E008E9E7B /* ServiceTypeEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeEndpoint.swift; sourceTree = "<group>"; };
 		39A06E823018075F008E9E7B /* ServiceTypeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeService.swift; sourceTree = "<group>"; };
@@ -2128,11 +2128,11 @@
 		B3894D373032214E006016C5 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				39999909301429F200AFD6F4 /* Carely/Core/State/ActiveVisitStore.swift */,
-				39999901301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift */,
-				39999902301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift */,
-				39999905301429F100AFD6F4 /* Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift */,
-				39999907301429F100AFD6F4 /* Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift */,
+				39999909301429F200AFD6F4 /* ActiveVisitStore.swift */,
+				39999901301429F100AFD6F4 /* ReviewDTOs.swift */,
+				39999902301429F100AFD6F4 /* ReviewEndpoint.swift */,
+				39999905301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift */,
+				39999907301429F100AFD6F4 /* GetActiveVisitUseCase.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -3031,13 +3031,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Carely/Pods-Carely-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Carely/Pods-Carely-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3186,7 +3182,7 @@
 				C6E897243015CB4300E3D336 /* RefreshState.swift in Sources */,
 				C6E897253015CB4300E3D336 /* AuthorizationType.swift in Sources */,
 				C6E897263015CB4300E3D336 /* SessionManager.swift in Sources */,
-				3999990A301429F200AFD6F4 /* Carely/Core/State/ActiveVisitStore.swift in Sources */,
+				3999990A301429F200AFD6F4 /* ActiveVisitStore.swift in Sources */,
 				C6E897273015CB4300E3D336 /* AuthInterceptor.swift in Sources */,
 				C6E897283015CB4300E3D336 /* JSONDecoder+Default.swift in Sources */,
 				C6E897293015CB4300E3D336 /* UserSession.swift in Sources */,
@@ -3326,9 +3322,9 @@
 				39265645301429F100AFD6F4 /* VisitRating.swift in Sources */,
 				B3910BFF3032385C00CC00EE /* TopUpViewModel.swift in Sources */,
 				39265646301429F100AFD6F4 /* VisitCompletedViewModel.swift in Sources */,
-				39999903301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/DTOs/ReviewDTOs.swift in Sources */,
-				39999904301429F100AFD6F4 /* Carely/Features/VisitCompleted/Data/Services/ReviewEndpoint.swift in Sources */,
-				39999906301429F100AFD6F4 /* Carely/Features/Home/Presentation/View/Components/ActiveVisitFloatingBannerView.swift in Sources */,
+				39999903301429F100AFD6F4 /* ReviewDTOs.swift in Sources */,
+				39999904301429F100AFD6F4 /* ReviewEndpoint.swift in Sources */,
+				39999906301429F100AFD6F4 /* ActiveVisitFloatingBannerView.swift in Sources */,
 				39132818302E82EE00270CDB /* ServiceRequestHistoryDTO.swift in Sources */,
 				39A06E8330180760008E9E7B /* ServiceTypeService.swift in Sources */,
 				C6C0A4FD300D334800AEB6D9 /* ExistingConditionsViewModel.swift in Sources */,
@@ -3346,7 +3342,7 @@
 				0C7F5F49302D4EFC005CFC20 /* OffersSearchinView.swift in Sources */,
 				0C7F5F4B302D4EFC005CFC20 /* OfferAcceptedViewModel.swift in Sources */,
 				3964959D3010775900AC4137 /* GetGreetingNameUseCase.swift in Sources */,
-				39999908301429F100AFD6F4 /* Carely/Features/Home/Domain/UseCases/GetActiveVisitUseCase.swift in Sources */,
+				39999908301429F100AFD6F4 /* GetActiveVisitUseCase.swift in Sources */,
 				C65A1E89300ECC1C0003D6FB /* GetCurrentLocationAddressUseCase.swift in Sources */,
 				3913283A302E845D00270CDB /* EmptyHistoryView.swift in Sources */,
 				39534157302780CD00BD21BE /* NurseDetails.swift in Sources */,
