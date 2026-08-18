@@ -5,6 +5,8 @@
 //  Created by Mahmoud Raafat Mustafa on 22/07/2026.
 //
 
+import Foundation
+
 final class CareRequestRepositoryImpl: CareRequestRepositoryProtocol {
     private let serviceTypeService: ServiceTypeServiceProtocol
     private let serviceRequestService: ServiceRequestServiceProtocol
@@ -49,25 +51,40 @@ final class CareRequestRepositoryImpl: CareRequestRepositoryProtocol {
     }
 
     func submitCareRequest(_ request: CareRequest) async throws -> ServiceRequestResult {
-        guard let address = request.address else {
-            throw ServiceRequestValidationError.missingAddress
-        }
-        let body = ServiceRequestBodyDTO(
-            profileId: request.patient.id,
-            serviceTypeId: request.service.id,
-            latitude: address.latitude,
-            longitude: address.longitude,
-            serviceDescription: request.description,
-            paymentType: request.paymentMethod
-        )
-        let response = try await serviceRequestService.submitServiceRequest(body)
-        return ServiceRequestResult(
-            serviceRequestId: response.serviceRequestId, profileId: response.profileId,
-            serviceTypeId: response.serviceTypeId, status: response.status,
-            latitude: response.latitude, longitude: response.longitude,
-            nearbyNurses: response.nearbyNurses.map {
-                NearbyNurseInfo(nurseId: $0.nurseId, latitude: $0.latitude, longitude: $0.longitude, distanceKm: $0.distanceKm)
+            guard let address = request.address else {
+                throw ServiceRequestValidationError.missingAddress
             }
-        )
+            
+            let now = Date()
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let preferredDate = dateFormatter.string(from: now)
+            
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH:mm"
+            let preferredTime = timeFormatter.string(from: now)
+
+            let body = ServiceRequestBodyDTO(
+                profileId: request.patient.id,
+                serviceTypeId: request.service.id,
+                latitude: address.latitude,
+                longitude: address.longitude,
+                preferredDate: preferredDate,
+                preferredTime: preferredTime,
+                serviceDescription: request.description,
+                paymentType: request.paymentMethod
+            )
+            
+            let response = try await serviceRequestService.submitServiceRequest(body)
+            
+            return ServiceRequestResult(
+                serviceRequestId: response.serviceRequestId, profileId: response.profileId,
+                serviceTypeId: response.serviceTypeId, status: response.status,
+                latitude: response.latitude, longitude: response.longitude,
+                nearbyNurses: response.nearbyNurses.map {
+                    NearbyNurseInfo(nurseId: $0.nurseId, latitude: $0.latitude, longitude: $0.longitude, distanceKm: $0.distanceKm)
+                }
+            )
+        }
     }
-}
